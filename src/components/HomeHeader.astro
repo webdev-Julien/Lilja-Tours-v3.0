@@ -1,0 +1,1009 @@
+---
+// HomeHeader.astro
+import CTAButton from './CTAButton.astro';
+import Navigation from './Topbar.astro';
+
+export interface Props {
+  frenchUrl?: string;
+  currentLang?: 'en' | 'fr';
+  videos?: Array<{
+    hd: string;          // 1920px+ (Desktop)
+    medium: string;      // 768px-1919px (Tablet/Laptop)
+    mobile: string;      // <768px (Mobile)
+    poster?: string;
+    alt?: string;        // Alt text for accessibility
+  }>;
+  fallbackPoster?: string;
+}
+
+const { 
+  frenchUrl = '#', 
+  currentLang = 'en',
+  videos = [
+    { 
+      hd: '/videos/HD/video-8.mp4',
+      medium: '/videos/MD/video-8.mp4',
+      mobile: '/videos/SD/video-8.mp4',
+      poster: '/videos/poster-8.webp',
+      alt: 'Geyser Strokkur erupting'
+    },
+    { 
+      hd: '/videos/HD/video-1.mp4',
+      medium: '/videos/MD/video-1.mp4', 
+      mobile: '/videos/SD/video-1.mp4',
+      poster: '/videos/poster-1.webp',
+      alt: 'Stunning Iceland landscape - Sunset over the fjord'
+    },
+    { 
+      hd: '/videos/HD/video-2.mp4',
+      medium: '/videos/MD/video-2.mp4',
+      mobile: '/videos/SD/video-2.mp4',
+      poster: '/videos/poster-2.webp',
+      alt: 'Majestic glacier landscapes'
+    },
+    { 
+      hd: '/videos/HD/video-3.mp4',
+      medium: '/videos/MD/video-3.mp4',
+      mobile: '/videos/SD/video-3.mp4',
+      poster: '/videos/poster-3.webp',
+      alt: 'Flowing waterfall seen from above'
+    },
+    { 
+      hd: '/videos/HD/video-4.mp4',
+      medium: '/videos/MD/video-4.mp4',
+      mobile: '/videos/SD/video-4.mp4',
+      poster: '/videos/poster-4.webp',
+      alt: 'Peaceful waves and black sand beach'
+    },
+    { 
+      hd: '/videos/HD/video-5.mp4',
+      medium: '/videos/MD/video-5.mp4',
+      mobile: '/videos/SD/video-5.mp4',
+      poster: '/videos/poster-5.webp',
+      alt: 'Beautiful Northern Lights over Gullfoss'
+    },
+    { 
+      hd: '/videos/HD/video-6.mp4',
+      medium: '/videos/MD/video-6.mp4',
+      mobile: '/videos/SD/video-6.mp4',
+      poster: '/videos/poster-6.webp',
+      alt: 'Aerial view of a glacier'
+    },
+    { 
+      hd: '/videos/HD/video-7.mp4',
+      medium: '/videos/MD/video-7.mp4',
+      mobile: '/videos/SD/video-7.mp4',
+      poster: '/videos/poster-7.webp',
+      alt: 'Northern Lights and volcanic eruption'
+    }
+  ],
+  fallbackPoster = '/videos/fallback.webp'
+} = Astro.props;
+---
+
+<header class="hero-header">
+  <!-- Navigation Component -->
+  <Navigation frenchUrl={frenchUrl} currentLang={currentLang} />
+  
+  <!-- Video Background -->
+  <div class="video-container">
+    {videos.map((video, index) => (
+      <video 
+        class={`hero-video ${index === 0 ? 'active' : ''}`}
+        muted 
+        playsinline
+        preload="metadata"
+        poster={video.poster}
+        data-video-index={index}
+        autoplay={index === 0}
+        aria-label={video.alt || `Iceland tour video ${index + 1}`}
+      >
+        <!-- HD Version for Desktop (1920px+) -->
+        <source 
+          src={video.hd} 
+          type="video/mp4" 
+          media="(min-width: 1920px)"
+          data-quality="hd"
+        />
+        
+        <!-- Medium Version for Laptop/Tablet (768px - 1919px) -->
+        <source 
+          src={video.medium} 
+          type="video/mp4" 
+          media="(min-width: 768px) and (max-width: 1919px)"
+          data-quality="medium"
+        />
+        
+        <!-- Mobile Version for Smartphones (<768px) -->
+        <source 
+          src={video.mobile} 
+          type="video/mp4" 
+          media="(max-width: 767px)"
+          data-quality="mobile"
+        />
+        
+        <!-- Fallback (will use medium quality as default) -->
+        <source 
+          src={video.medium} 
+          type="video/mp4"
+          data-quality="fallback"
+        />
+        
+        Your browser does not support the video tag.
+      </video>
+    ))}
+    
+    <!-- Fallback for browsers that don't support video -->
+    <img src={fallbackPoster} alt="Iceland landscape" class="video-fallback" style="display: none;" />
+    
+    <!-- Dark Overlay -->
+    <div class="video-overlay"></div>
+    
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingText">
+      Loading videos...
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <!-- Quality Indicator (optional, can be removed in production) 
+    <div class="quality-indicator" id="qualityIndicator">
+      Quality: <span id="currentQuality">Auto</span>
+    </div>
+  </div>-->
+  
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">Private tours in Iceland</h1>
+      <p class="hero-description">
+        Discover breathtaking landscapes through carefully crafted private tours in Iceland. 
+        Let us guide you to hidden gems and iconic wonders that will create memories to last a lifetime.
+      </p>
+      <div class="hero-buttons">
+        <CTAButton></CTAButton>
+        <button class="hero-btn hero-btn-secondary">Browse our tours</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero-header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Video Background */
+  .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .hero-video.active {
+    opacity: 1;
+  }
+
+  .video-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  /* Loading indicator */
+  .loading-indicator {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    z-index: 4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* Quality indicator (optional - remove in production) */
+  .quality-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  #currentQuality {
+    font-weight: 400;
+    color: #ffffff;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    z-index: 4;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* Dark Overlay */
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+  }
+
+  /* Hero Content */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 2rem;
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 800px;
+    color: white;
+  }
+
+  /* Typography */
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0 0 2rem 0;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-description {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0 0 3rem 0;
+    letter-spacing: 0.5px;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Hero Buttons */
+  .hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    min-width: 180px;
+    font-size: 0.9rem;
+  }
+
+  .hero-btn-primary {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .hero-btn-primary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-btn-secondary {
+    border: none;
+    font-size: 1.15rem;
+  }
+
+  .hero-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-content {
+      padding: 0 1.5rem;
+    }
+
+    .hero-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-description {
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-btn {
+      width: 100%;
+      max-width: 280px;
+      padding: 1.2rem 2rem;
+    }
+
+    .loading-indicator {
+      bottom: 60px;
+      font-size: 0.8rem;
+    }
+
+    /* Hide quality indicator on mobile */
+    .quality-indicator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-content {
+      padding: 0 1rem;
+    }
+
+    .hero-title {
+      letter-spacing: 1px;
+    }
+
+    .hero-description {
+      letter-spacing: 0.3px;
+    }
+
+    .hero-btn {
+      max-width: 250px;
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .loading-indicator {
+      bottom: 50px;
+    }
+  }
+
+  /* Ensure video plays smoothly on various devices */
+  @media (max-width: 768px) {
+    .hero-video {
+      object-position: center;
+    }
+  }
+
+  /* For devices that prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      animation: none;
+      transition: none;
+    }
+    
+    .hero-btn {
+      transition: none;
+    }
+    
+    .hero-btn:hover {
+      transform: none;
+    }
+
+    .progress-fill {
+      transition: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .video-overlay {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    
+    .hero-title,
+    .hero-description {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .progress-fill {
+      background: white;
+    }
+  }
+
+  /* Landscape orientation on mobile devices */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    
+    .hero-description {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+      gap: 1rem;
+    }
+    
+    .hero-btn {
+      padding: 0.8rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    .loading-indicator {
+      bottom: 30px;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Progressive Enhancement Video Player for optimal FCP/LCP
+  (function() {
+    let videoPlayer;
+    let userHasInteracted = false;
+    let videosLoaded = false;
+
+    class LiljaToursVideoPlayer {
+      constructor() {
+        this.videos = [];
+        this.currentVideoIndex = 0;
+        this.isInitialized = false;
+        this.progressFill = null;
+        this.loadingText = null;
+        this.fallbackImage = null;
+        this.heroImage = null;
+        this.qualityIndicator = null;
+        this.currentQuality = 'auto';
+        this.intersectionObserver = null;
+        
+        // Start with immediate setup for better FCP
+        this.initImmediate();
+      }
+
+      initImmediate() {
+        // Get hero image immediately for FCP
+        this.heroImage = document.querySelector('.hero-image');
+        
+        // Set up intersection observer for lazy loading
+        this.setupIntersectionObserver();
+        
+        // Defer video initialization until after page load
+        if (document.readyState === 'complete') {
+          setTimeout(() => this.initVideos(), 100);
+        } else {
+          window.addEventListener('load', () => {
+            setTimeout(() => this.initVideos(), 100);
+          });
+        }
+        
+        // Set up user interaction detection
+        this.setupUserInteractionDetection();
+      }
+
+      setupIntersectionObserver() {
+        // Only start loading videos when header is in view
+        this.intersectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !videosLoaded) {
+              console.log('Header in view, preparing videos...');
+              this.preloadVideosLazy();
+            }
+          });
+        }, { threshold: 0.1 });
+
+        const heroHeader = document.querySelector('.hero-header');
+        if (heroHeader) {
+          this.intersectionObserver.observe(heroHeader);
+        }
+      }
+
+      setupUserInteractionDetection() {
+        const events = ['click', 'scroll', 'keydown', 'touchstart', 'mousemove'];
+        const handleFirstInteraction = () => {
+          if (userHasInteracted) return; // Prevent multiple calls
+          
+          userHasInteracted = true;
+          console.log('User interaction detected, enabling video enhancement');
+          
+          // Hide the loading text immediately
+          if (this.loadingText) {
+            this.loadingText.style.display = 'none';
+          }
+          
+          if (videosLoaded && !this.isInitialized) {
+            this.enhanceWithVideos();
+          }
+          
+          // Remove event listeners after first interaction
+          events.forEach(event => {
+            document.removeEventListener(event, handleFirstInteraction);
+          });
+        };
+
+        events.forEach(event => {
+          document.addEventListener(event, handleFirstInteraction, { passive: true });
+        });
+        
+        // Also try to detect interaction on the hero header specifically
+        const heroHeader = document.querySelector('.hero-header');
+        if (heroHeader) {
+          heroHeader.addEventListener('click', handleFirstInteraction, { passive: true, once: true });
+        }
+      }
+
+      async initVideos() {
+        console.log('Initializing video system (progressive enhancement)...');
+        
+        // Get elements
+        this.videos = Array.from(document.querySelectorAll('.hero-video'));
+        this.progressFill = document.getElementById('progressFill');
+        this.loadingText = document.getElementById('loadingText');
+        this.fallbackImage = document.querySelector('.video-fallback');
+        this.qualityIndicator = document.getElementById('qualityIndicator');
+        
+        console.log('Found', this.videos.length, 'video elements');
+        
+        if (this.videos.length === 0) {
+          console.log('No video elements found, staying with image');
+          return;
+        }
+
+        // Detect quality but don't load yet
+        this.detectVideoQuality();
+      }
+
+      async preloadVideosLazy() {
+        if (videosLoaded) return;
+        
+        console.log('Starting lazy video preload...');
+        videosLoaded = true;
+        
+        // Add video sources dynamically based on screen size
+        this.videos.forEach((video, index) => {
+          this.addVideoSources(video);
+          
+          // Only preload the first video initially
+          if (index === 0) {
+            video.preload = 'metadata';
+            video.load();
+          }
+        });
+
+        // If user has already interacted, start videos immediately
+        if (userHasInteracted) {
+          setTimeout(() => this.enhanceWithVideos(), 500);
+        } else {
+          // Try to start videos without user interaction first (some browsers allow this)
+          setTimeout(() => this.tryAutoStart(), 1000);
+        }
+      }
+
+      async tryAutoStart() {
+        if (this.isInitialized || userHasInteracted) return;
+        
+        console.log('Attempting autostart without user interaction...');
+        
+        try {
+          const firstVideo = this.videos[0];
+          if (firstVideo) {
+            // Try to play muted video (usually allowed without user interaction)
+            firstVideo.muted = true;
+            await firstVideo.play();
+            console.log('Autostart successful, enhancing with videos');
+            this.enhanceWithVideos();
+          }
+        } catch (error) {
+          console.log('Autostart failed, waiting for user interaction:', error);
+          // Hide loading text and show a subtle hint that user interaction is needed
+          if (this.loadingText) {
+            this.loadingText.textContent = 'Click to start videos';
+            this.loadingText.style.opacity = '0.6';
+          }
+        }
+      }
+
+      addVideoSources(video) {
+        // Don't overwrite existing sources - they're already properly configured in HTML
+        // Just ensure the video is ready for playback
+        if (video.children.length > 0) {
+          // Sources already exist, just reload to ensure proper loading
+          video.load();
+          return;
+        }
+
+        // Fallback: if no sources exist, this shouldn't happen with our HTML structure
+        console.warn('No video sources found in HTML, video may not play properly');
+      }
+
+      async enhanceWithVideos() {
+        if (this.isInitialized) return;
+        
+        console.log('Enhancing with video playback...');
+        
+        // Show loading indicator with better text
+        if (this.loadingText) {
+          this.loadingText.style.display = 'block';
+          this.loadingText.textContent = 'Starting videos...';
+          this.loadingText.style.opacity = '0.8';
+        }
+        
+        try {
+          // Prepare first video
+          const firstVideo = this.videos[0];
+          if (firstVideo) {
+            firstVideo.muted = true;
+            firstVideo.loop = false;
+            
+            // Wait for first video to be ready
+            await this.waitForVideoReady(firstVideo);
+            
+            // Start video playback
+            await firstVideo.play();
+            console.log('Video enhancement successful');
+            
+            // Hide hero image and show video
+            this.transitionToVideo();
+            
+            // Set up video system
+            this.setupEventListeners();
+            this.preloadOtherVideos();
+            
+            this.isInitialized = true;
+            
+            // Hide loading indicator with a fade out
+            if (this.loadingText) {
+              this.loadingText.style.transition = 'opacity 0.5s ease-out';
+              this.loadingText.style.opacity = '0';
+              setTimeout(() => {
+                this.loadingText.style.display = 'none';
+              }, 500);
+            }
+            
+            // Show progress bar and quality indicator
+            if (this.progressFill) {
+              this.progressFill.parentElement.style.display = 'block';
+            }
+            if (this.qualityIndicator) {
+              this.qualityIndicator.style.display = 'block';
+            }
+          }
+        } catch (error) {
+          console.warn('Video enhancement failed, staying with image:', error);
+          if (this.loadingText) {
+            this.loadingText.textContent = 'Click to start videos';
+            this.loadingText.style.opacity = '0.6';
+          }
+        }
+      }
+
+      waitForVideoReady(video) {
+        return new Promise((resolve, reject) => {
+          if (video.readyState >= 3) {
+            resolve();
+          } else {
+            const onReady = () => {
+              video.removeEventListener('canplay', onReady);
+              video.removeEventListener('error', onError);
+              resolve();
+            };
+            
+            const onError = (e) => {
+              video.removeEventListener('canplay', onReady);
+              video.removeEventListener('error', onError);
+              reject(e);
+            };
+
+            video.addEventListener('canplay', onReady);
+            video.addEventListener('error', onError);
+            
+            // Timeout after 5 seconds
+            setTimeout(() => {
+              video.removeEventListener('canplay', onReady);
+              video.removeEventListener('error', onError);
+              reject(new Error('Video load timeout'));
+            }, 5000);
+          }
+        });
+      }
+
+      transitionToVideo() {
+        // Smooth transition from image to video
+        if (this.heroImage) {
+          this.heroImage.style.transition = 'opacity 0.5s ease-out';
+          this.heroImage.style.opacity = '0';
+          
+          setTimeout(() => {
+            this.heroImage.style.display = 'none';
+          }, 500);
+        }
+      }
+
+      detectVideoQuality() {
+        const screenWidth = window.innerWidth;
+        let expectedQuality = 'medium';
+        
+        if (screenWidth >= 1920) {
+          expectedQuality = 'hd';
+        } else if (screenWidth >= 768) {
+          expectedQuality = 'medium';
+        } else {
+          expectedQuality = 'mobile';
+        }
+        
+        this.currentQuality = expectedQuality;
+        this.updateQualityIndicator();
+        
+        console.log(`Screen width: ${screenWidth}px, Expected quality: ${expectedQuality}`);
+      }
+
+      updateQualityIndicator() {
+        if (this.qualityIndicator) {
+          const qualityDisplay = document.getElementById('currentQuality');
+          if (qualityDisplay) {
+            qualityDisplay.textContent = this.currentQuality.toUpperCase();
+          }
+        }
+      }
+
+      preloadOtherVideos() {
+        // Preload other videos with requestIdleCallback for better performance
+        const preloadNext = (index) => {
+          if (index >= this.videos.length) return;
+          
+          const video = this.videos[index];
+          if (video) {
+            video.muted = true;
+            video.preload = 'metadata';
+            video.load();
+            
+            // Use requestIdleCallback if available, otherwise setTimeout
+            if (window.requestIdleCallback) {
+              requestIdleCallback(() => preloadNext(index + 1));
+            } else {
+              setTimeout(() => preloadNext(index + 1), 100);
+            }
+          }
+        };
+        
+        // Start preloading from video 2
+        preloadNext(1);
+      }
+
+      setupEventListeners() {
+        this.videos.forEach((video, index) => {
+          video.addEventListener('ended', () => {
+            console.log('Video', index + 1, 'ended, playing next');
+            this.playNextVideo();
+          });
+
+          video.addEventListener('timeupdate', () => {
+            if (video.classList.contains('active')) {
+              this.updateProgressBar(video);
+            }
+          });
+
+          video.addEventListener('error', (e) => {
+            console.warn('Video error:', e);
+            if (video.classList.contains('active')) {
+              this.playNextVideo();
+            }
+          });
+
+          video.addEventListener('loadstart', () => {
+            const currentSrc = video.currentSrc;
+            const quality = this.getQualityFromSrc(currentSrc);
+            console.log(`Video ${index + 1} loading: ${quality} quality`);
+          });
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.pause();
+          } else if (this.isInitialized) {
+            this.resume();
+          }
+        });
+      }
+
+      getQualityFromSrc(src) {
+        if (src.includes('/HD/')) return 'HD';
+        if (src.includes('/MD/')) return 'Medium';
+        if (src.includes('/SD/')) return 'Mobile';
+        return 'Unknown';
+      }
+
+      playNextVideo() {
+        this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
+        this.playCurrentVideo();
+      }
+
+      playCurrentVideo() {
+        const currentVideo = this.videos[this.currentVideoIndex];
+        
+        if (!currentVideo) return;
+
+        console.log('Playing video', this.currentVideoIndex + 1, 'of', this.videos.length);
+
+        // Hide all videos
+        this.videos.forEach(video => {
+          video.classList.remove('active');
+          if (!video.paused) {
+            video.pause();
+          }
+        });
+
+        // Show and play current video
+        currentVideo.classList.add('active');
+        currentVideo.currentTime = 0;
+        
+        // Ensure video is properly loaded before playing
+        if (currentVideo.readyState < 2) {
+          console.log('Video not ready, loading...');
+          currentVideo.load();
+          
+          const playWhenReady = () => {
+            currentVideo.removeEventListener('canplay', playWhenReady);
+            currentVideo.removeEventListener('error', onError);
+            currentVideo.play().catch(error => {
+              console.warn('Error playing video after load:', error);
+              setTimeout(() => this.playNextVideo(), 1000);
+            });
+          };
+          
+          const onError = () => {
+            currentVideo.removeEventListener('canplay', playWhenReady);
+            currentVideo.removeEventListener('error', onError);
+            console.warn('Video load failed, skipping to next');
+            setTimeout(() => this.playNextVideo(), 1000);
+          };
+          
+          currentVideo.addEventListener('canplay', playWhenReady, { once: true });
+          currentVideo.addEventListener('error', onError, { once: true });
+        } else {
+          currentVideo.play().catch(error => {
+            console.warn('Error playing video:', error);
+            setTimeout(() => this.playNextVideo(), 1000);
+          });
+        }
+      }
+
+      updateProgressBar(video) {
+        if (video.duration > 0 && this.progressFill) {
+          const progress = (video.currentTime / video.duration) * 100;
+          const totalProgress = ((this.currentVideoIndex * 100) + progress) / this.videos.length;
+          this.progressFill.style.width = totalProgress + '%';
+        }
+      }
+
+      // Public methods
+      pause() {
+        if (this.isInitialized && this.videos[this.currentVideoIndex] && !this.videos[this.currentVideoIndex].paused) {
+          this.videos[this.currentVideoIndex].pause();
+        }
+      }
+
+      resume() {
+        if (this.isInitialized && this.videos[this.currentVideoIndex] && this.videos[this.currentVideoIndex].paused) {
+          this.videos[this.currentVideoIndex].play().catch(error => {
+            console.warn('Resume play failed:', error);
+          });
+        }
+      }
+
+      getCurrentVideoInfo() {
+        if (!this.isInitialized) {
+          return { status: 'Image mode - videos not yet enhanced' };
+        }
+        
+        const video = this.videos[this.currentVideoIndex];
+        if (video) {
+          return {
+            mode: 'Video enhanced',
+            index: this.currentVideoIndex + 1,
+            total: this.videos.length,
+            quality: this.getQualityFromSrc(video.currentSrc),
+            userInteracted: userHasInteracted,
+            videosLoaded: videosLoaded
+          };
+        }
+        return null;
+      }
+    }
+
+    // Initialize immediately for progressive enhancement
+    videoPlayer = new LiljaToursVideoPlayer();
+    
+    // Make accessible globally for debugging
+    window.liljaVideoPlayer = videoPlayer;
+
+    // Keyboard controls (only work after video enhancement)
+    document.addEventListener('keydown', (e) => {
+      if (!videoPlayer || !videoPlayer.isInitialized) return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
+      switch(e.key) {
+        case ' ':
+          e.preventDefault();
+          if (videoPlayer.videos[videoPlayer.currentVideoIndex]?.paused) {
+            videoPlayer.resume();
+          } else {
+            videoPlayer.pause();
+          }
+          break;
+        case 'i':
+        case 'I':
+          console.log('Player info:', videoPlayer.getCurrentVideoInfo());
+          break;
+      }
+    });
+
+  })();
+</script>

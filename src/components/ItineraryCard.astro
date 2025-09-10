@@ -1,0 +1,301 @@
+---
+// Props interface for the itinerary card
+export interface Props {
+  image: string;
+  imageAlt: string;
+  title: string;
+  duration: string;
+  description?: string;
+  price?: string;
+  slug?: string;
+  highlights?: string[];
+  difficulty?: 'Easy' | 'Moderate' | 'Challenging';
+  season?: string;
+}
+
+const {
+  image,
+  imageAlt,
+  title,
+  duration,
+  description,
+  price,
+  slug = '#',
+  highlights = [],
+  difficulty,
+  season
+} = Astro.props;
+---
+
+<div class="itinerary-card">
+  <div class="card-image-container">
+    <img 
+      src={image} 
+      alt={imageAlt}
+      class="card-image"
+      loading="lazy"
+    />
+    {duration && (
+      <div class="duration-badge">
+        {duration}
+      </div>
+    )}
+    {difficulty && (
+      <div class="difficulty-badge" data-difficulty={difficulty.toLowerCase()}>
+        {difficulty}
+      </div>
+    )}
+  </div>
+  
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="card-title">{title}</h3>
+      {season && <span class="season-tag">{season}</span>}
+    </div>
+    
+    {description && (
+      <p class="card-description">{description}</p>
+    )}
+    
+    {highlights.length > 0 && (
+      <div class="highlights">
+        <h4 class="highlights-title">Highlights</h4>
+        <ul class="highlights-list">
+          {highlights.slice(0, 3).map(highlight => (
+            <li class="highlight-item">{highlight}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+    
+    <div class="card-footer">
+      <div class="price-section">
+        {price && (
+          <span class="price">{price} Kr / vehicle</span>
+        )}
+      </div>
+      
+      <a href={slug} class="cta-button" aria-label={`View details for ${title}`}>
+        <span>Explore Trip</span>
+        <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+.itinerary-card {
+  background: #ffffff;
+  border: 1px solid #f5f5f5;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s ease;
+  display: flex;
+  max-width: 450px;
+  flex-direction: column;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.itinerary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: #5b7297;
+}
+
+.card-image-container {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: brightness(0.95);
+}
+
+.itinerary-card:hover .card-image {
+  transform: scale(1.02);
+  filter: brightness(1);
+}
+
+.duration-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.4
+);
+  backdrop-filter: blur(8px);
+  padding: .25rem .5rem;
+  border-radius: 1px;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(91, 114, 151, 0.15);
+}
+
+.card-content {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #ffffff;
+}
+
+.card-header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f8f9fa;
+  padding-bottom: 16px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.season-tag {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-description {
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 0 0 24px 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.highlights {
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+.highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.highlight-item {
+  position: relative;
+  padding-left: 12px;
+  color: #6b7280;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  font-weight: 300;
+}
+
+.highlight-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 1px;
+  height: 8px;
+  background: #5b7297;
+  opacity: 0.6;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f8f9fa;
+}
+
+.price {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  letter-spacing: 0.3px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: transparent;
+  color: #5b7297;
+  text-decoration: none;
+  border: 1px solid #5b7297;
+  border-radius: 1px;
+  font-weight: 300;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cta-button:hover {
+  background: #5b7297;
+  color: #ffffff;
+  transform: translateX(1px);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+
+.cta-button:hover .arrow-icon {
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-content {
+    padding: 24px 20px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .duration-badge {
+    top: 16px;
+    right: 16px;
+    padding: 6px 12px;
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .cta-button {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-content {
+    padding: 20px 16px;
+  }
+  
+  .highlights {
+    margin-bottom: 20px;
+  }
+}
+</style>

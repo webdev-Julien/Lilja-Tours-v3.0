@@ -1,0 +1,126 @@
+---
+export interface Props {
+  text?: string;
+  variant?: 'default' | 'mobile';
+  href?: string;
+  onClick?: string;
+  class?: string;
+}
+
+const { 
+  text = 'SEND QUOTE REQUEST', 
+  variant = 'default', 
+  href,
+  onClick,
+  class: customClass = ''
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+const baseClass = variant === 'mobile' ? 'mobile-cta-button' : 'cta-button';
+const className = `${baseClass} ${customClass}`.trim();
+---
+
+<Element 
+  class={className}
+  href={href}
+  onclick={onClick}
+>
+  {text}
+</Element>
+
+<style>
+  /* Desktop CTA Button */
+  .cta-button {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 1.5rem;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all .3s ease;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 2.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--secondary);
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: -1;
+  }
+
+  .cta-button:hover {
+    border-color: white;
+    color: white;
+  }
+
+  .cta-button:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Mobile CTA Button */
+  .mobile-cta-button {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 1rem 2rem;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    width: auto;
+    max-width: 250px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--secondary);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .mobile-cta-button:hover {
+    border-color: white;
+    color: white;
+  }
+
+  .mobile-cta-button:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Responsive adjustments for mobile variant */
+  @media (max-width: 480px) {
+    .mobile-cta-button {
+      max-width: 200px;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+</style>

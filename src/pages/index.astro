@@ -1,16 +1,301 @@
 ---
+import "../../src/styles/global.css"
+import HomeHeader from "../../src/components/HomeHeader.astro"
+import ItineraryCard from "../components/ItineraryCard.astro"
+import { getCollection } from 'astro:content';
 
+// Get all tours and select 4 random ones
+const allTours = await getCollection('tours_EN');
+
+// Shuffle array and take first 4
+function shuffleArray(array: any[]) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+const randomTours = shuffleArray(allTours).slice(0, 4);
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+
+		<link rel="preload" as="image" href="/videos/hero-mobile-optimized.webp" media="(max-width: 767px)" />
+		<link rel="preload" as="image" href="/videos/hero-optimized.webp" media="(min-width: 768px)" />
+
+		    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Discover Iceland with Lilja Tours - private day tours and customized multi-day adventures. Personalized experiences across Iceland's stunning landscapes.">
+   <link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/" />
+   <link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/" />
+   <link rel="canonical" href="https://www.lilja-tours.com/" />
+
+
+
+    <meta property="og:title" content="Lilja Tours - Agence de voyage islandaise">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.lilja-tours.com/videos/hero-optimized.webp">
+    <meta property="og:url" content="https://www.lilja-tours.com/">
+    <meta property="og:description" content="Discover Iceland with Lilja Tours - private day tours and customized multi-day adventures. Personalized experiences across Iceland's stunning landscapes.">
+
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:logo" content="https://www.lilja-tours/Lilja-Tours-Logo.jpg" />
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Private tours in Iceland, customization and luxury | Lilja Tours</title>
+
+		<style is:inline>
+  /* Critical styles for immediate render */
+  .hero-header { 
+    position: relative; 
+    width: 100%; 
+    height: 100vh; 
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  .hero-image { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+  }
+  .hero-fallback-image { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center; 
+  }
+  .video-overlay { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 2; 
+  }
+  .hero-content { 
+    position: relative; 
+    z-index: 3; 
+    text-align: center; 
+    color: white; 
+  }
+
+  /* Itinerary Section */
+  .itinerary-section {
+    background: white;
+    padding: 8rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .itinerary-container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .itinerary-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .itinerary-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0 0 2rem 0;
+    line-height: 1.2;
+    color: #1a1a1a;
+    position: relative;
+  }
+
+  .itinerary-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: var(--secondary);
+  }
+
+  .itinerary-description {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: #666;
+    margin: 0 0 3rem 0;
+    letter-spacing: 0.3px;
+  }
+
+  .itinerary-cta-button {
+    background: transparent;
+    color: var(--secondary);
+    border: none;
+    padding: 0.75rem 0;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    outline: none;
+  }
+
+  .itinerary-cta-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--secondary);
+    transition: width 0.3s ease;
+  }
+
+  .itinerary-cta-button:hover::after {
+    width: 100%;
+  }
+
+  .itinerary-cta-button:hover {
+    transform: translateY(-2px);
+    color: #1a1a1a;
+  }
+
+  .itinerary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .itinerary-container {
+      padding: 0 1.5rem;
+    }
+    
+    .itinerary-grid {
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 968px) {
+    .itinerary-section {
+      padding: 6rem 0;
+    }
+    
+    .itinerary-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .itinerary-header {
+      margin-bottom: 4rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .itinerary-section {
+      padding: 4rem 0;
+    }
+    
+    .itinerary-container {
+      padding: 0 1rem;
+    }
+    
+    .itinerary-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .itinerary-header {
+      margin-bottom: 3rem;
+    }
+    
+    .itinerary-title {
+      margin-bottom: 1.5rem;
+    }
+    
+    .itinerary-description {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .itinerary-section {
+      padding: 3rem 0;
+    }
+    
+    .itinerary-grid {
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .itinerary-header {
+      margin-bottom: 2rem;
+    }
+  }
+</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<HomeHeader frenchUrl="/fr/" currentLang="en" />
+		<main>
+			<section class="itinerary-section">
+				<div class="itinerary-container">
+					<div class="itinerary-header">
+						<h2 class="itinerary-title">Our best private tours</h2>
+						<p class="itinerary-description">
+							Discover Iceland through our carefully crafted private tours, each designed to showcase the country's most spectacular landscapes and hidden gems.
+						</p>
+						<button class="itinerary-cta-button">Explore All Tours</button>
+					</div>
+					
+					<div class="itinerary-grid">
+						{randomTours.map((tour) => (
+							<ItineraryCard 
+								image={tour.data.cardImg.srcPC || "/images/fallback-tour.jpg"}
+								imageAlt={tour.data.cardImg.alt || tour.data.title}
+								title={tour.data.title}
+								duration={tour.data.duration || "Duration TBD"}
+								description={tour.data.cardSentence || "Discover Iceland's beauty"}
+								price={tour.data.price ? `From ${tour.data.price}` : "Price on request"}
+								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+								season={tour.data.season || "Year Round"}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		</main>
 	</body>
+
+
 </html>
