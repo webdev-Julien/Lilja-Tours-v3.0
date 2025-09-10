@@ -97,6 +97,73 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
     color: white; 
   }
 
+  /* About Section */
+  .about-section {
+    background: #fafafa;
+    padding: 8rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .about-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text {
+    text-align: left;
+  }
+
+  .about-title {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0 0 2.5rem 0;
+    line-height: 1.2;
+    color: #1a1a1a;
+  }
+
+  .about-paragraph {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.8;
+    color: black;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: 0.2px;
+  }
+
+  .about-paragraph:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-image {
+    position: relative;
+  }
+
+  .about-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 2px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .about-img:hover {
+    transform: scale(1.02);
+  }
+
   /* Itinerary Section */
   .itinerary-section {
     background: white;
@@ -132,16 +199,6 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
     position: relative;
   }
 
-  .itinerary-title::after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 1px;
-    background: var(--secondary);
-  }
 
   .itinerary-description {
     font-size: clamp(1.1rem, 2.5vw, 1.3rem);
@@ -194,6 +251,16 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
     gap: 2.5rem;
     margin-top: 4rem;
     align-items: start;
+  }
+
+  .itinerary-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+  }
+
+  .itinerary-footer .itinerary-cta-button {
+    transform: scale(1.15);
   }
 
   /* Responsive Design */
@@ -264,11 +331,401 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
       margin-bottom: 2rem;
     }
   }
+
+  /* About Section Mobile Responsive */
+  @media (max-width: 968px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-text {
+      order: 1;
+    }
+
+    .about-image {
+      order: 2;
+    }
+
+    .about-img {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      padding: 4rem 0;
+    }
+
+    .about-container {
+      padding: 0 1rem;
+    }
+
+    .about-content {
+      gap: 2.5rem;
+    }
+
+    .about-title {
+      margin-bottom: 2rem;
+    }
+
+    .about-img {
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-section {
+      padding: 3rem 0;
+    }
+
+    .about-content {
+      gap: 2rem;
+    }
+
+    .about-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-paragraph {
+      margin-bottom: 1.25rem;
+    }
+
+    .about-img {
+      height: 300px;
+    }
+  }
+
+  /* Multi-Day Tours Section */
+  .multiday-tours-section {
+    position: relative;
+    background-image: url('/pictures/index/multiday-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 8rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .multiday-tours-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
+
+  .multiday-tours-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .multiday-tours-content {
+    text-align: left;
+  }
+
+  .multiday-tours-title {
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0 0 3rem 0;
+    line-height: 1.2;
+    color: white;
+  }
+
+  .multiday-tours-paragraph {
+    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.8;
+    color: white;
+    margin: 0 0 2rem 0;
+    letter-spacing: 0.3px;
+    opacity: 0.95;
+  }
+
+  .multiday-tours-paragraph:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Multi-Day Tours Section Mobile Responsive */
+  @media (max-width: 768px) {
+    .multiday-tours-section {
+      background-attachment: scroll;
+      padding: 4rem 0;
+    }
+
+    .multiday-tours-container {
+      padding: 0 1rem;
+    }
+
+    .multiday-tours-title {
+      margin-bottom: 2.5rem;
+    }
+
+    .multiday-tours-paragraph {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .multiday-tours-section {
+      padding: 3rem 0;
+    }
+
+    .multiday-tours-title {
+      margin-bottom: 2rem;
+    }
+
+    .multiday-tours-paragraph {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  /* Iceland for You Section */
+  .iceland-for-you-section {
+    background: white;
+    padding: 8rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .iceland-for-you-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .iceland-for-you-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .iceland-for-you-text {
+    text-align: left;
+  }
+
+  .iceland-for-you-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .iceland-for-you-logo-link {
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .iceland-for-you-logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .iceland-for-you-logo {
+    height: 80px;
+    width: auto;
+    display: block;
+  }
+
+  .iceland-for-you-title {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1.2;
+    color: #1a1a1a;
+  }
+
+  .iceland-for-you-paragraph {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.8;
+    color: black;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: 0.2px;
+  }
+
+  .iceland-for-you-paragraph:last-child {
+    margin-bottom: 2rem;
+  }
+
+  .iceland-for-you-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: transparent;
+    color: #5b7297;
+    text-decoration: none;
+    border: 1px solid #5b7297;
+    border-radius: 1px;
+    font-weight: 300;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .iceland-for-you-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: -1;
+  }
+
+  .iceland-for-you-cta:hover {
+    color: #ffffff;
+    transform: translateX(1px);
+  }
+
+  .iceland-for-you-cta:hover::before {
+    transform: translateY(0);
+  }
+
+  .iceland-for-you-image {
+    position: relative;
+  }
+
+  .iceland-for-you-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 2px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .iceland-for-you-img:hover {
+    transform: scale(1.02);
+  }
+
+  /* Iceland for You Section Mobile Responsive */
+  @media (max-width: 968px) {
+    .iceland-for-you-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .iceland-for-you-text {
+      order: 1;
+    }
+
+    .iceland-for-you-image {
+      order: 2;
+    }
+
+    .iceland-for-you-img {
+      height: 400px;
+    }
+
+    .iceland-for-you-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .iceland-for-you-logo {
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .iceland-for-you-section {
+      padding: 4rem 0;
+    }
+
+    .iceland-for-you-container {
+      padding: 0 1rem;
+    }
+
+    .iceland-for-you-content {
+      gap: 2.5rem;
+    }
+
+    .iceland-for-you-header {
+      margin-bottom: 2rem;
+    }
+
+    .iceland-for-you-img {
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .iceland-for-you-section {
+      padding: 3rem 0;
+    }
+
+    .iceland-for-you-content {
+      gap: 2rem;
+    }
+
+    .iceland-for-you-header {
+      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+    }
+
+    .iceland-for-you-logo {
+      height: 70px;
+    }
+
+    .iceland-for-you-paragraph {
+      margin-bottom: 1.25rem;
+    }
+
+    .iceland-for-you-img {
+      height: 300px;
+    }
+  }
 </style>
 	</head>
 	<body>
 		<HomeHeader frenchUrl="/fr/" currentLang="en" />
 		<main>
+			<section class="about-section">
+				<div class="about-container">
+					<div class="about-content">
+						<div class="about-text">
+							<h2 class="about-title">Lilja Tours, your local travel agency</h2>
+							<p class="about-paragraph">
+								Since our founding in 2021, Lilja Tours has been dedicated to creating unforgettable experiences across Iceland's breathtaking landscapes. We specialize in private, personalized tours that showcase both the iconic attractions and hidden gems that make Iceland truly magical.
+							</p>
+							<p class="about-paragraph">
+								Our expert local guides bring years of experience and deep knowledge of Icelandic culture, geology, and history to every adventure. Whether you're chasing the Northern Lights, exploring volcanic landscapes, or discovering secluded waterfalls, we craft each journey to match your interests and pace.
+							</p>
+							<p class="about-paragraph">
+								From intimate day tours to comprehensive multi-day expeditions, Lilja Tours offers luxury travel experiences that connect you authentically with Iceland's natural wonders while ensuring comfort, safety, and memories that will last a lifetime.
+							</p>
+						</div>
+						<div class="about-image">
+							<img src="/pictures/index/about.webp" alt="Lilja Tours guide with guests enjoying Iceland's stunning landscape" class="about-img" />
+						</div>
+					</div>
+				</div>
+			</section>
+			
 			<section class="itinerary-section">
 				<div class="itinerary-container">
 					<div class="itinerary-header">
@@ -276,9 +733,6 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
 						<p class="itinerary-description">
 							Discover Iceland through our carefully crafted private tours, each designed to showcase the country's most spectacular landscapes and hidden gems.
 						</p>
-
-						<button class="itinerary-cta-button">Explore All Tours</button>
-
 					</div>
 					
 					<div class="itinerary-grid">
@@ -294,6 +748,59 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
 								season={tour.data.season || "Year Round"}
 							/>
 						))}
+					</div>
+					
+					<div class="itinerary-footer">
+						<button class="itinerary-cta-button">Explore All Tours</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="multiday-tours-section">
+				<div class="multiday-tours-overlay"></div>
+				<div class="multiday-tours-container">
+					<div class="multiday-tours-content">
+						<h2 class="multiday-tours-title">Personalized Multi-Day Tours</h2>
+						<p class="multiday-tours-paragraph">
+							Experience Iceland like never before with our fully customized multi-day private tours. We specialize in crafting comprehensive itineraries that go beyond the typical tourist path, creating personalized journeys that reflect your unique interests and travel style.
+						</p>
+						<p class="multiday-tours-paragraph">
+							Our expert team works closely with you to design every aspect of your Icelandic adventure, from selecting the perfect accommodations and restaurants to timing each experience for optimal weather and lighting conditions. Whether you're seeking remote highland adventures, cultural immersion, or photography-focused expeditions, we create seamless multi-day experiences that maximize your time in Iceland.
+						</p>
+						<p class="multiday-tours-paragraph">
+							With our comprehensive planning and local expertise, your multi-day tour becomes more than just a trip—it becomes a carefully orchestrated journey through Iceland's most spectacular landscapes, ensuring every moment is memorable and every detail is perfectly arranged.
+						</p>
+            <CTAButton></CTAButton>
+					</div>
+				</div>
+			</section>
+
+			<section class="iceland-for-you-section">
+				<div class="iceland-for-you-container">
+					<div class="iceland-for-you-content">
+						<div class="iceland-for-you-image">
+							<img src="/pictures/index/iceland-for-you.webp" alt="Iceland for You small group tour exploring Iceland's natural wonders" class="iceland-for-you-img" />
+						</div>
+						<div class="iceland-for-you-text">
+							<div class="iceland-for-you-header">
+								<a href="https://www.iceland-for-you.com" class="iceland-for-you-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Iceland for You website">
+									<img src="/logos/iceland-for-you.png" alt="Iceland for You" class="iceland-for-you-logo" />
+								</a>
+								<h2 class="iceland-for-you-title">Small Group Adventures</h2>
+							</div>
+							<p class="iceland-for-you-paragraph">
+								Meet Iceland for You, our sister brand dedicated to creating exceptional small group tours across Iceland's most spectacular destinations. While Lilja Tours focuses on private experiences, Iceland for You brings together like-minded travelers in intimate groups for shared adventures.
+							</p>
+							<p class="iceland-for-you-paragraph">
+								Our small group tours offer the perfect balance of social connection and personalized attention, allowing you to share the wonder of Iceland's landscapes with fellow travelers while still receiving expert guidance from our knowledgeable local guides.
+							</p>
+							<p class="iceland-for-you-paragraph">
+								From multi-day Ring Road expeditions to specialized Northern Lights tours, Iceland for You delivers authentic Icelandic experiences at exceptional value, combining the expertise you expect with the camaraderie that makes every journey memorable.
+							</p>
+							<a href="https://www.iceland-for-you.com" class="iceland-for-you-cta" target="_blank" rel="noopener noreferrer">
+								VISIT ICELAND FOR YOU WEBSITE
+							</a>
+						</div>
 					</div>
 				</div>
 			</section>

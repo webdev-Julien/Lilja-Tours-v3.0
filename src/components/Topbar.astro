@@ -98,7 +98,12 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     background: transparent;
     padding-block: 1rem;
     transform: translateY(0);
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .luxury-nav.nav-dark {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
   }
 
   .luxury-nav.nav-hidden {
@@ -148,7 +153,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     color: white;
     text-decoration: none;
     font-weight: 300;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
     letter-spacing: 0.5px;
     position: relative;
     transition: all 0.3s ease;
@@ -187,7 +192,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     color: white;
     text-decoration: none;
     font-weight: 300;
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
     padding: 0.5rem 1rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 2px;
@@ -333,7 +338,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     color: white;
     text-decoration: none;
     font-weight: 300;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
     letter-spacing: 1px;
     padding: 1rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -360,7 +365,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     color: white;
     text-decoration: none;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     letter-spacing: 0.5px;
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -404,7 +409,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     }
 
     .mobile-nav-link {
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
     }
 
   }
@@ -447,7 +452,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
       }
     });
 
-    // Hide/show navigation on scroll
+    // Hide/show navigation on scroll and handle dark background
     let lastScrollY = window.scrollY;
     let scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
 
@@ -457,7 +462,15 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
       
       if (!nav) return;
       
-      // Only trigger after scrolling more than threshold
+      // Check if nav should have dark background based on scroll position
+      // Add dark background when scrolled past the initial hero section
+      if (currentScrollY > 100) {
+        nav.classList.add('nav-dark');
+      } else {
+        nav.classList.remove('nav-dark');
+      }
+      
+      // Only trigger hide/show after scrolling more than threshold
       if (Math.abs(currentScrollY - lastScrollY) < scrollThreshold) {
         return;
       }

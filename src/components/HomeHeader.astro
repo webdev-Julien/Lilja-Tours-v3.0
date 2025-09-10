@@ -335,7 +335,7 @@ const {
 
   .hero-btn {
     padding: 0.5rem 1.5rem;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
     font-weight: 300;
     letter-spacing: 0.5px;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -345,7 +345,6 @@ const {
     transition: all 0.3s ease;
     border-radius: 2px;
     min-width: 180px;
-    font-size: 0.9rem;
   }
 
   .hero-btn-primary {
@@ -362,7 +361,7 @@ const {
 
   .hero-btn-secondary {
     border: none;
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
   }
 
   .hero-btn-secondary:hover {
@@ -400,7 +399,7 @@ const {
 
     .loading-indicator {
       bottom: 60px;
-      font-size: 0.8rem;
+      font-size: clamp(0.75rem, 2vw, 1rem);
     }
 
     /* Hide quality indicator on mobile */
@@ -425,7 +424,7 @@ const {
     .hero-btn {
       max-width: 250px;
       padding: 1rem 1.5rem;
-      font-size: 0.85rem;
+      font-size: clamp(0.8rem, 2.2vw, 1rem);
     }
 
     .loading-indicator {
@@ -494,7 +493,7 @@ const {
     
     .hero-btn {
       padding: 0.8rem 2rem;
-      font-size: 0.8rem;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
     }
 
     .loading-indicator {
@@ -820,15 +819,37 @@ const {
           const video = this.videos[index];
           if (video) {
             video.muted = true;
-            video.preload = 'metadata';
+            video.preload = 'auto'; // Change from 'metadata' to 'auto' for better loading
             video.load();
             
-            // Use requestIdleCallback if available, otherwise setTimeout
-            if (window.requestIdleCallback) {
-              requestIdleCallback(() => preloadNext(index + 1));
-            } else {
+            // Wait for video to be ready before moving to next
+            const waitForReady = () => {
+              if (video.readyState >= 2) {
+                console.log(`Video ${index + 1} preloaded successfully`);
+                // Use requestIdleCallback if available, otherwise setTimeout
+                if (window.requestIdleCallback) {
+                  requestIdleCallback(() => preloadNext(index + 1));
+                } else {
+                  setTimeout(() => preloadNext(index + 1), 200);
+                }
+              } else {
+                setTimeout(waitForReady, 100);
+              }
+            };
+            
+            video.addEventListener('canplay', () => {
+              console.log(`Video ${index + 1} can play`);
+              waitForReady();
+            }, { once: true });
+            
+            video.addEventListener('error', (e) => {
+              console.warn(`Video ${index + 1} failed to load:`, e);
+              // Skip to next video even if this one fails
               setTimeout(() => preloadNext(index + 1), 100);
-            }
+            }, { once: true });
+            
+            // Fallback timeout
+            setTimeout(waitForReady, 500);
           }
         };
         
@@ -892,7 +913,7 @@ const {
 
         console.log('Playing video', this.currentVideoIndex + 1, 'of', this.videos.length);
 
-        // Hide all videos
+        // Hide all videos first
         this.videos.forEach(video => {
           video.classList.remove('active');
           if (!video.paused) {
@@ -900,39 +921,90 @@ const {
           }
         });
 
-        // Show and play current video
+        // Show current video
         currentVideo.classList.add('active');
         currentVideo.currentTime = 0;
         
-        // Ensure video is properly loaded before playing
-        if (currentVideo.readyState < 2) {
-          console.log('Video not ready, loading...');
-          currentVideo.load();
-          
-          const playWhenReady = () => {
-            currentVideo.removeEventListener('canplay', playWhenReady);
-            currentVideo.removeEventListener('error', onError);
-            currentVideo.play().catch(error => {
-              console.warn('Error playing video after load:', error);
-              setTimeout(() => this.playNextVideo(), 1000);
-            });
-          };
-          
-          const onError = () => {
-            currentVideo.removeEventListener('canplay', playWhenReady);
-            currentVideo.removeEventListener('error', onError);
-            console.warn('Video load failed, skipping to next');
-            setTimeout(() => this.playNextVideo(), 1000);
-          };
-          
-          currentVideo.addEventListener('canplay', playWhenReady, { once: true });
-          currentVideo.addEventListener('error', onError, { once: true });
-        } else {
-          currentVideo.play().catch(error => {
-            console.warn('Error playing video:', error);
-            setTimeout(() => this.playNextVideo(), 1000);
-          });
+        // Show loading indicator for this video
+        if (this.loadingText) {
+          this.loadingText.style.display = 'block';
+          this.loadingText.textContent = `Loading video ${this.currentVideoIndex + 1}...`;
+          this.loadingText.style.opacity = '0.8';
         }
+        
+        // Enhanced video loading and playing logic
+        const attemptPlay = async () => {
+          try {
+            // Ensure video is muted and properly configured
+            currentVideo.muted = true;
+            
+            // If video is not ready, force load it
+            if (currentVideo.readyState < 2) {
+              console.log(`Video ${this.currentVideoIndex + 1} not ready, forcing load...`);
+              currentVideo.preload = 'auto';
+              currentVideo.load();
+              
+              // Wait for video to be ready with timeout
+              await new Promise((resolve, reject) => {
+                let timeoutId;
+                
+                const onCanPlay = () => {
+                  clearTimeout(timeoutId);
+                  currentVideo.removeEventListener('canplay', onCanPlay);
+                  currentVideo.removeEventListener('error', onError);
+                  resolve();
+                };
+                
+                const onError = (e) => {
+                  clearTimeout(timeoutId);
+                  currentVideo.removeEventListener('canplay', onCanPlay);
+                  currentVideo.removeEventListener('error', onError);
+                  reject(e);
+                };
+                
+                currentVideo.addEventListener('canplay', onCanPlay);
+                currentVideo.addEventListener('error', onError);
+                
+                // 8 second timeout for video loading
+                timeoutId = setTimeout(() => {
+                  currentVideo.removeEventListener('canplay', onCanPlay);
+                  currentVideo.removeEventListener('error', onError);
+                  reject(new Error(`Video ${this.currentVideoIndex + 1} load timeout`));
+                }, 8000);
+              });
+            }
+            
+            // Hide loading indicator
+            if (this.loadingText) {
+              this.loadingText.style.transition = 'opacity 0.3s ease-out';
+              this.loadingText.style.opacity = '0';
+              setTimeout(() => {
+                this.loadingText.style.display = 'none';
+              }, 300);
+            }
+            
+            // Play the video
+            await currentVideo.play();
+            console.log(`Video ${this.currentVideoIndex + 1} playing successfully`);
+            
+          } catch (error) {
+            console.warn(`Failed to play video ${this.currentVideoIndex + 1}:`, error);
+            
+            // Hide loading indicator
+            if (this.loadingText) {
+              this.loadingText.style.display = 'none';
+            }
+            
+            // Skip to next video after a brief delay
+            setTimeout(() => {
+              console.log(`Skipping to next video due to error`);
+              this.playNextVideo();
+            }, 1000);
+          }
+        };
+        
+        // Start the play attempt
+        attemptPlay();
       }
 
       updateProgressBar(video) {
