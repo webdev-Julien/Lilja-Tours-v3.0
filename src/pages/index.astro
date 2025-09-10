@@ -3,6 +3,7 @@ import "../../src/styles/global.css"
 import HomeHeader from "../../src/components/HomeHeader.astro"
 import ItineraryCard from "../components/ItineraryCard.astro"
 import { getCollection } from 'astro:content';
+import CTAButton from "../components/CTAButton.astro";
 
 // Get all tours and select 4 random ones
 const allTours = await getCollection('tours_EN');
@@ -275,7 +276,9 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
 						<p class="itinerary-description">
 							Discover Iceland through our carefully crafted private tours, each designed to showcase the country's most spectacular landscapes and hidden gems.
 						</p>
+
 						<button class="itinerary-cta-button">Explore All Tours</button>
+
 					</div>
 					
 					<div class="itinerary-grid">
