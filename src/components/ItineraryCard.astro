@@ -157,8 +157,8 @@ const {
 
 .card-title {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-weight: 300;
-  color: #1a1a1a;
+  font-weight: 400;
+  color: #5b7297;
   line-height: 1.4;
   margin: 0 0 8px 0;
   letter-spacing: -0.02em;
@@ -283,23 +283,66 @@ const {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-content {
-    padding: 24px 20px;
+    padding: 20px 18px;
+  }
+  
+  .card-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
   }
   
   .card-title {
-    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+    margin-bottom: 6px;
+  }
+  
+  .season-tag {
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+  }
+  
+  .card-description {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  
+  .highlights {
+    margin-bottom: 24px;
+  }
+  
+  .highlights-title {
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
+    margin-bottom: 8px;
+    font-weight: 350;
+  }
+  
+  .highlight-item {
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    margin-bottom: 4px;
+    line-height: 1.5;
   }
   
   .duration-badge {
     top: 16px;
     right: 16px;
-    padding: 6px 12px;
+    padding: 8px 14px;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+  }
+  
+  .price {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+  }
+  
+  .cta-button {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    padding: 12px 20px;
   }
   
   .card-footer {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
+    gap: 14px;
+    padding-top: 16px;
   }
   
   .cta-button {
@@ -309,11 +352,54 @@ const {
 
 @media (max-width: 480px) {
   .card-content {
-    padding: 20px 16px;
+    padding: 18px 16px;
+  }
+  
+  .card-header {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: clamp(1.4rem, 4vw, 1.7rem);
+    margin-bottom: 5px;
+  }
+  
+  .season-tag {
+    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+  }
+  
+  .card-description {
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    margin-bottom: 16px;
   }
   
   .highlights {
     margin-bottom: 20px;
+  }
+  
+  .highlights-title {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    margin-bottom: 6px;
+  }
+  
+  .highlight-item {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    margin-bottom: 3px;
+  }
+  
+  .price {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+  }
+  
+  .cta-button {
+    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+    padding: 14px 22px;
+  }
+  
+  .card-footer {
+    gap: 12px;
+    padding-top: 14px;
   }
 }
 </style>
