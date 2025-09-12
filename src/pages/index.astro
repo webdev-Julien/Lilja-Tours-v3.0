@@ -4,6 +4,7 @@ import HomeHeader from "../../src/components/HomeHeader.astro"
 import ItineraryCard from "../components/ItineraryCard.astro"
 import { getCollection } from 'astro:content';
 import CTAButton from "../components/CTAButton.astro";
+import Footer from "../components/Footer.astro";
 
 // Get all tours and select 4 random ones
 const allTours = await getCollection('tours_EN');
@@ -753,6 +754,237 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
     opacity: 1;
     transform: translateX(0);
   }
+
+  /* Meet Our Team Section */
+  .team-section {
+    background: #fafafa;
+    padding: 8rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .team-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .team-header {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+
+  .team-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0 0 2rem 0;
+    line-height: 1.2;
+    color: #1a1a1a;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .team-member {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 2px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  }
+
+  .team-member-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto 2rem;
+    display: block;
+    border: 4px solid #f8f8f8;
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover .team-member-image {
+    transform: scale(1.05);
+  }
+
+  .team-member-name {
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0 0 0.5rem 0;
+    color: #1a1a1a;
+  }
+
+  .team-member-role {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    font-weight: 300;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #5b7297;
+    margin: 0 0 2rem 0;
+  }
+
+  .team-member-description {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: #666;
+    margin: 0 0 2.5rem 0;
+    letter-spacing: 0.2px;
+  }
+
+  .team-contact {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: center;
+  }
+
+  .team-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: transparent;
+    color: #5b7297;
+    text-decoration: none;
+    border-radius: 1px;
+    font-weight: 300;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-contact-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: -1;
+  }
+
+  .team-contact-item:hover {
+    color: #ffffff;
+    transform: translateX(1px);
+  }
+
+  .team-contact-item:hover::before {
+    transform: translateY(0);
+  }
+
+  .contact-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    transition: fill 0.3s ease;
+  }
+
+  /* Team Section Mobile Responsive */
+  @media (max-width: 968px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+
+    .team-member {
+      padding: 2.5rem;
+    }
+
+    .team-member-image {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-section {
+      padding: 4rem 0;
+    }
+
+    .team-container {
+      padding: 0 1rem;
+    }
+
+    .team-header {
+      margin-bottom: 4rem;
+    }
+
+    .team-grid {
+      gap: 3rem;
+    }
+
+    .team-member {
+      padding: 2rem;
+    }
+
+    .team-member-image {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-section {
+      padding: 3rem 0;
+    }
+
+    .team-header {
+      margin-bottom: 3rem;
+    }
+
+    .team-grid {
+      gap: 2.5rem;
+    }
+
+    .team-member {
+      padding: 1.5rem;
+    }
+
+    .team-member-image {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-member-name {
+      margin-bottom: 0.4rem;
+    }
+
+    .team-member-role {
+      margin-bottom: 1.5rem;
+    }
+
+    .team-member-description {
+      margin-bottom: 2rem;
+    }
+
+    .team-contact {
+      gap: 0.8rem;
+    }
+  }
 </style>
 	</head>
 	<body>
@@ -822,7 +1054,7 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
 							Our expert team works closely with you to design every aspect of your Icelandic adventure, from selecting the perfect accommodations and restaurants to timing each experience for optimal weather and lighting conditions. Whether you're seeking remote highland adventures, cultural immersion, or photography-focused expeditions, we create seamless multi-day experiences that maximize your time in Iceland.
 						</p>
 						<p class="multiday-tours-paragraph">
-							With our comprehensive planning and local expertise, your multi-day tour becomes more than just a trip—it becomes a carefully orchestrated journey through Iceland's most spectacular landscapes, ensuring every moment is memorable and every detail is perfectly arranged.
+							With our comprehensive planning and local expertise, your multi-day tour becomes more than just a trip, it becomes a carefully orchestrated journey through Iceland's most spectacular landscapes, ensuring every moment is memorable and every detail is perfectly arranged.
 						</p>
             <CTAButton></CTAButton>
 					</div>
@@ -852,13 +1084,71 @@ const randomTours = shuffleArray(allTours).slice(0, 4);
 								From multi-day Ring Road expeditions to specialized Northern Lights tours, Iceland for You delivers authentic Icelandic experiences at exceptional value, combining the expertise you expect with the camaraderie that makes every journey memorable.
 							</p>
 							<a href="https://www.iceland-for-you.com" class="iceland-for-you-cta" target="_blank" rel="noopener noreferrer">
-								VISIT ICELAND FOR YOU WEBSITE
+								Visit Iceland for You website
 							</a>
 						</div>
 					</div>
 				</div>
 			</section>
+
+			<section class="team-section fade-in">
+				<div class="team-container">
+					<div class="team-header slide-down">
+						<h2 class="team-title">Meet our team</h2>
+					</div>
+					
+					<div class="team-grid">
+						<div class="team-member slide-up">
+							<img src="/pictures/index/Julien-guide.webp" alt="Julien, Founder and Travel Designer at Lilja Tours" class="team-member-image" />
+							<h3 class="team-member-name">Julien</h3>
+							<p class="team-member-role">Founder & Travel Designer</p>
+							<p class="team-member-description">
+								Since establishing Lilja Tours in 2021, Julien has dedicated himself to crafting extraordinary Icelandic adventures. With over six years of guiding experience across Iceland's most spectacular landscapes, he brings unparalleled expertise in creating bespoke luxury experiences that showcase both iconic destinations and hidden gems few travelers discover.
+							</p>
+							<div class="team-contact">
+								<a href="https://wa.me/3547643715" class="team-contact-item whatsapp" target="_blank" rel="noopener noreferrer">
+									<svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 764 3715
+								</a>
+								<a href="mailto:julien@lilja-tours.com" class="team-contact-item email">
+									<svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									julien@lilja-tours.com
+								</a>
+							</div>
+						</div>
+
+						<div class="team-member slide-up">
+							<img src="/pictures/index/Philippe-guide.webp" alt="Philippe, Co-owner and Lead Guide at Lilja Tours" class="team-member-image" />
+							<h3 class="team-member-name">Philippe</h3>
+							<p class="team-member-role">Co-owner & Lead Guide</p>
+							<p class="team-member-description">
+								As Lilja Tours' Lead Guide and co-owner, Philippe ensures every expedition exceeds expectations through his meticulous attention to detail and deep passion for Iceland's natural wonders. His expertise in vehicle operations and tour logistics, combined with his warm hospitality, creates seamless luxury experiences that allow guests to fully immerse themselves in Iceland's breathtaking landscapes.
+							</p>
+							<div class="team-contact">
+								<a href="https://wa.me/3547728756" class="team-contact-item whatsapp" target="_blank" rel="noopener noreferrer">
+									<svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 772 8756
+								</a>
+								<a href="mailto:philippe@lilja-tours.com" class="team-contact-item email">
+									<svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									philippe@lilja-tours.com
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+
+		<Footer currentLang="en" />
 
 		<script>
 			// Intersection Observer for scroll animations
