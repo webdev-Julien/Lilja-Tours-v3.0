@@ -26,380 +26,120 @@ const {
   season
 } = Astro.props;
 ---
-
-<div class="itinerary-card">
-  <div class="card-image-container">
-    <img 
-      src={image} 
+<article>
+<div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <img
+      src={image}
       alt={imageAlt}
-      class="card-image"
+      class="w-full h-full object-cover transition-transform duration-700 ease-out brightness-95 group-hover:scale-[1.02] group-hover:brightness-100"
       loading="lazy"
     />
     {duration && (
-      <div class="duration-badge">
+      <div class="absolute top-5 right-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15">
         {duration}
       </div>
     )}
     {difficulty && (
-      <div class="difficulty-badge" data-difficulty={difficulty.toLowerCase()}>
+      <div class="absolute top-5 left-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15" data-difficulty={difficulty.toLowerCase()}>
         {difficulty}
       </div>
     )}
   </div>
-  
-  <div class="card-content">
-    <div class="card-header">
-      <h3 class="card-title">{title}</h3>
-      {season && <span class="season-tag">{season}</span>}
+
+  <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
+    <div class="mb-4 border-b border-gray-50 pb-4">
+      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight">{title}</h3>
+      {season && <span class="text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">{season}</span>}
     </div>
-    
+
     {description && (
-      <p class="card-description">{description}</p>
+      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light">{description}</p>
     )}
-    
+
     {highlights.length > 0 && (
-      <div class="highlights">
-        <h4 class="highlights-title">Highlights</h4>
-        <ul class="highlights-list">
+      <div class="mb-8 flex-1">
+        <ul class="list-none p-0 m-0 space-y-1.5">
           {highlights.slice(0, 3).map(highlight => (
-            <li class="highlight-item">{highlight}</li>
+            <li class="relative pl-3 text-gray-500 text-sm sm:text-base font-light leading-relaxed highlight-item">{highlight}</li>
           ))}
         </ul>
       </div>
     )}
-    
-    <div class="card-footer">
+
+    <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5">
       <div class="price-section">
         {price && (
-          <span class="price">{price} Kr / vehicle</span>
+          <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">{price} Kr / vehicle</span>
         )}
       </div>
-      
-      <a href={slug} class="cta-button" aria-label={`View details for ${title}`}>
-        <span>Explore Trip</span>
-        <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+
+      <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`View details for ${title}`}>
+        <span class="relative z-10">Explore Trip</span>
+        <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
     </div>
   </div>
 </div>
-
+</article>
 <style>
-.itinerary-card {
-  background: #ffffff;
-  border: 1px solid #f5f5f5;
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.4s ease;
-  display: flex;
-  max-width: 450px;
-  flex-direction: column;
-  min-width: 0; /* Prevents flex item from overflowing */
-}
-
-.itinerary-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-color: #5b7297;
-}
-
-.card-image-container {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  filter: brightness(0.95);
-}
-
-.itinerary-card:hover .card-image {
-  transform: scale(1.02);
-  filter: brightness(1);
-}
-
-.duration-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.4
-);
-  backdrop-filter: blur(8px);
-  padding: .25rem .5rem;
-  border-radius: 1px;
-  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-  font-weight: 300;
-  color: white;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  border: 1px solid rgba(91, 114, 151, 0.15);
-}
-
-.card-content {
-  padding: 32px 28px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background: #ffffff;
-}
-
-.card-header {
-  margin-bottom: 16px;
-  border-bottom: 1px solid #f8f9fa;
-  padding-bottom: 16px;
-}
-
-.card-title {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-weight: 400;
-  color: #5b7297;
-  line-height: 1.4;
-  margin: 0 0 8px 0;
-  letter-spacing: -0.02em;
-}
-
-.season-tag {
-  font-size: clamp(0.65rem, 1.4vw, 0.8rem);
-  font-weight: 400;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.card-description {
-  color: #6b7280;
-  line-height: 1.7;
-  margin: 0 0 24px 0;
-  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-  font-weight: 300;
-}
-
-.highlights {
-  margin-bottom: 32px;
-  flex: 1;
-}
-
-.highlights-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.highlight-item {
-  position: relative;
-  padding-left: 12px;
-  color: #6b7280;
-  font-size: clamp(0.8rem, 1.6vw, 0.95rem);
-  line-height: 1.6;
-  margin-bottom: 6px;
-  font-weight: 300;
-}
-
-.highlight-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 1px;
-  height: 8px;
-  background: #5b7297;
-  opacity: 0.6;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #f8f9fa;
-}
-
-.price {
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-  font-weight: 400;
-  color: #1a1a1a;
-  letter-spacing: 0.3px;
-}
-
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  background: transparent;
-  color: #5b7297;
-  text-decoration: none;
-  border: 1px solid #5b7297;
-  border-radius: 1px;
-  font-weight: 300;
-  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #5b7297;
-  transform: translateY(-100%);
-  transition: transform 0.8s ease;
-  z-index: -1;
-}
-
-.cta-button:hover {
-  color: #ffffff;
-  transform: translateX(1px);
-}
-
-.cta-button:hover::before {
-  transform: translateY(0);
-}
-
-.arrow-icon {
-  transition: transform 0.3s ease;
-  opacity: 0.8;
-}
-
-.cta-button:hover .arrow-icon {
-  transform: translateX(2px);
-  opacity: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .card-content {
-    padding: 20px 18px;
+  /* Highlight item bullet point */
+  .highlight-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 1px;
+    height: 8px;
+    background: #5b7297;
+    opacity: 0.6;
   }
-  
-  .card-header {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-  }
-  
-  .card-title {
-    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
-    margin-bottom: 6px;
-  }
-  
-  .season-tag {
-    font-size: clamp(0.75rem, 2vw, 0.9rem);
-  }
-  
-  .card-description {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    margin-bottom: 18px;
-    line-height: 1.6;
-  }
-  
-  .highlights {
-    margin-bottom: 24px;
-  }
-  
-  .highlights-title {
-    font-size: clamp(1rem, 2.2vw, 1.1rem);
-    margin-bottom: 8px;
-    font-weight: 350;
-  }
-  
-  .highlight-item {
-    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-    margin-bottom: 4px;
-    line-height: 1.5;
-  }
-  
-  .duration-badge {
-    top: 16px;
-    right: 16px;
-    padding: 8px 14px;
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
-  }
-  
-  .price {
-    font-size: clamp(1rem, 2.2vw, 1.15rem);
-  }
-  
-  .cta-button {
-    font-size: clamp(0.85rem, 2vw, 1rem);
-    padding: 12px 20px;
-  }
-  
-  .card-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    padding-top: 16px;
-  }
-  
-  .cta-button {
-    justify-content: center;
-  }
-}
 
-@media (max-width: 480px) {
-  .card-content {
-    padding: 18px 16px;
+  /* CTA Button hover effect */
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: 1;
   }
-  
-  .card-header {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+
+  .cta-btn:hover::before {
+    transform: translateY(0);
   }
-  
-  .card-title {
-    font-size: clamp(1.4rem, 4vw, 1.7rem);
-    margin-bottom: 5px;
+
+  /* Mobile responsive adjustments for complex layouts */
+  @media (max-width: 768px) {
+    .group .md\\:flex-row {
+      flex-direction: column;
+    }
+
+    .group .md\\:items-center {
+      align-items: stretch;
+    }
+
+    .group .md\\:gap-5 {
+      gap: 14px;
+    }
+
+    .group .cta-btn {
+      justify-content: center;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      padding: 12px 20px;
+    }
   }
-  
-  .season-tag {
-    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+
+  @media (max-width: 480px) {
+    .group .cta-btn {
+      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+      padding: 14px 22px;
+    }
   }
-  
-  .card-description {
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
-    margin-bottom: 16px;
-  }
-  
-  .highlights {
-    margin-bottom: 20px;
-  }
-  
-  .highlights-title {
-    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
-    margin-bottom: 6px;
-  }
-  
-  .highlight-item {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    margin-bottom: 3px;
-  }
-  
-  .price {
-    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
-  }
-  
-  .cta-button {
-    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
-    padding: 14px 22px;
-  }
-  
-  .card-footer {
-    gap: 12px;
-    padding-top: 14px;
-  }
-}
 </style>

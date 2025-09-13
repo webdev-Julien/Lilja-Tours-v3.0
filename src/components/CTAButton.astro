@@ -16,42 +16,24 @@ const {
 } = Astro.props;
 
 const Element = href ? 'a' : 'button';
-const baseClass = variant === 'mobile' ? 'mobile-cta-button' : 'cta-button';
+const baseClass = variant === 'mobile' ?
+  'group bg-transparent text-white border border-white/50 px-8 py-4 font-light text-base md:text-lg lg:text-xl tracking-wide cursor-pointer transition-all duration-300 rounded-sm w-auto max-w-[250px] sm:max-w-[200px] no-underline inline-block text-center relative overflow-hidden hover:border-white cta-mobile' :
+  'group bg-transparent text-white border border-white/50 px-6 py-2 font-light text-sm md:text-base lg:text-lg tracking-wide cursor-pointer transition-all duration-300 rounded-sm no-underline inline-flex items-center justify-center box-border h-11 relative overflow-hidden hover:border-white cta-default';
 const className = `${baseClass} ${customClass}`.trim();
 ---
 
-<Element 
+<Element
   class={className}
   href={href}
   onclick={onClick}
 >
-  {text}
+  <span class="relative z-10">{text}</span>
 </Element>
 
 <style>
-  /* Desktop CTA Button */
-  .cta-button {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 0.5rem 1.5rem;
-    font-weight: 300;
-    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all .3s ease;
-    border-radius: 2px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    height: 2.8rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-button::before {
+  /* Custom hover effects using CSS variables */
+  .cta-default::before,
+  .cta-mobile::before {
     content: '';
     position: absolute;
     top: 0;
@@ -61,67 +43,27 @@ const className = `${baseClass} ${customClass}`.trim();
     background: var(--secondary);
     transform: translateY(-100%);
     transition: transform 0.8s ease;
-    z-index: -1;
+    z-index: 1;
   }
 
-  .cta-button:hover {
-    border-color: white;
-    color: white;
-  }
-
-  .cta-button:hover::before {
+  .cta-default:hover::before {
     transform: translateY(0);
   }
 
-  /* Mobile CTA Button */
-  .mobile-cta-button {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 1rem 2rem;
-    font-weight: 300;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-    width: auto;
-    max-width: 250px;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .mobile-cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--secondary);
-    transform: translateY(-100%);
+  .cta-mobile::before {
     transition: transform 0.3s ease;
-    z-index: -1;
   }
 
-  .mobile-cta-button:hover {
-    border-color: white;
-    color: white;
-  }
-
-  .mobile-cta-button:hover::before {
+  .cta-mobile:hover::before {
     transform: translateY(0);
   }
 
-  /* Responsive adjustments for mobile variant */
+  /* Mobile responsive adjustments */
   @media (max-width: 480px) {
-    .mobile-cta-button {
-      max-width: 200px;
-      padding: 0.75rem 1.5rem;
-      font-size: clamp(0.85rem, 2.2vw, 1rem);
+    .cta-mobile {
+      max-width: 200px !important;
+      padding: 0.75rem 1.5rem !important;
+      font-size: clamp(0.85rem, 2.2vw, 1rem) !important;
     }
   }
 </style>
