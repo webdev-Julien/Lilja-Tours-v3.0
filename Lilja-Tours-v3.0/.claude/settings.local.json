@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.lilja-tours.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
