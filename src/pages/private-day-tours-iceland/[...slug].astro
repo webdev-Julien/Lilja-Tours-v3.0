@@ -147,6 +147,116 @@ try {
       .meet-location-cta:hover::before {
         transform: translateY(0);
       }
+
+      /* Infinite Gallery Carousel */
+      .gallery-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .gallery-track {
+        display: flex;
+        width: fit-content;
+        gap: 1.5rem;
+        animation: scroll-left 60s linear infinite;
+      }
+
+      .gallery-track-reverse {
+        animation: scroll-right 60s linear infinite;
+      }
+
+      .gallery-track:hover {
+        animation-play-state: paused;
+      }
+
+      .gallery-slide-group {
+        display: flex;
+        gap: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .gallery-item {
+        flex-shrink: 0;
+        width: 300px;
+        height: 300px;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-100% - 1.5rem));
+        }
+      }
+
+      @keyframes scroll-right {
+        0% {
+          transform: translateX(calc(-100% - 1.5rem));
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Responsive Gallery */
+      @media (max-width: 1023px) {
+        .gallery-container {
+          gap: 1rem;
+        }
+
+        .gallery-track {
+          gap: 1rem;
+          animation: scroll-left 40s linear infinite;
+        }
+
+        .gallery-track-reverse {
+          animation: scroll-right 40s linear infinite;
+        }
+
+        .gallery-slide-group {
+          gap: 1rem;
+        }
+
+        .gallery-item {
+          width: 250px;
+          height: 250px;
+        }
+
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-100% - 1rem));
+          }
+        }
+
+        @keyframes scroll-right {
+          0% {
+            transform: translateX(calc(-100% - 1rem));
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      }
+
+      @media (max-width: 767px) {
+        .gallery-item {
+          width: 200px;
+          height: 200px;
+        }
+
+        .gallery-track {
+          animation: scroll-left 80s linear infinite;
+        }
+
+        .gallery-track-reverse {
+          animation: scroll-right 80s linear infinite;
+        }
+      }
     </style>
   </head>
 
@@ -310,24 +420,85 @@ try {
 
       <!-- Gallery Section -->
       {data.gallery && data.gallery.length > 0 && (
-        <section class="fade-in py-16 lg:py-24">
+        <section class="fade-in py-16 lg:py-24 overflow-hidden">
           <div class="max-w-7xl mx-auto px-8">
             <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Gallery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.gallery.map((image, index) => (
-                <div class={`slide-up`} style={`animation-delay: ${index * 0.1}s`}>
-                  <picture class="block aspect-square overflow-hidden rounded-sm">
-                    {image.srcMobile && (
-                      <source media="(max-width: 767px)" srcset={image.srcMobile} />
-                    )}
-                    <img
-                      src={image.srcPC}
-                      alt={image.alt || ''}
-                      class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
-                    />
-                  </picture>
+
+            <!-- Infinite Scroll Gallery -->
+            <div class="gallery-container">
+              <!-- First row for large screens, both rows for small screens -->
+              <div class="gallery-track">
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image, index) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <!-- Duplicate for seamless loop -->
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image, index) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Second row for large screens only -->
+              <div class="gallery-track gallery-track-reverse hidden lg:flex">
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image, index) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image, index) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
