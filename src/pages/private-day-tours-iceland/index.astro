@@ -1,0 +1,242 @@
+---
+import "../../../src/styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import ItineraryCard from "../../components/ItineraryCard.astro"
+import Footer from "../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+// Get all tours from the collection
+const allTours = await getCollection('tours_EN');
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Discover all our private day tours in Iceland. From iconic Golden Circle to remote highland adventures, explore Iceland's most spectacular destinations with expert local guides.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/private-day-tours-iceland/" />
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/circuits-prives-islande/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/private-day-tours-iceland/" />
+
+		<meta property="og:title" content="Private Day Tours Iceland - All Tours | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/videos/tours-bg.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/private-day-tours-iceland/">
+		<meta property="og:description" content="Discover all our private day tours in Iceland. From iconic Golden Circle to remote highland adventures, explore Iceland's most spectacular destinations with expert local guides.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:locale:alternate" content="fr_FR">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Private Day Tours Iceland - All Tours | Lilja Tours</title>
+
+		<style is:inline>
+			/* Minimal CSS for features not available in Tailwind */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Mobile responsive adjustments for complex layout behaviors */
+			@media (max-width: 768px) {
+				.bg-fixed {
+					background-attachment: scroll;
+				}
+			}
+
+			/* Video header styles */
+			.video-header {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.video-header video {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				min-width: 100%;
+				min-height: 100%;
+				width: auto;
+				height: auto;
+				transform: translate(-50%, -50%);
+				object-fit: cover;
+				z-index: -1;
+			}
+
+			.video-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.4);
+				z-index: 1;
+			}
+
+			.video-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Contact CTA Button hover effect */
+			.contact-cta-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.8s ease;
+				z-index: -1;
+			}
+
+			.contact-cta-button:hover::before {
+				transform: translateY(0);
+			}
+
+			/* Ensure all tour cards have equal height and aligned content */
+			.tours-grid {
+				display: grid;
+				align-items: stretch;
+			}
+
+			.tours-grid > * {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.tours-grid article > div {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			/* Target the highlights section to expand and push buttons down */
+			.tours-grid .mb-8.flex-1 {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+			}
+		</style>
+	</head>
+	<body>
+
+			<!-- Video Header Section -->
+			<header class="video-header h-[75dvh] flex items-center justify-center relative">
+						<Topbar frenchUrl="/fr/circuits-prives-islande/" currentLang="en" />
+				<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+					<source src="/videos/tours-bg.mp4" type="video/mp4">
+					<source src="/videos/tours-bg.webm" type="video/webm">
+				</video>
+				<div class="video-overlay"></div>
+				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down mt-[70px]">
+					<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Private Day Tours in Iceland</h1>
+					<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+						Discover Iceland's most spectacular destinations through our carefully crafted private day tours. From iconic landmarks to hidden gems, each journey is designed to showcase the raw beauty and fascinating geology that make Iceland truly unique.
+					</p>
+				</div>
+			</header>
+		<main>
+
+
+			<!-- Tours Grid Section -->
+			<section class="fade-in bg-white py-32">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-16 max-w-4xl mx-auto slide-up">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Our ready-to-book day tours</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-8">
+							Choose from our complete collection of private day tours, each offering unique perspectives on Iceland's diverse landscapes and natural wonders.
+						</p>
+						<p class="text-base md:text-lg font-light leading-relaxed text-gray-500 tracking-wide mb-8">
+							All our tours are fully customizable to match your interests, preferences, and schedule. From adjusting itineraries to adding special experiences, we tailor every journey to create your perfect Icelandic adventure.
+						</p>
+						<a href="/contact/" class="contact-cta-button inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px">
+							Contact us for customization
+						</a>
+					</div>
+
+					<div class="tours-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 slide-up">
+						{allTours.map((tour) => (
+							<ItineraryCard
+								image={tour.data.cardImg.srcPC || "/images/fallback-tour.jpg"}
+								imageAlt={tour.data.cardImg.alt || tour.data.title}
+								title={tour.data.title}
+								duration={tour.data.duration || "Duration TBD"}
+								description={tour.data.cardSentence || "Discover Iceland's beauty"}
+								price={tour.data.price ? `From ${tour.data.price}` : "Price on request"}
+								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+								season={tour.data.season || "Year Round"}
+								slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}`}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				// Observe all elements with animation classes
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Initialize animations when DOM is loaded
+			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+		</script>
+	</body>
+</html>
