@@ -35,7 +35,7 @@ try {
     <meta name="description" content={data.metaDescription} />
 
     <link rel="canonical" href={data.canonicalUrl} />
-    {data.hreflangAlternates.map((alt) => (
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
       <link rel="alternate" hreflang={alt.lang} href={alt.url} />
     ))}
 
@@ -153,14 +153,18 @@ try {
   <body>
     <!-- Header Section with Background Image -->
     <header class="relative w-full h-[50dvh] overflow-hidden">
-      <picture class="absolute inset-0 w-full h-full">
-        <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
-        <img
-          src={data.headerImage.srcPC}
-          alt={data.headerImage.alt}
-          class="w-full h-full object-cover object-center"
-        />
-      </picture>
+      {data.headerImage && (
+        <picture class="absolute inset-0 w-full h-full">
+          {data.headerImage.srcMobile && (
+            <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
+          )}
+          <img
+            src={data.headerImage.srcPC}
+            alt={data.headerImage.alt || ''}
+            class="w-full h-full object-cover object-center"
+          />
+        </picture>
+      )}
 
       <!-- Dark overlay for better text readability -->
       <div class="absolute inset-0 bg-black/40 z-10"></div>
@@ -229,19 +233,21 @@ try {
             </div>
 
             <!-- Highlights -->
-            <div class="slide-left">
-              <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Highlights</h2>
-              <ul class="space-y-4">
-                {data.highlights.map((highlight) => (
-                  <li class="flex items-start">
-                    <svg class="w-5 h-5 text-[var(--secondary)] mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="text-gray-700">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {data.highlights && data.highlights.length > 0 && (
+              <div class="slide-left">
+                <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Highlights</h2>
+                <ul class="space-y-4">
+                  {data.highlights.map((highlight) => (
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-[var(--secondary)] mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-gray-700">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -276,14 +282,18 @@ try {
                     <div class="p-8 pt-0">
                       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                         <div class="lg:order-2">
-                          <picture class="block">
-                            <source media="(max-width: 767px)" srcset={visit.image.srcMobile} />
-                            <img
-                              src={visit.image.srcPC}
-                              alt={visit.image.alt}
-                              class="w-full h-64 lg:h-80 object-cover object-center rounded-sm"
-                            />
-                          </picture>
+                          {visit.image && (
+                            <picture class="block">
+                              {visit.image.srcMobile && (
+                                <source media="(max-width: 767px)" srcset={visit.image.srcMobile} />
+                              )}
+                              <img
+                                src={visit.image.srcPC}
+                                alt={visit.image.alt || ''}
+                                class="w-full h-64 lg:h-80 object-cover object-center rounded-sm"
+                              />
+                            </picture>
+                          )}
                         </div>
                         <div class="lg:order-1">
                           <div class="text-gray-700 leading-relaxed text-base lg:text-lg" set:html={visit.description}></div>
@@ -307,10 +317,12 @@ try {
               {data.gallery.map((image, index) => (
                 <div class={`slide-up`} style={`animation-delay: ${index * 0.1}s`}>
                   <picture class="block aspect-square overflow-hidden rounded-sm">
-                    <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                    {image.srcMobile && (
+                      <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                    )}
                     <img
                       src={image.srcPC}
-                      alt={image.alt}
+                      alt={image.alt || ''}
                       class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
                     />
                   </picture>
