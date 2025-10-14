@@ -1,0 +1,629 @@
+---
+import "../../../src/styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import MultidayItineraryCard from "../../components/MultidayItineraryCard.astro"
+import Footer from "../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+// Get all multiday tours from the collection
+const allMultidayTours = await getCollection('multiday_tours_EN');
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Discover our customized multiday tours in Iceland. From Ring Road adventures to tailored expeditions, explore Iceland's most spectacular destinations with expert local guides and luxury accommodations.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/multiday-tours-iceland/" />
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/circuits-multi-jours-islande/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/multiday-tours-iceland/" />
+
+		<meta property="og:title" content="Multiday Tours Iceland - Tailored Adventures | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/videos/tours-bg.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/multiday-tours-iceland/">
+		<meta property="og:description" content="Discover our customized multiday tours in Iceland. From Ring Road adventures to tailored expeditions, explore Iceland with expert local guides.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:locale:alternate" content="fr_FR">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Multiday Tours Iceland - Tailored Adventures | Lilja Tours</title>
+
+		<style is:inline>
+			/* Minimal CSS for features not available in Tailwind */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Mobile responsive adjustments for complex layout behaviors */
+			@media (max-width: 768px) {
+				.bg-fixed {
+					background-attachment: scroll;
+				}
+			}
+
+			/* Video header styles */
+			.video-header {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.video-header video {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				min-width: 100%;
+				min-height: 100%;
+				width: auto;
+				height: auto;
+				transform: translate(-50%, -50%);
+				object-fit: cover;
+				z-index: -1;
+			}
+
+			.video-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.4);
+				z-index: 1;
+			}
+
+			.video-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Contact CTA Button hover effect */
+			.contact-cta-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.8s ease;
+				z-index: -1;
+			}
+
+			.contact-cta-button:hover::before {
+				transform: translateY(0);
+			}
+
+			/* Ensure all tour cards have equal height and aligned content */
+			.tours-grid {
+				display: grid;
+				align-items: stretch;
+			}
+
+			.tours-grid > * {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.tours-grid article > div {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			/* Target the highlights section to expand and push buttons down */
+			.tours-grid .mb-8.flex-1 {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+			}
+		</style>
+	</head>
+	<body>
+
+			<!-- Video Header Section -->
+			<header class="video-header h-[75dvh] flex items-center justify-center relative">
+						<Topbar frenchUrl="/fr/circuits-multi-jours-islande/" currentLang="en" />
+				<!-- Desktop HD Video (1024px and above) -->
+				<video
+					id="video-desktop"
+					autoplay
+					muted
+					loop
+					playsinline
+					class="video-source absolute inset-0 w-full h-full object-cover hidden lg:block"
+				>
+					<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4">
+					<source src="/videos/HD/tours-bg-hd.webm" type="video/webm">
+				</video>
+
+				<!-- Tablet Medium Video (768px to 1023px) -->
+				<video
+					id="video-tablet"
+					autoplay
+					muted
+					loop
+					playsinline
+					class="video-source absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
+				>
+					<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4">
+					<source src="/videos/MD/tours-bg-medium.webm" type="video/webm">
+				</video>
+
+				<!-- Mobile Vertical Video (0px to 767px) -->
+				<video
+					id="video-mobile"
+					autoplay
+					muted
+					loop
+					playsinline
+					class="video-source absolute inset-0 w-full h-full object-cover block md:hidden"
+				>
+					<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4">
+					<source src="/videos/SD/tours-bg-mobile.webm" type="video/webm">
+				</video>
+
+				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down mt-[70px]">
+					<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Multiday Tours in Iceland</h1>
+					<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide mb-8">
+						Experience Iceland's magic through our fully customized multiday tours. We design comprehensive itineraries that showcase the country's diverse landscapes while providing luxury accommodations and authentic local experiences.
+					</p>
+					<a href="#custom-tour-form" class="contact-cta-button inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-white no-underline border border-white rounded-sm font-light text-sm transition-all duration-300 flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:translate-x-px cursor-pointer">
+						Ask for a fully personalized trip
+					</a>
+				</div>
+			</header>
+		<main>
+
+
+			<!-- Tours Grid Section -->
+			<section class="fade-in bg-white py-32">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-16 max-w-4xl mx-auto slide-up">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Our Tailored Multiday Tours</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-8">
+							All our multiday tours are completely tailor-made to match your interests, preferences, and travel style. We work closely with you to design every aspect of your Icelandic adventure, from selecting the perfect accommodations to planning unique activities that bring your travel dreams to life.
+						</p>
+						<p class="text-base md:text-lg font-light leading-relaxed text-gray-500 tracking-wide">
+							Our expert team will help you choose the ideal hotels, guesthouses, or luxury lodges, and curate exceptional experiences including glacier hikes, hot spring visits, cultural encounters, and wildlife viewing opportunities. Every journey is crafted to create your perfect Icelandic adventure.
+						</p>
+					</div>
+
+					<div class="tours-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 slide-up">
+						{allMultidayTours.map((tour) => (
+							<MultidayItineraryCard
+								image={tour.data.cardImg.srcPC || "/images/fallback-tour.jpg"}
+								imageAlt={tour.data.cardImg.alt || tour.data.title}
+								title={tour.data.title}
+								duration={tour.data.duration || "Duration TBD"}
+								description={tour.data.cardSentence || "Discover Iceland's beauty"}
+								price={tour.data.price ? `${tour.data.price}` : "Price on request"}
+								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+								season={tour.data.season || "Year Round"}
+								slug="#custom-tour-form"
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<!-- Custom Tour Form Section -->
+			<section id="custom-tour-form" class="fade-in bg-gray-50 py-32">
+				<div class="max-w-4xl mx-auto px-8">
+					<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-6 text-center text-gray-900 slide-down">Design Your Perfect Journey</h2>
+					<p class="text-center text-gray-600 mb-12 text-lg slide-up">Share your travel dreams with us, and we'll craft the perfect Icelandic adventure tailored to your preferences.</p>
+
+					<div class="bg-white p-8 rounded-sm shadow-lg slide-up">
+						<form id="multiday-tour-form" class="space-y-6">
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="first-name" class="block text-sm font-medium text-gray-700 mb-2">
+										First Name <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="text"
+										id="first-name"
+										name="firstName"
+										required
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="John"
+									/>
+								</div>
+
+								<div>
+									<label for="last-name" class="block text-sm font-medium text-gray-700 mb-2">
+										Last Name <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="text"
+										id="last-name"
+										name="lastName"
+										required
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="Doe"
+									/>
+								</div>
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+										Email Address <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										required
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="john@example.com"
+									/>
+								</div>
+
+								<div>
+									<label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+										Phone Number <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="tel"
+										id="phone"
+										name="phone"
+										required
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="+1 234 567 8900"
+									/>
+								</div>
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="num-people" class="block text-sm font-medium text-gray-700 mb-2">
+										Number of People <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="number"
+										id="num-people"
+										name="numPeople"
+										required
+										min="1"
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="4"
+									/>
+								</div>
+
+								<div>
+									<label for="num-children" class="block text-sm font-medium text-gray-700 mb-2">
+										How Many Children? <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="number"
+										id="num-children"
+										name="numChildren"
+										required
+										min="0"
+										value="0"
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="0"
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label for="children-ages" class="block text-sm font-medium text-gray-700 mb-2">
+									What Age Are the Children?
+								</label>
+								<input
+									type="text"
+									id="children-ages"
+									name="childrenAges"
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+									placeholder="e.g., 5, 8, 12"
+								/>
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="num-days" class="block text-sm font-medium text-gray-700 mb-2">
+										How Many Days Do You Need a Private Guide? <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="number"
+										id="num-days"
+										name="numDays"
+										required
+										min="1"
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="7"
+									/>
+								</div>
+
+								<div>
+									<label for="travel-dates" class="block text-sm font-medium text-gray-700 mb-2">
+										When Are You Coming to Iceland? <span class="text-red-500">*</span>
+									</label>
+									<input
+										type="text"
+										id="travel-dates"
+										name="travelDates"
+										required
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+										placeholder="e.g., June 15-22, 2025"
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-2">
+									What Are Your Main Interests?
+								</label>
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+									<label class="flex items-center">
+										<input type="checkbox" name="interests" value="Sightseeing" class="mr-2 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+										<span class="text-sm text-gray-700">Sightseeing</span>
+									</label>
+									<label class="flex items-center">
+										<input type="checkbox" name="interests" value="Hiking" class="mr-2 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+										<span class="text-sm text-gray-700">Hiking</span>
+									</label>
+									<label class="flex items-center">
+										<input type="checkbox" name="interests" value="Adventure" class="mr-2 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+										<span class="text-sm text-gray-700">Adventure</span>
+									</label>
+									<label class="flex items-center">
+										<input type="checkbox" name="interests" value="Relaxation & Hot Springs" class="mr-2 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+										<span class="text-sm text-gray-700">Relaxation & Hot Springs</span>
+									</label>
+									<label class="flex items-center">
+										<input type="checkbox" name="interests" value="Culture" class="mr-2 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+										<span class="text-sm text-gray-700">Culture</span>
+									</label>
+								</div>
+							</div>
+
+							<div>
+								<label for="accommodation-type" class="block text-sm font-medium text-gray-700 mb-2">
+									Accommodation Type <span class="text-red-500">*</span>
+								</label>
+								<select
+									id="accommodation-type"
+									name="accommodationType"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+								>
+									<option value="">Select accommodation type</option>
+									<option value="4* hotels">4* hotels</option>
+									<option value="3* hotels">3* hotels</option>
+									<option value="Guesthouses">Guesthouses</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+
+							<div>
+								<label for="budget" class="block text-sm font-medium text-gray-700 mb-2">
+									Total Budget for Your Whole Journey (ISK) <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="range"
+									id="budget"
+									name="budget"
+									min="500000"
+									max="5000000"
+									step="100000"
+									value="1500000"
+									required
+									class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+								/>
+								<div class="flex justify-between text-sm text-gray-600 mt-2">
+									<span>500,000 Kr</span>
+									<span id="budget-value" class="font-medium text-[var(--secondary)]">1,500,000 Kr</span>
+									<span>5,000,000 Kr</span>
+								</div>
+							</div>
+
+							<div>
+								<label for="details" class="block text-sm font-medium text-gray-700 mb-2">
+									Additional Details
+								</label>
+								<textarea
+									id="details"
+									name="details"
+									rows="6"
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200 resize-y"
+									placeholder="Tell us about your travel dreams, special requests, or any questions you have. The more details you provide, the better we can design your perfect Icelandic adventure..."
+								></textarea>
+							</div>
+
+							<div id="form-message" class="hidden p-4 rounded-sm"></div>
+
+							<button
+								type="submit"
+								id="submit-button"
+								class="w-full bg-[var(--secondary)] text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-[#5b7297] transition-all duration-300 transform hover:translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary)] cursor-pointer"
+							>
+								Send My Request
+							</button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				// Observe all elements with animation classes
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Budget slider value update
+			function initBudgetSlider() {
+				const budgetSlider = document.getElementById('budget');
+				const budgetValue = document.getElementById('budget-value');
+
+				if (budgetSlider && budgetValue) {
+					budgetSlider.addEventListener('input', (e) => {
+						const value = parseInt(e.target.value).toLocaleString();
+						budgetValue.textContent = value + ' Kr';
+					});
+				}
+			}
+
+			// Form submission handling
+			function initMultidayForm() {
+				const form = document.getElementById('multiday-tour-form');
+				const submitButton = document.getElementById('submit-button');
+				const formMessage = document.getElementById('form-message');
+
+				if (!form) return;
+
+				form.addEventListener('submit', async (e) => {
+					e.preventDefault();
+
+					// Disable submit button
+					submitButton.disabled = true;
+					submitButton.textContent = 'Sending...';
+
+					// Get form data
+					const formData = new FormData(form);
+					const interests = [];
+					formData.getAll('interests').forEach(interest => interests.push(interest));
+
+					const data = {
+						firstName: formData.get('firstName'),
+						lastName: formData.get('lastName'),
+						email: formData.get('email'),
+						phone: formData.get('phone'),
+						numPeople: formData.get('numPeople'),
+						numChildren: formData.get('numChildren'),
+						childrenAges: formData.get('childrenAges') || 'Not provided',
+						numDays: formData.get('numDays'),
+						travelDates: formData.get('travelDates'),
+						interests: interests.join(', ') || 'Not specified',
+						accommodationType: formData.get('accommodationType'),
+						budget: formData.get('budget'),
+						details: formData.get('details') || 'No additional details provided'
+					};
+
+					// Create form data for PHP endpoint
+					const phpFormData = new URLSearchParams();
+					Object.keys(data).forEach(key => {
+						phpFormData.append(key, data[key]);
+					});
+
+					try {
+						// Try PHP endpoint
+						const response = await fetch('/contact-multiday.php', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded',
+							},
+							body: phpFormData.toString()
+						});
+
+						if (response.ok) {
+							const result = await response.json();
+
+							if (result.success) {
+								// Show success message
+								formMessage.textContent = 'Thank you! Your request has been sent successfully. We\'ll get back to you within 24 hours with a personalized itinerary.';
+								formMessage.className = 'p-4 rounded-sm bg-green-50 text-green-800 border border-green-200';
+								formMessage.classList.remove('hidden');
+
+								// Reset form
+								form.reset();
+								document.getElementById('budget-value').textContent = '1,500,000 Kr';
+
+								// Scroll to message
+								formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+								// Hide message after 8 seconds
+								setTimeout(() => {
+									formMessage.classList.add('hidden');
+								}, 8000);
+							} else {
+								throw new Error(result.error || 'Failed to send request');
+							}
+						} else {
+							throw new Error('Server error');
+						}
+					} catch (error) {
+						// Show error message
+						formMessage.textContent = 'Sorry, there was an error sending your request. Please try again or contact us directly at julien@lilja-tours.com';
+						formMessage.className = 'p-4 rounded-sm bg-red-50 text-red-800 border border-red-200';
+						formMessage.classList.remove('hidden');
+
+						// Scroll to message
+						formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+						console.error('Form submission error:', error);
+					} finally {
+						// Re-enable submit button
+						submitButton.disabled = false;
+						submitButton.textContent = 'Send My Request';
+					}
+				});
+			}
+
+			// Initialize everything when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+				initBudgetSlider();
+				initMultidayForm();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,185 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  day: number;
+  image: string;
+  alt: string;
+}
+
+const { name, description, day, image, alt } = Astro.props;
+---
+
+<div class="flip-card-container">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <!-- Front -->
+      <div class="flip-card-front">
+        <img src={image} alt={alt} class="flip-card-bg-image" />
+        <div class="flip-card-overlay"></div>
+        <div class="flip-card-content">
+          <span class="day-badge">Day {day}</span>
+          <h4 class="activity-name">{name}</h4>
+        </div>
+      </div>
+
+      <!-- Back -->
+      <div class="flip-card-back">
+        <div class="flip-card-content-back">
+          <span class="day-badge-back">Day {day}</span>
+          <h4 class="activity-name-back">{name}</h4>
+          <p class="activity-description">{description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .flip-card-container {
+    perspective: 1000px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+  }
+
+  .flip-card {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .flip-card-container:hover .flip-card {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.125rem;
+    overflow: hidden;
+  }
+
+  .flip-card-front {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .flip-card-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .flip-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+    z-index: 1;
+  }
+
+  .flip-card-content {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    z-index: 2;
+  }
+
+  .day-badge {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.125rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .activity-name {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .flip-card-back {
+    background: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+  }
+
+  .flip-card-content-back {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .day-badge-back {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.125rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .activity-name-back {
+    color: #111827;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.3;
+  }
+
+  .activity-description {
+    color: #374151;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .flip-card-content,
+    .flip-card-content-back {
+      padding: 1rem;
+    }
+
+    .activity-name,
+    .activity-name-back {
+      font-size: 1rem;
+    }
+
+    .activity-description {
+      font-size: 0.8125rem;
+    }
+  }
+</style>

@@ -1,0 +1,580 @@
+---
+import "../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../components/Footer.astro";
+import Topbar from "../../components/Topbar.astro";
+import TourBookingModal from "../../components/TourBookingModal.astro";
+import FloatingBookButton from "../../components/FloatingBookButton.astro";
+import ActivityFlipCard from "../../components/ActivityFlipCard.astro";
+
+export async function getStaticPaths() {
+  const tours = await getCollection('multiday_tours_EN');
+  return tours.map((tour) => ({
+    params: { slug: tour.data.slug || tour.slug },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const { Content } = await tour.render();
+const data = tour.data;
+
+// Group activities by day
+const activitiesByDay = data.activities.reduce((acc, activity) => {
+  if (!acc[activity.day]) {
+    acc[activity.day] = [];
+  }
+  acc[activity.day].push(activity);
+  return acc;
+}, {} as Record<number, typeof data.activities>);
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <meta property="og:title" content={data.pageTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={data.featuredImage} />
+    <meta property="og:url" content={data.canonicalUrl} />
+    <meta property="og:description" content={data.metaDescription} />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{data.pageTitle}</title>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+
+    <style is:inline>
+      /* Scroll Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+      }
+
+      .slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-down {
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-left {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .slide-right {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .bg-fixed {
+          background-attachment: scroll;
+        }
+      }
+
+      /* Book Button Hover Effects */
+      .book-tour-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #5b7297;
+        transform: translateY(-100%);
+        transition: transform 0.8s ease;
+        z-index: -1;
+      }
+
+      .book-tour-cta:hover::before {
+        transform: translateY(0);
+      }
+
+      /* Infinite Gallery Carousel */
+      .gallery-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .gallery-track {
+        display: flex;
+        width: fit-content;
+        gap: 1.5rem;
+        animation: scroll-left 225s linear infinite;
+      }
+
+      .gallery-track-reverse {
+        animation: scroll-right 225s linear infinite;
+      }
+
+      .gallery-track:hover {
+        animation-play-state: paused;
+      }
+
+      .gallery-slide-group {
+        display: flex;
+        gap: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .gallery-item {
+        flex-shrink: 0;
+        width: 375px;
+        height: 375px;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-100% - 1.5rem));
+        }
+      }
+
+      @keyframes scroll-right {
+        0% {
+          transform: translateX(calc(-100% - 1.5rem));
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Responsive Gallery */
+      @media (max-width: 1023px) {
+        .gallery-container {
+          gap: 1rem;
+        }
+
+        .gallery-track {
+          gap: 1rem;
+          animation: scroll-left 50s linear infinite;
+        }
+
+        .gallery-track-reverse {
+          animation: scroll-right 50s linear infinite;
+        }
+
+        .gallery-slide-group {
+          gap: 1rem;
+        }
+
+        .gallery-item {
+          width: 312px;
+          height: 312px;
+        }
+
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-100% - 1rem));
+          }
+        }
+
+        @keyframes scroll-right {
+          0% {
+            transform: translateX(calc(-100% - 1rem));
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      }
+
+      @media (max-width: 767px) {
+        .gallery-item {
+          width: 250px;
+          height: 250px;
+        }
+
+        .gallery-track {
+          animation: scroll-left 100s linear infinite;
+        }
+
+        .gallery-track-reverse {
+          animation: scroll-right 100s linear infinite;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Topbar currentLang={data.language} />
+
+    <!-- Header Section with Background Image -->
+    <header class="relative w-full h-[65dvh] overflow-hidden">
+      {data.headerImage && (
+        <picture class="absolute inset-0 w-full h-full">
+          {data.headerImage.srcMobile && (
+            <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
+          )}
+          <img
+            src={data.headerImage.srcPC}
+            alt={data.headerImage.alt || ''}
+            class="w-full h-full object-cover object-center"
+          />
+        </picture>
+      )}
+
+      <!-- Dark overlay for better text readability-->
+      <div class="absolute inset-0 bg-black/20 z-10"></div>
+
+      <!-- Header content -->
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down">
+            {data.title}
+          </h1>
+          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up">
+            {data.introductoryText}
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <!-- Tour Information Section -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <!-- Tour Details -->
+            <div class="slide-right">
+              <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Tour Details</h2>
+
+              <div class="space-y-6 mb-8">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Duration:</span>
+                  </div>
+                  <span class="text-gray-900">{data.duration}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0zM3 7a2 2 0 012-2h14a2 2 0 012 2v0M8 2v4m8-4v4"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Season:</span>
+                  </div>
+                  <span class="text-gray-900">{data.season}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Max People:</span>
+                  </div>
+                  <span class="text-gray-900">{data.maxPeople}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Difficulty:</span>
+                  </div>
+                  <span class="text-gray-900">{data.difficultyLevel}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Starting from:</span>
+                  </div>
+                  <span class="text-gray-900">{data.price.toLocaleString()} ISK</span>
+                </div>
+              </div>
+
+              <div class="bg-blue-50 border border-blue-200 rounded-sm p-6 mb-6">
+                <p class="text-sm text-blue-800 leading-relaxed mb-4">
+                  <strong>Fully Customizable:</strong> This tour is completely tailored to your preferences. We'll work with you to select accommodations, plan activities, and create the perfect itinerary for your Iceland adventure.
+                </p>
+                <button
+                  data-open-booking-modal
+                  class="book-tour-cta w-full bg-transparent text-[var(--secondary)] border border-[var(--secondary)] px-6 py-3 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:text-white hover:translate-y-0.5 cursor-pointer"
+                >
+                  Book This Tour
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Highlights -->
+            {data.highlights && data.highlights.length > 0 && (
+              <div class="slide-left">
+                <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Highlights</h2>
+                <ul class="space-y-4">
+                  {data.highlights.map((highlight) => (
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-[var(--secondary)] mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-gray-700">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      {data.gallery && data.gallery.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24 overflow-hidden">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Gallery</h2>
+
+            <!-- Infinite Scroll Gallery -->
+            <div class="gallery-container">
+              <!-- Single row infinity scroll -->
+              <div class="gallery-track">
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (
+                          <source media="(max-width: 767px)" srcset={image.srcMobile} />
+                        )}
+                        <img
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Itinerary Section (Day by Day) -->
+      {data.itinerary && data.itinerary.length > 0 && (
+        <section class="fade-in py-16 lg:py-24">
+          <div class="max-w-6xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Daily Itinerary</h2>
+            <div class="space-y-4">
+              {data.itinerary.map((day, index) => (
+                <div class={`visit-accordion slide-${index % 2 === 0 ? 'right' : 'left'} bg-white rounded-sm shadow-lg overflow-hidden`}>
+                  <button
+                    class="accordion-trigger w-full text-left p-6 hover:bg-gray-50 transition-colors duration-200 flex justify-between items-center cursor-pointer"
+                    aria-expanded="false"
+                    data-accordion-target={`day-${day.day}`}
+                  >
+                    <h3 class="text-2xl md:text-3xl font-light tracking-wide text-gray-900">Day {day.day}: {day.title}</h3>
+                    <svg
+                      class="accordion-icon w-6 h-6 text-gray-400 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                  </button>
+                  <div
+                    class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-out"
+                    id={`day-${day.day}`}
+                  >
+                    <div class="p-8 pt-0">
+                      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="lg:order-2">
+                          {day.image && (
+                            <picture class="block aspect-square overflow-hidden rounded-sm">
+                              {day.image.srcMobile && (
+                                <source media="(max-width: 767px)" srcset={day.image.srcMobile} />
+                              )}
+                              <img
+                                src={day.image.srcPC}
+                                alt={day.image.alt || ''}
+                                class="w-full h-full object-cover object-center"
+                              />
+                            </picture>
+                          )}
+                        </div>
+                        <div class="lg:order-1">
+                          <div class="text-gray-700 leading-relaxed text-base lg:text-lg">{day.description}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Activities Section -->
+      {data.activities && data.activities.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Optional activities</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {data.activities.map((activity) => (
+                <ActivityFlipCard
+                  name={activity.name}
+                  description={activity.description}
+                  day={activity.day}
+                  image={activity.image}
+                  alt={activity.alt}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+    </main>
+
+    <Footer currentLang={data.language} />
+
+    <!-- Booking Modal -->
+    <TourBookingModal tourName={data.title} activities={data.activities} />
+
+    <!-- Floating Book Button -->
+    <FloatingBookButton />
+
+    <script>
+      // Intersection Observer for scroll animations
+      function initScrollAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        const animatedElements = document.querySelectorAll(
+          '.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+        );
+
+        animatedElements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+
+      // Accordion functionality
+      function initAccordion() {
+        const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+
+        accordionTriggers.forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            const targetId = trigger.getAttribute('data-accordion-target');
+            const content = document.getElementById(targetId);
+            const icon = trigger.querySelector('.accordion-icon');
+            const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+            // Close all other accordions
+            accordionTriggers.forEach((otherTrigger) => {
+              if (otherTrigger !== trigger) {
+                const otherTargetId = otherTrigger.getAttribute('data-accordion-target');
+                const otherContent = document.getElementById(otherTargetId);
+                const otherIcon = otherTrigger.querySelector('.accordion-icon');
+
+                otherTrigger.setAttribute('aria-expanded', 'false');
+                otherContent.style.maxHeight = '0px';
+                otherIcon.style.transform = 'rotate(0deg)';
+              }
+            });
+
+            // Toggle current accordion
+            if (isExpanded) {
+              trigger.setAttribute('aria-expanded', 'false');
+              content.style.maxHeight = '0px';
+              icon.style.transform = 'rotate(0deg)';
+            } else {
+              trigger.setAttribute('aria-expanded', 'true');
+              content.style.maxHeight = content.scrollHeight + 'px';
+              icon.style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      }
+
+      // Initialize everything when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+        initAccordion();
+      });
+    </script>
+  </body>
+</html>

@@ -4,7 +4,8 @@
       "Bash(npm run dev:*)",
       "WebFetch(domain:www.lilja-tours.com)",
       "WebFetch(domain:www.icelandmoments.com)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []

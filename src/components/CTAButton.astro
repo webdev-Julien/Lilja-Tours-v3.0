@@ -7,10 +7,10 @@ export interface Props {
   class?: string;
 }
 
-const { 
-  text = 'SEND QUOTE REQUEST', 
-  variant = 'default', 
-  href,
+const {
+  text = 'SEND QUOTE REQUEST',
+  variant = 'default',
+  href = '/multiday-tours-iceland/#custom-tour-form',
   onClick,
   class: customClass = ''
 } = Astro.props;

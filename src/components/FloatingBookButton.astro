@@ -1,0 +1,80 @@
+---
+// FloatingBookButton.astro - A floating button that appears when scrolling
+---
+
+<button
+  id="floating-book-button"
+  data-open-booking-modal
+  class="floating-book-btn fixed bottom-8 right-8 bg-[var(--secondary)] text-white px-6 py-3 rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 z-[1000] hover:bg-[#5b7297] hover:shadow-3xl hover:scale-110 flex items-center gap-2 font-medium tracking-wide cursor-pointer"
+  aria-label="Book this tour"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+  </svg>
+  <span>Book Now</span>
+</button>
+
+<style>
+  .floating-book-btn.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  @media (max-width: 640px) {
+    .floating-book-btn {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .floating-book-btn svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+</style>
+
+<script>
+  function initFloatingButton() {
+    const floatingButton = document.getElementById('floating-book-button');
+    const header = document.querySelector('header');
+
+    if (!floatingButton || !header) return;
+
+    let lastScrollY = window.scrollY;
+    const headerHeight = header.offsetHeight;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show button when scrolled past header
+      if (currentScrollY > headerHeight) {
+        floatingButton.classList.add('show');
+      } else {
+        floatingButton.classList.remove('show');
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    // Throttle scroll events
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 10);
+    }, { passive: true });
+
+    // Initial check
+    handleScroll();
+  }
+
+  // Initialize when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFloatingButton);
+  } else {
+    initFloatingButton();
+  }
+</script>

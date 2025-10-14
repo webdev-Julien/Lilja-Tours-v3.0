@@ -1,0 +1,148 @@
+---
+// Props interface for the multiday itinerary card
+export interface Props {
+  image: string;
+  imageAlt: string;
+  title: string;
+  duration: string;
+  description?: string;
+  price?: string;
+  slug?: string;
+  highlights?: string[];
+  difficulty?: 'Easy' | 'Moderate' | 'Challenging';
+  season?: string;
+}
+
+const {
+  image,
+  imageAlt,
+  title,
+  duration,
+  description,
+  price,
+  slug = '#',
+  highlights = [],
+  difficulty,
+  season
+} = Astro.props;
+---
+<article>
+<div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <img
+      src={image}
+      alt={imageAlt}
+      class="w-full h-full object-cover transition-transform duration-700 ease-out brightness-95 group-hover:scale-[1.02] group-hover:brightness-100"
+      loading="lazy"
+    />
+    {duration && (
+      <div class="absolute top-5 right-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15">
+        {duration}
+      </div>
+    )}
+    {difficulty && (
+      <div class="absolute top-5 left-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15" data-difficulty={difficulty.toLowerCase()}>
+        {difficulty}
+      </div>
+    )}
+  </div>
+
+  <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
+    <div class="mb-4 border-b border-gray-50 pb-4">
+      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight">{title}</h3>
+      {season && <span class="text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">{season}</span>}
+    </div>
+
+    {description && (
+      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light">{description}</p>
+    )}
+
+    {highlights.length > 0 && (
+      <div class="mb-8 flex-1">
+        <ul class="list-none p-0 m-0 space-y-1.5">
+          {highlights.slice(0, 3).map(highlight => (
+            <li class="relative pl-3 text-gray-500 text-sm sm:text-base font-light leading-relaxed highlight-item">{highlight}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5">
+      <div class="price-section flex flex-col">
+        {price && (
+          <>
+            <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">From {price} Kr / vehicle</span>
+            <span class="text-xs sm:text-sm font-light text-gray-500 tracking-wide mt-1">Plus accommodation and activities</span>
+          </>
+        )}
+      </div>
+
+      <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Send quote request for ${title}`}>
+        <span class="relative z-10">Send quote request</span>
+        <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+</article>
+<style>
+  /* Highlight item bullet point */
+  .highlight-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 1px;
+    height: 8px;
+    background: #5b7297;
+    opacity: 0.6;
+  }
+
+  /* CTA Button hover effect */
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: 1;
+  }
+
+  .cta-btn:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Mobile responsive adjustments for complex layouts */
+  @media (max-width: 768px) {
+    .group .md\\:flex-row {
+      flex-direction: column;
+    }
+
+    .group .md\\:items-center {
+      align-items: stretch;
+    }
+
+    .group .md\\:gap-5 {
+      gap: 14px;
+    }
+
+    .group .cta-btn {
+      justify-content: center;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      padding: 12px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .group .cta-btn {
+      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+      padding: 14px 22px;
+    }
+  }
+</style>
