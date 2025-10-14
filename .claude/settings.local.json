@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm run dev:*)",
       "WebFetch(domain:www.lilja-tours.com)",
-      "WebFetch(domain:www.icelandmoments.com)"
+      "WebFetch(domain:www.icelandmoments.com)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

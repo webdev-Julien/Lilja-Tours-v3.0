@@ -11,6 +11,9 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
+  site: 'https://www.lilja-tours.com',
+
   vite: {
     plugins: [tailwindcss()]
   },
