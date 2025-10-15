@@ -166,7 +166,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 					playsinline
 					class="video-source absolute inset-0 w-full h-full object-cover hidden lg:block"
 				>
-					<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4">
+					<source src="/videos/HD/multiday-bg.mp4" type="video/mp4">
 					<source src="/videos/HD/tours-bg-hd.webm" type="video/webm">
 				</video>
 
@@ -179,7 +179,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 					playsinline
 					class="video-source absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
 				>
-					<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4">
+					<source src="/videos/MD/multiday-bg.mp4" type="video/mp4">
 					<source src="/videos/MD/tours-bg-medium.webm" type="video/webm">
 				</video>
 
@@ -192,7 +192,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 					playsinline
 					class="video-source absolute inset-0 w-full h-full object-cover block md:hidden"
 				>
-					<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4">
+					<source src="/videos/SD/multiday-bg.mp4" type="video/mp4">
 					<source src="/videos/SD/tours-bg-mobile.webm" type="video/webm">
 				</video>
 
@@ -233,7 +233,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 								price={tour.data.price ? `${tour.data.price}` : "Price on request"}
 								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
 								season={tour.data.season || "Year Round"}
-								slug="#custom-tour-form"
+								slug={tour.slug}
 							/>
 						))}
 					</div>
