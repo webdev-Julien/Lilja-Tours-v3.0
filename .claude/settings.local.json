@@ -6,7 +6,9 @@
       "WebFetch(domain:www.icelandmoments.com)",
       "Bash(cat:*)",
       "Bash(timeout:*)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
