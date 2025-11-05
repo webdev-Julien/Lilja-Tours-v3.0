@@ -5,7 +5,8 @@
       "WebFetch(domain:www.lilja-tours.com)",
       "WebFetch(domain:www.icelandmoments.com)",
       "Bash(cat:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
