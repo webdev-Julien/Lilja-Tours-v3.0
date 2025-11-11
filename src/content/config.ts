@@ -122,7 +122,62 @@ const multidayToursEN = defineCollection({
   })
 });
 
+const partnerExperiencesEN = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    metaDescription: z.string(),
+    pageTitle: z.string(),
+    language: z.string(),
+    urlOtherLang: z.string(),
+    canonicalUrl: z.string(),
+    hreflangAlternates: z.array(z.object({
+      lang: z.string(),
+      url: z.string()
+    })),
+    featuredImage: z.string(),
+    headerImage: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string()
+    }),
+    cardImg: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string(),
+      title: z.string()
+    }),
+    category: z.string(),
+    isExclusive: z.boolean(),
+    season: z.string(),
+    duration: z.string(),
+    location: z.string(),
+    shortDescription: z.string(),
+    introductoryText: z.string(),
+    highlights: z.array(z.string()),
+    provider: z.object({
+      name: z.string(),
+      website: z.string().optional(),
+      description: z.string().optional()
+    }),
+    price: z.number(),
+    maxPeople: z.number(),
+    difficultyLevel: z.string(),
+    bookingLink: z.string(),
+    jsonLD: z.object({}).passthrough(),
+    gallery: z.array(z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string()
+    })),
+    linkFr: z.string(),
+    url: z.string(),
+    slug: z.string().optional()
+  })
+});
+
 export const collections = {
   'tours_EN': toursEN,
   'multiday_tours_EN': multidayToursEN,
+  'partner_experiences_EN': partnerExperiencesEN,
 };

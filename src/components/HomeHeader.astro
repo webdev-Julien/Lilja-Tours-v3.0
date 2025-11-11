@@ -99,36 +99,36 @@ const {
         aria-label={video.alt || `Iceland tour video ${index + 1}`}
       >
         <!-- HD Version for Desktop (1920px+) -->
-        <source 
-          src={video.hd} 
-          type="video/mp4" 
+        <source
+          src={video.hd}
+          type="video/mp4"
           media="(min-width: 1920px)"
           data-quality="hd"
         />
-        
+
         <!-- Medium Version for Laptop/Tablet (768px - 1919px) -->
-        <source 
-          src={video.medium} 
-          type="video/mp4" 
+        <source
+          src={video.medium}
+          type="video/mp4"
           media="(min-width: 768px) and (max-width: 1919px)"
           data-quality="medium"
         />
-        
+
         <!-- Mobile Version for Smartphones (<768px) -->
-        <source 
-          src={video.mobile} 
-          type="video/mp4" 
+        <source
+          src={video.mobile}
+          type="video/mp4"
           media="(max-width: 767px)"
           data-quality="mobile"
         />
-        
+
         <!-- Fallback (will use medium quality as default) -->
-        <source 
-          src={video.medium} 
+        <source
+          src={video.medium}
           type="video/mp4"
           data-quality="fallback"
         />
-        
+
         Your browser does not support the video tag.
       </video>
     ))}
@@ -385,7 +385,7 @@ const {
       }
 
       addVideoSources(video) {
-        // Don't overwrite existing sources - they're already properly configured in HTML
+        // Sources are already properly configured in HTML with media queries
         // Just ensure the video is ready for playback
         if (video.children.length > 0) {
           // Sources already exist, just reload to ensure proper loading

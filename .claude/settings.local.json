@@ -8,7 +8,22 @@
       "Bash(timeout:*)",
       "WebSearch",
       "mcp__ide__getDiagnostics",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(findstr:*)",
+      "Bash(nul)",
+      "WebFetch(domain:widgets.bokun.io)",
+      "WebFetch(domain:iceland-for-you.com)",
+      "Bash(dir:*)",
+      "Bash(move vatnshellir-cave-tour.md vatnshellir-cave-tour.mdx)",
+      "Bash(move:*)",
+      "Bash(ren:*)",
+      "Bash(git clean:*)",
+      "Bash(del \"\\?\\D:\\JULIEN\\09 - WEBSITES\\Lilja Tours v3.0\\nul\")",
+      "Bash(cmd /c \"del /F /Q \"\"\\\\?\\D:\\JULIEN\\09 - WEBSITES\\Lilja Tours v3.0\\nul\"\"\")",
+      "Bash(cmd /c \"rd /S /Q \"\"\\\\?\\D:\\JULIEN\\09 - WEBSITES\\Lilja Tours v3.0\\nul\"\"\")",
+      "Bash(powershell:*)",
+      "Bash(.gitignore)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

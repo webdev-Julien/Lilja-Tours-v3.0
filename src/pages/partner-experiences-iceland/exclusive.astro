@@ -1,0 +1,314 @@
+---
+import "../../../src/styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+// Get all exclusive experiences from the collection
+const allExperiences = await getCollection('partner_experiences_EN');
+const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Discover all our exclusive private experiences in Iceland. Premium adventures curated for discerning travelers seeking unique access to Iceland's most spectacular destinations.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/partner-experiences-iceland/exclusive/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/partner-experiences-iceland/exclusive/" />
+
+		<meta property="og:title" content="Exclusive Experiences in Iceland | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/videos/experiences-bg.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/partner-experiences-iceland/exclusive/">
+		<meta property="og:description" content="Discover all our exclusive private experiences in Iceland. Premium adventures for discerning travelers.">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Exclusive Experiences in Iceland | Lilja Tours</title>
+
+		<style is:inline>
+			/* Animation classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Mobile responsive adjustments */
+			@media (max-width: 768px) {
+				.bg-fixed {
+					background-attachment: scroll;
+				}
+			}
+
+			/* Full-width experience card with background image */
+			.experience-card {
+				position: relative;
+				width: 100%;
+				height: 400px;
+				overflow: hidden;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.experience-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+			}
+
+			.experience-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
+				z-index: 1;
+			}
+
+			.experience-card-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.3s ease;
+			}
+
+			.experience-card:hover .experience-card-bg {
+				transform: scale(1.05);
+			}
+
+			.experience-card-content {
+				position: relative;
+				z-index: 2;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				padding: 2rem;
+				color: white;
+			}
+
+			@media (max-width: 768px) {
+				.experience-card {
+					height: 300px;
+				}
+
+				.experience-card-content {
+					padding: 1.5rem;
+				}
+			}
+
+			/* Discover button (ghost style) */
+			.discover-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.discover-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.discover-button:hover {
+				color: #5b7297;
+			}
+
+			/* Book now button (filled style) */
+			.book-now-button::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				z-index: -2;
+			}
+
+			.book-now-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.book-now-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.book-now-button:hover {
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<Topbar frenchUrl="/fr/experiences-partenaires-islande/exclusive/" currentLang="en" />
+
+		<!-- Header Section -->
+		<header class="relative bg-gray-900 py-32">
+			<div class="max-w-7xl mx-auto px-8 text-center">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white slide-down">
+					Exclusive & Private Experiences
+				</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide max-w-4xl mx-auto slide-up">
+					Indulge in extraordinary private adventures curated for discerning travelers seeking unparalleled access to Iceland's most spectacular destinations and unique experiences.
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<!-- Exclusive Experiences Section -->
+			<section class="fade-in bg-white py-32">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="space-y-6 slide-up">
+						{exclusiveExperiences.map((experience) => (
+							<article class="experience-card-wrapper">
+								<div class="experience-card">
+									<img
+										src={experience.data.cardImg.srcPC}
+										alt={experience.data.cardImg.alt}
+										class="experience-card-bg"
+									/>
+									<div class="experience-card-content">
+										<div class="max-w-3xl">
+											<h3 class="text-3xl md:text-4xl font-light tracking-wide mb-4">{experience.data.title}</h3>
+											<p class="text-base md:text-lg font-light leading-relaxed mb-6 opacity-95">
+												{experience.data.shortDescription}
+											</p>
+											<div class="flex items-center gap-6 mb-6">
+												<span class="flex items-center gap-2">
+													<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+													</svg>
+													{experience.data.duration}
+												</span>
+												<span class="flex items-center gap-2">
+													<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+													</svg>
+													{experience.data.location}
+												</span>
+												<span class="text-xl font-light">From {experience.data.price.toLocaleString()} ISK</span>
+											</div>
+											<div class="flex items-center gap-4">
+												<a
+													href={experience.data.url}
+													class="discover-button inline-flex items-center gap-2 py-3 px-6 bg-transparent text-white border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+												>
+													Discover
+													<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+													</svg>
+												</a>
+												<a
+													href={experience.data.bookingLink}
+													class="book-now-button inline-flex items-center gap-2 py-3 px-6 bg-transparent text-[#5b7297] border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+												>
+													Book Now
+													<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+													</svg>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						))}
+					</div>
+
+					<!-- Back button -->
+					<div class="text-center mt-16">
+						<a
+							href="/partner-experiences-iceland/"
+							class="inline-flex items-center gap-2 py-3 px-8 bg-transparent text-[var(--secondary)] border border-[var(--secondary)] rounded-sm font-medium tracking-wide transition-all duration-300 hover:bg-[var(--secondary)] hover:text-white"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+							</svg>
+							Back to All Experiences
+						</a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Initialize everything when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>

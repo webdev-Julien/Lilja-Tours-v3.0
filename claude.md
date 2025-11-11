@@ -33,6 +33,7 @@ Every page MUST have the primary keyword in:
 - Include relevant keywords organically without keyword stuffing
 - Focus on benefits and unique selling points
 - Each page needs completely unique content - no copy-pasting between pages
+- For the partners-experiences-iceland collection: Use pictures from /pictures/excursions/, and only the .webp. Do not use .avif. If you do not find a picture, use placeholder.
 
 ## JSON-LD Structured Data (CRITICAL)
 
