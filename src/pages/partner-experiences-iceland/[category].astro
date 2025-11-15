@@ -78,6 +78,32 @@ const categorySlug = Astro.params.category;
 				transform: translateY(0);
 			}
 
+			/* Header background styles */
+			.header-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 0;
+			}
+
+			.header-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.header-content {
+				position: relative;
+				z-index: 2;
+			}
+
 			/* Experience cards */
 			.experience-grid {
 				display: grid;
@@ -194,8 +220,19 @@ const categorySlug = Astro.params.category;
 		<Topbar currentLang="en" />
 
 		<!-- Header Section -->
-		<header class="relative bg-gray-900 py-32">
-			<div class="max-w-7xl mx-auto px-8 text-center">
+		<header class="relative py-32 overflow-hidden">
+			<!-- Background Image -->
+			<img
+				src={`/pictures/experiences/${categorySlug}.webp`}
+				alt={`${categoryName} in Iceland`}
+				class="header-bg"
+			/>
+
+			<!-- Overlay -->
+			<div class="header-overlay"></div>
+
+			<!-- Content -->
+			<div class="header-content max-w-7xl mx-auto px-8 text-center">
 				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white slide-up">
 					{categoryName}
 				</h1>

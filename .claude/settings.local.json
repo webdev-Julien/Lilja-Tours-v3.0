@@ -23,7 +23,8 @@
       "Bash(cmd /c \"rd /S /Q \"\"\\\\?\\D:\\JULIEN\\09 - WEBSITES\\Lilja Tours v3.0\\nul\"\"\")",
       "Bash(powershell:*)",
       "Bash(.gitignore)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
