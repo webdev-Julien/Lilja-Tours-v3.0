@@ -34,6 +34,8 @@ Every page MUST have the primary keyword in:
 - Focus on benefits and unique selling points
 - Each page needs completely unique content - no copy-pasting between pages
 - For the partners-experiences-iceland collection: Use pictures from /pictures/excursions/, and only the .webp. Do not use .avif. If you do not find a picture, use placeholder.
+- For blog articles, adapt the style to something concise and efficient. Do not overuse meliorative adjectives.
+- For blog articles, include links towards other pages, either partner-experiences or day-tours or multiday tours or other blog articles.
 
 ## JSON-LD Structured Data (CRITICAL)
 
