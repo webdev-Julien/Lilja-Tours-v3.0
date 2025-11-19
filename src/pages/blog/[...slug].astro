@@ -1,0 +1,329 @@
+---
+import "../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../components/Footer.astro";
+import Topbar from "../../components/Topbar.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection('blog_articles_EN');
+  return articles.map((article) => ({
+    params: { slug: article.data.slug || article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+const data = article.data;
+
+// Format date
+const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <meta property="og:title" content={data.pageTitle} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={data.featuredImage} />
+    <meta property="og:url" content={data.canonicalUrl} />
+    <meta property="og:description" content={data.metaDescription} />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{data.pageTitle}</title>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+
+    <style is:inline>
+      /* Scroll Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+      }
+
+      .slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-down {
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .bg-fixed {
+          background-attachment: scroll;
+        }
+      }
+
+      /* Blog content styling */
+      .blog-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #374151;
+      }
+
+      .blog-content h1 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #5b7297;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .blog-content h2 {
+        font-size: 2rem;
+        font-weight: 300;
+        color: #5b7297;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.3;
+      }
+
+      .blog-content h3 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #5b7297;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+
+      .blog-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-content strong {
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .blog-content a {
+        color: #5b7297;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+      }
+
+      .blog-content a:hover {
+        color: #4a5d7d;
+      }
+
+      .blog-content ul, .blog-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+      }
+
+      .blog-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .blog-content blockquote {
+        border-left: 4px solid #5b7297;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+
+      .blog-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+        margin: 2rem 0;
+      }
+
+      .blog-content code {
+        background-color: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-size: 0.9em;
+        font-family: 'Courier New', monospace;
+      }
+
+      .blog-content pre {
+        background-color: #1f2937;
+        color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        margin: 2rem 0;
+      }
+
+      .blog-content pre code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+      }
+
+      @media (max-width: 768px) {
+        .blog-content {
+          font-size: 1rem;
+        }
+
+        .blog-content h1 {
+          font-size: 2rem;
+        }
+
+        .blog-content h2 {
+          font-size: 1.75rem;
+        }
+
+        .blog-content h3 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Topbar frenchUrl="#" currentLang="en" />
+
+    <!-- Hero Header -->
+    <header class="relative h-[60dvh] min-h-[500px] flex items-center justify-center overflow-hidden mt-[80px]">
+      <picture class="absolute inset-0 w-full h-full">
+        {data.cardImg.srcMobile && (
+          <source media="(max-width: 767px)" srcset={data.cardImg.srcMobile} />
+        )}
+        <img
+          src={data.cardImg.srcPC}
+          alt={data.cardImg.alt || ''}
+          class="w-full h-full object-cover object-center"
+        />
+      </picture>
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+      <!-- Header content -->
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <div class="flex items-center justify-center gap-3 mb-6 slide-down flex-wrap">
+            {data.categories.map(category => (
+              <a
+                href={`/blog/${category.toLowerCase()}/`}
+                class="text-sm font-light tracking-wider uppercase bg-white/20 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/30 hover:bg-white/30 transition-colors duration-200 no-underline text-white"
+              >
+                {category}
+              </a>
+            ))}
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down">
+            {data.title}
+          </h1>
+          <div class="flex items-center justify-center gap-6 text-sm md:text-base font-light tracking-wide opacity-90 slide-up flex-wrap">
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              {data.author}
+            </span>
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              {formattedDate}
+            </span>
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              {data.readingTime}
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <!-- Article Content Section -->
+      <article class="fade-in py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="blog-content prose prose-lg max-w-none">
+            <Content />
+          </div>
+        </div>
+      </article>
+
+      <!-- Related Articles / CTA Section -->
+      <section class="bg-gray-50 py-16 slide-up">
+        <div class="max-w-4xl mx-auto px-8 text-center">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-6 text-[#5b7297]">Plan Your Iceland Adventure</h2>
+          <p class="text-lg text-gray-600 font-light mb-8 max-w-2xl mx-auto">
+            Ready to experience Iceland for yourself? Explore our private tours and multiday adventures.
+          </p>
+          <div class="flex gap-4 justify-center flex-wrap">
+            <a href="/private-day-tours-iceland/" class="inline-flex items-center gap-2 px-6 py-3 bg-[#5b7297] text-white no-underline rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#4a5d7d] tracking-wide uppercase">
+              Day Tours
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="/multiday-tours-iceland/" class="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#5b7297] hover:text-white tracking-wide uppercase">
+              Multiday Tours
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <!-- Scroll Animation Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in, .slide-up, .slide-down').forEach(el => {
+          observer.observe(el);
+        });
+      });
+    </script>
+  </body>
+</html>

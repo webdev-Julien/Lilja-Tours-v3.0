@@ -176,8 +176,39 @@ const partnerExperiencesEN = defineCollection({
   })
 });
 
+const blogArticlesEN = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    metaDescription: z.string(),
+    pageTitle: z.string(),
+    language: z.string(),
+    urlOtherLang: z.string().optional(),
+    canonicalUrl: z.string(),
+    hreflangAlternates: z.array(z.object({
+      lang: z.string(),
+      url: z.string()
+    })).optional(),
+    author: z.string(),
+    publishDate: z.string(),
+    categories: z.array(z.enum(['Itineraries', 'Tops', 'Info', 'Photographies', 'Hotels', 'Excursions', 'Tours', 'News'])),
+    featuredImage: z.string(),
+    cardImg: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string(),
+      title: z.string()
+    }),
+    readingTime: z.string(),
+    excerpt: z.string(),
+    jsonLD: z.object({}).passthrough(),
+    slug: z.string().optional()
+  })
+});
+
 export const collections = {
   'tours_EN': toursEN,
   'multiday_tours_EN': multidayToursEN,
   'partner_experiences_EN': partnerExperiencesEN,
+  'blog_articles_EN': blogArticlesEN,
 };

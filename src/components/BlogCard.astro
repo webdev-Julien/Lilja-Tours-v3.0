@@ -1,0 +1,117 @@
+---
+// Props interface for the blog card
+export interface Props {
+  image: string;
+  imageAlt: string;
+  title: string;
+  excerpt: string;
+  publishDate: string;
+  readingTime: string;
+  categories: string[];
+  slug?: string;
+  author?: string;
+}
+
+const {
+  image,
+  imageAlt,
+  title,
+  excerpt,
+  publishDate,
+  readingTime,
+  categories,
+  slug = '#',
+  author = 'Lilja Tours'
+} = Astro.props;
+
+// Format date
+const formattedDate = new Date(publishDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+<article>
+<div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
+  <div class="relative aspect-[16/9] overflow-hidden">
+    <img
+      src={image}
+      alt={imageAlt}
+      class="w-full h-full object-cover transition-transform duration-700 ease-out brightness-95 group-hover:scale-[1.02] group-hover:brightness-100"
+      loading="lazy"
+    />
+    <div class="absolute top-5 right-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15">
+      {readingTime}
+    </div>
+  </div>
+
+  <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
+    <div class="mb-4 border-b border-gray-50 pb-4">
+      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-3 tracking-tight">{title}</h3>
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <span class="text-xs sm:text-sm font-normal text-gray-400 tracking-wide">{formattedDate}</span>
+        {categories && categories.length > 0 && (
+          <div class="flex gap-1.5 flex-wrap">
+            {categories.slice(0, 2).map(category => (
+              <a
+                href={`/blog/${category.toLowerCase()}/`}
+                class="text-xs font-normal text-[#5b7297] bg-[#5b7297]/5 px-2 py-0.5 rounded-sm tracking-wide hover:bg-[#5b7297]/10 transition-colors duration-200 no-underline"
+              >
+                {category}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light flex-1">{excerpt}</p>
+
+    <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50">
+      <span class="text-xs sm:text-sm font-light text-gray-400 tracking-wide">By {author}</span>
+
+      <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Read article: ${title}`}>
+        <span class="relative z-10">Read More</span>
+        <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+</article>
+<style>
+  /* CTA Button hover effect */
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: 1;
+  }
+
+  .cta-btn:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .cta-btn {
+      justify-content: center;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      padding: 12px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta-btn {
+      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+      padding: 14px 22px;
+    }
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+import "../../../src/styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import BlogCard from "../../components/BlogCard.astro"
+import Footer from "../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	// Define all blog categories (matching the schema enum)
+	const categories = [
+		{ name: 'Itineraries', slug: 'itineraries' },
+		{ name: 'Tops', slug: 'tops' },
+		{ name: 'Info', slug: 'info' },
+		{ name: 'Photographies', slug: 'photographies' },
+		{ name: 'Hotels', slug: 'hotels' },
+		{ name: 'Excursions', slug: 'excursions' },
+		{ name: 'Tours', slug: 'tours' },
+		{ name: 'News', slug: 'news' }
+	];
+
+	const allArticles = await getCollection('blog_articles_EN');
+
+	return categories.map((cat) => {
+		// Filter articles by category - articles can have multiple categories
+		const categoryArticles = allArticles.filter(article =>
+			article.data.categories.some(category =>
+				category.toLowerCase() === cat.name.toLowerCase()
+			)
+		);
+
+		// Sort articles by publish date (newest first)
+		const sortedArticles = categoryArticles.sort((a, b) =>
+			new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+		);
+
+		return {
+			params: { category: cat.slug },
+			props: {
+				categoryName: cat.name,
+				articles: sortedArticles
+			}
+		};
+	});
+}
+
+const { categoryName, articles } = Astro.props;
+const categorySlug = Astro.params.category;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={`Explore our ${categoryName} articles about Iceland. Travel tips, guides, and stories to help you plan the perfect Iceland adventure.`}>
+		<link rel="canonical" href={`https://www.lilja-tours.com/blog/${categorySlug}/`} />
+
+		<meta property="og:title" content={`${categoryName} - Iceland Travel Blog | Lilja Tours`}>
+		<meta property="og:type" content="website">
+		<meta property="og:url" content={`https://www.lilja-tours.com/blog/${categorySlug}/`}>
+		<meta property="og:description" content={`Explore our ${categoryName} articles about Iceland. Travel tips, guides, and stories to help you plan the perfect Iceland adventure.`}>
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>{categoryName} - Iceland Travel Blog | Lilja Tours</title>
+
+		<style is:inline>
+			/* Animation classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Blog grid */
+			.blog-grid {
+				display: grid;
+				align-items: stretch;
+			}
+
+			.blog-grid > * {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.blog-grid article > div {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			/* Back button hover effect */
+			.back-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.back-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.back-button:hover {
+				color: #5b7297;
+			}
+		</style>
+	</head>
+	<body>
+		<Topbar currentLang="en" frenchUrl="#" />
+
+		<!-- Header Section -->
+		<header class="relative py-32 bg-gradient-to-br from-[#5b7297] to-[#4a5d7d] overflow-hidden mt-[80px]">
+			<div class="max-w-7xl mx-auto px-8 text-center relative z-10">
+				<div class="slide-down mb-6">
+					<a
+						href="/blog/"
+						class="back-button inline-flex items-center gap-2 px-5 py-2.5 bg-transparent text-white border border-white rounded-sm font-light text-sm tracking-wide uppercase relative overflow-hidden hover:text-[#5b7297] transition-colors duration-300"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+						</svg>
+						Back to All Articles
+					</a>
+				</div>
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white slide-down">
+					{categoryName}
+				</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide max-w-4xl mx-auto slide-up">
+					{articles.length} {articles.length === 1 ? 'article' : 'articles'} in this category
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<!-- Articles Section -->
+			<section class="bg-gray-50 py-28 px-6">
+				<div class="max-w-7xl mx-auto">
+					{articles.length > 0 ? (
+						<div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center fade-in">
+							{articles.map((article) => (
+								<BlogCard
+									image={article.data.cardImg.srcPC}
+									imageAlt={article.data.cardImg.alt}
+									title={article.data.title}
+									excerpt={article.data.excerpt}
+									publishDate={article.data.publishDate}
+									readingTime={article.data.readingTime}
+									categories={article.data.categories}
+									slug={`/blog/${article.data.slug || article.slug}`}
+									author={article.data.author}
+								/>
+							))}
+						</div>
+					) : (
+						<div class="text-center py-16 fade-in">
+							<p class="text-xl text-gray-600 mb-8 font-light">
+								No articles available in this category yet. Please check back soon!
+							</p>
+							<a
+								href="/blog/"
+								class="inline-flex items-center gap-2 px-6 py-3 bg-[#5b7297] text-white no-underline rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#4a5d7d] tracking-wide uppercase"
+							>
+								Browse All Articles
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+						</div>
+					)}
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+		</script>
+	</body>
+</html>

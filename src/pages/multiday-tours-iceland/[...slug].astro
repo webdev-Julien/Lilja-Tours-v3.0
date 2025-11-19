@@ -467,7 +467,7 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
                           )}
                         </div>
                         <div class="lg:order-1">
-                          <div class="text-gray-700 leading-relaxed text-base lg:text-lg">{day.description}</div>
+                          <div class="text-gray-700 leading-relaxed text-base lg:text-lg" set:html={day.description}></div>
                         </div>
                       </div>
                     </div>
