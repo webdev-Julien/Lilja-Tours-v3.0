@@ -56,6 +56,16 @@ const categorySlug = Astro.params.category;
 		<meta name="generator" content={Astro.generator} />
 		<title>{categoryName} in Iceland | Lilja Tours</title>
 
+		<\!-- Google tag (gtag.js) -->
+		<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script type="text/partytown">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+
 		<style is:inline>
 			/* Animation classes */
 			.fade-in {

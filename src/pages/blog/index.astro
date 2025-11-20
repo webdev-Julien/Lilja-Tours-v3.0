@@ -36,6 +36,16 @@ const sortedArticles = allArticles.sort((a, b) =>
 		<meta name="generator" content={Astro.generator} />
 		<title>Iceland Travel Blog - Tips, Guides & Stories | Lilja Tours</title>
 
+		<\!-- Google tag (gtag.js) -->
+		<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script type="text/partytown">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+
 		<style is:inline>
 			/* Minimal CSS for features not available in Tailwind */
 			.fade-in {

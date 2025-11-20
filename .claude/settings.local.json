@@ -25,7 +25,8 @@
       "Bash(.gitignore)",
       "Bash(git add:*)",
       "Bash(git checkout:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

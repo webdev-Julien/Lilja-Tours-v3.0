@@ -50,6 +50,16 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
     <meta name="generator" content={Astro.generator} />
     <title>{data.pageTitle}</title>
 
+		<\!-- Google tag (gtag.js) -->
+		<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script type="text/partytown">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+
     <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
 
     <style is:inline>
