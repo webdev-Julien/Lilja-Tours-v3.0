@@ -54,6 +54,16 @@ Requirements:
 - Project language: English (owner is French, website targets international travelers)
 - Target audience: Travelers interested in private, customized Iceland tours
 - Geographic focus: Iceland tourism
+- Each time a new page is created, Google Analytics tag must be added:
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-48C94854K2');
+  </script>
 
 ## When Writing Content
 
