@@ -1,0 +1,116 @@
+/* Minimal CSS for features not available in Tailwind */
+.fade-in {
+	opacity: 0;
+	transition: opacity 0.8s ease-out;
+}
+
+.fade-in.visible {
+	opacity: 1;
+}
+
+.slide-up {
+	opacity: 0;
+	transform: translateY(50px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-up.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.slide-down {
+	opacity: 0;
+	transform: translateY(-50px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-down.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Mobile responsive adjustments for complex layout behaviors */
+@media (max-width: 768px) {
+	.bg-fixed {
+		background-attachment: scroll;
+	}
+}
+
+/* Video header styles */
+.video-header {
+	position: relative;
+	overflow: hidden;
+}
+
+.video-header video {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	transform: translate(-50%, -50%);
+	object-fit: cover;
+	z-index: -1;
+}
+
+.video-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 1;
+}
+
+.video-content {
+	position: relative;
+	z-index: 2;
+}
+
+/* Contact CTA Button hover effect */
+.contact-cta-button::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #5b7297;
+	transform: translateY(-100%);
+	transition: transform 0.8s ease;
+	z-index: -1;
+}
+
+.contact-cta-button:hover::before {
+	transform: translateY(0);
+}
+
+/* Ensure all tour cards have equal height and aligned content */
+.tours-grid {
+	display: grid;
+	align-items: stretch;
+}
+
+.tours-grid > * {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.tours-grid article > div {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Target the highlights section to expand and push buttons down */
+.tours-grid .mb-8.flex-1 {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}

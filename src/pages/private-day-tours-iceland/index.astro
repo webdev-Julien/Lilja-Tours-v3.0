@@ -33,167 +33,41 @@ const allTours = await getCollection('tours_EN');
 		<meta name="generator" content={Astro.generator} />
 		<title>Private Day Tours in Iceland - All Tours | Lilja Tours</title>
 
-		<style is:inline>
-			/* Minimal CSS for features not available in Tailwind */
-			.fade-in {
-				opacity: 0;
-				transition: opacity 0.8s ease-out;
-			}
+		<!-- Resource Preloading for Performance -->
+		<link rel="preload" href="/logos/topbar-logo.webp" as="image" fetchpriority="high">
+		<link rel="preload" href="/videos/tours-bg.webp" as="image">
+		<link rel="preconnect" href="https://www.googletagmanager.com">
+		<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-			.fade-in.visible {
-				opacity: 1;
-			}
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
 
-			.slide-up {
-				opacity: 0;
-				transform: translateY(50px);
-				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-			}
 
-			.slide-up.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
-
-			.slide-down {
-				opacity: 0;
-				transform: translateY(-50px);
-				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-			}
-
-			.slide-down.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
-
-			/* Mobile responsive adjustments for complex layout behaviors */
-			@media (max-width: 768px) {
-				.bg-fixed {
-					background-attachment: scroll;
-				}
-			}
-
-			/* Video header styles */
-			.video-header {
-				position: relative;
-				overflow: hidden;
-			}
-
-			.video-header video {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				min-width: 100%;
-				min-height: 100%;
-				width: auto;
-				height: auto;
-				transform: translate(-50%, -50%);
-				object-fit: cover;
-				z-index: -1;
-			}
-
-			.video-overlay {
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: rgba(0, 0, 0, 0.4);
-				z-index: 1;
-			}
-
-			.video-content {
-				position: relative;
-				z-index: 2;
-			}
-
-			/* Contact CTA Button hover effect */
-			.contact-cta-button::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: #5b7297;
-				transform: translateY(-100%);
-				transition: transform 0.8s ease;
-				z-index: -1;
-			}
-
-			.contact-cta-button:hover::before {
-				transform: translateY(0);
-			}
-
-			/* Ensure all tour cards have equal height and aligned content */
-			.tours-grid {
-				display: grid;
-				align-items: stretch;
-			}
-
-			.tours-grid > * {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-			}
-
-			.tours-grid article > div {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-			}
-
-			/* Target the highlights section to expand and push buttons down */
-			.tours-grid .mb-8.flex-1 {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-start;
-			}
-		</style>
+		<link rel="stylesheet" href="/src/styles/private-day-tours.css">
 	</head>
 	<body>
 
 			<!-- Video Header Section -->
 			<header class="video-header h-[75dvh] flex items-center justify-center relative">
 						<Topbar frenchUrl="/fr/circuits-prives-islande/" currentLang="en" />
-				<!-- Desktop HD Video (1024px and above) -->
+<!-- Video Background - Loaded dynamically based on screen size -->
 				<video
-					id="video-desktop"
+					id="hero-video"
 					autoplay
 					muted
 					loop
 					playsinline
-					class="video-source absolute inset-0 w-full h-full object-cover hidden lg:block"
+					preload="none"
+					poster="/videos/tours-bg.webp"
+					aria-label="Iceland landscape background video"
+					class="video-source absolute inset-0 w-full h-full object-cover"
 				>
-					<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4">
-					<source src="/videos/HD/tours-bg-hd.webm" type="video/webm">
-				</video>
-
-				<!-- Tablet Medium Video (768px to 1023px) -->
-				<video
-					id="video-tablet"
-					autoplay
-					muted
-					loop
-					playsinline
-					class="video-source absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
-				>
-					<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4">
-					<source src="/videos/MD/tours-bg-medium.webm" type="video/webm">
-				</video>
-
-				<!-- Mobile Vertical Video (0px to 767px) -->
-				<video
-					id="video-mobile"
-					autoplay
-					muted
-					loop
-					playsinline
-					class="video-source absolute inset-0 w-full h-full object-cover block md:hidden"
-				>
-					<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4">
-					<source src="/videos/SD/tours-bg-mobile.webm" type="video/webm">
 				</video>
 
 				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down mt-[70px]">
@@ -243,51 +117,6 @@ const allTours = await getCollection('tours_EN');
 
 		<Footer currentLang="en" />
 
-		<script>
-			// Intersection Observer for scroll animations
-			function initScrollAnimations() {
-				// Mobile-friendly observer settings
-				const isMobile = window.innerWidth < 768;
-				const observerOptions = {
-					threshold: isMobile ? 0.05 : 0.1,
-					rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -50px 0px'
-				};
-
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('visible');
-						}
-					});
-				}, observerOptions);
-
-				// Observe all elements with animation classes
-				const animatedElements = document.querySelectorAll(
-					'.fade-in, .slide-up, .slide-down'
-				);
-
-				animatedElements.forEach((element) => {
-					// Check if element is already in viewport on load
-					const rect = element.getBoundingClientRect();
-					const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-					if (isInViewport) {
-						// Element is already visible, add class immediately
-						element.classList.add('visible');
-					} else {
-						// Element not in viewport, observe it
-						observer.observe(element);
-					}
-				});
-			}
-
-			// Initialize animations when DOM is loaded
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', initScrollAnimations);
-			} else {
-				// DOM already loaded
-				initScrollAnimations();
-			}
-		</script>
+		<script src="/js/private-day-tours.js" defer></script>
 	</body>
 </html>
