@@ -22,6 +22,11 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric'
 });
+
+// Helper function to convert category name to URL slug
+function categoryToSlug(category: string): string {
+  return category.toLowerCase().replace(/\s+/g, '-');
+}
 ---
 
 <html lang={data.language}>
@@ -170,10 +175,14 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
       }
 
       .blog-content img {
-        max-width: 100%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
         height: auto;
         border-radius: 0.375rem;
-        margin: 2rem 0;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
       }
 
       .blog-content code {
@@ -223,14 +232,14 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
     <Topbar frenchUrl="#" currentLang="en" />
 
     <!-- Hero Header -->
-    <header class="relative h-[60dvh] min-h-[500px] flex items-center justify-center overflow-hidden mt-[80px]">
+    <header class="relative h-[60dvh] min-h-[500px] flex items-center justify-center overflow-hidden">
       <picture class="absolute inset-0 w-full h-full">
-        {data.cardImg.srcMobile && (
-          <source media="(max-width: 767px)" srcset={data.cardImg.srcMobile} />
+        {data.headerImage.srcMobile && (
+          <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
         )}
         <img
-          src={data.cardImg.srcPC}
-          alt={data.cardImg.alt || ''}
+          src={data.headerImage.srcPC}
+          alt={data.headerImage.alt || ''}
           class="w-full h-full object-cover object-center"
         />
       </picture>
@@ -239,12 +248,12 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
       <div class="absolute inset-0 bg-black/40 z-10"></div>
 
       <!-- Header content -->
-      <div class="relative z-20 h-full flex items-center justify-center">
+      <div class="relative z-20 h-full flex items-center justify-center pt-[80px]">
         <div class="max-w-4xl mx-auto px-8 text-center text-white">
           <div class="flex items-center justify-center gap-3 mb-6 slide-down flex-wrap">
             {data.categories.map(category => (
               <a
-                href={`/blog/${category.toLowerCase()}/`}
+                href={`/blog/${categoryToSlug(category)}/`}
                 class="text-sm font-light tracking-wider uppercase bg-white/20 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/30 hover:bg-white/30 transition-colors duration-200 no-underline text-white"
               >
                 {category}

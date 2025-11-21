@@ -1,7 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from "astro:content";
 
 const toursEN = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     metaDescription: z.string(),
@@ -9,36 +9,40 @@ const toursEN = defineCollection({
     language: z.string(),
     urlOtherLang: z.string(),
     canonicalUrl: z.string(),
-    hreflangAlternates: z.array(z.object({
-      lang: z.string(),
-      url: z.string()
-    })),
+    hreflangAlternates: z.array(
+      z.object({
+        lang: z.string(),
+        url: z.string(),
+      })
+    ),
     featuredImage: z.string(),
     headerImage: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
-      alt: z.string()
+      alt: z.string(),
     }),
     cardImg: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
       alt: z.string(),
-      title: z.string()
+      title: z.string(),
     }),
     season: z.string(),
     duration: z.string(),
     cardSentence: z.string(),
     introductoryText: z.string(),
     highlights: z.array(z.string()),
-    visits: z.array(z.object({
-      name: z.string(),
-      description: z.string(),
-      image: z.object({
-        srcPC: z.string(),
-        srcMobile: z.string(),
-        alt: z.string()
+    visits: z.array(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        image: z.object({
+          srcPC: z.string(),
+          srcMobile: z.string(),
+          alt: z.string(),
+        }),
       })
-    })),
+    ),
     priceMercedes: z.number().optional(),
     priceLandCruiser: z.number().optional(),
     maxPeople: z.number(),
@@ -47,20 +51,22 @@ const toursEN = defineCollection({
     bookingLinkLandCruiser: z.string().optional(),
     bookingLinkMeetOnLocation: z.string().optional(),
     jsonLD: z.object({}).passthrough(),
-    gallery: z.array(z.object({
-      srcPC: z.string(),
-      srcMobile: z.string(),
-      alt: z.string()
-    })),
+    gallery: z.array(
+      z.object({
+        srcPC: z.string(),
+        srcMobile: z.string(),
+        alt: z.string(),
+      })
+    ),
     price: z.number(),
     linkFr: z.string(),
     url: z.string(),
-    slug: z.string().optional()
-  })
+    slug: z.string().optional(),
+  }),
 });
 
 const multidayToursEN = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     metaDescription: z.string(),
@@ -68,62 +74,70 @@ const multidayToursEN = defineCollection({
     language: z.string(),
     urlOtherLang: z.string(),
     canonicalUrl: z.string(),
-    hreflangAlternates: z.array(z.object({
-      lang: z.string(),
-      url: z.string()
-    })),
+    hreflangAlternates: z.array(
+      z.object({
+        lang: z.string(),
+        url: z.string(),
+      })
+    ),
     featuredImage: z.string(),
     headerImage: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
-      alt: z.string()
+      alt: z.string(),
     }),
     cardImg: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
       alt: z.string(),
-      title: z.string()
+      title: z.string(),
     }),
     season: z.string(),
     duration: z.string(),
     cardSentence: z.string(),
     introductoryText: z.string(),
     highlights: z.array(z.string()),
-    itinerary: z.array(z.object({
-      day: z.number(),
-      title: z.string(),
-      description: z.string(),
-      image: z.object({
-        srcPC: z.string(),
-        srcMobile: z.string(),
-        alt: z.string()
+    itinerary: z.array(
+      z.object({
+        day: z.number(),
+        title: z.string(),
+        description: z.string(),
+        image: z.object({
+          srcPC: z.string(),
+          srcMobile: z.string(),
+          alt: z.string(),
+        }),
       })
-    })),
-    activities: z.array(z.object({
-      name: z.string(),
-      description: z.string(),
-      day: z.number(),
-      image: z.string(),
-      alt: z.string()
-    })),
+    ),
+    activities: z.array(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        day: z.number(),
+        image: z.string(),
+        alt: z.string(),
+      })
+    ),
     pricePerDay: z.number(),
     maxPeople: z.number(),
     difficultyLevel: z.string(),
     jsonLD: z.object({}).passthrough(),
-    gallery: z.array(z.object({
-      srcPC: z.string(),
-      srcMobile: z.string(),
-      alt: z.string()
-    })),
+    gallery: z.array(
+      z.object({
+        srcPC: z.string(),
+        srcMobile: z.string(),
+        alt: z.string(),
+      })
+    ),
     price: z.number(),
     linkFr: z.string(),
     url: z.string(),
-    slug: z.string().optional()
-  })
+    slug: z.string().optional(),
+  }),
 });
 
 const partnerExperiencesEN = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     metaDescription: z.string(),
@@ -131,21 +145,23 @@ const partnerExperiencesEN = defineCollection({
     language: z.string(),
     urlOtherLang: z.string(),
     canonicalUrl: z.string(),
-    hreflangAlternates: z.array(z.object({
-      lang: z.string(),
-      url: z.string()
-    })),
+    hreflangAlternates: z.array(
+      z.object({
+        lang: z.string(),
+        url: z.string(),
+      })
+    ),
     featuredImage: z.string(),
     headerImage: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
-      alt: z.string()
+      alt: z.string(),
     }),
     cardImg: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
       alt: z.string(),
-      title: z.string()
+      title: z.string(),
     }),
     category: z.string(),
     isExclusive: z.boolean(),
@@ -158,26 +174,28 @@ const partnerExperiencesEN = defineCollection({
     provider: z.object({
       name: z.string(),
       website: z.string().optional(),
-      description: z.string().optional()
+      description: z.string().optional(),
     }),
     price: z.number(),
     maxPeople: z.number(),
     difficultyLevel: z.string(),
     bookingLink: z.string(),
     jsonLD: z.object({}).passthrough(),
-    gallery: z.array(z.object({
-      srcPC: z.string(),
-      srcMobile: z.string(),
-      alt: z.string()
-    })),
+    gallery: z.array(
+      z.object({
+        srcPC: z.string(),
+        srcMobile: z.string(),
+        alt: z.string(),
+      })
+    ),
     linkFr: z.string(),
     url: z.string(),
-    slug: z.string().optional()
-  })
+    slug: z.string().optional(),
+  }),
 });
 
 const blogArticlesEN = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     metaDescription: z.string(),
@@ -185,30 +203,51 @@ const blogArticlesEN = defineCollection({
     language: z.string(),
     urlOtherLang: z.string().optional(),
     canonicalUrl: z.string(),
-    hreflangAlternates: z.array(z.object({
-      lang: z.string(),
-      url: z.string()
-    })).optional(),
+    hreflangAlternates: z
+      .array(
+        z.object({
+          lang: z.string(),
+          url: z.string(),
+        })
+      )
+      .optional(),
     author: z.string(),
     publishDate: z.string(),
-    categories: z.array(z.enum(['Itineraries', 'Tops', 'Info', 'Photographies', 'Hotels', 'Excursions', 'Tours', 'News', 'Travel Guides'])),
+    categories: z.array(
+      z.enum([
+        "Itineraries",
+        "Tops",
+        "Info",
+        "Photographies",
+        "Hotels",
+        "Excursions",
+        "Tours",
+        "News",
+        "Travel Guides",
+      ])
+    ),
     featuredImage: z.string(),
+    headerImage: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string(),
+    }),
     cardImg: z.object({
       srcPC: z.string(),
       srcMobile: z.string(),
       alt: z.string(),
-      title: z.string()
+      title: z.string(),
     }),
     readingTime: z.string(),
     excerpt: z.string(),
     jsonLD: z.object({}).passthrough(),
-    slug: z.string().optional()
-  })
+    slug: z.string().optional(),
+  }),
 });
 
 export const collections = {
-  'tours_EN': toursEN,
-  'multiday_tours_EN': multidayToursEN,
-  'partner_experiences_EN': partnerExperiencesEN,
-  'blog_articles_EN': blogArticlesEN,
+  tours_EN: toursEN,
+  multiday_tours_EN: multidayToursEN,
+  partner_experiences_EN: partnerExperiencesEN,
+  blog_articles_EN: blogArticlesEN,
 };
