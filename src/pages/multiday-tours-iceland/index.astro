@@ -48,6 +48,9 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 			gtag('js', new Date());
 			gtag('config', 'G-48C94854K2');
 		</script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 	</head>
 	<body>
 
@@ -138,7 +141,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 										name="firstName"
 										required
 										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-										placeholder="John"
+										placeholder="Your first name"
 									/>
 								</div>
 
@@ -152,7 +155,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 										name="lastName"
 										required
 										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-										placeholder="Doe"
+										placeholder="Your last name"
 									/>
 								</div>
 							</div>
@@ -182,7 +185,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 										name="phone"
 										required
 										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-										placeholder="+1 234 567 8900"
+										placeholder="Please include country code"
 									/>
 								</div>
 							</div>
@@ -199,7 +202,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 										required
 										min="1"
 										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-										placeholder="4"
+										placeholder=""
 									/>
 								</div>
 
@@ -229,7 +232,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 									id="children-ages"
 									name="childrenAges"
 									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-									placeholder="e.g., 5, 8, 12"
+									placeholder="So we find suitable activities"
 								/>
 							</div>
 
@@ -245,7 +248,7 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 										required
 										min="1"
 										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
-										placeholder="7"
+										placeholder=""
 									/>
 								</div>
 
@@ -306,29 +309,30 @@ const allMultidayTours = await getCollection('multiday_tours_EN');
 									<option value="4* hotels">4* hotels</option>
 									<option value="3* hotels">3* hotels</option>
 									<option value="Guesthouses">Guesthouses</option>
+									<option value="Camping">Camping (we provide comfortable equipments)</option>
 									<option value="Other">Other</option>
 								</select>
 							</div>
 
 							<div>
 								<label for="budget" class="block text-sm font-medium text-gray-700 mb-2">
-									Total Budget for Your Whole Journey (ISK) <span class="text-red-500">*</span>
+									Total Daily Budget (ISK) <span class="text-red-500">*</span>
 								</label>
 								<input
 									type="range"
 									id="budget"
 									name="budget"
-									min="500000"
-									max="5000000"
-									step="100000"
-									value="1500000"
+									min="150000"
+									max="500000"
+									step="10000"
+									value="200000"
 									required
 									class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
 								/>
 								<div class="flex justify-between text-sm text-gray-600 mt-2">
+									<span>150,000 Kr</span>
+									<span id="budget-value" class="font-medium text-[var(--secondary)]">200,000 Kr</span>
 									<span>500,000 Kr</span>
-									<span id="budget-value" class="font-medium text-[var(--secondary)]">1,500,000 Kr</span>
-									<span>5,000,000 Kr</span>
 								</div>
 							</div>
 

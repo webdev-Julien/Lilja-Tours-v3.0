@@ -15,7 +15,9 @@ export async function getStaticPaths() {
 		{ name: 'Hotels', slug: 'hotels' },
 		{ name: 'Excursions', slug: 'excursions' },
 		{ name: 'Tours', slug: 'tours' },
-		{ name: 'News', slug: 'news' }
+		{ name: 'News', slug: 'news' },
+		{ name: 'Travel Guides', slug: 'travel-guides' }
+
 	];
 
 	const allArticles = await getCollection('blog_articles_EN');
@@ -72,6 +74,8 @@ const categorySlug = Astro.params.category;
 			gtag('config', 'G-48C94854K2');
 		</script>
 
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
 		<style is:inline>
 			/* Animation classes */
@@ -124,6 +128,32 @@ const categorySlug = Astro.params.category;
 				flex-direction: column;
 			}
 
+			/* Header background styles */
+			.header-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 0;
+			}
+
+			.header-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.header-content {
+				position: relative;
+				z-index: 2;
+			}
+
 			/* Back button hover effect */
 			.back-button::before {
 				content: '';
@@ -151,8 +181,22 @@ const categorySlug = Astro.params.category;
 		<Topbar currentLang="en" frenchUrl="#" />
 
 		<!-- Header Section -->
-		<header class="relative py-32 bg-gradient-to-br from-[#5b7297] to-[#4a5d7d] overflow-hidden mt-[80px]">
-			<div class="max-w-7xl mx-auto px-8 text-center relative z-10">
+		<header class="relative py-32 overflow-hidden mt-[80px]">
+			<!-- Background Image -->
+			<picture>
+				<source media="(max-width: 768px)" srcset={`/pictures/blog/categories/${categorySlug}-header-mobile.webp`} />
+				<source media="(min-width: 769px)" srcset={`/pictures/blog/categories/${categorySlug}-header-pc.webp`} />
+				<img
+					src={`/pictures/blog/categories/${categorySlug}-header-pc.webp`}
+					alt={`${categoryName} blog category background`}
+					class="header-bg"
+				/>
+			</picture>
+
+			<!-- Overlay -->
+			<div class="header-overlay"></div>
+
+			<div class="header-content max-w-7xl mx-auto px-8 text-center relative z-10">
 				<div class="slide-down mb-6">
 					<a
 						href="/blog/"

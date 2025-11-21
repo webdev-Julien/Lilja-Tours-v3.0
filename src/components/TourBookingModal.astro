@@ -32,7 +32,7 @@ const { tourName, activities } = Astro.props;
             name="name"
             required
             class="w-full px-3 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200 text-sm"
-            placeholder="John Doe"
+            placeholder="Your name"
           />
         </div>
 
@@ -114,6 +114,7 @@ const { tourName, activities } = Astro.props;
             <option value="4* hotel">4* hotel</option>
             <option value="3* hotel">3* hotel</option>
             <option value="Guesthouse">Guesthouse</option>
+						<option value="Camping">Camping (we provide comfortable equipments)</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -125,7 +126,7 @@ const { tourName, activities } = Astro.props;
           id="booking-submit"
           class="w-full bg-[var(--secondary)] text-white px-6 py-3 rounded-sm font-medium tracking-wide hover:bg-[#5b7297] transition-all duration-300 transform hover:translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary)] text-sm cursor-pointer"
         >
-          Send Booking Request
+          Send Quote Request
         </button>
       </form>
     </div>

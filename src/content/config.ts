@@ -191,7 +191,7 @@ const blogArticlesEN = defineCollection({
     })).optional(),
     author: z.string(),
     publishDate: z.string(),
-    categories: z.array(z.enum(['Itineraries', 'Tops', 'Info', 'Photographies', 'Hotels', 'Excursions', 'Tours', 'News'])),
+    categories: z.array(z.enum(['Itineraries', 'Tops', 'Info', 'Photographies', 'Hotels', 'Excursions', 'Tours', 'News', 'Travel Guides'])),
     featuredImage: z.string(),
     cardImg: z.object({
       srcPC: z.string(),
