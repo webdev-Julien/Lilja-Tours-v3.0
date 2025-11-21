@@ -1,36 +1,3 @@
-// Load appropriate video based on screen size
-function loadHeroVideo() {
-	const video = document.getElementById('hero-video');
-	if (!video) return;
-
-	const width = window.innerWidth;
-	let videoSrc;
-
-	// Determine which video to load based on screen width
-	if (width < 768) {
-		// Mobile
-		videoSrc = '/videos/SD/multiday-bg.mp4';
-	} else if (width < 1024) {
-		// Tablet
-		videoSrc = '/videos/MD/multiday-bg.mp4/';
-	} else {
-		// Desktop
-		videoSrc = '/videos/HD/multiday-bg.mp4';
-	}
-
-	// Create and append source element
-	const source = document.createElement('source');
-	source.src = videoSrc;
-	source.type = 'video/mp4';
-	video.appendChild(source);
-
-	// Load the video
-	video.load();
-}
-
-// Load video immediately
-loadHeroVideo();
-
 // Intersection Observer for scroll animations
 function initScrollAnimations() {
 	const observerOptions = {
@@ -52,7 +19,17 @@ function initScrollAnimations() {
 	);
 
 	animatedElements.forEach((element) => {
-		observer.observe(element);
+		// Check if element is already in viewport on load
+		const rect = element.getBoundingClientRect();
+		const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+		if (isInViewport) {
+			// Element is already visible, add class immediately
+			element.classList.add('visible');
+		} else {
+			// Element not in viewport, observe it
+			observer.observe(element);
+		}
 	});
 }
 

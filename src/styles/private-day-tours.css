@@ -5,7 +5,7 @@
 }
 
 .fade-in.visible {
-	opacity: 1;
+	opacity: 1 !important;
 }
 
 .slide-up {
@@ -15,8 +15,8 @@
 }
 
 .slide-up.visible {
-	opacity: 1;
-	transform: translateY(0);
+	opacity: 1 !important;
+	transform: translateY(0) !important;
 }
 
 .slide-down {
@@ -26,8 +26,8 @@
 }
 
 .slide-down.visible {
-	opacity: 1;
-	transform: translateY(0);
+	opacity: 1 !important;
+	transform: translateY(0) !important;
 }
 
 /* Mobile responsive adjustments for complex layout behaviors */

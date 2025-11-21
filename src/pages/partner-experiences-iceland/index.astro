@@ -50,7 +50,7 @@ const categories = [
 		<meta name="generator" content={Astro.generator} />
 		<title>Partner Experiences in Iceland | Lilja Tours</title>
 
-		<\!-- Google tag (gtag.js) -->
+		<!-- Google tag (gtag.js) -->
 		<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
 		<script type="text/partytown">
 			window.dataLayer = window.dataLayer || [];
@@ -391,46 +391,28 @@ const categories = [
 		<header class="video-header h-[75dvh] flex items-center justify-center relative">
 			<Topbar frenchUrl="/fr/experiences-partenaires-islande/" currentLang="en" />
 
-			<!-- Desktop HD Video (1024px and above) -->
+			<!-- Responsive Video - Browser automatically selects appropriate source based on media query -->
 			<video
-				id="video-desktop"
 				autoplay
 				muted
 				loop
 				playsinline
-				class="video-source absolute inset-0 w-full h-full object-cover hidden lg:block"
+				preload="auto"
+				poster="/videos/experiences-bg.webp"
+				aria-label="Iceland partner experiences background video"
+				class="video-source absolute inset-0 w-full h-full object-cover"
 			>
-				<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4">
-				<source src="/videos/HD/tours-bg-hd.webm" type="video/webm">
+				<!-- Desktop HD Video (1024px and above) -->
+				<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4" media="(min-width: 1024px)">
+
+				<!-- Tablet Medium Video (768px to 1023px) -->
+				<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4" media="(min-width: 768px) and (max-width: 1023px)">
+
+				<!-- Mobile Vertical Video (0px to 767px) -->
+				<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
 			</video>
 
-			<!-- Tablet Medium Video (768px to 1023px) -->
-			<video
-				id="video-tablet"
-				autoplay
-				muted
-				loop
-				playsinline
-				class="video-source absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
-			>
-				<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4">
-				<source src="/videos/MD/tours-bg-medium.webm" type="video/webm">
-			</video>
-
-			<!-- Mobile Vertical Video (0px to 767px) -->
-			<video
-				id="video-mobile"
-				autoplay
-				muted
-				loop
-				playsinline
-				class="video-source absolute inset-0 w-full h-full object-cover block md:hidden"
-			>
-				<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4">
-				<source src="/videos/SD/tours-bg-mobile.webm" type="video/webm">
-			</video>
-
-			<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down mt-[70px]">
+			<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
 				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Partner Experiences in Iceland</h1>
 				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
 					Discover exceptional adventures and authentic cultural encounters through our carefully selected partner operators, offering unique perspectives on Iceland's natural wonders and rich heritage.
