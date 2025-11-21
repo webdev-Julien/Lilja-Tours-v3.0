@@ -126,6 +126,19 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
         }
       }
 
+      /* Responsive video container */
+      .tour-video-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .tour-video-container iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 0.375rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
       /* Book Button Hover Effects */
       .book-tour-cta::before {
         content: '';
@@ -434,6 +447,15 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
           </div>
         </section>
       )}
+
+      <!-- Video Section -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="tour-video-container slide-up">
+            <Content />
+          </div>
+        </div>
+      </section>
 
       <!-- Itinerary Section (Day by Day) -->
       {data.itinerary && data.itinerary.length > 0 && (

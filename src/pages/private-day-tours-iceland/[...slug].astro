@@ -126,6 +126,19 @@ try {
         }
       }
 
+      /* Responsive video container */
+      .tour-video-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .tour-video-container iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 0.375rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
       /* Booking Button Hover Effects */
       .booking-cta-button::before {
         content: '';
@@ -427,6 +440,15 @@ try {
         </section>
       )}
 
+      <!-- Video Section -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="tour-video-container slide-up">
+            <Content />
+          </div>
+        </div>
+      </section>
+
       <!-- Visits Section -->
       {data.visits && data.visits.length > 0 && (
         <section class="fade-in py-16 lg:py-24">
@@ -647,13 +669,6 @@ try {
               </button>
             </form>
           </div>
-        </div>
-      </section>
-
-      <!-- Content from MDX -->
-      <section class="fade-in py-16 lg:py-24">
-        <div class="max-w-4xl mx-auto px-8 prose prose-lg max-w-none">
-          <Content />
         </div>
       </section>
     </main>
