@@ -205,7 +205,7 @@ const selectedTours = tourIds
 				<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-32 leading-tight text-gray-900 text-center fade-in">Trusted by travelers worldwide</h2>
 				<!-- Reserved space for TrustIndex widget to prevent CLS -->
 				<div style="min-height: 400px;">
-					<div id="trustindex-widget-container"><script defer async src='https://cdn.trustindex.io/loader.js?a76f9f75455e038ade362d6d6e2'></script></div>
+					<div id="trustindex-widget-container"></div>
 				</div>
 			</section>
 
@@ -354,32 +354,7 @@ const selectedTours = tourIds
 
 		<Footer currentLang="en" />
 
-		<!-- Lazy load TrustIndex widget -->
-		<script>
-			// Lazy load TrustIndex widget when it's in viewport
-			(function() {
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach(entry => {
-						if (entry.isIntersecting) {
-							// Load TrustIndex script
-							const script = document.createElement('script');
-							script.src = 'https://cdn.trustindex.io/loader.js?a76f9f75455e038ade362d6d6e2';
-							script.defer = true;
-							script.async = true;
-							document.body.appendChild(script);
 
-							// Stop observing once loaded
-							observer.disconnect();
-						}
-					});
-				}, { rootMargin: '200px' }); // Load 200px before coming into view
-
-				const container = document.getElementById('trustindex-widget-container');
-				if (container) {
-					observer.observe(container);
-				}
-			})();
-		</script>
 
 		<script>
 			// Intersection Observer for scroll animations
@@ -407,8 +382,39 @@ const selectedTours = tourIds
 				});
 			}
 
+			// Lazy load TrustIndex widget
+			function initTrustIndexWidget() {
+				const container = document.getElementById('trustindex-widget-container');
+				if (!container) return;
+
+				const widgetObserver = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							// Load the TrustIndex widget script
+							const script = document.createElement('script');
+							script.type = 'text/javascript';
+							script.src = 'https://cdn.trustindex.io/loader.js?a76f9f75455e038ade362d6d6e2';
+							script.defer = true;
+							script.async = true;
+							container.appendChild(script);
+
+							// Stop observing after loading
+							widgetObserver.unobserve(container);
+						}
+					});
+				}, {
+					threshold: 0.1,
+					rootMargin: '50px'
+				});
+
+				widgetObserver.observe(container);
+			}
+
 			// Initialize animations when DOM is loaded
-			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+				initTrustIndexWidget();
+			});
 		</script>
 	</body>
 
