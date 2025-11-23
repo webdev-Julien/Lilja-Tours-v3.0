@@ -224,6 +224,8 @@ const blogArticlesEN = defineCollection({
         "Tours",
         "News",
         "Travel Guides",
+        "Luxury",
+        "Wellness",
       ])
     ),
     featuredImage: z.string(),
