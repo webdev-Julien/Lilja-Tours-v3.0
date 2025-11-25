@@ -3,6 +3,7 @@ import "../../styles/global.css"
 import { getCollection } from 'astro:content';
 import Footer from "../../components/Footer.astro";
 import Topbar from "../../components/Topbar.astro";
+import BlogCard from "../../components/BlogCard.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection('blog_articles_EN');
@@ -15,6 +16,20 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await article.render();
 const data = article.data;
+
+// Get 3 random other articles from the same collection (random at build time)
+const allArticles = await getCollection('blog_articles_EN');
+const otherArticles = allArticles.filter(a => a.id !== article.id);
+// Fisher-Yates shuffle for random selection at build time
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+const randomArticles = shuffleArray(otherArticles).slice(0, 3);
 
 // Format date
 const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
@@ -292,29 +307,29 @@ function categoryToSlug(category: string): string {
         </div>
       </article>
 
-      <!-- Related Articles / CTA Section -->
-      <section class="bg-gray-50 py-16 slide-up">
-        <div class="max-w-4xl mx-auto px-8 text-center">
-          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-6 text-[#5b7297]">Plan Your Iceland Adventure</h2>
-          <p class="text-lg text-gray-600 font-light mb-8 max-w-2xl mx-auto">
-            Ready to experience Iceland for yourself? Explore our private tours and multiday adventures.
-          </p>
-          <div class="flex gap-4 justify-center flex-wrap">
-            <a href="/private-day-tours-iceland/" class="inline-flex items-center gap-2 px-6 py-3 bg-[#5b7297] text-white no-underline rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#4a5d7d] tracking-wide uppercase">
-              Day Tours
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-            </a>
-            <a href="/multiday-tours-iceland/" class="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#5b7297] hover:text-white tracking-wide uppercase">
-              Multiday Tours
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-            </a>
+      <!-- Related Articles Section -->
+      {randomArticles.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">More Articles You May Like</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+              {randomArticles.map((relatedArticle) => (
+                <BlogCard
+                  image={relatedArticle.data.cardImg?.srcPC || relatedArticle.data.featuredImage}
+                  imageAlt={relatedArticle.data.cardImg?.alt || relatedArticle.data.title}
+                  title={relatedArticle.data.title}
+                  excerpt={relatedArticle.data.excerpt}
+                  publishDate={relatedArticle.data.publishDate}
+                  readingTime={relatedArticle.data.readingTime}
+                  categories={relatedArticle.data.categories}
+                  slug={`/blog/${relatedArticle.data.slug}/`}
+                  author={relatedArticle.data.author}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
 
     <Footer />

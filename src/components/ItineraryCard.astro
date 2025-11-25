@@ -26,9 +26,9 @@ const {
   season
 } = Astro.props;
 ---
-<article>
-<div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
-  <div class="relative aspect-[4/3] overflow-hidden">
+<article class="h-full">
+<div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col h-full hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
+  <div class="relative aspect-[4/3] overflow-hidden flex-shrink-0">
     <img
       src={image}
       alt={imageAlt}
@@ -49,16 +49,16 @@ const {
 
   <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
     <div class="mb-4 border-b border-gray-50 pb-4">
-      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight">{title}</h3>
+      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight line-clamp-2 min-h-[3.5rem]">{title}</h3>
       {season && <span class="text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">{season}</span>}
     </div>
 
     {description && (
-      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light">{description}</p>
+      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light line-clamp-3">{description}</p>
     )}
 
     {highlights.length > 0 && (
-      <div class="mb-8 flex-1">
+      <div class="mb-6 flex-1">
         <ul class="list-none p-0 m-0 space-y-1.5">
           {highlights.slice(0, 3).map(highlight => (
             <li class="relative pl-3 text-gray-500 text-sm sm:text-base font-light leading-relaxed highlight-item">{highlight}</li>
@@ -67,7 +67,7 @@ const {
       </div>
     )}
 
-    <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5">
+    <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5 mt-auto">
       <div class="price-section">
         {price && (
           <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">{price} Kr / vehicle</span>
@@ -85,6 +85,21 @@ const {
 </div>
 </article>
 <style>
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   /* Highlight item bullet point */
   .highlight-item::before {
     content: '';

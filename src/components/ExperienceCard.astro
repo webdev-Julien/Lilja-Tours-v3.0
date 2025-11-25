@@ -1,16 +1,17 @@
 ---
-// Props interface for the multiday itinerary card
+// Props interface for the experience card
 export interface Props {
   image: string;
   imageAlt: string;
   title: string;
   duration: string;
   description?: string;
-  price?: string;
+  price?: number;
   slug?: string;
-  highlights?: string[];
+  location?: string;
   difficulty?: 'Easy' | 'Moderate' | 'Challenging';
   season?: string;
+  isExclusive?: boolean;
 }
 
 const {
@@ -21,9 +22,10 @@ const {
   description,
   price,
   slug = '#',
-  highlights = [],
+  location,
   difficulty,
-  season
+  season,
+  isExclusive = false
 } = Astro.props;
 ---
 <article class="h-full">
@@ -40,9 +42,9 @@ const {
         {duration}
       </div>
     )}
-    {difficulty && (
-      <div class="absolute top-5 left-5 bg-white/40 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-[#5b7297]/15" data-difficulty={difficulty.toLowerCase()}>
-        {difficulty}
+    {isExclusive && (
+      <div class="absolute top-5 left-5 bg-[#5b7297]/90 backdrop-blur-sm px-2 py-1 rounded-sm text-xs sm:text-sm font-light text-white tracking-wider uppercase border border-white/20">
+        Exclusive
       </div>
     )}
   </div>
@@ -50,35 +52,26 @@ const {
   <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
     <div class="mb-4 border-b border-gray-50 pb-4">
       <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight line-clamp-2 min-h-[3.5rem]">{title}</h3>
-      {season && <span class="text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">{season}</span>}
+      <div class="flex items-center gap-2 text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">
+        {location && <span>{location}</span>}
+        {location && season && <span>•</span>}
+        {season && <span>{season}</span>}
+      </div>
     </div>
 
     {description && (
-      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light line-clamp-3">{description}</p>
-    )}
-
-    {highlights.length > 0 && (
-      <div class="mb-6 flex-1">
-        <ul class="list-none p-0 m-0 space-y-1.5">
-          {highlights.slice(0, 3).map(highlight => (
-            <li class="relative pl-3 text-gray-500 text-sm sm:text-base font-light leading-relaxed highlight-item">{highlight}</li>
-          ))}
-        </ul>
-      </div>
+      <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light line-clamp-3 flex-1">{description}</p>
     )}
 
     <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5 mt-auto">
-      <div class="price-section flex flex-col">
+      <div class="price-section">
         {price && (
-          <>
-            <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">From {price} Kr / vehicle</span>
-            <span class="text-xs sm:text-sm font-light text-gray-500 tracking-wide mt-1">Plus accommodation and activities</span>
-          </>
+          <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">{price.toLocaleString()} Kr</span>
         )}
       </div>
 
-      <a href={`/multiday-tours-iceland/${slug}`} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Explore itinerary for ${title}`}>
-        <span class="relative z-10">Explore itinerary</span>
+      <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`View details for ${title}`}>
+        <span class="relative z-10">View Details</span>
         <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -103,18 +96,6 @@ const {
     overflow: hidden;
   }
 
-  /* Highlight item bullet point */
-  .highlight-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 9px;
-    width: 1px;
-    height: 8px;
-    background: #5b7297;
-    opacity: 0.6;
-  }
-
   /* CTA Button hover effect */
   .cta-btn::before {
     content: '';
@@ -133,31 +114,11 @@ const {
     transform: translateY(0);
   }
 
-  /* Mobile responsive adjustments for complex layouts */
-  @media (max-width: 768px) {
-    .group .md\\:flex-row {
-      flex-direction: column;
-    }
-
-    .group .md\\:items-center {
-      align-items: stretch;
-    }
-
-    .group .md\\:gap-5 {
-      gap: 14px;
-    }
-
-    .group .cta-btn {
-      justify-content: center;
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      padding: 12px 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .group .cta-btn {
-      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
-      padding: 14px 22px;
-    }
+  /* Line clamp for description */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 </style>

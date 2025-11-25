@@ -3,6 +3,7 @@ import "../../styles/global.css"
 import { getCollection } from 'astro:content';
 import Footer from "../../components/Footer.astro";
 import Topbar from "../../components/Topbar.astro";
+import ExperienceCard from "../../components/ExperienceCard.astro";
 
 export async function getStaticPaths() {
   const experiences = await getCollection('partner_experiences_EN');
@@ -15,6 +16,20 @@ export async function getStaticPaths() {
 const { experience } = Astro.props;
 const { Content } = await experience.render();
 const data = experience.data;
+
+// Get 3 random other experiences from the same collection (random at build time)
+const allExperiences = await getCollection('partner_experiences_EN');
+const otherExperiences = allExperiences.filter(e => e.id !== experience.id);
+// Fisher-Yates shuffle for random selection at build time
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+const randomExperiences = shuffleArray(otherExperiences).slice(0, 3);
 
 // Fetch currency conversion rates
 let exchangeRates = { USD: 0.0073, EUR: 0.0067 }; // Fallback rates
@@ -515,6 +530,32 @@ try {
           </div>
         </div>
       </section>
+
+      <!-- Related Experiences Section -->
+      {randomExperiences.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Explore More Experiences</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+              {randomExperiences.map((relatedExp) => (
+                <ExperienceCard
+                  image={relatedExp.data.cardImg?.srcPC || relatedExp.data.featuredImage}
+                  imageAlt={relatedExp.data.cardImg?.alt || relatedExp.data.title}
+                  title={relatedExp.data.title}
+                  duration={relatedExp.data.duration}
+                  description={relatedExp.data.shortDescription}
+                  price={relatedExp.data.price}
+                  slug={`/partner-experiences-iceland/${relatedExp.data.slug}/`}
+                  location={relatedExp.data.location}
+                  difficulty={relatedExp.data.difficultyLevel}
+                  season={relatedExp.data.season}
+                  isExclusive={relatedExp.data.isExclusive}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
 
     <Footer currentLang={data.language} />
