@@ -1,0 +1,499 @@
+---
+import "../../src/styles/global.css"
+import Topbar from "../components/Topbar.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Discover Lilja Tours - Iceland's premier private tour operator. Expert local guides, luxury vehicles, and personalized adventures across Iceland's spectacular landscapes since 2021.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/about/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/about/" />
+
+		<meta property="og:title" content="About Us - Private Iceland Tours | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/pictures/index/about.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/about/">
+		<meta property="og:description" content="Discover Lilja Tours - Iceland's premier private tour operator. Expert local guides, luxury vehicles, and personalized adventures across Iceland's spectacular landscapes since 2021.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>About Us - Private Iceland Tours | Lilja Tours</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "AboutPage",
+			"mainEntity": {
+				"@type": "LocalBusiness",
+				"@id": "https://www.lilja-tours.com",
+				"name": "Lilja Tours",
+				"description": "Premier private tour operator in Iceland specializing in personalized day tours and customized multi-day adventures. Expert local guides providing luxury travel experiences across Iceland's stunning landscapes since 2021.",
+				"url": "https://www.lilja-tours.com",
+				"foundingDate": "2021",
+				"telephone": "+354-764-3715",
+				"email": "info@lilja-tours.com",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Iceland",
+					"addressCountry": "IS"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "64.9631",
+					"longitude": "-19.0208"
+				},
+				"priceRange": "€€€",
+				"sameAs": [
+					"https://www.facebook.com/liljatours",
+					"https://www.instagram.com/lilja_tours",
+					"https://www.tripadvisor.com/Attraction_Review-g189970-d23867059-Reviews-Lilja_Tours-Reykjavik_Capital_Region.html"
+				],
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "5.0",
+					"reviewCount": "50",
+					"bestRating": "5",
+					"worstRating": "1"
+				},
+				"founder": {
+					"@type": "Person",
+					"name": "Julien",
+					"jobTitle": "Founder & Travel Designer"
+				},
+				"employee": [
+					{
+						"@type": "Person",
+						"name": "Julien",
+						"jobTitle": "Founder & Travel Designer"
+					},
+					{
+						"@type": "Person",
+						"name": "Philippe",
+						"jobTitle": "Co-owner & Lead Guide"
+					}
+				]
+			}
+		}
+		</script>
+
+		<style is:inline>
+			/* Minimal CSS for features not available in Tailwind */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-left {
+				opacity: 0;
+				transform: translateX(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-left.visible {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			.slide-right {
+				opacity: 0;
+				transform: translateX(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-right.visible {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			/* Header background image styles */
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-image: url('/pictures/index/about-page.webp');
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Team contact button styles */
+			.team-contact-item::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.8s ease;
+				z-index: -1;
+			}
+
+			.team-contact-item:hover::before {
+				transform: translateY(0);
+			}
+
+			/* Mobile responsive adjustments for background */
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Image Header Section -->
+		<header class="image-header h-[75dvh] flex items-center justify-center relative">
+			<Topbar frenchUrl="#" currentLang="en" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">About Lilja Tours</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+					Creating unforgettable Iceland adventures since 2021. Expert local guides, luxury vehicles, and personalized experiences across Iceland's spectacular landscapes.
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<!-- Our Story Section -->
+			<section class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight text-gray-900 lg:hidden order-1 text-left w-full">Our Story</h2>
+						<div class="slide-left relative order-2 lg:order-2 w-full">
+							<img src="/pictures/index/about-story.webp" alt="Iceland landscape showcasing natural beauty" class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105" width="1200" height="800" loading="eager" />
+						</div>
+						<div class="slide-right text-left order-3 lg:order-1">
+							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-10 leading-tight text-gray-900 lg:block hidden">Our Story</h2>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Founded in 2021, Lilja Tours emerged from a passion for sharing Iceland's extraordinary beauty with travelers seeking personalized experiences. What started as a vision to create exceptional private tours has grown into crafting unforgettable journeys across this land of fire and ice.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Our approach is simple yet distinctive: we believe every traveler deserves a customized experience that reflects their unique interests, pace, and curiosity. We design each tour to be as individual as you are.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-0 tracking-wide">
+								Based in Iceland and operated by passionate locals who call this remarkable country home, we combine knowledge of the land with genuine hospitality. Our commitment to excellence, safety, and sustainable tourism practices ensures that every journey with Lilja Tours becomes a cherished memory while respecting Iceland's fragile natural environment.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Meet Our Team Section -->
+			<section class="fade-in bg-gray-50 py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-24 slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Meet Our Team</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
+							The passionate guides and travel designers behind your Iceland adventure. With years of experience and deep local knowledge, we're dedicated to creating exceptional journeys.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-stretch">
+						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
+							<img src="/pictures/index/Julien-guide.webp" alt="Julien, Founder and Travel Designer at Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Julien</h3>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Founder & Travel Designer</p>
+							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
+								Julien's passion for Iceland began years before founding Lilja Tours, through countless journeys across every corner of the country. He centers on personalized travel design, believing that the best adventures emerge when itineraries are shaped around individual interests rather than fixed templates. With fluency in English and French, Julien excels at understanding travel preferences, transforming ideas into orchestrated experiences that balance Iceland's famous attractions with off-the-beaten-path discoveries tailored to each guest's curiosity.
+							</p>
+							<div class="flex flex-col gap-2 items-center mt-auto">
+								<a href="https://wa.me/3547643715" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 764 3715
+								</a>
+								<a href="mailto:julien@lilja-tours.com" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									julien@lilja-tours.com
+								</a>
+							</div>
+						</div>
+
+						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
+							<img src="/pictures/index/Philippe-guide.webp" alt="Philippe, Co-owner and Lead Guide at Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Philippe</h3>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Co-owner & Lead Guide</p>
+							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
+								Philippe brings a great enthusiasm to every tour, combining technical mastery of Iceland's terrains with an innate gift for storytelling. His guiding style emphasizes connection, whether sharing geological insights at dramatic viewpoints or revealing local folklore that brings landscapes to life. Beyond his exceptional driving skills on both paved roads and rugged highlands, Philippe's greatest strength lies in reading each group's energy and adapting tours spontaneously, ensuring every moment feels natural and perfectly attuned to his guests' needs.
+							</p>
+							<div class="flex flex-col gap-2 items-center mt-auto">
+								<a href="https://wa.me/3547728756" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 772 8756
+								</a>
+								<a href="mailto:philippe@lilja-tours.com" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									philippe@lilja-tours.com
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Our Fleet Section -->
+			<section class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-16 slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Our Fleet</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
+							Travel in comfort and style with our meticulously maintained premium vehicles. From paved highways to Iceland's roughest highland trails, we have the perfect vehicle for every adventure.
+						</p>
+					</div>
+
+					<!-- Mercedes V-Class -->
+					<div class="mb-20 slide-up">
+						<div class="bg-gray-50 rounded-sm shadow-xl overflow-hidden">
+							<div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+								<div class="relative h-[350px] lg:h-auto">
+									<img
+										src="/pictures/index/about-vclass.webp"
+										alt="Mercedes V-Class luxury van for Iceland tours"
+										class="w-full h-full object-cover"
+										loading="lazy"
+									/>
+								</div>
+								<div class="p-8 md:p-12 flex flex-col justify-center">
+									<h3 class="text-3xl md:text-4xl font-light tracking-wide mb-4 text-gray-900">Mercedes V-Class</h3>
+									<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-6 tracking-wide">
+										Our premium Mercedes V-Class is our flagship for luxury travel on Iceland's paved roads. Designed for comfort during extended journeys, this executive van features spacious leather seating for up to 6 passengers, panoramic windows offering stunning views of Iceland's landscapes, and a refined interior that transforms travel time into relaxation time.
+									</p>
+									<div class="space-y-3">
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Up to 6 passengers</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Premium leather seating with individual climate control</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Ideal for Golden Circle, South Coast, and paved road tours</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Ample luggage space for extended multiday tours</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">WiFi, USB charging, premium sound system</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Toyota Land Cruiser -->
+					<div class="mb-20 slide-up">
+						<div class="bg-gray-50 rounded-sm shadow-xl overflow-hidden">
+							<div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+								<div class="relative h-[350px] lg:h-auto lg:order-2">
+									<img
+										src="/pictures/index/about-toyota.webp"
+										alt="Lifted Toyota Land Cruiser 4x4 for Iceland highland adventures"
+										class="w-full h-full object-cover"
+										loading="lazy"
+									/>
+								</div>
+								<div class="p-8 md:p-12 flex flex-col justify-center lg:order-1">
+									<h3 class="text-3xl md:text-4xl font-light tracking-wide mb-4 text-gray-900">Toyota Land Cruiser</h3>
+									<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-6 tracking-wide">
+										For those seeking authentic highland adventures, our lifted Toyota Land Cruiser on 33-inch tires is purpose-built for Iceland's most challenging terrains. This rugged yet comfortable 4x4 conquers river crossings, volcanic ash fields, and remote mountain tracks with confidence, taking you to locations standard vehicles cannot reach while maintaining exceptional comfort for up to 4 passengers.
+									</p>
+									<div class="space-y-3">
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Up to 4 passengers</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Lifted suspension with 33-inch all-terrain tires</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">Perfect for Highlands, Landmannalaugar, Thorsmork</p>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
+											<p class="text-base md:text-lg font-light text-gray-700">River crossing capability for F-road adventures</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Larger Groups Section -->
+					<div class="mt-16 text-center slide-up">
+						<div class="bg-[#5b7297]/5 border border-[#5b7297]/20 rounded-sm p-8 md:p-10 max-w-4xl mx-auto">
+							<h3 class="text-2xl md:text-3xl font-light tracking-wide mb-4 text-gray-900">Traveling with a Larger Group?</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 tracking-wide mb-6">
+								We can accommodate groups of all sizes. Through our network of trusted partner operators, we arrange premium vehicles including larger coaches, additional 4x4s, and specialized transport for groups exceeding our standard vehicle capacities.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 tracking-wide">
+							Whether you're planning a corporate retreat, family reunion, or group adventure, we ensure seamless logistics and consistent luxury service across your entire party.
+							</p>
+						</div>
+					</div>
+
+					<!-- Maintenance Note -->
+					<div class="mt-8 text-center slide-up">
+						<p class="text-sm md:text-base font-light leading-relaxed text-gray-500 tracking-wide max-w-3xl mx-auto">
+							All vehicles undergo regular professional maintenance and comprehensive safety inspections. We prioritize your comfort and security, ensuring each journey meets the highest standards while confidently handling Iceland's unique road conditions year-round.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Reviews Section -->
+			<section class="fade-in bg-gray-50 py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-16 slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Customers' reviews</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
+							Read what our guests have to say about their Iceland adventures with Lilja Tours.
+						</p>
+					</div>
+
+					<!-- Reserved space for TrustIndex widget to prevent CLS -->
+					<div class="slide-up" style="min-height: 400px;">
+						<div id="trustindex-widget-container"></div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Lazy load TrustIndex widget
+			function initTrustIndexWidget() {
+				const container = document.getElementById('trustindex-widget-container');
+				if (!container) return;
+
+				const widgetObserver = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							// Load the TrustIndex widget script
+							const script = document.createElement('script');
+							script.type = 'text/javascript';
+							script.src = 'https://cdn.trustindex.io/loader.js?a76f9f75455e038ade362d6d6e2';
+							script.defer = true;
+							script.async = true;
+							container.appendChild(script);
+
+							// Stop observing after loading
+							widgetObserver.unobserve(container);
+						}
+					});
+				}, {
+					threshold: 0.1,
+					rootMargin: '50px'
+				});
+
+				widgetObserver.observe(container);
+			}
+
+			// Initialize animations when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+				initTrustIndexWidget();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,383 @@
+---
+import "../../src/styles/global.css"
+import Topbar from "../components/Topbar.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Terms and Conditions for Lilja Tours. Read our booking policies, cancellation terms, payment requirements, and liability information for private Iceland tours.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/terms-and-conditions/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/terms-and-conditions/" />
+
+		<meta property="og:title" content="Terms and Conditions | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://www.lilja-tours.com/terms-and-conditions/">
+		<meta property="og:description" content="Terms and Conditions for Lilja Tours. Read our booking policies, cancellation terms, payment requirements, and liability information for private Iceland tours.">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Terms and Conditions | Lilja Tours</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-image: url('/pictures/index/multiday-bg.webp');
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="image-header h-[50dvh] flex items-center justify-center relative">
+			<Topbar frenchUrl="#" currentLang="en" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-4 leading-tight text-white">Terms and Conditions</h1>
+				<p class="text-lg md:text-xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+					Last updated: November 25, 2024
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<section class="fade-in bg-white py-16 md:py-24">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="max-w-none">
+						<!-- Introduction -->
+						<div class="mb-12">
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Welcome to Lilja Tours. These Terms and Conditions govern your use of our services and website. By booking a tour with Lilja Tours ehf., you agree to comply with and be bound by these terms. Please read them carefully before making a reservation.
+							</p>
+						</div>
+
+						<!-- Company Information -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Company Information</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours ehf. is a registered Icelandic tour operator specializing in private day tours and customized multi-day adventures throughout Iceland.
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Registered Office:</strong> Hólabraut 15, 220 Hafnarfjörður, Iceland</li>
+								<li><strong>Registration Number (Kennitala):</strong> 480621-0260</li>
+								<li><strong>VAT Number:</strong> 141759</li>
+								<li><strong>Email:</strong> <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a></li>
+								<li><strong>Phone:</strong> <a href="tel:+3547643715" class="text-[#5b7297] hover:underline">+354 764 3715</a></li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours operates in compliance with EU Package Travel Directive and GDPR regulations.
+							</p>
+						</div>
+
+						<!-- Booking Requirements -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Booking Requirements</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								By making a booking with Lilja Tours, you confirm that:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>You are at least 18 years of age or booking under the supervision of a legal guardian</li>
+								<li>You have the authority to accept these terms on behalf of all members of your party</li>
+								<li>All information provided during booking is accurate and complete</li>
+								<li>You accept responsibility for the conduct and safety of all members in your booking</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Minors (under 18 years) must be accompanied by an adult throughout the tour. The booking party assumes full responsibility for all participants.
+							</p>
+						</div>
+
+						<!-- Payment Terms -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Payment Terms</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Private Day Tours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Full payment is required at the time of booking for all private day tours. We accept major credit cards and bank transfers. All prices are quoted in your selected currency but will be charged in Icelandic Króna (ISK) at the prevailing exchange rate.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								All quoted prices include VAT (Value Added Tax) as required by Icelandic law.
+							</p>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Multi-Day Tours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								For multi-day tour reservations, the following payment schedule applies:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Deposit:</strong> 30% of the total tour price is required at the time of booking to confirm your reservation. This deposit is non-refundable.</li>
+								<li><strong>Final Payment:</strong> The remaining 70% of the total tour price is due one month (30 days) before your tour departure date.</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Failure to make the final payment by the due date may result in cancellation of your booking, with forfeiture of the deposit.
+							</p>
+						</div>
+
+						<!-- Cancellation Policy -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Cancellation Policy</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Private Day Tours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Cancellations must be made via email to <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a>. The following refund policy applies:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>48+ hours before tour:</strong> 100% refund of the total booking price</li>
+								<li><strong>24-48 hours before tour:</strong> 50% refund of the total booking price</li>
+								<li><strong>Less than 24 hours before tour:</strong> No refund</li>
+							</ul>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Multi-Day Tours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								For multi-day tours, the initial 30% deposit is non-refundable under any circumstances. The remaining 70% final payment is subject to the following refund policy based on the cancellation timing:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>More than 15 days before departure:</strong> 100% refund of the final payment (70% of total tour price)</li>
+								<li><strong>Between 15 and 8 days before departure:</strong> 50% refund of the final payment (35% of total tour price)</li>
+								<li><strong>Between 8 and 3 days before departure:</strong> 25% refund of the final payment (17.5% of total tour price)</li>
+								<li><strong>Less than 3 days before departure:</strong> No refund of the final payment</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Please note that the 30% non-refundable deposit is never refunded regardless of cancellation timing.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								All cancellations must be made in writing via email. The cancellation date is determined by when we receive your email notification.
+							</p>
+						</div>
+
+						<!-- Tour Modifications and Force Majeure -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Tour Modifications and Force Majeure</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Iceland's weather and natural conditions can be unpredictable. Lilja Tours reserves the right to modify routes, itineraries, or tour schedules due to:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Severe weather conditions (storms, heavy snow, ice, etc.)</li>
+								<li>Road closures or unsafe driving conditions</li>
+								<li>Volcanic activity or natural disasters</li>
+								<li>Safety concerns for passengers or guides</li>
+								<li>Government restrictions or emergency orders</li>
+								<li>Other extraordinary circumstances beyond our control</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								If a tour must be cancelled due to these circumstances, you will receive a full refund in accordance with EU Package Travel Directive. However, we are not responsible for any additional costs you may have incurred, such as accommodation, flights, or other travel arrangements.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								We will always strive to provide alternative arrangements or reschedule tours when possible, but safety remains our top priority.
+							</p>
+						</div>
+
+						<!-- Amendments to Bookings -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Amendments to Bookings</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								If you wish to amend your booking (change dates, number of participants, tour selection, etc.), please contact us via email at least 48 hours before your scheduled tour. Amendment requests are subject to availability.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								An amendment fee of up to ISK 5,000 per person may be charged depending on the nature of the change. Amendments requested within 24 hours of tour departure are typically not possible and may be treated as a cancellation with associated cancellation fees.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								For multi-day tours, amendment policies may vary depending on the complexity of the itinerary and services already confirmed with third parties. Please contact us as soon as possible to discuss potential changes.
+							</p>
+						</div>
+
+						<!-- Participant Responsibilities -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Participant Responsibilities</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								All tour participants are expected to:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Arrive at the designated pickup location on time</li>
+								<li>Follow guide instructions and safety recommendations at all times</li>
+								<li>Wear appropriate clothing and footwear as advised for Icelandic conditions</li>
+								<li>Inform us in advance of any medical conditions, dietary requirements, or mobility limitations</li>
+								<li>Behave respectfully toward guides, other participants, and Iceland's natural environment</li>
+								<li>Not engage in activities that could endanger themselves, others, or the environment</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours reserves the right to refuse service or remove participants from tours if their behavior is deemed inappropriate, dangerous, or disruptive. No refund will be provided in such cases.
+							</p>
+						</div>
+
+						<!-- Complaints and Feedback -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Complaints and Feedback</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								If you experience any issues during your tour, please inform your guide immediately so we can address the situation promptly. If you wish to file a formal complaint, please email us at <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a> within 8 days of tour completion.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								All complaints will be acknowledged within 48 hours, and we will provide a detailed response within 14 days of receiving your complaint. We take all feedback seriously and use it to continually improve our services.
+							</p>
+						</div>
+
+						<!-- Liability and Insurance -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Liability and Insurance</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours maintains comprehensive business liability insurance and ensures all vehicles meet Icelandic safety standards. However, we cannot be held responsible for:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Personal injury or property loss due to participant negligence or failure to follow safety instructions</li>
+								<li>Loss or damage to personal belongings during tours</li>
+								<li>Delays, cancellations, or modifications due to weather, road conditions, or force majeure events</li>
+								<li>Circumstances beyond our reasonable control</li>
+								<li>Costs incurred due to missed connections, accommodations, or other travel arrangements</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								<strong>Travel Insurance:</strong> We strongly recommend that all participants purchase comprehensive travel insurance covering trip cancellation, medical emergencies, evacuation, and personal belongings. Travel insurance is not included in our tour prices.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								By booking with Lilja Tours, you acknowledge that adventure travel involves inherent risks, and you accept responsibility for your participation.
+							</p>
+						</div>
+
+						<!-- Privacy and Data Protection -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Privacy and Data Protection</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours is committed to protecting your personal information in accordance with GDPR and Icelandic data protection laws. Personal data collected during booking is used solely for tour organization, communication, and service improvement.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								For detailed information about how we collect, use, and protect your data, please review our <a href="/privacy-policy/" class="text-[#5b7297] hover:underline">Privacy Policy</a>.
+							</p>
+						</div>
+
+						<!-- Intellectual Property -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Intellectual Property</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								All content on the Lilja Tours website, including text, photographs, logos, graphics, and videos, is the intellectual property of Lilja Tours ehf. or used with permission. Unauthorized use, reproduction, or distribution of this content is prohibited.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Participants may take photographs during tours for personal use. However, any commercial use of photographs featuring Lilja Tours guides, vehicles, or branding requires prior written consent.
+							</p>
+						</div>
+
+						<!-- Changes to Terms and Conditions -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Changes to Terms and Conditions</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours reserves the right to update these Terms and Conditions at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of our services after changes are posted constitutes acceptance of the modified terms.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								For bookings made before any changes, the Terms and Conditions in effect at the time of booking will apply.
+							</p>
+						</div>
+
+						<!-- Governing Law -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Governing Law</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								These Terms and Conditions are governed by and construed in accordance with the laws of Iceland. Any disputes arising from these terms or your use of our services shall be subject to the exclusive jurisdiction of Icelandic courts.
+							</p>
+						</div>
+
+						<!-- Contact Information -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Contact Information</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								If you have any questions about these Terms and Conditions, please contact us:
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700">
+								<li>By email: <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a></li>
+								<li>By phone: <a href="tel:+3547643715" class="text-[#5b7297] hover:underline">+354 764 3715</a></li>
+								<li>By visiting: <a href="https://www.lilja-tours.com/contact/" class="text-[#5b7297] hover:underline">https://www.lilja-tours.com/contact/</a></li>
+							</ul>
+						</div>
+
+						<!-- Acceptance -->
+						<div class="mb-12">
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								By booking a tour with Lilja Tours, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,455 @@
+---
+import "../../src/styles/global.css"
+import Topbar from "../components/Topbar.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Contact Lilja Tours for personalized Iceland travel experiences. Reach us via email, WhatsApp, or social media. Expert local guides ready to plan your dream Iceland adventure.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/contact/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/contact/" />
+
+		<meta property="og:title" content="Contact Us - Private Iceland Tours | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/pictures/index/iceland-for-you.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/contact/">
+		<meta property="og:description" content="Contact Lilja Tours for personalized Iceland travel experiences. Reach us via email, WhatsApp, or social media. Expert local guides ready to plan your dream Iceland adventure.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Contact Us - Private Iceland Tours | Lilja Tours</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "ContactPage",
+			"mainEntity": {
+				"@type": "LocalBusiness",
+				"@id": "https://www.lilja-tours.com",
+				"name": "Lilja Tours",
+				"description": "Private tours and customized multiday adventures in Iceland. Expert local guides providing personalized luxury travel experiences across Iceland's stunning landscapes.",
+				"url": "https://www.lilja-tours.com",
+				"telephone": "+354-764-3715",
+				"email": "info@lilja-tours.com",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Iceland",
+					"addressCountry": "IS"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "64.9631",
+					"longitude": "-19.0208"
+				},
+				"openingHoursSpecification": {
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": [
+						"Monday",
+						"Tuesday",
+						"Wednesday",
+						"Thursday",
+						"Friday",
+						"Saturday",
+						"Sunday"
+					],
+					"opens": "00:00",
+					"closes": "23:59"
+				},
+				"priceRange": "€€€",
+				"sameAs": [
+					"https://www.facebook.com/liljatours",
+					"https://www.instagram.com/lilja_tours",
+					"https://www.tripadvisor.com/Attraction_Review-g189970-d23867059-Reviews-Lilja_Tours-Reykjavik_Capital_Region.html"
+				],
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "5.0",
+					"reviewCount": "50",
+					"bestRating": "5",
+					"worstRating": "1"
+				},
+				"contactPoint": [
+					{
+						"@type": "ContactPoint",
+						"telephone": "+354-764-3715",
+						"contactType": "customer service",
+						"areaServed": "IS",
+						"availableLanguage": ["English", "French"]
+					}
+				]
+			}
+		}
+		</script>
+
+		<style is:inline>
+			/* Minimal CSS for features not available in Tailwind */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Header background image styles */
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-image: url('/pictures/index/contact.webp');
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Contact button styles */
+			.contact-method-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.contact-method-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			.contact-method-btn:hover {
+				color: white;
+			}
+
+			/* Submit button styles */
+			.submit-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.submit-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			/* Mobile responsive adjustments for background */
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+
+			/* Form input focus styles */
+			.form-input:focus,
+			.form-textarea:focus,
+			.form-select:focus {
+				outline: none;
+				border-color: #5b7297;
+				box-shadow: 0 0 0 3px rgba(91, 114, 151, 0.1);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Image Header Section -->
+		<header class="image-header h-[75dvh] flex items-center justify-center relative">
+			<Topbar frenchUrl="#" currentLang="en" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Contact Us</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+					Let's plan your perfect Iceland adventure together. Our expert team is here to help you create unforgettable memories.
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<!-- Contact Form and Details Section -->
+			<section class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+						<!-- Contact Form -->
+						<div class="slide-up">
+							<h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-6 leading-tight text-gray-900">Send us a message</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide">
+								Fill out the form below and we'll get back to you within 24 hours. Whether you're planning a day tour or a multi-day adventure, we're here to help.
+							</p>
+
+							<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
+								<div>
+									<label for="name" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Full Name *</label>
+									<input
+										type="text"
+										id="name"
+										name="name"
+										required
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="Your name"
+									/>
+								</div>
+
+								<div>
+									<label for="email" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Email Address *</label>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										required
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="email@address.com"
+									/>
+								</div>
+
+								<div>
+									<label for="phone" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Phone Number</label>
+									<input
+										type="tel"
+										id="phone"
+										name="phone"
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="Please include country code"
+									/>
+								</div>
+
+								<div>
+									<label for="tour-type" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Tour Type</label>
+									<select
+										id="tour-type"
+										name="tour-type"
+										class="form-select w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+									>
+										<option value="">Select a tour type</option>
+										<option value="day-tour">Private Day Tour</option>
+										<option value="multiday-tour">Multi-Day Tour</option>
+										<option value="partner-experience">Partner Experience</option>
+										<option value="custom">Custom Itinerary</option>
+										<option value="other">Other</option>
+									</select>
+								</div>
+
+								<div>
+									<label for="message" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Message *</label>
+									<textarea
+										id="message"
+										name="message"
+										required
+										rows="6"
+										class="form-textarea w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300 resize-vertical"
+										placeholder="Tell us about your dream Iceland adventure..."
+									></textarea>
+								</div>
+
+								<button
+									type="submit"
+									class="submit-btn w-full md:w-auto inline-flex items-center justify-center gap-2 py-3 px-8 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-white"
+								>
+									Send Message
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+									</svg>
+								</button>
+							</form>
+						</div>
+
+						<!-- Contact Details -->
+						<div class="slide-up">
+							<h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-6 leading-tight text-gray-900">Get in touch</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide">
+								Prefer to reach out directly? Connect with us through any of the following channels. We're available to answer your questions.
+							</p>
+
+							<!-- Contact Methods -->
+							<div class="space-y-6 mb-12">
+								<!-- Email -->
+								<div class="flex items-start gap-4">
+									<div class="flex-shrink-0 w-12 h-12 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+										<svg class="w-6 h-6 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+										</svg>
+									</div>
+									<div>
+										<h3 class="text-lg font-normal text-gray-900 mb-1 tracking-wide">Email</h3>
+										<a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline text-base font-light tracking-wide">info@lilja-tours.com</a>
+									</div>
+								</div>
+
+								<!-- WhatsApp - Julien -->
+								<div class="flex items-start gap-4">
+									<div class="flex-shrink-0 w-12 h-12 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+										<svg class="w-6 h-6 text-[#5b7297]" viewBox="0 0 24 24" fill="currentColor">
+											<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+										</svg>
+									</div>
+									<div>
+										<h3 class="text-lg font-normal text-gray-900 mb-1 tracking-wide">WhatsApp</h3>
+										<a href="https://wa.me/3547643715" target="_blank" rel="noopener noreferrer" class="text-[#5b7297] hover:underline text-base font-light tracking-wide">+354 764 3715</a>
+									</div>
+								</div>
+
+								
+							<!-- Social Media & Reviews -->
+							<div>
+								<h3 class="text-xl md:text-2xl font-light tracking-wide mb-6 text-gray-900">Follow us & read reviews</h3>
+								<div class="flex flex-wrap gap-4">
+									<!-- Facebook -->
+									<a
+										href="https://www.facebook.com/liljatours"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="contact-method-btn inline-flex items-center gap-2 py-3 px-5 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+										aria-label="Visit Lilja Tours on Facebook"
+									>
+										<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+										</svg>
+										Facebook
+									</a>
+
+									<!-- Instagram -->
+									<a
+										href="https://www.instagram.com/lilja_tours"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="contact-method-btn inline-flex items-center gap-2 py-3 px-5 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+										aria-label="Visit Lilja Tours on Instagram"
+									>
+										<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+										</svg>
+										Instagram
+									</a>
+
+									<!-- Messenger -->
+									<a
+										href="https://m.me/liljatours"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="contact-method-btn inline-flex items-center gap-2 py-3 px-5 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+										aria-label="Message Lilja Tours on Messenger"
+									>
+										<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
+										</svg>
+										Messenger
+									</a>
+
+									<!-- TripAdvisor -->
+									<a
+										href="https://www.tripadvisor.com/Attraction_Review-g189970-d23867059-Reviews-Lilja_Tours-Reykjavik_Capital_Region.html"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="contact-method-btn inline-flex items-center gap-2 py-3 px-5 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
+										aria-label="Read Lilja Tours reviews on TripAdvisor"
+									>
+										<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 6 6 0 0 0 6-6c0-2.446-1.455-4.548-3.548-5.49L24 5.588h-4.361c-2.307-1.569-4.974-2.353-7.645-2.353l.012-.012zm-6.004 6.697a3.005 3.005 0 1 1-.002 6.01 3.005 3.005 0 0 1 .002-6.01zm12 0a3.005 3.005 0 1 1-.002 6.01 3.005 3.005 0 0 1 .002-6.01zm-12 1.274a1.726 1.726 0 1 0 .003 3.451 1.726 1.726 0 0 0-.003-3.451zm12 0a1.726 1.726 0 1 0 .003 3.451 1.726 1.726 0 0 0-.003-3.451z"/>
+										</svg>
+										TripAdvisor
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Initialize animations when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>
