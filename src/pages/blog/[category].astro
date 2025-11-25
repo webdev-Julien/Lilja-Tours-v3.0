@@ -8,15 +8,51 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
 	// Define all blog categories (matching the schema enum)
 	const categories = [
-		{ name: 'Itineraries', slug: 'itineraries' },
-		{ name: 'Tops', slug: 'tops' },
-		{ name: 'Info', slug: 'info' },
-		{ name: 'Photographies', slug: 'photographies' },
-		{ name: 'Hotels', slug: 'hotels' },
-		{ name: 'Excursions', slug: 'excursions' },
-		{ name: 'Tours', slug: 'tours' },
-		{ name: 'News', slug: 'news' },
-		{ name: 'Travel Guides', slug: 'travel-guides' }
+		{
+			name: 'Itineraries',
+			slug: 'itineraries',
+			description: 'Discover suggested Iceland itineraries crafted to showcase the country\'s most spectacular landscapes and hidden gems. From multi-day adventures to optimized day trip routes, these itineraries are often program that we crafted for our clients.'
+		},
+		{
+			name: 'Tops',
+			slug: 'tops',
+			description: 'Explore curated lists of Iceland\'s finest attractions, activities, and experiences. Our top selections highlight must-visit destinations, best viewpoints, recommended restaurants, and unique activities to enhance your Iceland adventure.'
+		},
+		{
+			name: 'Info',
+			slug: 'info',
+			description: 'Essential information to prepare your Iceland journey. Find practical guides covering weather patterns, driving conditions, local customs, visa requirements, and insider tips to navigate Iceland like a seasoned traveler.'
+		},
+		{
+			name: 'Photographies',
+			slug: 'photographies',
+			description: 'Visual inspiration from Iceland\'s breathtaking landscapes. Browse stunning photography showcasing dramatic waterfalls, volcanic formations, glacial lagoons, and northern lights, with location details and shooting tips for photographers.'
+		},
+		{
+			name: 'Hotels',
+			slug: 'hotels',
+			description: 'Accommodation reviews and recommendations across Iceland. From luxury hotels in Reykjavik to countryside guesthouses and remote lodges, discover where to stay for comfort, convenience, and authentic Icelandic hospitality.'
+		},
+		{
+			name: 'Excursions',
+			slug: 'excursions',
+			description: 'In-depth reviews of Iceland\'s most popular excursions and guided activities. Explore glacier hiking options, ice cave tours, whale watching experiences, and adventure activities with honest insights to choose the perfect excursion.'
+		},
+		{
+			name: 'Tours',
+			slug: 'tours',
+			description: 'Comprehensive tour guides covering Iceland\'s iconic routes and regions. Learn about Golden Circle variations, South Coast highlights, Snaefellsnes Peninsula treasures, and other touring routes with detailed stops and recommendations.'
+		},
+		{
+			name: 'News',
+			slug: 'news',
+			description: 'Latest updates from Iceland\'s tourism scene. Stay informed about volcanic activity, road conditions, new attractions, seasonal changes, and important travel updates affecting visitors to Iceland.'
+		},
+		{
+			name: 'Travel Guides',
+			slug: 'travel-guides',
+			description: 'Complete guides for exploring Iceland\'s regions and attractions. Detailed articles covering specific destinations, seasonal travel advice, budget planning, and comprehensive information for independent travelers discovering Iceland.'
+		}
 
 	];
 
@@ -39,13 +75,14 @@ export async function getStaticPaths() {
 			params: { category: cat.slug },
 			props: {
 				categoryName: cat.name,
+				categoryDescription: cat.description,
 				articles: sortedArticles
 			}
 		};
 	});
 }
 
-const { categoryName, articles } = Astro.props;
+const { categoryName, categoryDescription, articles } = Astro.props;
 const categorySlug = Astro.params.category;
 ---
 
@@ -218,6 +255,15 @@ const categorySlug = Astro.params.category;
 		</header>
 
 		<main>
+			<!-- Category Description Section -->
+			<section class="bg-white py-16 px-6">
+				<div class="max-w-4xl mx-auto text-center fade-in">
+					<p class="text-lg md:text-xl text-gray-700 leading-relaxed font-light">
+						{categoryDescription}
+					</p>
+				</div>
+			</section>
+
 			<!-- Articles Section -->
 			<section class="bg-gray-50 py-28 px-6">
 				<div class="max-w-7xl mx-auto">
