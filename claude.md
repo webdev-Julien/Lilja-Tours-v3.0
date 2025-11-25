@@ -37,6 +37,7 @@ Every page MUST have the primary keyword in:
 - For blog articles, adapt the style to something concise and efficient. Do not overuse meliorative adjectives.
 - For blog articles, you are in charge of all the datas in the frontmatter. You must consistently always use the same schema for the frontmatter across articles. Regarding the body, I will first write the article myself, and you will use this as a base to rewrite the article yourself, while preserving its structure as much as possible and do not use H1 in the body. You will also have to add links to other pages of the website according to the body content (look in all collections and generated pages), and add pictures too.
 - Pictures to use for blog articles will be found in /pictures/blog/articles. There will be pictures with the -card suffix, to use for the article card, with the -header-pc and -header-mobile suffix to use as header pictures (use responsiveness). Other pictures with no suffix must be used within the article. Their name should help you place them in the correct spot.
+- **For blog articles in the Photographies category**: These are picture-centered articles showcasing visual experiences. Sections should have minimal text with maximum pictures. Focus on visual storytelling rather than descriptive writing.
 
 ## JSON-LD Structured Data (CRITICAL)
 
