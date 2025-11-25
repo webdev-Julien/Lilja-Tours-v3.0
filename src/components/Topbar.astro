@@ -22,12 +22,12 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
 
     <!-- Navigation Links -->
     <ul class="hidden md:flex gap-10 items-center list-none m-0 p-0">
-      <li><a href="/private-day-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">Day tours</a></li>
-      <li><a href="/multiday-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">Multiday tours</a></li>
-      <li><a href="/partner-experiences-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">Experiences</a></li>
-      <li><a href="/blog/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">Stories</a></li>
-      <li><a href="/about/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">About</a></li>
-      <li><a href="/contact/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative transition-all duration-300 hover:after:w-full">Contact</a></li>
+      <li><a href="/private-day-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Day tours</a></li>
+      <li><a href="/multiday-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Multiday tours</a></li>
+      <li><a href="/partner-experiences-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Experiences</a></li>
+      <li><a href="/blog/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Stories</a></li>
+      <li><a href="/about/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">About</a></li>
+      <li><a href="/contact/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Contact</a></li>
     </ul>
 
     <!-- Right Section -->
@@ -91,7 +91,7 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
 </nav>
 
 <style>
-  /* Navigation link underline effect */
+  /* Navigation link underline effect - expands from center */
   .nav-link::after {
     content: '';
     position: absolute;
@@ -100,8 +100,12 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
     width: 0;
     height: 1px;
     background: white;
-    transition: all 0.3s ease;
+    transition: width 0.6s ease;
     transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
   }
 
   /* Dark background and hidden states for JavaScript control */
