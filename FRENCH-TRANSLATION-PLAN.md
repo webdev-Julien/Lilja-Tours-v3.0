@@ -526,6 +526,24 @@ Every French page must have the primary keyword in:
 - **Header introductory texts:** 350 characters maximum
 - **Visit/tour descriptions:** 2,000 characters maximum (formatted in 2-3 paragraphs)
 
+### French Translation Character Count Rule (CRITICAL FOR DESIGN)
+To preserve design integrity and prevent text overflow, the following French translations **MUST be equal to or shorter** than their English counterparts:
+
+- **Texts in cards** (ItineraryCard, MultidayItineraryCard, BlogCard, ActivityCard)
+- **`<meta>` tags** (titles, descriptions, Open Graph properties)
+- **Titles** (`<h1>`, `<h2>`, `<h3>`, page titles in `<title>` tags)
+- **Texts in headers** (HomeHeader, section headers, navigation items)
+- **Texts in activity cards** (ActivityFlipCard labels and descriptions)
+
+**Why this matters:** These elements have fixed layouts and visual constraints. French text that exceeds English length will cause:
+- Text overflow and wrapping issues
+- Broken card layouts
+- Misaligned UI elements
+- Poor mobile responsiveness
+- Unprofessional appearance
+
+**Implementation:** When translating these specific elements, prioritize conciseness. Use shorter French equivalents, abbreviations where appropriate, or rephrase to convey the same meaning in fewer characters. Test translations in the actual UI components to verify they fit properly.
+
 ### Content Guidelines
 - Write as SEO copywriter specializing in travel/tourism
 - Natural, engaging language for travelers
