@@ -3,3 +3,15 @@
 :root {
   --secondary: #5b7297;
 }
+
+/* Ensure all buttons and form elements have pointer cursor */
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+[role="button"],
+label:has(input[type="checkbox"]),
+label:has(input[type="radio"]),
+select {
+  cursor: pointer;
+}

@@ -7,14 +7,21 @@ import { getCollection } from 'astro:content';
 import CTAButton from "../components/CTAButton.astro";
 import Footer from "../components/Footer.astro";
 
-// Get specific tours to display on homepage
+// Get all tours and randomly select 3 to display on homepage
 const allTours = await getCollection('tours_EN');
 
-// Select specific tours by id (filenames with .mdx extension)
-const tourIds = ['northern-lights.mdx', 'golden-circle-complete.mdx', 'viking-heritage-tour.mdx'];
-const selectedTours = tourIds
-  .map(id => allTours.find(tour => tour.id === id))
-  .filter((tour): tour is NonNullable<typeof tour> => tour !== undefined);
+// Shuffle function using Fisher-Yates algorithm
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Randomly select 3 tours at build time
+const selectedTours = shuffleArray(allTours).slice(0, 3);
 
 // Get latest 3 blog articles
 const allBlogArticles = await getCollection('blog_articles_EN');
@@ -303,10 +310,10 @@ const latestArticles = allBlogArticles
 					<div class="text-left slide-up">
 						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-wide mb-12 leading-tight text-white">Partner Experiences in Iceland</h2>
 						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
-							Beyond our private tours, we've partnered with Iceland's finest activity operators to bring you access to extraordinary experiences. From helicopter flights over volcanic landscapes to intimate ice cave explorations, our selection of partner experiences adds unique adventures to your Iceland journey.
+							Beyond our private tours, we've partnered with Iceland's finest activity operators to bring you access to extraordinary experiences. From <a href="/partner-experiences-iceland/helicopter-tours/" class="text-white underline hover:opacity-80 transition-opacity">helicopter flights</a> over volcanic landscapes to intimate <a href="/partner-experiences-iceland/ice-caves/" class="text-white underline hover:opacity-80 transition-opacity">ice cave explorations</a>, our selection of partner experiences adds unique adventures to your Iceland journey.
 						</p>
 						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
-							Each partner has been carefully selected for their expertise, safety standards, and commitment to authentic Icelandic experiences. Whether you're seeking adrenaline-pumping snowmobile adventures across glaciers, serene soaks in geothermal hot springs, or cultural experiences, these activities are available both as part of your customized itinerary or as standalone bookings.
+							Each partner has been carefully selected for their expertise, safety standards, and commitment to authentic Icelandic experiences. Whether you're seeking adrenaline-pumping <a href="/partner-experiences-iceland/atv-snowmobile/" class="text-white underline hover:opacity-80 transition-opacity">snowmobile adventures</a> across glaciers, serene soaks in <a href="/partner-experiences-iceland/hot-springs/" class="text-white underline hover:opacity-80 transition-opacity">geothermal hot springs</a>, or <a href="/partner-experiences-iceland/cultural-experiences/" class="text-white underline hover:opacity-80 transition-opacity">cultural experiences</a>, these activities are available both as part of your customized itinerary or as standalone bookings.
 						</p>
 						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-12 tracking-wide opacity-95">
 							We can seamlessly integrate these experiences into your personalized tour, or you can book them directly for your independent travels. From planning to execution, we're here to help you create unforgettable memories across Iceland's most spectacular settings.
