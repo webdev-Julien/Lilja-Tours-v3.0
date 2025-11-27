@@ -1,7 +1,7 @@
 <?php
 /**
- * Multiday Tour Booking Modal Form Handler for Lilja Tours
- * Handles "Book This Tour" modal submissions from multiday tour pages
+ * Main Contact Form Handler for Lilja Tours
+ * Handles submissions from /contact/ page
  * Sends emails via Google Workspace SMTP
  */
 
@@ -36,23 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validate required fields
-    $requiredFields = ['name', 'email', 'numPeople', 'departureDate', 'accommodation', 'tourName'];
-    foreach ($requiredFields as $field) {
-        if (empty($data[$field])) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'error' => 'Missing required field: ' . $field]);
-            exit;
-        }
+    if (empty($data['name']) || empty($data['email']) || empty($data['message'])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+        exit;
     }
 
     // Sanitize inputs
     $name = htmlspecialchars(strip_tags($data['name']));
     $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-    $numPeople = htmlspecialchars(strip_tags($data['numPeople']));
-    $activities = !empty($data['activities']) ? htmlspecialchars(strip_tags($data['activities'])) : 'No activities selected';
-    $departureDate = htmlspecialchars(strip_tags($data['departureDate']));
-    $accommodation = htmlspecialchars(strip_tags($data['accommodation']));
-    $tourName = htmlspecialchars(strip_tags($data['tourName']));
+    $phone = !empty($data['phone']) ? htmlspecialchars(strip_tags($data['phone'])) : 'Not provided';
+    $tourType = !empty($data['tour-type']) ? htmlspecialchars(strip_tags($data['tour-type'])) : 'Not specified';
+    $message = htmlspecialchars(strip_tags($data['message']));
 
     // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -62,20 +57,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Create email body
-    $emailBody = "New Multiday Tour Booking Request\n\n";
-    $emailBody .= "Tour: " . $tourName . "\n\n";
+    $emailBody = "New Contact Form Submission\n\n";
     $emailBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-    $emailBody .= "CONTACT INFORMATION\n\n";
+    $emailBody .= "Contact Information:\n";
     $emailBody .= "Name: " . $name . "\n";
-    $emailBody .= "Email: " . $email . "\n\n";
+    $emailBody .= "Email: " . $email . "\n";
+    $emailBody .= "Phone: " . $phone . "\n";
+    $emailBody .= "Tour Type: " . $tourType . "\n\n";
+    $emailBody .= "Message:\n";
     $emailBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-    $emailBody .= "BOOKING DETAILS\n\n";
-    $emailBody .= "Number of People: " . $numPeople . "\n";
-    $emailBody .= "Departure Date: " . $departureDate . "\n";
-    $emailBody .= "Accommodation Type: " . $accommodation . "\n";
-    $emailBody .= "Selected Activities: " . $activities . "\n\n";
+    $emailBody .= $message . "\n\n";
     $emailBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    $emailBody .= "This email was sent from the Lilja Tours multiday tour booking form.\n";
+    $emailBody .= "This email was sent from the Lilja Tours contact form.\n";
 
     // Create PHPMailer instance
     $mail = new PHPMailer(true);
@@ -97,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Content
         $mail->isHTML(false);
-        $mail->Subject = 'LT-MD - ' . $tourName;
+        $mail->Subject = 'LT Contact - General Inquiry';
         $mail->Body = $emailBody;
 
         // Send email
@@ -106,15 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(200);
         echo json_encode([
             'success' => true,
-            'message' => 'Booking request sent successfully! We will get back to you within 24 hours with a detailed quote.'
+            'message' => 'Message sent successfully! We will get back to you within 24 hours.'
         ]);
 
     } catch (Exception $e) {
-        error_log('Booking form email failed from: ' . $email . ' for tour: ' . $tourName . ' - Error: ' . $mail->ErrorInfo);
+        error_log('Contact form email failed: ' . $mail->ErrorInfo);
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'error' => 'Failed to send booking request. Please try again or contact us directly at ' . RECIPIENT_EMAIL
+            'error' => 'Failed to send message. Please try again or contact us directly at ' . RECIPIENT_EMAIL
         ]);
     }
 

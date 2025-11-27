@@ -1,0 +1,329 @@
+---
+import "../../src/styles/global.css"
+import Topbar from "../components/Topbar.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Page not found. Return to Lilja Tours to explore Iceland's most spectacular private tours and customized adventures.">
+		<link rel="canonical" href="https://www.lilja-tours.com/404/" />
+
+		<meta property="og:title" content="Page Not Found - Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/pictures/headers/northern-lights-header-pc.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/404/">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Page Not Found - Lilja Tours</title>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			/* Scroll Animation Classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Header background image styles */
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-size: cover;
+				background-position: center;
+			}
+
+			/* Desktop background */
+			@media (min-width: 768px) {
+				.image-header {
+					background-image: url('/pictures/headers/northern-lights-header-pc.webp');
+					background-attachment: fixed;
+				}
+			}
+
+			/* Mobile background */
+			@media (max-width: 767px) {
+				.image-header {
+					background-image: url('/pictures/headers/northern-lights-header-mobile.webp');
+					background-attachment: scroll;
+				}
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* 404 number styling */
+			.error-code {
+				font-size: 10rem;
+				font-weight: 100;
+				line-height: 1;
+				letter-spacing: 0.1em;
+				color: white;
+				text-shadow: 0 0 30px rgba(91, 114, 151, 0.5);
+			}
+
+			@media (max-width: 768px) {
+				.error-code {
+					font-size: 6rem;
+				}
+			}
+
+			/* Button hover effects */
+			.home-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.home-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			.secondary-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.secondary-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			.secondary-btn:hover {
+				color: #5b7297;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Image Header Section -->
+		<header class="image-header min-h-screen flex items-center justify-center relative">
+			<Topbar frenchUrl="#" currentLang="en" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<div class="error-code mb-8">404</div>
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-white">Lost in the Wilderness</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide mb-12">
+					Like the Northern Lights dancing above, this page seems to have wandered off into the Icelandic night. Let's guide you back to solid ground.
+				</p>
+
+				<!-- Action Buttons -->
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+					<a
+						href="/"
+						class="home-btn inline-flex items-center gap-2 py-3 px-8 bg-transparent text-white border border-white rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-white cursor-pointer"
+					>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+						</svg>
+						Return Home
+					</a>
+
+					<a
+						href="/private-day-tours-iceland/"
+						class="secondary-btn inline-flex items-center gap-2 py-3 px-8 bg-transparent text-white border border-white rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase relative overflow-hidden cursor-pointer"
+					>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+						</svg>
+						Explore Tours
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Helpful Links Section -->
+		<section class="fade-in bg-white py-24 md:py-32">
+			<div class="max-w-7xl w-full mx-auto px-8">
+				<div class="text-center mb-16 slide-up">
+					<h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-[2px] mb-6 leading-tight text-gray-900">You Might Be Looking For</h2>
+					<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 tracking-wide">
+						Discover our most popular pages and find your perfect Icelandic adventure
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 slide-up">
+					<!-- Private Day Tours -->
+					<a href="/private-day-tours-iceland/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">Private Day Tours</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Explore Iceland's highlights in a single day with expert local guides</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- Multiday Tours -->
+					<a href="/multiday-tours-iceland/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">Multiday Tours</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Fully customized adventures from 2 to 10+ days across Iceland</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- Partner Experiences -->
+					<a href="/partner-experiences-iceland/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">Partner Experiences</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Glacier hikes, ice caves, hot springs, and unique activities</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- Blog -->
+					<a href="/blog/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">Travel Guides</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Expert tips, itineraries, and insights for planning your Iceland trip</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- About -->
+					<a href="/about/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">About Us</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Meet your local guides and learn about our story</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- Contact -->
+					<a href="/contact/" class="group block p-8 bg-gray-50 rounded-sm hover:bg-[#5b7297] transition-all duration-300 border border-gray-200 hover:border-[#5b7297]">
+						<div class="flex items-start gap-4">
+							<svg class="w-8 h-8 text-[#5b7297] group-hover:text-white transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+							</svg>
+							<div>
+								<h3 class="text-xl font-normal text-gray-900 group-hover:text-white transition-colors mb-2 tracking-wide">Contact Us</h3>
+								<p class="text-sm font-light text-gray-600 group-hover:text-white/90 transition-colors tracking-wide">Get in touch to plan your perfect Iceland adventure</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Initialize animations when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>

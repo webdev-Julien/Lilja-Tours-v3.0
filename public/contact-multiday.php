@@ -1,18 +1,33 @@
 <?php
+/**
+ * Multiday Tours Custom Form Handler for Lilja Tours
+ * Handles "Design Your Perfect Journey" form submissions
+ * Sends emails via Google Workspace SMTP
+ */
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
+// Load SMTP configuration
+require_once 'smtp-config.php';
+
+// Load PHPMailer
+require_once 'PHPMailer/PHPMailer.php';
+require_once 'PHPMailer/SMTP.php';
+require_once 'PHPMailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get data from either POST or JSON input
     $data = [];
 
-    // Check if data is sent as form data
     if (!empty($_POST)) {
         $data = $_POST;
     } else {
-        // Try to get JSON input
         $json = file_get_contents('php://input');
         $jsonData = json_decode($json, true);
         if ($jsonData) {
@@ -52,11 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Email configuration
-    $to = 'julien@lilja-tours.com';
-    $subject = 'LT Multiday Tour Request - ' . $firstName . ' ' . $lastName;
-
-    // Email body
+    // Create email body
     $emailBody = "New Multiday Tour Customization Request\n\n";
     $emailBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
     $emailBody .= "CONTACT INFORMATION\n\n";
@@ -80,30 +91,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailBody .= "This email was sent from the Lilja Tours multiday tours contact form.\n";
     $emailBody .= "Please respond within 24 hours with a personalized itinerary proposal.\n";
 
-    // Email headers
-    $headers = "From: noreply@lilja-tours.com\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    // Create PHPMailer instance
+    $mail = new PHPMailer(true);
 
-    // Send email
-    $mailSent = mail($to, $subject, $emailBody, $headers);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = SMTP_ENCRYPTION;
+        $mail->Port = SMTP_PORT;
 
-    if ($mailSent) {
+        // Recipients
+        $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+        $mail->addAddress(RECIPIENT_EMAIL);
+        $mail->addReplyTo($email, $firstName . ' ' . $lastName);
+
+        // Content
+        $mail->isHTML(false);
+        $mail->Subject = 'LT Multiday Tour Request - ' . $firstName . ' ' . $lastName;
+        $mail->Body = $emailBody;
+
+        // Send email
+        $mail->send();
+
         http_response_code(200);
         echo json_encode([
             'success' => true,
-            'message' => 'Request sent successfully'
+            'message' => 'Request sent successfully! We will create a personalized itinerary and get back to you within 24 hours.'
         ]);
-    } else {
-        // Log error for debugging
-        error_log('Failed to send multiday tour request from: ' . $email);
+
+    } catch (Exception $e) {
+        error_log('Multiday tour request email failed from: ' . $email . ' - Error: ' . $mail->ErrorInfo);
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'error' => 'Failed to send request. Please try again or contact us directly.'
+            'error' => 'Failed to send request. Please try again or contact us directly at ' . RECIPIENT_EMAIL
         ]);
     }
+
 } else {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Method not allowed']);
