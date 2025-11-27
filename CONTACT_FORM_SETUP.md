@@ -52,12 +52,15 @@ Since you're using Google Workspace with 2-factor authentication (recommended), 
 
 1. Go to your Google Account: https://myaccount.google.com/
 2. Navigate to **Security** → **2-Step Verification** (enable if not already enabled)
-3. Scroll down to **App passwords**
-4. Click **Select app** → Choose "Mail"
-5. Click **Select device** → Choose "Other" and name it "Lilja Tours Website"
-6. Click **Generate**
-7. **IMPORTANT**: Copy the 16-character password (without spaces) enic stwk zbhs sqqq
+3. Scroll down to **App passwords** (or go directly to: https://myaccount.google.com/apppasswords)
+4. You may be asked to sign in again for security
+5. In the "App name" field, type: **Lilja Tours Website** (or any name you prefer)
+6. Click **Create**
+7. **IMPORTANT**: Copy the 16-character password shown (format: `xxxx xxxx xxxx xxxx`)
 8. **Save this password securely** - you'll need it for the next step
+9. Click **Done**
+
+**Note**: Google's interface has been simplified. You no longer select "app" or "device" - just name your app password and generate it.
 
 ### Step 2: Configure SMTP Credentials
 

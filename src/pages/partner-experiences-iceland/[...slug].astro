@@ -352,8 +352,7 @@ try {
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down">
             {data.title}
           </h1>
-          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up">
-            {data.introductoryText}
+          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up" set:html={data.introductoryText}>
           </p>
         </div>
       </div>
