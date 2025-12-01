@@ -56,7 +56,7 @@ Since you're using Google Workspace with 2-factor authentication (recommended), 
 4. You may be asked to sign in again for security
 5. In the "App name" field, type: **Lilja Tours Website** (or any name you prefer)
 6. Click **Create**
-7. **IMPORTANT**: Copy the 16-character password shown (format: `xxxx xxxx xxxx xxxx`)
+7. **IMPORTANT**: Copy the 16-character password shown (format: `cjtl oylj ecaq xsno`)
 8. **Save this password securely** - you'll need it for the next step
 9. Click **Done**
 
