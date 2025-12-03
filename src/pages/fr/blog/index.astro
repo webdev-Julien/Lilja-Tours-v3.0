@@ -1,0 +1,200 @@
+---
+import "../../../styles/global.css"
+import Topbar from "../../../components/Topbar.astro"
+import BlogCard from "../../../components/BlogCard.astro"
+import Footer from "../../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('blog_articles_FR');
+const sortedArticles = allArticles.sort((a, b) =>
+  new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+const latestArticles = sortedArticles.slice(0, 3);
+
+const categories = [
+	{ name: 'Travel Guides', slug: 'travel-guides', description: 'Guides complets' },
+	{ name: 'Itineraries', slug: 'itineraries', description: 'Itinéraires suggérés en Islande' },
+	{ name: 'Tops', slug: 'tops', description: 'Listes sélectionnées' },
+	{ name: 'Hotels', slug: 'hotels', description: 'Avis sur les hébergements' },
+	{ name: 'Excursions', slug: 'excursions', description: 'Critiques approfondies' },
+	{ name: 'Tours', slug: 'tours', description: 'Guides de circuits complets' },
+	{ name: 'Info', slug: 'info', description: 'Informations essentielles' },
+	{ name: 'Photographies', slug: 'photographies', description: 'Inspiration visuelle' },
+	{ name: 'News', slug: 'news', description: 'Dernières actualités' }
+];
+
+const categoriesWithArticles = categories.filter(cat =>
+	allArticles.some(article =>
+		article.data.categories.some(category =>
+			category.toLowerCase() === cat.name.toLowerCase()
+		)
+	)
+);
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Explorez notre blog pour découvrir des conseils de voyage en Islande, des guides et des récits d'aventure.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/blog/" />
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/blog/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/fr/blog/" />
+
+		<meta property="og:title" content="Blog Voyage Islande | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/videos/blog-bg.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/fr/blog/">
+		<meta property="og:description" content="Explorez notre blog pour découvrir des conseils de voyage en Islande, des guides et des récits d'aventure.">
+
+		<meta property="og:locale" content="fr_FR">
+		<meta property="og:locale:alternate" content="en_US">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<title>Blog Voyage Islande | Lilja Tours</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			.fade-in, .slide-up, .slide-down { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+			.fade-in.visible, .slide-up.visible, .slide-down.visible { opacity: 1; transform: translate(0); }
+			.slide-up { transform: translateY(50px); }
+			.slide-down { transform: translateY(-50px); }
+
+			@media (max-width: 768px) { .bg-fixed { background-attachment: scroll; } }
+
+			.video-header { position: relative; overflow: hidden; }
+			.video-header video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: -1; }
+			.video-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 1; }
+			.video-content { position: relative; z-index: 2; }
+
+			.blog-grid { display: grid; align-items: stretch; }
+			.blog-grid > * { height: 100%; display: flex; flex-direction: column; }
+			.blog-grid article > div { height: 100%; display: flex; flex-direction: column; }
+
+			.see-all-button::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #5b7297; transform: translateY(-100%); transition: transform 0.6s ease; z-index: -1; }
+			.see-all-button:hover::before { transform: translateY(0); }
+			.see-all-button:hover { color: white; }
+
+			.category-card { position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 4px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: block; }
+			.category-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); }
+			.category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%); z-index: 1; }
+			.category-card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+			.category-card:hover .category-card-bg { transform: scale(1.1); }
+			.category-card-content { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center; }
+		</style>
+	</head>
+	<body>
+			<header class="video-header h-[75dvh] flex items-center justify-center relative">
+						<Topbar englishUrl="/blog/" currentLang="fr" />
+				<video id="video-desktop" autoplay muted loop playsinline class="video-source absolute inset-0 w-full h-full object-cover hidden lg:block">
+					<source src="/videos/HD/blog-bg.mp4" type="video/mp4">
+				</video>
+				<video id="video-tablet" autoplay muted loop playsinline class="video-source absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden">
+					<source src="/videos/MD/blog-bg.mp4" type="video/mp4">
+				</video>
+				<video id="video-mobile" autoplay muted loop playsinline class="video-source absolute inset-0 w-full h-full object-cover block md:hidden">
+					<source src="/videos/SD/blog-bg.mp4" type="video/mp4">
+				</video>
+
+				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+					<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Blog Voyage Islande</h1>
+					<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+						Découvrez des conseils d'initiés, des guides de destinations des itinéraires et des récits d'Islande.
+					</p>
+				</div>
+			</header>
+
+			<section class="bg-gray-50 py-28 px-6">
+				<div class="max-w-7xl mx-auto">
+					<div class="text-center mb-16 slide-up">
+						<h2 class="text-4xl md:text-5xl font-light text-[#5b7297] mb-6 tracking-tight">Derniers Articles</h2>
+						<p class="text-lg md:text-xl text-gray-500 font-light max-w-3xl mx-auto leading-relaxed">
+							Explorez l'Islande à travers notre collection sélectionnée.
+						</p>
+					</div>
+
+					<div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+						{latestArticles.map((article) => (
+							<BlogCard
+								image={article.data.cardImg.srcPC}
+								imageAlt={article.data.cardImg.alt}
+								title={article.data.title}
+								excerpt={article.data.excerpt}
+								publishDate={article.data.publishDate}
+								readingTime={article.data.readingTime}
+								categories={article.data.categories}
+								slug={`/fr/blog/${article.data.slug || article.slug}`}
+								author={article.data.author}
+							/>
+						))}
+					</div>
+
+					<div class="text-center mt-12">
+						<a href="/fr/blog/all-articles/" class="see-all-button inline-flex items-center justify-center gap-2 py-3 px-8 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light tracking-wide uppercase relative overflow-hidden">
+							Voir Tous les Articles
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-white py-28 px-6">
+				<div class="max-w-7xl mx-auto">
+					<div class="text-center mb-16 slide-up">
+						<h2 class="text-4xl md:text-5xl font-light text-[#5b7297] mb-6 tracking-tight">Parcourir par Catégorie</h2>
+						<p class="text-lg md:text-xl text-gray-500 font-light max-w-3xl mx-auto leading-relaxed">
+							Explorez les articles organisés par thème.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 slide-up">
+						{categoriesWithArticles.map((category) => (
+							<a href={`/fr/blog/${category.slug}/`} class="category-card">
+								<picture>
+									<source media="(max-width: 768px)" srcset={`/pictures/blog/categories/${category.slug}-header-mobile.webp`} />
+									<source media="(min-width: 769px)" srcset={`/pictures/blog/categories/${category.slug}-header-pc.webp`} />
+									<img src={`/pictures/blog/categories/${category.slug}-header-pc.webp`} alt={`${category.name} blog category`} class="category-card-bg" onerror="this.onerror=null; this.src='/pictures/blog/articles/placeholder.webp';" />
+								</picture>
+								<div class="category-card-content">
+									<h3 class="text-2xl md:text-3xl font-light tracking-wide text-white text-center px-4">{category.name}</h3>
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<Footer currentLang="fr" />
+
+			<script>
+				document.addEventListener('DOMContentLoaded', function() {
+					const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+					const observer = new IntersectionObserver((entries) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('visible');
+							}
+						});
+					}, observerOptions);
+					document.querySelectorAll('.fade-in, .slide-up, .slide-down').forEach(el => {
+						observer.observe(el);
+					});
+				});
+			</script>
+	</body>
+</html>

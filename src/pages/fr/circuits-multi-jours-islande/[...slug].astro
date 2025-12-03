@@ -1,0 +1,376 @@
+---
+// French Multiday Tour Dynamic Page - mirrors English structure
+import "../../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../../components/Footer.astro";
+import Topbar from "../../../components/Topbar.astro";
+import FloatingBookButton from "../../../components/FloatingBookButton.astro";
+import TourBookingModal from "../../../components/TourBookingModal.astro";
+import ActivityFlipCard from "../../../components/ActivityFlipCard.astro";
+
+export async function getStaticPaths() {
+  const tours = await getCollection('multiday_tours_FR');
+  return tours.map((tour) => ({
+    params: { slug: tour.data.slug || tour.slug },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const { Content } = await tour.render();
+const data = tour.data;
+
+let exchangeRates = { USD: 0.0073, EUR: 0.0067 };
+try {
+  const response = await fetch('https://api.frankfurter.app/latest?from=ISK&to=USD,EUR');
+  if (response.ok) {
+    const currencyData = await response.json();
+    exchangeRates = currencyData.rates;
+  }
+} catch (error) {
+  console.log('Currency API unavailable');
+}
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <meta property="og:title" content={data.pageTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={data.featuredImage} />
+    <meta property="og:url" content={data.canonicalUrl} />
+    <meta property="og:description" content={data.metaDescription} />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>{data.pageTitle}</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+
+    <style is:inline>
+      /* Same styles as day tours */
+      .fade-in, .slide-up, .slide-down, .slide-left, .slide-right { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+      .fade-in.visible, .slide-up.visible, .slide-down.visible, .slide-left.visible, .slide-right.visible { opacity: 1; transform: translate(0); }
+      .slide-up { transform: translateY(50px); }
+      .slide-down { transform: translateY(-50px); }
+      .slide-left { transform: translateX(50px); }
+      .slide-right { transform: translateX(-50px); }
+
+      .gallery-container { display: flex; flex-direction: column; gap: 1.5rem; }
+      .gallery-track { display: flex; width: fit-content; gap: 1.5rem; animation: scroll-left 225s linear infinite; }
+      .gallery-track:hover { animation-play-state: paused; }
+      .gallery-slide-group { display: flex; gap: 1.5rem; flex-shrink: 0; }
+      .gallery-item { flex-shrink: 0; width: 375px; height: 375px; }
+      @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-100% - 1.5rem)); } }
+
+      @media (max-width: 767px) {
+        .gallery-item { width: 250px; height: 250px; }
+        .gallery-track { animation: scroll-left 100s linear infinite; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Topbar currentLang={data.language} englishUrl={data.urlOtherLang} />
+
+    <header class="relative w-full h-[65dvh] overflow-hidden">
+      {data.headerImage && (
+        <picture class="absolute inset-0 w-full h-full">
+          {data.headerImage.srcMobile && (<source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />)}
+          <img src={data.headerImage.srcPC} alt={data.headerImage.alt || ''} class="w-full h-full object-cover object-center" />
+        </picture>
+      )}
+      <div class="absolute inset-0 bg-black/20 z-10"></div>
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down visible">{data.title}</h1>
+          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up visible" set:html={data.introductoryText}></p>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <!-- Tour Information -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div class="slide-right">
+              <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Détails du Circuit</h2>
+              <div class="space-y-6 mb-8">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Durée :</span>
+                  <span class="text-gray-900">{data.duration}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Saison :</span>
+                  <span class="text-gray-900">{data.season}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Max Personnes :</span>
+                  <span class="text-gray-900">{data.maxPeople}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Difficulté :</span>
+                  <span class="text-gray-900">{data.difficultyLevel}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Prix par jour :</span>
+                  <span class="text-gray-900">{data.pricePerDay?.toLocaleString()} ISK</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">À partir de :</span>
+                  <span class="text-gray-900">{data.price?.toLocaleString()} ISK</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-gray-500 leading-relaxed mb-8">
+                Le prix ci-dessus comprend le guidage et le transport. Il n'inclut pas votre hébergement, l'hébergement du guide en dehors de Reykjavík, les activités optionnelles, les déjeuners et dîners.
+              </p>
+
+              <div class="bg-blue-50 border border-blue-200 rounded-sm p-6 mb-6">
+                <p class="text-sm text-blue-800 leading-relaxed mb-4">
+                  <strong>Entièrement Personnalisable :</strong> Ce circuit est totalement adapté à vos préférences. Nous travaillerons avec vous pour sélectionner les hébergements, planifier les activités et créer l'itinéraire parfait pour votre aventure islandaise.
+                </p>
+                <button
+                  data-open-booking-modal
+                  class="book-tour-cta w-full bg-transparent text-[var(--secondary)] border border-[var(--secondary)] px-6 py-3 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:text-white hover:translate-y-0.5 cursor-pointer"
+                >
+                  Réserver Ce Circuit
+                </button>
+              </div>
+
+            </div>
+
+            {data.highlights && data.highlights.length > 0 && (
+              <div class="slide-left">
+                <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Points Forts</h2>
+                <ul class="space-y-4">
+                  {data.highlights.map((highlight) => (
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-[var(--secondary)] mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-gray-700">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      {data.gallery && data.gallery.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24 overflow-hidden">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Galerie</h2>
+            <div class="gallery-container">
+              <div class="gallery-track">
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (<source media="(max-width: 767px)" srcset={image.srcMobile} />)}
+                        <img src={image.srcPC} alt={image.alt || ''} class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300" />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+                <div class="gallery-slide-group">
+                  {data.gallery.map((image) => (
+                    <div class="gallery-item">
+                      <picture class="block aspect-square overflow-hidden rounded-sm">
+                        {image.srcMobile && (<source media="(max-width: 767px)" srcset={image.srcMobile} />)}
+                        <img src={image.srcPC} alt={image.alt || ''} class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300" />
+                      </picture>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Video -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="slide-up"><Content /></div>
+        </div>
+      </section>
+
+      <!-- Itinerary Section (Day by Day) -->
+      {data.itinerary && data.itinerary.length > 0 && (
+        <section class="fade-in py-16 lg:py-24">
+          <div class="max-w-6xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Itinéraire Jour par Jour</h2>
+            <div class="space-y-4">
+              {data.itinerary.map((day, index) => (
+                <div class={`visit-accordion slide-${index % 2 === 0 ? 'right' : 'left'} bg-white rounded-sm shadow-lg overflow-hidden`}>
+                  <button
+                    class="accordion-trigger w-full text-left p-6 hover:bg-gray-50 transition-colors duration-200 flex justify-between items-center cursor-pointer"
+                    aria-expanded="false"
+                    data-accordion-target={`day-${day.day}`}
+                  >
+                    <h3 class="text-2xl md:text-3xl font-light tracking-wide text-gray-900">Jour {day.day} : {day.title}</h3>
+                    <svg
+                      class="accordion-icon w-6 h-6 text-gray-400 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                  </button>
+                  <div
+                    class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-out"
+                    id={`day-${day.day}`}
+                  >
+                    <div class="p-8 pt-0">
+                      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="lg:order-2">
+                          {day.image && (
+                            <picture class="block aspect-square overflow-hidden rounded-sm">
+                              {day.image.srcMobile && (
+                                <source media="(max-width: 767px)" srcset={day.image.srcMobile} />
+                              )}
+                              <img
+                                src={day.image.srcPC}
+                                alt={day.image.alt || ''}
+                                class="w-full h-full object-cover object-center"
+                              />
+                            </picture>
+                          )}
+                        </div>
+                        <div class="lg:order-1">
+                          <div class="text-gray-700 leading-relaxed text-base lg:text-lg" set:html={day.description}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Activities Section -->
+      {data.activities && data.activities.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Activités Optionnelles</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {data.activities.map((activity) => (
+                <ActivityFlipCard
+                  name={activity.name}
+                  description={activity.description}
+                  day={activity.day}
+                  image={activity.image}
+                  alt={activity.alt}
+                  currentLang="fr"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
+
+    <Footer currentLang={data.language} />
+    <FloatingBookButton currentLang="fr" />
+    <TourBookingModal tourName={data.title} activities={data.activities || []} currentLang="fr" />
+
+    <script>
+      // Intersection Observer for scroll animations
+      function initScrollAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        const animatedElements = document.querySelectorAll(
+          '.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+        );
+
+        animatedElements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+
+      // Accordion functionality
+      function initAccordion() {
+        const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+
+        accordionTriggers.forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            const targetId = trigger.getAttribute('data-accordion-target');
+            const content = document.getElementById(targetId);
+            const icon = trigger.querySelector('.accordion-icon');
+            const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+            // Close all other accordions
+            accordionTriggers.forEach((otherTrigger) => {
+              if (otherTrigger !== trigger) {
+                const otherTargetId = otherTrigger.getAttribute('data-accordion-target');
+                const otherContent = document.getElementById(otherTargetId);
+                const otherIcon = otherTrigger.querySelector('.accordion-icon');
+
+                otherTrigger.setAttribute('aria-expanded', 'false');
+                otherContent.style.maxHeight = '0px';
+                otherIcon.style.transform = 'rotate(0deg)';
+              }
+            });
+
+            // Toggle current accordion
+            if (isExpanded) {
+              trigger.setAttribute('aria-expanded', 'false');
+              content.style.maxHeight = '0px';
+              icon.style.transform = 'rotate(0deg)';
+            } else {
+              trigger.setAttribute('aria-expanded', 'true');
+              content.style.maxHeight = content.scrollHeight + 'px';
+              icon.style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      }
+
+      // Initialize everything when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+        initAccordion();
+      });
+    </script>
+  </body>
+</html>

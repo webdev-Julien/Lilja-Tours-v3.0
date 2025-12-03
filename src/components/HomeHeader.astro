@@ -5,6 +5,7 @@ import Navigation from './Topbar.astro';
 
 export interface Props {
   frenchUrl?: string;
+  englishUrl?: string;
   currentLang?: 'en' | 'fr';
   videos?: Array<{
     hd: string;          // 1920px+ (Desktop)
@@ -16,8 +17,9 @@ export interface Props {
   fallbackPoster?: string;
 }
 
-const { 
-  frenchUrl = '#', 
+const {
+  frenchUrl,
+  englishUrl,
   currentLang = 'en',
   videos = [
     { 
@@ -83,7 +85,7 @@ const {
 
 <header class="relative w-full h-screen overflow-hidden flex items-center justify-center">
   <!-- Navigation Component -->
-  <Navigation frenchUrl={frenchUrl} currentLang={currentLang} />
+  <Navigation frenchUrl={frenchUrl} englishUrl={englishUrl} currentLang={currentLang} />
 
   <!-- Video Background -->
   <div class="absolute top-0 left-0 w-full h-full z-[1]">
@@ -138,7 +140,7 @@ const {
 
     <!-- Loading Indicator -->
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-sm opacity-80 z-[4] font-light tracking-wider" id="loadingText" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">
-      Loading videos...
+      {currentLang === 'fr' ? 'Chargement des vidéos...' : 'Loading videos...'}
     </div>
 
     <!-- Progress Bar -->
@@ -156,16 +158,17 @@ const {
   <div class="relative z-[3] flex items-center justify-center w-full h-full px-8">
     <div class="text-center max-w-3xl text-white">
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-        Private tours in Iceland
+        {currentLang === 'fr' ? 'Circuits privés en Islande' : 'Private tours in Iceland'}
       </h1>
       <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed mb-12 tracking-wide opacity-95 max-w-2xl mx-auto" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-        Discover breathtaking landscapes through carefully crafted private tours in Iceland.
-        Let us guide you to hidden gems and iconic wonders that will create memories for a lifetime.
+        {currentLang === 'fr'
+          ? <>Découvrez les paysages d'Islande à travers des circuits élaborés sur mesure avec chauffeur-guide privé.<br />Laissez-nous vous guider vers des trésors cachés et des merveilles emblématiques qui créeront les souvenirs d'une vie.</>
+          : 'Discover breathtaking landscapes through carefully crafted private tours in Iceland. Let us guide you to hidden gems and iconic wonders that will create memories for a lifetime.'}
       </p>
       <div class="flex gap-6 justify-center flex-wrap">
-        <CTAButton></CTAButton>
-        <a href="/private-day-tours-iceland/" class="px-6 py-2 text-base md:text-lg lg:text-xl font-light tracking-wide text-white cursor-pointer transition-all duration-300 border-none min-w-[180px] hover:bg-white/10 hover:-translate-y-0.5 hover:shadow-lg no-underline inline-block text-center">
-          Browse our tours
+        <CTAButton currentLang={currentLang}></CTAButton>
+        <a href={currentLang === 'fr' ? '/fr/circuits-prives-islande/' : '/private-day-tours-iceland/'} class="px-6 py-2 text-base md:text-lg lg:text-xl font-light tracking-wide text-white cursor-pointer transition-all duration-300 border-none min-w-[180px] hover:bg-white/10 hover:-translate-y-0.5 hover:shadow-lg no-underline inline-block text-center">
+          {currentLang === 'fr' ? 'Découvrir nos circuits' : 'Browse our tours'}
         </a>
       </div>
     </div>

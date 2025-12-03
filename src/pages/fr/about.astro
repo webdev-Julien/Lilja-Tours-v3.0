@@ -1,34 +1,44 @@
 ---
-import "../../src/styles/global.css"
-import Topbar from "../components/Topbar.astro"
-import Footer from "../components/Footer.astro"
+import "../../styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
 ---
 
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Discover Lilja Tours - Iceland's premier private tour operator. Expert local guides, luxury vehicles, and personalized adventures across Iceland's spectacular landscapes since 2021.">
+		<meta name="description" content="Découvrez Lilja Tours - opérateur de circuits privés premium en Islande. Guides locaux experts, véhicules haut de gamme et aventures personnalisées à travers les paysages spectaculaires d'Islande depuis 2021.">
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/about/" />
 		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/about/" />
-		<link rel="canonical" href="https://www.lilja-tours.com/about/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/fr/about/" />
 
-		<meta property="og:title" content="About Us - Private Iceland Tours | Lilja Tours">
+		<meta property="og:title" content="À Propos - Circuits Privés en Islande | Lilja Tours">
 		<meta property="og:type" content="website">
 		<meta property="og:image" content="https://www.lilja-tours.com/pictures/index/about.webp">
-		<meta property="og:url" content="https://www.lilja-tours.com/about/">
-		<meta property="og:description" content="Discover Lilja Tours - Iceland's premier private tour operator. Expert local guides, luxury vehicles, and personalized adventures across Iceland's spectacular landscapes since 2021.">
+		<meta property="og:url" content="https://www.lilja-tours.com/fr/about/">
+		<meta property="og:description" content="Découvrez Lilja Tours - opérateur de circuits privés premium en Islande. Guides locaux experts, véhicules haut de gamme et aventures personnalisées à travers les paysages spectaculaires d'Islande depuis 2021.">
 
-		<meta property="og:locale" content="en_US">
+		<meta property="og:locale" content="fr_FR">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="generator" content={Astro.generator} />
-		<title>About Us - Private Iceland Tours | Lilja Tours</title>
+		<title>À Propos - Circuits Privés en Islande | Lilja Tours</title>
 
 		<!-- GDPR Cookie Consent -->
 		<link rel="stylesheet" href="/css/gdpr-consent.css" />
 		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
 
 		<!-- TrustIndex Rich Snippet -->
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
@@ -199,12 +209,12 @@ import Footer from "../components/Footer.astro"
 	<body>
 		<!-- Image Header Section -->
 		<header class="image-header h-[75dvh] flex items-center justify-center relative">
-			<Topbar frenchUrl="/fr/about/" currentLang="en" />
+			<Topbar englishUrl="/about/" currentLang="fr" />
 			<div class="image-overlay"></div>
 			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
-				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">About Lilja Tours</h1>
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">À Propos de Lilja Tours</h1>
 				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
-					Creating unforgettable Iceland adventures since 2021. Expert local guides, luxury vehicles, and personalized experiences across Iceland's spectacular landscapes.
+					Créateur d'aventures islandaises inoubliables depuis 2021. Guides locaux, véhicules de luxe et expériences sur mesure à travers les paysages magiques de l'Islande.
 				</p>
 			</div>
 		</header>
@@ -214,20 +224,20 @@ import Footer from "../components/Footer.astro"
 			<section class="fade-in bg-white py-24 md:py-32">
 				<div class="max-w-6xl w-full mx-auto px-8">
 					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
-						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight text-gray-900 lg:hidden order-1 text-left w-full">Our Story</h2>
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight text-gray-900 lg:hidden order-1 text-left w-full">Notre Histoire</h2>
 						<div class="slide-left relative order-2 lg:order-2 w-full">
-							<img src="/pictures/index/about-story.webp" alt="Iceland landscape showcasing natural beauty" class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105" width="1200" height="800" loading="eager" />
+							<img src="/pictures/index/about-story.webp" alt="Paysage islandais mettant en valeur la beauté naturelle" class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105" width="1200" height="800" loading="eager" />
 						</div>
 						<div class="slide-right text-left order-3 lg:order-1">
-							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-10 leading-tight text-gray-900 lg:block hidden">Our Story</h2>
+							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-10 leading-tight text-gray-900 lg:block hidden">Notre Histoire</h2>
 							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
-								Founded in 2021, Lilja Tours emerged from a passion for sharing Iceland's extraordinary beauty with travelers seeking personalized experiences. What started as a vision to create exceptional private tours has grown into crafting unforgettable journeys across this land of fire and ice.
+								Fondée en 2021, Lilja Tours est née d'une passion d'un guide pour la beauté extraordinaire de l'Islande. Ce qui a commencé comme une vision de concevoir des circuits privés d'exception est devenu l'art de créer des voyages inoubliables à travers la terre de feu et de glace.
 							</p>
 							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
-								Our approach is simple yet distinctive: we believe every traveler deserves a customized experience that reflects their unique interests, pace, and curiosity. We design each tour to be as individual as you are.
+								Notre approche est simple mais distinctive : nous croyons que chaque voyageur mérite une expérience sur mesure qui reflète ses intérêts uniques, son rythme et sa curiosité. Nous concevons chaque circuit pour qu'il soit aussi individuel que vous l'êtes.
 							</p>
 							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-0 tracking-wide">
-								Based in Iceland and operated by passionate locals who call this remarkable country home, we combine knowledge of the land with genuine hospitality. Our commitment to excellence, safety, and sustainable tourism practices ensures that every journey with Lilja Tours becomes a cherished memory while respecting Iceland's fragile natural environment.
+								Basée en Islande et opérée par des locaux passionnés et installés sur place, nous combinons la connaissance du terrain avec une hospitalité authentique. Notre engagement envers l'excellence, la sécurité et le respect de la nature garantit que chaque voyage avec Lilja Tours devient un souvenir précieux tout en respectant l'environnement fragile de l'Islande.
 							</p>
 						</div>
 					</div>
@@ -238,19 +248,19 @@ import Footer from "../components/Footer.astro"
 			<section class="fade-in bg-gray-50 py-24 md:py-32">
 				<div class="max-w-6xl w-full mx-auto px-8">
 					<div class="text-center mb-24 slide-down">
-						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Meet Our Team</h2>
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Rencontrez Notre Équipe</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
-							The passionate guides and travel designers behind your Iceland adventure. With years of experience and deep local knowledge, we're dedicated to creating exceptional journeys.
+							Les guides passionnés et concepteurs de voyages derrière votre aventure islandaise. Avec des années d'expérience et une connaissance locale approfondie, nous sommes dédiés à la création de voyages exceptionnels.
 						</p>
 					</div>
 
 					<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-stretch">
 						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
-							<img src="/pictures/index/Julien-guide.webp" alt="Julien, Founder and Travel Designer at Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<img src="/pictures/index/Julien-guide.webp" alt="Julien, Fondateur et Concepteur de Voyages chez Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
 							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Julien</h3>
-							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Founder & Travel Designer</p>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Fondateur & Concepteur de Voyages</p>
 							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
-								Julien's passion for Iceland began years before founding Lilja Tours, through countless journeys across every corner of the country. He centers on personalized travel design, believing that the best adventures emerge when itineraries are shaped around individual interests rather than fixed templates. With fluency in English and French, Julien excels at understanding travel preferences, transforming ideas into orchestrated experiences that balance Iceland's famous attractions with off-the-beaten-path discoveries tailored to each guest's curiosity.
+								La passion de Julien pour l'Islande a commencé des années avant la fondation de Lilja Tours, à travers d'innombrables voyages dans tous les coins du pays. Il se concentre sur la conception de voyages personnalisés, convaincu que les meilleures aventures émergent lorsque les itinéraires sont façonnés autour des intérêts individuels plutôt que des modèles fixes. Maîtrisant l'anglais et le français, Julien excelle dans la compréhension des préférences de voyage, transformant les idées en expériences orchestrées qui équilibrent les attractions célèbres de l'Islande avec des découvertes hors des sentiers battus adaptées à la curiosité de chaque voyageur.
 							</p>
 							<div class="flex flex-col gap-2 items-center mt-auto">
 								<a href="https://wa.me/3547643715" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
@@ -269,11 +279,11 @@ import Footer from "../components/Footer.astro"
 						</div>
 
 						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
-							<img src="/pictures/index/Philippe-guide.webp" alt="Philippe, Co-owner and Lead Guide at Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<img src="/pictures/index/Philippe-guide.webp" alt="Philippe, Co-propriétaire et Guide Principal chez Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
 							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Philippe</h3>
-							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Co-owner & Lead Guide</p>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Co-propriétaire & Guide Principal</p>
 							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
-								Philippe brings a great enthusiasm to every tour, combining technical mastery of Iceland's terrains with an innate gift for storytelling. His guiding style emphasizes connection, whether sharing geological insights at dramatic viewpoints or revealing local folklore that brings landscapes to life. Beyond his exceptional driving skills on both paved roads and rugged highlands, Philippe's greatest strength lies in reading each group's energy and adapting tours spontaneously, ensuring every moment feels natural and perfectly attuned to his guests' needs.
+								Philippe apporte un grand enthousiasme à chaque circuit, combinant la maîtrise technique des terrains islandais avec un don inné pour la narration. Son style de guidage met l'accent sur la connexion, qu'il s'agisse de partager des aperçus géologiques à des points de vue spectaculaires ou de révéler le folklore local qui donne vie aux paysages. Au-delà de ses compétences de conduite sur les routes pavées et les hautes terres accidentées, la plus grande force de Philippe réside dans sa capacité à lire l'énergie de chaque groupe et à adapter les circuits spontanément, garantissant que chaque moment semble naturel et parfaitement adapté aux besoins de ses invités.
 							</p>
 							<div class="flex flex-col gap-2 items-center mt-auto">
 								<a href="https://wa.me/3547728756" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
@@ -298,9 +308,9 @@ import Footer from "../components/Footer.astro"
 			<section class="fade-in bg-white py-24 md:py-32">
 				<div class="max-w-6xl w-full mx-auto px-8">
 					<div class="text-center mb-16 slide-down">
-						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Our Fleet</h2>
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Notre Flotte</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
-							Travel in comfort and style with our meticulously maintained premium vehicles. From paved highways to Iceland's roughest highland trails, we have the perfect vehicle for every adventure.
+							Voyagez dans le confort et le style avec nos véhicules premium méticuleusement entretenus. Des routes pavées aux pistes des hautes terres les plus difficiles, nous avons le véhicule parfait pour chaque aventure.
 						</p>
 					</div>
 
@@ -311,7 +321,7 @@ import Footer from "../components/Footer.astro"
 								<div class="relative h-[350px] lg:h-auto">
 									<img
 										src="/pictures/index/about-vclass.webp"
-										alt="Mercedes V-Class luxury van for Iceland tours"
+										alt="Van de luxe Mercedes V-Class pour les circuits en Islande"
 										class="w-full h-full object-cover"
 										loading="lazy"
 									/>
@@ -319,28 +329,28 @@ import Footer from "../components/Footer.astro"
 								<div class="p-8 md:p-12 flex flex-col justify-center">
 									<h3 class="text-3xl md:text-4xl font-light tracking-wide mb-4 text-gray-900">Mercedes V-Class</h3>
 									<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-6 tracking-wide">
-										Our premium Mercedes V-Class is our flagship for luxury travel on Iceland's paved roads. Designed for comfort during extended journeys, this executive van features spacious leather seating for up to 6 passengers, panoramic windows offering stunning views of Iceland's landscapes, and a refined interior that transforms travel time into relaxation time.
+										Notre Mercedes V-Class premium est le véhicule pour les voyages de luxe sur les routes pavées d'Islande. Conçu pour le confort lors de trajets prolongés, ce van dispose de sièges en cuir spacieux pour jusqu'à 6 passagers, de fenêtres panoramiques offrant des vues époustouflantes sur les paysages islandais, et d'un intérieur raffiné qui transforme le temps de trajet en moment de détente.
 									</p>
 									<div class="space-y-3">
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Up to 6 passengers</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Jusqu'à 6 passagers</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Premium leather seating with individual climate control</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Sièges en cuir et climatisation</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Ideal for Golden Circle, South Coast, and paved road tours</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Idéal pour le Cercle d'Or, la Côte Sud et les circuits sur route pavées</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Ample luggage space for extended multiday tours</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Grand espace bagages pour les circuits multi-jours prolongés</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">WiFi, USB charging, premium sound system</p>
+											<p class="text-base md:text-lg font-light text-gray-700">WiFi, chargeurs USB, système audio premium</p>
 										</div>
 									</div>
 								</div>
@@ -355,7 +365,7 @@ import Footer from "../components/Footer.astro"
 								<div class="relative h-[350px] lg:h-auto lg:order-2">
 									<img
 										src="/pictures/index/about-toyota.webp"
-										alt="Lifted Toyota Land Cruiser 4x4 for Iceland highland adventures"
+										alt="Toyota Land Cruiser 4x4 surélevé pour les aventures dans les hautes terres islandaises"
 										class="w-full h-full object-cover"
 										loading="lazy"
 									/>
@@ -363,24 +373,24 @@ import Footer from "../components/Footer.astro"
 								<div class="p-8 md:p-12 flex flex-col justify-center lg:order-1">
 									<h3 class="text-3xl md:text-4xl font-light tracking-wide mb-4 text-gray-900">Toyota Land Cruiser</h3>
 									<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 mb-6 tracking-wide">
-										For those seeking authentic highland adventures, our lifted Toyota Land Cruiser on 33-inch tires is purpose-built for Iceland's most challenging terrains. This rugged yet comfortable 4x4 conquers river crossings, volcanic ash fields, and remote mountain tracks with confidence, taking you to locations standard vehicles cannot reach while maintaining exceptional comfort for up to 4 passengers.
+										Pour ceux qui recherchent d'authentiques aventures dans les hautes terres, notre Toyota Land Cruiser surélevé sur pneus de 33 pouces est spécialement conçu pour les terrains difficiles. Ce 4x4 robuste mais confortable franchit traversées de rivières, champs de cendres volcaniques et pistes de montagne isolées avec assurance, vous emmenant vers des lieux inaccessibles aux véhicules standard tout en maintenant un confort exceptionnel pour jusqu'à 4 passagers.
 									</p>
 									<div class="space-y-3">
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Up to 4 passengers</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Jusqu'à 4 passagers</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Lifted suspension with 33-inch all-terrain tires</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Suspension surélevée avec pneus tout-terrain de 33 pouces</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">Perfect for Highlands, Landmannalaugar, Thorsmork</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Parfait pour les Hautes Terres, Landmannalaugar, Thorsmork</p>
 										</div>
 										<div class="flex items-center gap-3">
 											<div class="w-2 h-2 bg-[#5b7297] rounded-full"></div>
-											<p class="text-base md:text-lg font-light text-gray-700">River crossing capability for F-road adventures</p>
+											<p class="text-base md:text-lg font-light text-gray-700">Capacité de traversée de rivières pour les aventures sur pistes F</p>
 										</div>
 
 									</div>
@@ -392,12 +402,12 @@ import Footer from "../components/Footer.astro"
 					<!-- Larger Groups Section -->
 					<div class="mt-16 text-center slide-up">
 						<div class="bg-[#5b7297]/5 border border-[#5b7297]/20 rounded-sm p-8 md:p-10 max-w-4xl mx-auto">
-							<h3 class="text-2xl md:text-3xl font-light tracking-wide mb-4 text-gray-900">Traveling with a Larger Group?</h3>
+							<h3 class="text-2xl md:text-3xl font-light tracking-wide mb-4 text-gray-900">Vous voyagez avec un groupe plus important ?</h3>
 							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 tracking-wide mb-6">
-								We can accommodate groups of all sizes. Through our network of trusted partner operators, we arrange premium vehicles including larger coaches, additional 4x4s, and specialized transport for groups exceeding our standard vehicle capacities.
+								Nous pouvons accueillir des groupes de toutes tailles. Nous trouvons des véhicules premium pour de plus grands groupes, des 4x4 supplémentaires et des transports spécialisés pour les groupes dépassant nos capacités de véhicules standard.
 							</p>
 							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 tracking-wide">
-							Whether you're planning a corporate retreat, family reunion, or group adventure, we ensure seamless logistics and consistent luxury service across your entire party.
+							Que vous planifiiez une retraite d'entreprise, une réunion de famille ou une aventure de groupe, nous assurons une logistique fluide et un service de luxe constant pour l'ensemble de votre groupe.
 							</p>
 						</div>
 					</div>
@@ -405,7 +415,7 @@ import Footer from "../components/Footer.astro"
 					<!-- Maintenance Note -->
 					<div class="mt-8 text-center slide-up">
 						<p class="text-sm md:text-base font-light leading-relaxed text-gray-500 tracking-wide max-w-3xl mx-auto">
-							All vehicles undergo regular professional maintenance and comprehensive safety inspections. We prioritize your comfort and security, ensuring each journey meets the highest standards while confidently handling Iceland's unique road conditions year-round.
+							Tous les véhicules sont soumis à un entretien professionnel régulier et à des inspections de sécurité complètes. Nous accordons la priorité à votre confort et votre sécurité, garantissant que chaque voyage respecte les normes les plus élevées tout en gérant avec confiance les conditions routières uniques de l'Islande tout au long de l'année.
 						</p>
 					</div>
 				</div>
@@ -415,9 +425,9 @@ import Footer from "../components/Footer.astro"
 			<section class="fade-in bg-gray-50 py-24 md:py-32">
 				<div class="max-w-6xl w-full mx-auto px-8">
 					<div class="text-center mb-16 slide-down">
-						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Customers' reviews</h2>
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Avis de nos clients</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
-							Read what our guests have to say about their Iceland adventures with Lilja Tours.
+							Découvrez ce que nos clients disent de leurs aventures en Islande avec Lilja Tours.
 						</p>
 					</div>
 
@@ -429,7 +439,7 @@ import Footer from "../components/Footer.astro"
 			</section>
 		</main>
 
-		<Footer currentLang="en" />
+		<Footer currentLang="fr" />
 
 		<script>
 			// Intersection Observer for scroll animations

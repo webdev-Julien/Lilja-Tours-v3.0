@@ -1,0 +1,66 @@
+---
+// French Blog Category Page - Dynamic category filtering
+import "../../../styles/global.css"
+import Topbar from "../../../components/Topbar.astro"
+import BlogCard from "../../../components/BlogCard.astro"
+import Footer from "../../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allArticles = await getCollection('blog_articles_FR');
+  const categories = [...new Set(allArticles.flatMap(article => article.data.categories))];
+
+  return categories.map(category => ({
+    params: { category: category.toLowerCase().replace(/\s+/g, '-') },
+    props: {
+      category,
+      articles: allArticles.filter(article =>
+        article.data.categories.some(cat => cat.toLowerCase() === category.toLowerCase())
+      ).sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+    },
+  }));
+}
+
+const { category, articles } = Astro.props;
+const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={`Articles ${category} - Blog Voyage Islande`}>
+		<link rel="canonical" href={`https://www.lilja-tours.com/fr/blog/${categorySlug}/`} />
+		<title>{category} | Lilja Tours</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+	</head>
+	<body>
+		<Topbar currentLang="fr" englishUrl={`/blog/${category}/`} />
+		<main class="bg-gray-50 py-28 px-6">
+			<div class="max-w-7xl mx-auto">
+				<h1 class="text-5xl md:text-6xl font-light text-[#5b7297] mb-16 text-center">{category}</h1>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+					{articles.map((article) => (
+						<BlogCard
+							image={article.data.cardImg.srcPC}
+							imageAlt={article.data.cardImg.alt}
+							title={article.data.title}
+							excerpt={article.data.excerpt}
+							publishDate={article.data.publishDate}
+							readingTime={article.data.readingTime}
+							categories={article.data.categories}
+							slug={`/fr/blog/${article.data.slug || article.slug}`}
+							author={article.data.author}
+						/>
+					))}
+				</div>
+			</div>
+		</main>
+		<Footer currentLang="fr" />
+	</body>
+</html>

@@ -1,10 +1,15 @@
 ---
+import { translations } from '../i18n/translations';
+import type { Language } from '../i18n/translations';
+
 export interface Props {
   tourName: string;
   activities: Array<{ name: string; day: number }>;
+  currentLang?: 'en' | 'fr';
 }
 
-const { tourName, activities } = Astro.props;
+const { tourName, activities, currentLang = 'en' } = Astro.props;
+const t = translations[currentLang as Language];
 ---
 
 <div id="booking-modal" class="modal-overlay hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[2000] flex items-center justify-center p-4">
@@ -16,7 +21,7 @@ const { tourName, activities } = Astro.props;
     </button>
 
     <div class="p-6 sm:p-8">
-      <h3 class="text-2xl md:text-3xl font-light tracking-wide mb-2 text-gray-900 pr-8">Book This Tour</h3>
+      <h3 class="text-2xl md:text-3xl font-light tracking-wide mb-2 text-gray-900 pr-8">{t.cta.bookThisTour}</h3>
       <p class="text-sm text-gray-500 mb-6">{tourName}</p>
 
       <form id="tour-booking-form" class="space-y-4">
@@ -24,7 +29,7 @@ const { tourName, activities } = Astro.props;
 
         <div>
           <label for="booking-name" class="block text-sm font-medium text-gray-700 mb-1">
-            Name <span class="text-red-500">*</span>
+            {t.form.name} <span class="text-red-500">{t.form.required}</span>
           </label>
           <input
             type="text"
@@ -32,13 +37,13 @@ const { tourName, activities } = Astro.props;
             name="name"
             required
             class="w-full px-3 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200 text-sm"
-            placeholder="Your name"
+            placeholder={t.form.yourName}
           />
         </div>
 
         <div>
           <label for="booking-email" class="block text-sm font-medium text-gray-700 mb-1">
-            Email Address <span class="text-red-500">*</span>
+            {t.form.email} <span class="text-red-500">{t.form.required}</span>
           </label>
           <input
             type="email"
@@ -52,7 +57,7 @@ const { tourName, activities } = Astro.props;
 
         <div>
           <label for="booking-people" class="block text-sm font-medium text-gray-700 mb-1">
-            Number of People <span class="text-red-500">*</span>
+            {t.form.people} <span class="text-red-500">{t.form.required}</span>
           </label>
           <input
             type="number"
@@ -67,7 +72,7 @@ const { tourName, activities } = Astro.props;
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            Select Activities
+            {t.form.selectActivities}
           </label>
           <div class="border border-gray-300 rounded-sm max-h-48 overflow-y-auto p-3 space-y-2 bg-white">
             {activities.map((activity) => (
@@ -79,17 +84,17 @@ const { tourName, activities } = Astro.props;
                   class="mt-0.5 h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded cursor-pointer"
                 />
                 <span class="ml-3 text-sm text-gray-700">
-                  {activity.name} <span class="text-gray-500">(Day {activity.day})</span>
+                  {activity.name} <span class="text-gray-500">({t.common.day} {activity.day})</span>
                 </span>
               </label>
             ))}
           </div>
-          <p class="text-xs text-gray-500 mt-1">Select one or more activities</p>
+          <p class="text-xs text-gray-500 mt-1">{t.form.selectOneOrMore}</p>
         </div>
 
         <div>
           <label for="booking-date" class="block text-sm font-medium text-gray-700 mb-1">
-            Departure Date <span class="text-red-500">*</span>
+            {t.form.departureDate} <span class="text-red-500">{t.form.required}</span>
           </label>
           <input
             type="date"
@@ -102,7 +107,7 @@ const { tourName, activities } = Astro.props;
 
         <div>
           <label for="booking-accommodation" class="block text-sm font-medium text-gray-700 mb-1">
-            Accommodation <span class="text-red-500">*</span>
+            {t.form.accommodation} <span class="text-red-500">{t.form.required}</span>
           </label>
           <select
             id="booking-accommodation"
@@ -110,12 +115,12 @@ const { tourName, activities } = Astro.props;
             required
             class="w-full px-3 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200 text-sm"
           >
-            <option value="">Select accommodation type</option>
-            <option value="4* hotel">4* hotel</option>
-            <option value="3* hotel">3* hotel</option>
-            <option value="Guesthouse">Guesthouse</option>
-						<option value="Camping">Camping (we provide comfortable equipments)</option>
-            <option value="Other">Other</option>
+            <option value="">{t.form.selectAccommodationType}</option>
+            <option value="4* hotel">{t.accommodation.hotel4}</option>
+            <option value="3* hotel">{t.accommodation.hotel3}</option>
+            <option value="Guesthouse">{t.accommodation.guesthouse}</option>
+						<option value="Camping">{t.accommodation.camping}</option>
+            <option value="Other">{t.accommodation.other}</option>
           </select>
         </div>
 
@@ -125,8 +130,12 @@ const { tourName, activities } = Astro.props;
           type="submit"
           id="booking-submit"
           class="w-full bg-[var(--secondary)] text-white px-6 py-3 rounded-sm font-medium tracking-wide hover:bg-[#5b7297] transition-all duration-300 transform hover:translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary)] text-sm cursor-pointer"
+          data-button-text={t.cta.sendBookingRequest}
+          data-sending-msg={t.cta.sending}
+          data-success-msg={t.messages.success}
+          data-error-msg={t.messages.error}
         >
-          Send Quote Request
+          {t.cta.sendBookingRequest}
         </button>
       </form>
     </div>
@@ -218,7 +227,8 @@ const { tourName, activities } = Astro.props;
       e.preventDefault();
 
       submitButton.disabled = true;
-      submitButton.textContent = 'Sending...';
+      const sendingText = submitButton.getAttribute('data-sending-msg') || 'Sending...';
+      submitButton.textContent = sendingText;
 
       const formData = new FormData(form);
       const selectedActivities = Array.from(form.querySelectorAll('[name="activities"]:checked'))
@@ -252,7 +262,8 @@ const { tourName, activities } = Astro.props;
           const result = await response.json();
 
           if (result.success) {
-            formMessage.textContent = 'Thank you! Your booking request has been sent. We\'ll contact you within 24 hours.';
+            const successMsg = submitButton.getAttribute('data-success-msg') || 'Thank you! Your booking request has been sent. We\'ll contact you within 24 hours.';
+            formMessage.textContent = successMsg;
             formMessage.className = 'p-3 rounded-sm text-sm bg-green-50 text-green-800 border border-green-200';
             formMessage.classList.remove('hidden');
 
@@ -269,14 +280,16 @@ const { tourName, activities } = Astro.props;
           throw new Error('Server error');
         }
       } catch (error) {
-        formMessage.textContent = 'Sorry, there was an error. Please try again or contact us at julien@lilja-tours.com';
+        const errorMsg = submitButton.getAttribute('data-error-msg') || 'Sorry, there was an error. Please try again or contact us at julien@lilja-tours.com';
+        formMessage.textContent = errorMsg;
         formMessage.className = 'p-3 rounded-sm text-sm bg-red-50 text-red-800 border border-red-200';
         formMessage.classList.remove('hidden');
 
         console.error('Form submission error:', error);
       } finally {
         submitButton.disabled = false;
-        submitButton.textContent = 'Send Booking Request';
+        const buttonText = submitButton.getAttribute('data-button-text') || 'Send Booking Request';
+        submitButton.textContent = buttonText;
       }
     });
   }

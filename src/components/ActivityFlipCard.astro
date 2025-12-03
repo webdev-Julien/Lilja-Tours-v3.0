@@ -5,9 +5,17 @@ export interface Props {
   day: number;
   image: string;
   alt: string;
+  currentLang?: 'en' | 'fr';
 }
 
-const { name, description, day, image, alt } = Astro.props;
+const { name, description, day, image, alt, currentLang = 'en' } = Astro.props;
+
+const translations = {
+  en: { day: 'Day' },
+  fr: { day: 'Jour' }
+};
+
+const t = translations[currentLang];
 ---
 
 <div class="flip-card-container">
@@ -18,7 +26,7 @@ const { name, description, day, image, alt } = Astro.props;
         <img src={image} alt={alt} class="flip-card-bg-image" />
         <div class="flip-card-overlay"></div>
         <div class="flip-card-content">
-          <span class="day-badge">Day {day}</span>
+          <span class="day-badge">{t.day} {day}</span>
           <h4 class="activity-name">{name}</h4>
         </div>
       </div>
@@ -26,7 +34,7 @@ const { name, description, day, image, alt } = Astro.props;
       <!-- Back -->
       <div class="flip-card-back">
         <div class="flip-card-content-back">
-          <span class="day-badge-back">Day {day}</span>
+          <span class="day-badge-back">{t.day} {day}</span>
           <h4 class="activity-name-back">{name}</h4>
           <p class="activity-description">{description}</p>
         </div>

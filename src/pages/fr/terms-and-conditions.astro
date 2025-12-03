@@ -1,0 +1,389 @@
+---
+import "../../styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Conditions générales de Lilja Tours. Consultez nos politiques de réservation, conditions d'annulation, exigences de paiement et informations de responsabilité.">
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/terms-and-conditions/" />
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/terms-and-conditions/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/fr/terms-and-conditions/" />
+
+		<meta property="og:title" content="Conditions Générales | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://www.lilja-tours.com/fr/terms-and-conditions/">
+		<meta property="og:description" content="Conditions générales de Lilja Tours. Consultez nos politiques de réservation, conditions d'annulation, exigences de paiement et informations de responsabilité.">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Conditions Générales | Lilja Tours</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-image: url('/pictures/index/multiday-bg.webp');
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="image-header h-[50dvh] flex items-center justify-center relative">
+			<Topbar englishUrl="/terms-and-conditions/" currentLang="fr" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-4 leading-tight text-white">Conditions Générales</h1>
+				<p class="text-lg md:text-xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+					Dernière mise à jour : 25 novembre 2024
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<section class="fade-in bg-white py-16 md:py-24">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="max-w-none">
+						<!-- Introduction -->
+						<div class="mb-12">
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Bienvenue chez Lilja Tours. Ces Conditions Générales régissent votre utilisation de nos services et de notre site web. En réservant un circuit avec Lilja Tours ehf., vous acceptez de vous conformer et d'être lié par ces conditions. Veuillez les lire attentivement avant de faire une réservation.
+							</p>
+						</div>
+
+						<!-- Company Information -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Informations sur l'Entreprise</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours ehf. est un opérateur touristique islandais enregistré spécialisé dans les circuits privés d'une journée et les aventures personnalisées de plusieurs jours à travers l'Islande.
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Siège social :</strong> Hólabraut 15, 220 Hafnarfjörður, Islande</li>
+								<li><strong>Numéro d'enregistrement (Kennitala) :</strong> 480621-0260</li>
+								<li><strong>Numéro de TVA :</strong> 141759</li>
+								<li><strong>Email :</strong> <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a></li>
+								<li><strong>Téléphone :</strong> <a href="tel:+3547643715" class="text-[#5b7297] hover:underline">+354 764 3715</a></li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours opère en conformité avec la Directive européenne sur les voyages à forfait et les réglementations RGPD.
+							</p>
+						</div>
+
+						<!-- Booking Requirements -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Exigences de Réservation</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								En effectuant une réservation avec Lilja Tours, vous confirmez que :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Vous avez au moins 18 ans ou effectuez une réservation sous la supervision d'un tuteur légal</li>
+								<li>Vous avez le pouvoir d'accepter ces conditions au nom de tous les membres de votre groupe</li>
+								<li>Toutes les informations fournies lors de la réservation sont exactes et complètes</li>
+								<li>Vous acceptez la responsabilité de la conduite et de la sécurité de tous les membres de votre réservation</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les mineurs (moins de 18 ans) doivent être accompagnés d'un adulte tout au long du circuit. Le groupe de réservation assume l'entière responsabilité de tous les participants.
+							</p>
+						</div>
+
+						<!-- Payment Terms -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Conditions de Paiement</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Circuits Privés d'une Journée</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Le paiement intégral est requis au moment de la réservation pour tous les circuits privés d'une journée. Nous acceptons les principales cartes de crédit et les virements bancaires. Tous les prix sont indiqués dans la devise que vous avez sélectionnée mais seront facturés en Couronnes islandaises (ISK) au taux de change en vigueur.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Tous les prix indiqués incluent la TVA (Taxe sur la Valeur Ajoutée) comme l'exige la loi islandaise.
+							</p>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Circuits de Plusieurs Jours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Pour les réservations de circuits de plusieurs jours, le calendrier de paiement suivant s'applique :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Acompte :</strong> 30% du prix total du circuit est requis au moment de la réservation pour confirmer votre réservation. Cet acompte n'est pas remboursable.</li>
+								<li><strong>Paiement final :</strong> Les 70% restants du prix total du circuit sont dus un mois (30 jours) avant la date de départ de votre circuit.</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Le défaut de payer le solde final avant la date d'échéance peut entraîner l'annulation de votre réservation, avec perte de l'acompte.
+							</p>
+						</div>
+
+						<!-- Cancellation Policy -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Politique d'Annulation</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Circuits Privés d'une Journée</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les annulations doivent être effectuées par e-mail à <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a>. La politique de remboursement suivante s'applique :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>48+ heures avant le circuit :</strong> Remboursement de 100% du prix total de la réservation</li>
+								<li><strong>24-48 heures avant le circuit :</strong> Remboursement de 50% du prix total de la réservation</li>
+								<li><strong>Moins de 24 heures avant le circuit :</strong> Aucun remboursement</li>
+							</ul>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Circuits de Plusieurs Jours</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Pour les circuits de plusieurs jours, l'acompte initial de 30% n'est pas remboursable en toutes circonstances. Le paiement final restant de 70% est soumis à la politique de remboursement suivante selon le moment de l'annulation :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Plus de 15 jours avant le départ :</strong> Remboursement de 100% du paiement final (70% du prix total du circuit)</li>
+								<li><strong>Entre 15 et 8 jours avant le départ :</strong> Remboursement de 50% du paiement final (35% du prix total du circuit)</li>
+								<li><strong>Entre 8 et 3 jours avant le départ :</strong> Remboursement de 25% du paiement final (17,5% du prix total du circuit)</li>
+								<li><strong>Moins de 3 jours avant le départ :</strong> Aucun remboursement du paiement final</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Veuillez noter que l'acompte non remboursable de 30% n'est jamais remboursé quel que soit le moment de l'annulation.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Toutes les annulations doivent être faites par écrit par e-mail. La date d'annulation est déterminée par le moment où nous recevons votre notification par e-mail.
+							</p>
+						</div>
+
+						<!-- Tour Modifications and Force Majeure -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Modifications de Circuit et Force Majeure</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les conditions météorologiques et naturelles de l'Islande peuvent être imprévisibles. Lilja Tours se réserve le droit de modifier les itinéraires, les programmes ou les horaires de circuit en raison de :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Conditions météorologiques extrêmes (tempêtes, neige abondante, glace, etc.)</li>
+								<li>Fermetures de routes ou conditions de conduite dangereuses</li>
+								<li>Activité volcanique ou catastrophes naturelles</li>
+								<li>Préoccupations de sécurité pour les passagers ou les guides</li>
+								<li>Restrictions gouvernementales ou ordres d'urgence</li>
+								<li>Autres circonstances extraordinaires indépendantes de notre volonté</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Si un circuit doit être complètement annulé en raison de ces circonstances, vous recevrez un remboursement intégral conformément à la Directive européenne sur les voyages à forfait. Cependant, nous ne sommes pas responsables des frais supplémentaires que vous pourriez avoir engagés, tels que l'hébergement, les vols ou d'autres arrangements de voyage.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous nous efforcerons toujours de proposer des arrangements alternatifs ou de reprogrammer les circuits lorsque cela est possible, mais la sécurité reste notre priorité absolue.
+							</p>
+						</div>
+
+						<!-- Amendments to Bookings -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Modifications de Réservations</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Si vous souhaitez modifier votre réservation (changer de dates, nombre de participants, sélection de circuit, etc.), veuillez nous contacter par e-mail au moins 48 heures avant votre circuit prévu. Les demandes de modification sont soumises à disponibilité.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Des frais de modification peuvent être facturés selon la nature du changement. Les modifications demandées dans les 24 heures suivant le départ du circuit ne sont généralement pas possibles et peuvent être traitées comme une annulation avec les frais d'annulation associés.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Pour les circuits de plusieurs jours, les politiques de modification peuvent varier en fonction de la complexité de l'itinéraire et des services déjà confirmés avec des tiers. Veuillez nous contacter dès que possible pour discuter des changements potentiels.
+							</p>
+						</div>
+
+						<!-- Participant Responsibilities -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Responsabilités des Participants</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Tous les participants au circuit sont censés :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Arriver au lieu de prise en charge désigné à l'heure</li>
+								<li>Suivre les instructions du guide et les recommandations de sécurité en tout temps</li>
+								<li>Porter des vêtements et des chaussures appropriés comme conseillé pour les conditions islandaises</li>
+								<li>Nous informer à l'avance de toute condition médicale, exigence alimentaire ou limitation de mobilité</li>
+								<li>Se comporter avec respect envers les guides, les autres participants et l'environnement naturel de l'Islande</li>
+								<li>Ne pas s'engager dans des activités qui pourraient mettre en danger eux-mêmes, les autres ou l'environnement</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours se réserve le droit de refuser le service ou de retirer des participants des circuits si leur comportement est jugé inapproprié, dangereux ou perturbateur. Aucun remboursement ne sera fourni dans de tels cas.
+							</p>
+						</div>
+
+						<!-- Complaints and Feedback -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Réclamations et Commentaires</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Si vous rencontrez des problèmes lors de votre circuit, veuillez en informer immédiatement votre guide afin que nous puissions résoudre la situation rapidement. Si vous souhaitez déposer une réclamation formelle, veuillez nous envoyer un e-mail à <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a> dans les 8 jours suivant la fin du circuit.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Toutes les réclamations seront accusées de réception dans les 48 heures, et nous fournirons une réponse détaillée dans les 14 jours suivant la réception de votre réclamation. Nous prenons tous les commentaires au sérieux et les utilisons pour améliorer continuellement nos services.
+							</p>
+						</div>
+
+						<!-- Liability and Insurance -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Responsabilité et Assurance</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours maintient une assurance responsabilité civile professionnelle complète et s'assure que tous les véhicules respectent les normes de sécurité islandaises. Cependant, nous ne pouvons être tenus responsables de :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li>Blessures personnelles ou pertes de biens dues à la négligence des participants ou au non-respect des consignes de sécurité</li>
+								<li>Perte ou dommage d'effets personnels pendant les circuits</li>
+								<li>Retards, annulations ou modifications dus à la météo, aux conditions routières ou à des événements de force majeure</li>
+								<li>Circonstances indépendantes de notre contrôle raisonnable</li>
+								<li>Coûts encourus en raison de correspondances manquées, hébergements ou autres arrangements de voyage</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								<strong>Assurance voyage :</strong> Nous recommandons fortement à tous les participants de souscrire une assurance voyage complète couvrant l'annulation de voyage, les urgences médicales, l'évacuation et les effets personnels. L'assurance voyage n'est pas incluse dans nos prix de circuit.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								En réservant avec Lilja Tours, vous reconnaissez que les voyages d'aventure comportent des risques inhérents, et vous acceptez la responsabilité de votre participation.
+							</p>
+						</div>
+
+						<!-- Privacy and Data Protection -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Confidentialité et Protection des Données</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours s'engage à protéger vos informations personnelles conformément au RGPD et aux lois islandaises sur la protection des données. Les données personnelles collectées lors de la réservation sont utilisées uniquement pour l'organisation de circuits, la communication et l'amélioration des services.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Pour des informations détaillées sur la manière dont nous collectons, utilisons et protégeons vos données, veuillez consulter notre <a href="/fr/privacy-policy/" class="text-[#5b7297] hover:underline">Politique de Confidentialité</a>.
+							</p>
+						</div>
+
+						<!-- Intellectual Property -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Propriété Intellectuelle</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Tout le contenu du site Web de Lilja Tours, y compris le texte, les photographies, les logos, les graphiques et les vidéos, est la propriété intellectuelle de Lilja Tours ehf. ou utilisé avec permission. L'utilisation, la reproduction ou la distribution non autorisées de ce contenu sont interdites.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les participants peuvent prendre des photographies pendant les circuits pour un usage personnel. Cependant, toute utilisation commerciale de photographies présentant des guides, des véhicules ou la marque de Lilja Tours nécessite un consentement écrit préalable.
+							</p>
+						</div>
+
+						<!-- Changes to Terms and Conditions -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Modifications des Conditions Générales</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lilja Tours se réserve le droit de mettre à jour ces Conditions Générales à tout moment. Les modifications seront publiées sur cette page avec une date de "Dernière mise à jour" mise à jour. L'utilisation continue de nos services après la publication des modifications constitue l'acceptation des conditions modifiées.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Pour les réservations effectuées avant tout changement, les Conditions Générales en vigueur au moment de la réservation s'appliqueront.
+							</p>
+						</div>
+
+						<!-- Governing Law -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Droit Applicable</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Ces Conditions Générales sont régies et interprétées conformément aux lois de l'Islande. Tout litige découlant de ces conditions ou de votre utilisation de nos services sera soumis à la juridiction exclusive des tribunaux islandais.
+							</p>
+						</div>
+
+						<!-- Contact Information -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Informations de Contact</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Si vous avez des questions concernant ces Conditions Générales, veuillez nous contacter :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700">
+								<li>Par e-mail : <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a></li>
+								<li>Par téléphone : <a href="tel:+3547643715" class="text-[#5b7297] hover:underline">+354 764 3715</a></li>
+								<li>En visitant : <a href="https://www.lilja-tours.com/fr/contact/" class="text-[#5b7297] hover:underline">https://www.lilja-tours.com/fr/contact/</a></li>
+							</ul>
+						</div>
+
+						<!-- Acceptance -->
+						<div class="mb-12">
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								En réservant un circuit avec Lilja Tours, vous reconnaissez avoir lu, compris et accepté d'être lié par ces Conditions Générales.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="fr" />
+
+		<script>
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>

@@ -1,13 +1,23 @@
 ---
 // Navigation.astro
 import CTAButton from './CTAButton.astro';
+import { translations, urls } from '../i18n/translations';
+import type { Language } from '../i18n/translations';
 
 export interface Props {
   frenchUrl?: string;
+  englishUrl?: string;
   currentLang?: 'en' | 'fr';
 }
 
-const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
+const { frenchUrl, englishUrl, currentLang = 'en' } = Astro.props;
+
+// Determine the alternate language URL
+const altLangUrl = currentLang === 'en'
+  ? (frenchUrl || '/fr/')
+  : (englishUrl || '/');
+const t = translations[currentLang as Language];
+const u = urls;
 ---
 
 <nav class="luxury-nav fixed top-0 left-0 right-0 z-[1000] bg-transparent py-4 transform translate-y-0 transition-all duration-300 ease-in-out">
@@ -15,19 +25,19 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
   <div class="flex items-center justify-center px-8 max-w-[1500px] mx-auto h-[70px] relative">
     <!-- Logo -->
     <div class="absolute left-8 flex-shrink-0">
-      <a href="/" class="block">
+      <a href={u.home[currentLang]} class="block">
         <img src="/logos/topbar-logo.webp" alt="Lilja Tours" class="h-15 w-auto brightness-0 invert" />
       </a>
     </div>
 
     <!-- Navigation Links -->
     <ul class="hidden md:flex gap-10 items-center list-none m-0 p-0">
-      <li><a href="/private-day-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Day tours</a></li>
-      <li><a href="/multiday-tours-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Multiday tours</a></li>
-      <li><a href="/partner-experiences-iceland/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Experiences</a></li>
-      <li><a href="/blog/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Stories</a></li>
-      <li><a href="/about/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">About</a></li>
-      <li><a href="/contact/" class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">Contact</a></li>
+      <li><a href={u.dayTours[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.dayTours}</a></li>
+      <li><a href={u.multidayTours[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.multidayTours}</a></li>
+      <li><a href={u.experiences[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.experiences}</a></li>
+      <li><a href={u.blog[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.blog}</a></li>
+      <li><a href={u.about[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.about}</a></li>
+      <li><a href={u.contact[currentLang]} class="nav-link text-white no-underline font-light text-base lg:text-lg xl:text-xl tracking-wide relative">{t.nav.contact}</a></li>
     </ul>
 
     <!-- Right Section -->
@@ -35,14 +45,14 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
       <!-- Language Switcher -->
       <div class="relative">
         {currentLang === 'en' ? (
-          <a href={frenchUrl} class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">FR</a>
+          <a href={altLangUrl} class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">{t.lang.fr}</a>
         ) : (
-          <a href="/" class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">EN</a>
+          <a href={altLangUrl} class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">{t.lang.en}</a>
         )}
       </div>
 
       <!-- CTA Button -->
-      <CTAButton />
+      <CTAButton currentLang={currentLang} />
     </div>
 
     <!-- Mobile Hamburger -->
@@ -66,25 +76,25 @@ const { frenchUrl = '#', currentLang = 'en' } = Astro.props;
       <div class="flex flex-col items-center justify-center w-full text-center gap-8">
         <!-- Mobile Navigation Links -->
         <ul class="flex flex-col gap-6 list-none m-0 p-0 w-full items-center">
-          <li class="w-full flex justify-center"><a href="/private-day-tours-iceland/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">Day tours</a></li>
-          <li class="w-full flex justify-center"><a href="/multiday-tours-iceland/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">Multiday tours</a></li>
-          <li class="w-full flex justify-center"><a href="/partner-experiences-iceland/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">Experiences</a></li>
-          <li class="w-full flex justify-center"><a href="/blog/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">Stories</a></li>
-          <li class="w-full flex justify-center"><a href="/about/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">About</a></li>
-          <li class="w-full flex justify-center"><a href="/contact/" class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">Contact</a></li>
+          <li class="w-full flex justify-center"><a href={u.dayTours[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.dayTours}</a></li>
+          <li class="w-full flex justify-center"><a href={u.multidayTours[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.multidayTours}</a></li>
+          <li class="w-full flex justify-center"><a href={u.experiences[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.experiences}</a></li>
+          <li class="w-full flex justify-center"><a href={u.blog[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.blog}</a></li>
+          <li class="w-full flex justify-center"><a href={u.about[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.about}</a></li>
+          <li class="w-full flex justify-center"><a href={u.contact[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.contact}</a></li>
         </ul>
 
         <!-- Mobile Language Switcher -->
         <div class="flex justify-center w-full py-4 border-t border-white/10">
           {currentLang === 'en' ? (
-            <a href={frenchUrl} class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">Français</a>
+            <a href={altLangUrl} class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.french}</a>
           ) : (
-            <a href="/" class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">English</a>
+            <a href={altLangUrl} class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.english}</a>
           )}
         </div>
 
         <!-- Mobile CTA Button -->
-        <CTAButton variant="mobile" />
+        <CTAButton variant="mobile" currentLang={currentLang} />
       </div>
     </div>
   </div>

@@ -1,0 +1,479 @@
+---
+import "../../styles/global.css"
+import HomeHeader from "../../components/HomeHeader.astro"
+import ItineraryCard from "../../components/ItineraryCard.astro"
+import BlogCard from "../../components/BlogCard.astro"
+import { getCollection } from 'astro:content';
+import CTAButton from "../../components/CTAButton.astro";
+import Footer from "../../components/Footer.astro";
+
+// Get all tours and randomly select 3 to display on homepage
+const allTours = await getCollection('tours_FR');
+
+// Shuffle function using Fisher-Yates algorithm
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Randomly select 3 tours at build time
+const selectedTours = shuffleArray(allTours).slice(0, 3);
+
+// Get latest 3 blog articles
+const allBlogArticles = await getCollection('blog_articles_FR');
+const latestArticles = allBlogArticles
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+  .slice(0, 3);
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="preload" as="image" href="/videos/hero-mobile-optimized.webp" media="(max-width: 767px)" fetchpriority="high" />
+		<link rel="preload" as="image" href="/videos/hero-optimized.webp" media="(min-width: 768px)" fetchpriority="high" />
+    <meta name="description" content="Découvrez l'Islande avec Lilja Tours - circuits privés d'une journée et aventures multi-jours personnalisées à travers les paysages époustouflants d'Islande.">
+   <link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/" />
+   <link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/" />
+   <link rel="canonical" href="https://www.lilja-tours.com/fr/" />
+
+    <meta property="og:title" content="Lilja Tours - Agence de voyage en Islande">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.lilja-tours.com/videos/hero-optimized.webp">
+    <meta property="og:url" content="https://www.lilja-tours.com/fr/">
+    <meta property="og:description" content="Découvrez l'Islande avec Lilja Tours - circuits privés d'une journée et aventures multi-jours personnalisées à travers les paysages époustouflants d'Islande.">
+
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:logo" content="https://www.lilja-tours/Lilja-Tours-Logo.jpg" />
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Circuits privés en Islande, sur-mesure et luxe | Lilja Tours</title>
+
+		<!-- Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+  /* Minimal CSS for features not available in Tailwind */
+  .itinerary-cta-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--secondary);
+    transition: width 0.3s ease;
+  }
+
+  .itinerary-cta-button:hover::after {
+    width: 100%;
+  }
+
+  .iceland-for-you-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: -1;
+  }
+
+  .iceland-for-you-cta:hover::before {
+    transform: translateY(0);
+  }
+
+  .team-contact-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5b7297;
+    transform: translateY(-100%);
+    transition: transform 0.8s ease;
+    z-index: -1;
+  }
+
+  .team-contact-item:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .bg-fixed {
+      background-attachment: scroll;
+    }
+  }
+
+  /* Scroll Animation Classes */
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+  }
+
+  .slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide-down {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .slide-down.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slide-left {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .slide-right {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
+	</head>
+	<body>
+		<!-- Skip to main content for accessibility -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-gray-900 focus:px-4 focus:py-2 focus:rounded focus:shadow-lg">
+			Aller au contenu principal
+		</a>
+		<HomeHeader englishUrl="/" currentLang="fr" />
+		<main id="main-content">
+			<section class="fade-in bg-gray-50 py-32 min-h-screen flex items-center">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight text-gray-900 lg:hidden order-1 text-left w-full">Lilja Tours, votre agence de voyage en Islande</h2>
+						<div class="slide-left relative order-2 lg:order-2 w-full">
+							<img src="/pictures/index/about.webp" alt="Guide Lilja Tours avec des voyageurs profitant des paysages époustouflants d'Islande" class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105" width="1200" height="800" loading="eager" />
+						</div>
+						<div class="slide-right text-left order-3 lg:order-1">
+							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-10 leading-tight text-gray-900 lg:block hidden">Lilja Tours, votre agence de voyage locale</h2>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Depuis notre création en 2021, Lilja Tours se consacre à la confection de voyages inoubliables à travers les paysages sauvages de l'Islande.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Nos guides locaux apportent des années d'expérience et une connaissance approfondie de la culture, de la géologie et de l'histoire islandaises à chaque aventure.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-0 tracking-wide">
+								Des circuits intimistes d'une journée aux expéditions complètes et sur mesure de plusieurs jours, Lilja Tours propose des expériences de voyage mémorables et haut de gamme.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in my-24">
+				<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-32 leading-tight text-gray-900 text-center fade-in">La confiance de voyageurs du monde entier</h2>
+				<div style="min-height: 400px;">
+					<div id="trustindex-widget-container"></div>
+				</div>
+			</section>
+
+			<section class="fade-in bg-white py-32 min-h-screen flex items-center justify-center">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-24 max-w-4xl mx-auto slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900 relative">Nos excursions à la journée</h2>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-gray-600 mb-12 tracking-wide">
+							Découvrez l'Islande à travers des excursions personnalisables.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 mt-16 items-start slide-up">
+						{selectedTours.map((tour) => (
+							<ItineraryCard
+								image={tour.data.cardImg.srcPC || "/images/fallback-tour.jpg"}
+								imageAlt={tour.data.cardImg.alt || tour.data.title}
+								title={tour.data.title}
+								duration={tour.data.duration || "Duration TBD"}
+								description={tour.data.cardSentence || "Discover Iceland's beauty"}
+								price={tour.data.price ? `From ${tour.data.price}` : "Price on request"}
+								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+								season={tour.data.season || "Year Round"}
+								slug={tour.data.url || `/fr/circuits-prives-islande/${tour.slug}`}
+							/>
+						))}
+					</div>
+
+					<div class="flex justify-center mt-20">
+						<a href="/fr/circuits-prives-islande/" class="itinerary-cta-button bg-transparent text-[var(--secondary)] border-none py-3 px-0 font-light text-base tracking-wide cursor-pointer transition-all duration-300 uppercase relative outline-none hover:-translate-y-0.5 hover:text-gray-900 transform scale-110 no-underline">Découvrir toutes les excursions</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in relative bg-cover bg-center bg-fixed py-32 min-h-screen flex items-center" style="background-image: url('/pictures/index/multiday-bg.webp');">
+				<div class="absolute top-0 left-0 right-0 bottom-0 bg-black/60 z-10"></div>
+				<div class="relative z-20 max-w-5xl w-full mx-auto px-8">
+					<div class="text-left slide-up">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-wide mb-12 leading-tight text-white">Circuits guidés et sur mesure sur plusieurs jours</h2>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Notre équipe d'experts travaille en étroite collaboration avec vous pour concevoir chaque aspect de votre aventure islandaise, de la sélection des hébergements parfaits au timing de chaque expérience pour des conditions météorologiques et d'éclairage optimales. Que vous recherchiez des aventures dans les hautes terres reculées, une immersion culturelle ou des expéditions axées sur la photographie, nous créons des expériences multi-jours fluides qui maximisent votre temps en Islande.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Avec notre planification complète et notre expertise locale, votre circuit devient plus qu'un simple voyage, il devient un périple soigneusement orchestré à travers les paysages les plus spectaculaires d'Islande, garantissant que chaque moment soit mémorable et que chaque détail soit parfaitement organisé.
+						</p>
+						<CTAButton currentLang="fr"></CTAButton>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in bg-white py-32 min-h-screen flex items-center">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
+						<div class="flex items-center gap-6 mb-10 flex-col lg:flex-row lg:items-center lg:gap-6 order-1 w-full lg:hidden">
+							<a href="https://www.iceland-for-you.com" class="inline-block flex-shrink-0 transition-transform duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" aria-label="Visiter le site Iceland for You">
+								<img src="/logos/iceland-for-you.png" alt="Iceland for You" class="h-20 w-auto block" />
+							</a>
+							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-0 leading-tight text-gray-900 text-left">Excursions en petits groupes</h2>
+						</div>
+						<div class="slide-left relative order-2 lg:order-1 w-full">
+							<img src="/pictures/index/iceland-for-you.webp" alt="Circuit en petit groupe Iceland for You" class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105" width="1200" height="800" loading="lazy" />
+						</div>
+						<div class="slide-right text-left order-3 lg:order-2">
+							<div class="hidden lg:flex items-center gap-6 mb-10 flex-col lg:flex-row lg:items-center lg:gap-6">
+								<a href="https://www.iceland-for-you.com" class="inline-block flex-shrink-0 transition-transform duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer">
+									<img src="/logos/iceland-for-you.png" alt="Iceland for You" class="h-20 w-auto block" />
+								</a>
+								<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-0 leading-tight text-gray-900">Excursions en Islande en petits groupe</h2>
+							</div>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Découvrez <a href="https://iceland-for-you.com/" class="text-[#5b7297] hover:underline" target="_blank" rel="noopener noreferrer">Iceland for You</a>, notre marque sœur dédiée aux excursions à la jounrée en petits groupes à travers les destinations les plus spectaculaires d'Islande. Alors que Lilja Tours se concentre sur les expériences privées, Iceland for You rassemble des voyageurs en petits groupes intimistes pour des aventures partagées. Notez que ces excursions ne sont guidées qu'en anglais.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
+								Du circuit <a href="https://iceland-for-you.com/day-tours/golden-circle-premium-lava-tunnel" class="text-[#5b7297] hover:underline" target="_blank" rel="noopener noreferrer">Cercle d'Or Premium et Tunnel de Lave</a> à l'expérience époustouflante de la <a href="https://iceland-for-you.com/day-tours/snaefellsnes-peninsula-lava-cave" class="text-[#5b7297] hover:underline" target="_blank" rel="noopener noreferrer">Péninsule de Snæfellsnes et Grotte de Lave</a>, chaque excursion combine les attractions célèbres d'Islande avec des trésors cachés et des activités palpitantes.
+							</p>
+
+							<a href="https://www.iceland-for-you.com" class="iceland-for-you-cta inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px" target="_blank" rel="noopener noreferrer">
+								Visiter Iceland for You
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in relative bg-cover bg-center bg-fixed py-32 min-h-screen flex items-center" style="background-image: url('/pictures/index/experiences-bg.webp');">
+				<div class="absolute top-0 left-0 right-0 bottom-0 bg-black/60 z-10"></div>
+				<div class="relative z-20 max-w-5xl w-full mx-auto px-8">
+					<div class="text-left slide-up">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-wide mb-12 leading-tight text-white">Expériences partenaires en Islande</h2>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Nous nous sommes associés avec les meilleurs tour-opérateurs d'Islande pour vous donner accès à des expériences extraordinaires. Des <a href="/fr/experiences-partenaires-islande/helicopter-tours/" class="text-white underline hover:opacity-80 transition-opacity">vols en hélicoptère</a> au-dessus de paysages volcaniques aux <a href="/fr/experiences-partenaires-islande/ice-caves/" class="text-white underline hover:opacity-80 transition-opacity">explorations de grottes de glace</a> intimistes, notre sélection d'expériences partenaires ajoute des aventures uniques à votre voyage en Islande.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Chaque partenaire a été soigneusement sélectionné pour son expertise, ses normes de sécurité et son engagement envers des expériences islandaises authentiques. Que vous recherchiez des <a href="/fr/experiences-partenaires-islande/atv-snowmobile/" class="text-white underline hover:opacity-80 transition-opacity">aventures en motoneige</a> des moments de détente dans des <a href="/fr/experiences-partenaires-islande/hot-springs/" class="text-white underline hover:opacity-80 transition-opacity">sources chaudes géothermales</a>, ou des <a href="/fr/experiences-partenaires-islande/cultural-experiences/" class="text-white underline hover:opacity-80 transition-opacity">expériences culturelles</a>, ces activités sont disponibles aussi bien dans le cadre de votre itinéraire personnalisé qu'en réservations indépendantes.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-12 tracking-wide opacity-95">
+							Nous pouvons intégrer ces expériences de manière fluide dans votre circuit personnalisé, ou vous pouvez les réserver directement pour vos voyages indépendants. De la planification à l'exécution, nous sommes là pour vous aider à créer des souvenirs inoubliables dans les cadres les plus spectaculaires d'Islande.
+						</p>
+						<a href="/fr/experiences-partenaires-islande/" class="iceland-for-you-cta inline-flex items-center gap-2 py-3 px-6 bg-transparent text-white no-underline border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-[#5b7297] hover:translate-x-px">
+							Découvrir les expériences
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in bg-white py-32 min-h-screen flex items-center justify-center">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-24 max-w-4xl mx-auto slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900 relative">Notre blog: Derniers articles</h2>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-gray-600 mb-12 tracking-wide">
+							Découvrez des conseils d'experts, des astuces de voyage et des histoires inspirantes sur l'exploration des merveilles naturelles et des trésors culturels d'Islande.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 mt-16 items-start slide-up">
+						{latestArticles.map((article) => (
+							<BlogCard
+								image={article.data.cardImg.srcPC}
+								imageAlt={article.data.cardImg.alt}
+								title={article.data.title}
+								categories={article.data.categories}
+								readingTime={article.data.readingTime}
+								publishDate={article.data.publishDate}
+								excerpt={article.data.metaDescription}
+								author={article.data.author}
+								slug={`/fr/blog/${article.slug}`}
+							/>
+						))}
+					</div>
+
+					<div class="flex justify-center mt-20">
+						<a href="/fr/blog/" class="itinerary-cta-button bg-transparent text-[var(--secondary)] border-none py-3 px-0 font-light text-base tracking-wide cursor-pointer transition-all duration-300 uppercase relative outline-none hover:-translate-y-0.5 hover:text-gray-900 transform scale-110 no-underline">Découvrir tous les articles</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="fade-in bg-gray-50 py-32 min-h-screen flex items-center">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-24 slide-down">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Rencontrez notre équipe</h2>
+					</div>
+
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-stretch">
+						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
+							<img src="/pictures/index/Julien-guide.webp" alt="Julien, Fondateur et Concepteur de Voyages chez Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Julien</h3>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Fondateur & Concepteur de Voyages</p>
+							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
+								Depuis la création de Lilja Tours en 2021, Julien transforme sa passion pour l'Islande en expériences de voyage exceptionnelles. Sa connaissance approfondie des paysages islandais et son attention aux détails garantissent que chaque circuit est soigneusement conçu pour créer des souvenirs durables.
+							</p>
+							<div class="flex flex-col gap-2 items-center mt-auto">
+								<a href="https://wa.me/3547643715" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 764 3715
+								</a>
+								<a href="mailto:julien@lilja-tours.com" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									julien@lilja-tours.com
+								</a>
+							</div>
+						</div>
+
+						<div class="text-center bg-white p-12 rounded-sm shadow-2xl transition-transform duration-300 hover:-translate-y-2.5 hover:shadow-3xl flex flex-col h-full slide-up">
+							<img src="/pictures/index/Philippe-guide.webp" alt="Philippe, Co-propriétaire et Guide Principal chez Lilja Tours" class="w-50 h-50 rounded-full object-cover object-center mx-auto mb-8 block border-4 border-gray-100 transition-transform duration-300 group-hover:scale-105" width="200" height="200" loading="lazy" />
+							<h3 class="text-3xl md:text-4xl font-normal tracking-wide mb-2 text-gray-900">Philippe</h3>
+							<p class="text-base md:text-lg font-light tracking-wider uppercase text-[#5b7297] mb-8">Co-propriétaire & Guide Principal</p>
+							<p class="text-sm md:text-base lg:text-lg font-light leading-relaxed text-gray-600 mb-10 tracking-wide flex-grow flex items-center">
+								En tant que Guide Principal et co-propriétaire de Lilja Tours, Philippe apporte son expertise et son enthousiasme à chaque voyage. Sa connaissance approfondie de la nature islandaise et sa capacité à partager les histoires fascinantes du pays créent des expériences authentiques et mémorables.
+							</p>
+							<div class="flex flex-col gap-2 items-center mt-auto">
+								<a href="https://wa.me/3547728756" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item" target="_blank" rel="noopener noreferrer">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.384 3.697"/>
+									</svg>
+									+354 772 8756
+								</a>
+								<a href="mailto:philippe@lilja-tours.com" class="inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline rounded-sm font-light text-xs sm:text-sm transition-all duration-300 flex-shrink-0 tracking-wide relative overflow-hidden hover:text-white hover:translate-x-px team-contact-item">
+									<svg class="w-4.5 h-4.5 fill-current transition-colors duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+									</svg>
+									philippe@lilja-tours.com
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="fr" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Lazy load TrustIndex widget
+			function initTrustIndexWidget() {
+				const container = document.getElementById('trustindex-widget-container');
+				if (!container) return;
+
+				const widgetObserver = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							const script = document.createElement('script');
+							script.type = 'text/javascript';
+							script.src = 'https://cdn.trustindex.io/loader.js?a76f9f75455e038ade362d6d6e2';
+							script.defer = true;
+							script.async = true;
+							container.appendChild(script);
+							widgetObserver.unobserve(container);
+						}
+					});
+				}, {
+					threshold: 0.1,
+					rootMargin: '50px'
+				});
+
+				widgetObserver.observe(container);
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+				initTrustIndexWidget();
+			});
+		</script>
+	</body>
+</html>

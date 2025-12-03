@@ -1,0 +1,83 @@
+---
+// French Blog Article Page - Dynamic article pages
+import "../../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../../components/Footer.astro";
+import Topbar from "../../../components/Topbar.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection('blog_articles_FR');
+  return articles.map((article) => ({
+    params: { slug: article.data.slug || article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+const data = article.data;
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <meta property="og:title" content={data.pageTitle} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={data.featuredImage} />
+    <meta property="og:url" content={data.canonicalUrl} />
+
+    <title>{data.pageTitle}</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+  </head>
+
+  <body>
+    <Topbar currentLang={data.language} englishUrl={data.urlOtherLang} />
+
+    <header class="relative w-full h-[65dvh] overflow-hidden">
+      {data.headerImage && (
+        <picture class="absolute inset-0 w-full h-full">
+          {data.headerImage.srcMobile && (<source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />)}
+          <img src={data.headerImage.srcPC} alt={data.headerImage.alt} class="w-full h-full object-cover" />
+        </picture>
+      )}
+      <div class="absolute inset-0 bg-black/30 z-10"></div>
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight">{data.title}</h1>
+          <div class="flex items-center justify-center gap-6 text-sm md:text-base">
+            <span>{data.author}</span>
+            <span>•</span>
+            <span>{data.readingTime}</span>
+            <span>•</span>
+            <span>{new Date(data.publishDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <article class="max-w-4xl mx-auto px-8 py-16">
+        <div class="prose prose-lg max-w-none">
+          <Content />
+        </div>
+      </article>
+    </main>
+
+    <Footer currentLang={data.language} />
+  </body>
+</html>

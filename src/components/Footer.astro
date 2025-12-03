@@ -1,10 +1,15 @@
 ---
 // Footer.astro
+import { translations, urls } from '../i18n/translations';
+import type { Language } from '../i18n/translations';
+
 export interface Props {
   currentLang?: 'en' | 'fr';
 }
 
 const { currentLang = 'en' } = Astro.props;
+const t = translations[currentLang as Language];
+const u = urls;
 ---
 
 <footer class="bg-gradient-to-br from-gray-900 to-gray-700 text-white pt-24 relative">
@@ -32,19 +37,19 @@ const { currentLang = 'en' } = Astro.props;
 
       <!-- Navigation Links Section -->
       <div class="text-center lg:text-left lg:order-2 order-2">
-        <h4 class="text-base md:text-lg font-normal tracking-wider text-white m-0 mb-6 uppercase">Explore</h4>
+        <h4 class="text-base md:text-lg font-normal tracking-wider text-white m-0 mb-6 uppercase">{t.footer.explore}</h4>
         <ul class="list-none p-0 m-0 flex flex-col gap-3">
-          <li><a href="/private-day-tours-iceland" class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">Day tours</a></li>
-          <li><a href="/multiday-tours" class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">Multiday tours</a></li>
-          <li><a href="/partner-experiences-iceland" class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">Experiences</a></li>
-          <li><a href="/blog" class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">Stories</a></li>
-          <li><a href="/contact" class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">Contact</a></li>
+          <li><a href={u.dayTours[currentLang]} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{t.footer.dayTours}</a></li>
+          <li><a href={u.multidayTours[currentLang]} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{t.footer.multidayTours}</a></li>
+          <li><a href={u.experiences[currentLang]} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{t.footer.experiences}</a></li>
+          <li><a href={u.blog[currentLang]} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{t.footer.blog}</a></li>
+          <li><a href={u.contact[currentLang]} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{t.footer.contact}</a></li>
         </ul>
       </div>
 
       <!-- Social & Contact Section -->
       <div class="text-center lg:text-left lg:order-3 order-3">
-        <h4 class="text-base md:text-lg font-normal tracking-wider text-white m-0 mb-6 uppercase">Connect With Us</h4>
+        <h4 class="text-base md:text-lg font-normal tracking-wider text-white m-0 mb-6 uppercase">{t.footer.connectWithUs}</h4>
         <div class="grid grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-4 mt-2">
           <a href="https://www.instagram.com/lilja.tours/" class="social-link flex items-center justify-center p-4 sm:p-2 lg:p-4 bg-white/5 rounded-full transition-all duration-300 border border-white/10 aspect-square hover:bg-[#5b7297] hover:-translate-y-1 hover:shadow-xl hover:border-[#5b7297]" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
             <svg class="w-6 h-6 sm:w-4.5 sm:h-4.5 lg:w-6 lg:h-6 fill-white/80 transition-colors duration-300 group-hover:fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -86,10 +91,10 @@ const { currentLang = 'en' } = Astro.props;
     <!-- Footer Bottom -->
     <div class="footer-divider w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8"></div>
     <div class="flex flex-col md:flex-row justify-between items-center py-8 text-center md:text-left gap-4">
-      <p class="text-sm md:text-base font-light text-white/60 m-0 tracking-wide">© 2024 Lilja Tours ehf. All rights reserved.</p>
+      <p class="text-sm md:text-base font-light text-white/60 m-0 tracking-wide">© 2024 Lilja Tours ehf. {t.footer.allRightsReserved}.</p>
       <div class="flex flex-col md:flex-row gap-4 md:gap-8">
-        <a href="/privacy-policy" class="text-sm md:text-base font-light text-white/60 no-underline tracking-wide transition-colors duration-300 hover:text-white/90">Privacy Policy</a>
-        <a href="/terms-and-conditions" class="text-sm md:text-base font-light text-white/60 no-underline tracking-wide transition-colors duration-300 hover:text-white/90">Terms & Conditions</a>
+        <a href={u.privacyPolicy[currentLang]} class="text-sm md:text-base font-light text-white/60 no-underline tracking-wide transition-colors duration-300 hover:text-white/90">{t.footer.privacyPolicy}</a>
+        <a href={u.termsConditions[currentLang]} class="text-sm md:text-base font-light text-white/60 no-underline tracking-wide transition-colors duration-300 hover:text-white/90">{t.footer.termsConditions}</a>
       </div>
     </div>
   </div>

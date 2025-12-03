@@ -11,6 +11,7 @@ export interface Props {
   highlights?: string[];
   difficulty?: 'Easy' | 'Moderate' | 'Challenging';
   season?: string;
+  currentLang?: 'en' | 'fr';
 }
 
 const {
@@ -23,8 +24,22 @@ const {
   slug = '#',
   highlights = [],
   difficulty,
-  season
+  season,
+  currentLang = 'en'
 } = Astro.props;
+
+const translations = {
+  en: {
+    exploreTrip: 'Explore Trip',
+    perVehicle: '/ vehicle'
+  },
+  fr: {
+    exploreTrip: 'Découvrir',
+    perVehicle: '/ véhicule'
+  }
+};
+
+const t = translations[currentLang];
 ---
 <article class="h-full">
 <div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col h-full hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
@@ -70,12 +85,12 @@ const {
     <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 md:flex-row flex-col md:items-center items-stretch md:gap-5 gap-3.5 mt-auto">
       <div class="price-section">
         {price && (
-          <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">{price} Kr / vehicle</span>
+          <span class="text-sm sm:text-base font-normal text-gray-900 tracking-wide">{price} Kr {t.perVehicle}</span>
         )}
       </div>
 
       <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`View details for ${title}`}>
-        <span class="relative z-10">Explore Trip</span>
+        <span class="relative z-10">{t.exploreTrip}</span>
         <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

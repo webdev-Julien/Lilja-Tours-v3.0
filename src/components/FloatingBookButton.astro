@@ -1,17 +1,26 @@
 ---
 // FloatingBookButton.astro - A floating button that appears when scrolling
+import { translations } from '../i18n/translations';
+import type { Language } from '../i18n/translations';
+
+export interface Props {
+  currentLang?: 'en' | 'fr';
+}
+
+const { currentLang = 'en' } = Astro.props;
+const t = translations[currentLang as Language];
 ---
 
 <button
   id="floating-book-button"
   data-open-booking-modal
   class="floating-book-btn fixed bottom-8 right-8 bg-[var(--secondary)] text-white px-6 py-3 rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 z-[1000] hover:bg-[#5b7297] hover:shadow-3xl hover:scale-110 flex items-center gap-2 font-medium tracking-wide cursor-pointer"
-  aria-label="Book this tour"
+  aria-label={t.cta.bookNow}
 >
   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
   </svg>
-  <span>Book Now</span>
+  <span>{t.cta.bookNow}</span>
 </button>
 
 <style>

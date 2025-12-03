@@ -1,0 +1,352 @@
+---
+import "../../styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Politique de confidentialité de Lilja Tours. Découvrez comment nous collectons, utilisons et protégeons vos informations personnelles.">
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/privacy-policy/" />
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/privacy-policy/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/fr/privacy-policy/" />
+
+		<meta property="og:title" content="Politique de Confidentialité | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://www.lilja-tours.com/fr/privacy-policy/">
+		<meta property="og:description" content="Politique de confidentialité de Lilja Tours. Découvrez comment nous collectons, utilisons et protégeons vos informations personnelles.">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Politique de Confidentialité | Lilja Tours</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-image: url('/pictures/index/multiday-bg.webp');
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="image-header h-[50dvh] flex items-center justify-center relative">
+			<Topbar englishUrl="/privacy-policy/" currentLang="fr" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-4 leading-tight text-white">Politique de Confidentialité</h1>
+				<p class="text-lg md:text-xl font-light leading-relaxed text-white opacity-95 tracking-wide">
+					Dernière mise à jour : 25 novembre 2024
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<section class="fade-in bg-white py-16 md:py-24">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="max-w-none">
+						<!-- Introduction -->
+						<div class="mb-12">
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Cette Politique de Confidentialité décrit comment Lilja Tours ehf. ("nous", "notre") collecte, utilise et partage vos informations personnelles lorsque vous visitez ou effectuez un achat depuis notre site web <a href="https://www.lilja-tours.com" class="text-[#5b7297] hover:underline">www.lilja-tours.com</a> (le "Site") ou utilisez nos services.
+							</p>
+						</div>
+
+						<!-- Interpretation and Definitions -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Interprétation et Définitions</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Interprétation</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les mots dont la lettre initiale est en majuscule ont des significations définies dans les conditions suivantes. Les définitions suivantes auront la même signification qu'elles apparaissent au singulier ou au pluriel.
+							</p>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Définitions</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Aux fins de cette Politique de Confidentialité :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-4">
+								<li><strong>Entreprise</strong> (désignée par "l'Entreprise", "Nous", "Notre" dans cet Accord) fait référence à Lilja Tours ehf., opérant depuis l'Islande.</li>
+								<li><strong>Cookies</strong> sont de petits fichiers placés sur votre ordinateur, appareil mobile ou tout autre appareil par un site Web, contenant les détails de votre historique de navigation sur ce site Web parmi ses nombreuses utilisations.</li>
+								<li><strong>Appareil</strong> désigne tout appareil pouvant accéder au Service tel qu'un ordinateur, un téléphone portable ou une tablette numérique.</li>
+								<li><strong>Données Personnelles</strong> désigne toute information qui se rapporte à un individu identifié ou identifiable.</li>
+								<li><strong>Service</strong> fait référence au Site Web.</li>
+								<li><strong>Données d'Utilisation</strong> fait référence aux données collectées automatiquement, soit générées par l'utilisation du Service, soit à partir de l'infrastructure du Service elle-même (par exemple, la durée d'une visite de page).</li>
+								<li><strong>Site Web</strong> fait référence à Lilja Tours, accessible depuis <a href="https://www.lilja-tours.com" class="text-[#5b7297] hover:underline">https://www.lilja-tours.com</a></li>
+								<li><strong>Vous</strong> désigne la personne accédant ou utilisant le Service, ou la société, ou toute autre entité juridique au nom de laquelle cette personne accède ou utilise le Service, selon le cas.</li>
+							</ul>
+						</div>
+
+						<!-- Collecting and Using Your Personal Data -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Collecte et Utilisation de Vos Données Personnelles</h2>
+
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black mt-8">Types de Données Collectées</h3>
+
+							<h4 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-black mt-6">Données Personnelles</h4>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lors de l'utilisation de Notre Service, Nous pouvons Vous demander de Nous fournir certaines informations personnellement identifiables qui peuvent être utilisées pour Vous contacter ou Vous identifier. Les informations personnellement identifiables peuvent inclure, mais sans s'y limiter :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-6">
+								<li>Adresse e-mail</li>
+								<li>Prénom et nom de famille</li>
+								<li>Numéro de téléphone</li>
+								<li>Adresse, État, Province, Code postal, Ville</li>
+								<li>Données d'Utilisation</li>
+							</ul>
+
+							<h4 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-black mt-6">Données d'Utilisation</h4>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les Données d'Utilisation sont collectées automatiquement lors de l'utilisation du Service. Les Données d'Utilisation peuvent inclure des informations telles que l'adresse de protocole Internet de Votre Appareil (par exemple l'adresse IP), le type de navigateur, la version du navigateur, les pages de notre Service que Vous visitez, l'heure et la date de Votre visite, le temps passé sur ces pages, les identifiants uniques d'appareil et autres données de diagnostic.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Lorsque Vous accédez au Service par ou via un appareil mobile, Nous pouvons collecter certaines informations automatiquement, y compris, mais sans s'y limiter, le type d'appareil mobile que Vous utilisez, l'identifiant unique de Votre appareil mobile, l'adresse IP de Votre appareil mobile, Votre système d'exploitation mobile, le type de navigateur Internet mobile que Vous utilisez, les identifiants uniques d'appareil et autres données de diagnostic.
+							</p>
+
+							<h4 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-black mt-6">Technologies de Suivi et Cookies</h4>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous utilisons des Cookies et des technologies de suivi similaires pour suivre l'activité sur Notre Service et stocker certaines informations. Les technologies de suivi utilisées sont des balises, des tags et des scripts pour collecter et suivre les informations et pour améliorer et analyser Notre Service.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les technologies que Nous utilisons peuvent inclure :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-6">
+								<li><strong>Cookies ou Cookies de Navigateur.</strong> Un cookie est un petit fichier placé sur Votre Appareil. Vous pouvez demander à Votre navigateur de refuser tous les Cookies ou d'indiquer quand un Cookie est envoyé. Cependant, si Vous n'acceptez pas les Cookies, Vous pourriez ne pas pouvoir utiliser certaines parties de notre Service.</li>
+								<li><strong>Balises Web.</strong> Certaines sections de notre Service et nos e-mails peuvent contenir de petits fichiers électroniques connus sous le nom de balises web qui permettent à l'Entreprise, par exemple, de compter les utilisateurs qui ont visité ces pages ou ouvert un e-mail et pour d'autres statistiques de site Web connexes.</li>
+							</ul>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Les Cookies peuvent être "Persistants" ou "de Session". Les Cookies Persistants restent sur Votre ordinateur personnel ou appareil mobile lorsque Vous vous déconnectez, tandis que les Cookies de Session sont supprimés dès que Vous fermez Votre navigateur Web.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous utilisons à la fois des Cookies de Session et Persistants pour les objectifs énoncés ci-dessous :
+							</p>
+							<ul class="list-disc pl-6 space-y-3 text-base md:text-lg font-light text-gray-700 mb-6">
+								<li>
+									<strong>Cookies Nécessaires / Essentiels</strong><br>
+									Type : Cookies de Session<br>
+									Objectif : Ces Cookies sont essentiels pour Vous fournir les services disponibles via le Site Web et pour Vous permettre d'utiliser certaines de ses fonctionnalités. Ils aident à authentifier les utilisateurs et à prévenir l'utilisation frauduleuse de comptes d'utilisateurs.
+								</li>
+								<li>
+									<strong>Cookies d'Acceptation de Politique / Avis de Cookies</strong><br>
+									Type : Cookies Persistants<br>
+									Objectif : Ces Cookies identifient si les utilisateurs ont accepté l'utilisation de cookies sur le Site Web.
+								</li>
+								<li>
+									<strong>Cookies de Fonctionnalité</strong><br>
+									Type : Cookies Persistants<br>
+									Objectif : Ces Cookies nous permettent de mémoriser les choix que Vous faites lorsque Vous utilisez le Site Web, tels que la mémorisation de vos informations de connexion ou de votre préférence linguistique.
+								</li>
+							</ul>
+						</div>
+
+						<!-- Use of Your Personal Data -->
+						<div class="mb-12">
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black">Utilisation de Vos Données Personnelles</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								L'Entreprise peut utiliser les Données Personnelles aux fins suivantes :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-6">
+								<li><strong>Pour fournir et maintenir notre Service,</strong> y compris pour surveiller l'utilisation de notre Service.</li>
+								<li><strong>Pour gérer Votre Compte :</strong> pour gérer Votre inscription en tant qu'utilisateur du Service.</li>
+								<li><strong>Pour l'exécution d'un contrat :</strong> le développement, la conformité et l'engagement du contrat d'achat pour les produits, articles ou services que Vous avez achetés ou de tout autre contrat avec Nous via le Service.</li>
+								<li><strong>Pour Vous contacter :</strong> Pour Vous contacter par e-mail, appels téléphoniques, SMS ou autres formes équivalentes de communication électronique concernant les mises à jour ou communications informatives liées aux fonctionnalités, produits ou services contractés, y compris les mises à jour de sécurité, lorsque cela est nécessaire ou raisonnable pour leur mise en œuvre.</li>
+								<li><strong>Pour Vous fournir</strong> des actualités, des offres spéciales et des informations générales sur d'autres biens, services et événements que nous proposons qui sont similaires à ceux que vous avez déjà achetés ou sur lesquels vous vous êtes renseigné, à moins que Vous n'ayez choisi de ne pas recevoir ces informations.</li>
+								<li><strong>Pour gérer Vos demandes :</strong> Pour traiter et gérer Vos demandes envers Nous.</li>
+								<li><strong>Pour les transferts d'entreprise :</strong> Nous pouvons utiliser Vos informations pour évaluer ou mener une fusion, une cession, une restructuration, une réorganisation, une dissolution ou toute autre vente ou transfert de tout ou partie de Nos actifs.</li>
+								<li><strong>À d'autres fins :</strong> Nous pouvons utiliser Vos informations à d'autres fins, telles que l'analyse de données, l'identification des tendances d'utilisation, la détermination de l'efficacité de nos campagnes promotionnelles et pour évaluer et améliorer notre Service, nos produits, nos services, notre marketing et votre expérience.</li>
+							</ul>
+						</div>
+
+						<!-- Sharing Your Personal Data -->
+						<div class="mb-12">
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black">Partage de Vos Données Personnelles</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous pouvons partager Vos informations personnelles dans les situations suivantes :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700 mb-6">
+								<li><strong>Avec les Prestataires de Services :</strong> Nous pouvons partager Vos informations personnelles avec des Prestataires de Services pour surveiller et analyser l'utilisation de notre Service, pour Vous contacter.</li>
+								<li><strong>Pour les transferts d'entreprise :</strong> Nous pouvons partager ou transférer Vos informations personnelles dans le cadre de, ou lors de négociations de, toute fusion, vente d'actifs de l'Entreprise, financement ou acquisition de tout ou partie de Notre entreprise à une autre société.</li>
+								<li><strong>Avec les Affiliés :</strong> Nous pouvons partager Vos informations avec Nos affiliés, auquel cas nous exigerons que ces affiliés respectent cette Politique de Confidentialité.</li>
+								<li><strong>Avec des partenaires commerciaux :</strong> Nous pouvons partager Vos informations avec Nos partenaires commerciaux pour Vous offrir certains produits, services ou promotions.</li>
+								<li><strong>Avec d'autres utilisateurs :</strong> lorsque Vous partagez des informations personnelles ou interagissez autrement dans les zones publiques avec d'autres utilisateurs, ces informations peuvent être vues par tous les utilisateurs et peuvent être distribuées publiquement à l'extérieur.</li>
+								<li><strong>Avec Votre consentement :</strong> Nous pouvons divulguer Vos informations personnelles à toute autre fin avec Votre consentement.</li>
+							</ul>
+						</div>
+
+						<!-- Retention of Your Personal Data -->
+						<div class="mb-12">
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black">Conservation de Vos Données Personnelles</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								L'Entreprise ne conservera Vos Données Personnelles que le temps nécessaire aux fins énoncées dans cette Politique de Confidentialité. Nous conserverons et utiliserons Vos Données Personnelles dans la mesure nécessaire pour nous conformer à nos obligations légales, résoudre les litiges et appliquer nos accords et politiques juridiques.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								L'Entreprise conservera également les Données d'Utilisation à des fins d'analyse interne. Les Données d'Utilisation sont généralement conservées pour une période plus courte, sauf lorsque ces données sont utilisées pour renforcer la sécurité ou améliorer la fonctionnalité de Notre Service, ou si Nous sommes légalement obligés de conserver ces données pendant des périodes plus longues.
+							</p>
+						</div>
+
+						<!-- Delete Your Personal Data -->
+						<div class="mb-12">
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black">Suppression de Vos Données Personnelles</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Vous avez le droit de supprimer ou de demander que Nous Vous aidions à supprimer les Données Personnelles que Nous avons collectées à Votre sujet.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Notre Service peut Vous donner la possibilité de supprimer certaines informations Vous concernant depuis le Service.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Vous pouvez mettre à jour, modifier ou supprimer Vos informations à tout moment en Nous contactant pour demander l'accès à, corriger ou supprimer toute information personnelle que Vous Nous avez fournie.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Veuillez noter, cependant, que Nous pourrions avoir besoin de conserver certaines informations lorsque nous avons une obligation légale ou une base légale pour le faire.
+							</p>
+						</div>
+
+						<!-- Security of Your Personal Data -->
+						<div class="mb-12">
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-black">Sécurité de Vos Données Personnelles</h3>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								La sécurité de Vos Données Personnelles est importante pour Nous, mais rappelez-vous qu'aucune méthode de transmission sur Internet, ou méthode de stockage électronique n'est sécurisée à 100%. Bien que Nous nous efforcions d'utiliser des moyens commercialement acceptables pour protéger Vos Données Personnelles, Nous ne pouvons garantir leur sécurité absolue.
+							</p>
+						</div>
+
+						<!-- Children's Privacy -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Confidentialité des Enfants</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Notre Service ne s'adresse à personne de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnellement identifiables auprès de personnes de moins de 13 ans. Si Vous êtes un parent ou un tuteur et que Vous savez que Votre enfant Nous a fourni des Données Personnelles, veuillez Nous contacter. Si Nous prenons connaissance que Nous avons collecté des Données Personnelles auprès d'une personne de moins de 13 ans sans vérification du consentement parental, Nous prenons des mesures pour supprimer ces informations de Nos serveurs.
+							</p>
+						</div>
+
+						<!-- Links to Other Websites -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Liens vers d'Autres Sites Web</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Notre Service peut contenir des liens vers d'autres sites Web qui ne sont pas exploités par Nous. Si Vous cliquez sur un lien tiers, Vous serez dirigé vers le site de ce tiers. Nous Vous conseillons vivement de consulter la Politique de Confidentialité de chaque site que Vous visitez.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous n'avons aucun contrôle sur et n'assumons aucune responsabilité quant au contenu, aux politiques de confidentialité ou aux pratiques de tout site ou service tiers.
+							</p>
+						</div>
+
+						<!-- Changes to this Privacy Policy -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Modifications de cette Politique de Confidentialité</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous pouvons mettre à jour Notre Politique de Confidentialité de temps en temps. Nous Vous informerons de tout changement en publiant la nouvelle Politique de Confidentialité sur cette page.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Nous Vous en informerons par e-mail et/ou par un avis visible sur Notre Service, avant que le changement ne devienne effectif et mettrons à jour la date de "Dernière mise à jour" en haut de cette Politique de Confidentialité.
+							</p>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Il Vous est conseillé de consulter cette Politique de Confidentialité périodiquement pour tout changement. Les modifications apportées à cette Politique de Confidentialité sont effectives lorsqu'elles sont publiées sur cette page.
+							</p>
+						</div>
+
+						<!-- Contact Us -->
+						<div class="mb-12">
+							<h2 class="text-3xl md:text-4xl font-normal tracking-wide mb-6 text-black">Contactez-Nous</h2>
+							<p class="text-base md:text-lg font-light leading-relaxed text-gray-700 mb-4">
+								Si vous avez des questions concernant cette Politique de Confidentialité, Vous pouvez nous contacter :
+							</p>
+							<ul class="list-disc pl-6 space-y-2 text-base md:text-lg font-light text-gray-700">
+								<li>Par e-mail : <a href="mailto:info@lilja-tours.com" class="text-[#5b7297] hover:underline">info@lilja-tours.com</a></li>
+								<li>Par téléphone : <a href="tel:+3547643715" class="text-[#5b7297] hover:underline">+354 764 3715</a></li>
+								<li>En visitant cette page sur notre site web : <a href="https://www.lilja-tours.com/fr/contact/" class="text-[#5b7297] hover:underline">https://www.lilja-tours.com/fr/contact/</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="fr" />
+
+		<script>
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+			});
+		</script>
+	</body>
+</html>

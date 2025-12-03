@@ -317,6 +317,178 @@ For each French content file, ensure:
 - [ ] Correct `inLanguage: "fr"` property
 - [ ] **URLs in schema point to FR version**
 
+### JSON-LD Translation Guidelines (CRITICAL)
+
+**French JSON-LD must match the richness and structure of English JSON-LD.** Every French tour/experience must include the complete JSON-LD schema with all properties.
+
+**Required JSON-LD Structure for French Tours:**
+
+```yaml
+jsonLD:
+  "@context": "https://schema.org"
+  "@type": "TouristTrip"
+  "name": "[French page title]"
+  "alternateName": "[French short name]"
+  "description": "[French meta description]"
+  "url": "[Full French canonical URL]"
+  "image":
+    - "[Featured image URL]"
+    - "[Visit image URLs...]"
+  "provider":
+    "@type": "TravelAgency"
+    "name": "Lilja Tours"
+    "alternateName": "Lilja Tours Iceland"
+    "url": "https://www.lilja-tours.com"
+    "logo": "https://www.lilja-tours.com/Lilja-Tours-Logo.jpg"
+    "sameAs":
+      - "https://www.instagram.com/lilja_tours"
+      - "https://www.facebook.com/LiljaTours"
+    "address":
+      "@type": "PostalAddress"
+      "addressCountry": "IS"
+      "addressLocality": "Reykjavik"
+      "addressRegion": "Capital Region"  # Keep in English
+    "telephone": "+354 764 3715"
+    "email": "info@lilja-tours.com"
+    "foundingDate": "2021"
+    "aggregateRating":
+      "@type": "AggregateRating"
+      "ratingValue": "5.0"
+      "reviewCount": "150"
+      "bestRating": "5"
+      "worstRating": "1"
+  "offers":
+    - "@type": "Offer"
+      "name": "[French offer name]"
+      "description": "[French offer description]"
+      "price": "[Price in ISK]"
+      "priceCurrency": "ISK"
+      "availability": "https://schema.org/InStock"
+      "validFrom": "[Start date]"
+      "validThrough": "[End date]"
+      "url": "[French page URL]"
+      "category": "[French category]"
+      "eligibleQuantity":
+        "@type": "QuantitativeValue"
+        "minValue": 1
+        "maxValue": [max passengers]
+        "unitText": "passagers"  # French
+  "duration": "[ISO 8601 format, e.g., PT6H]"
+  "touristType": "[French tour type]"
+  "startLocation":
+    "@type": "Place"
+    "name": "Reykjavik"
+    "address":
+      "@type": "PostalAddress"
+      "addressLocality": "Reykjavik"
+      "addressCountry": "IS"
+    "geo":
+      "@type": "GeoCoordinates"
+      "latitude": 64.1466
+      "longitude": -21.9426
+  "location":
+    "@type": "Place"
+    "name": "[French location name]"
+    "address":
+      "@type": "PostalAddress"
+      "addressLocality": "[Location name]"
+      "addressRegion": "[French region, e.g., 'Sud de l'Islande']"
+      "addressCountry": "IS"
+    "geo":
+      "@type": "GeoCoordinates"
+      "latitude": [coordinates]
+      "longitude": [coordinates]
+  "itinerary":
+    - "@type": "TouristDestination"
+      "name": "[French visit name]"
+      "description": "[French visit description]"
+      "geo":
+        "@type": "GeoCoordinates"
+        "latitude": [coordinates]
+        "longitude": [coordinates]
+      "touristType": "[French type, e.g., 'Cascade', 'Site Géothermique']"
+      "image": "[Visit image URL]"
+  "audience":
+    "@type": "PeopleAudience"
+    "audienceType": "[French audience, e.g., 'Touristes Aventuriers']"
+    "geographicArea":
+      "@type": "Place"
+      "name": "Monde entier"  # French
+  "inLanguage": "fr"  # CRITICAL - Must be "fr" for French pages
+  "isAccessibleForFree": false
+  "keywords":
+    - "[French keywords relevant to SEO]"
+  "mainEntityOfPage":
+    "@type": "WebPage"
+    "@id": "[Full French canonical URL]"
+  "datePublished": "[YYYY-MM-DD]"
+  "dateModified": "[YYYY-MM-DD]"
+  "publisher":
+    "@type": "Organization"
+    "name": "Lilja Tours"
+    "logo":
+      "@type": "ImageObject"
+      "url": "https://www.lilja-tours.com/Lilja-Tours-Logo.jpg"
+  "breadcrumb":
+    "@type": "BreadcrumbList"
+    "itemListElement":
+      - "@type": "ListItem"
+        "position": 1
+        "name": "Accueil"  # French
+        "item": "https://www.lilja-tours.com/fr/"
+      - "@type": "ListItem"
+        "position": 2
+        "name": "Circuits Privés en Islande"  # French section name
+        "item": "https://www.lilja-tours.com/fr/circuits-prives-islande/"
+      - "@type": "ListItem"
+        "position": 3
+        "name": "[French tour name]"
+        "item": "[Full French canonical URL]"
+```
+
+**JSON-LD Translation Checklist:**
+- [ ] `name` and `alternateName` translated to French
+- [ ] `description` matches French metaDescription
+- [ ] `url` points to French page (full URL with https://www.lilja-tours.com/fr/...)
+- [ ] `provider` section stays mostly in English (company info) except `addressRegion` if translating
+- [ ] `offers.name` and `offers.description` translated
+- [ ] `offers.url` points to French page
+- [ ] `offers.eligibleQuantity.unitText` = "passagers" (French)
+- [ ] `touristType` translated to French category
+- [ ] `location.addressRegion` translated (e.g., "Sud de l'Islande")
+- [ ] `itinerary[].name` and `itinerary[].description` translated
+- [ ] `itinerary[].touristType` translated
+- [ ] `audience.audienceType` translated to French
+- [ ] `audience.geographicArea.name` = "Monde entier" (French)
+- [ ] `inLanguage` = "fr" (CRITICAL)
+- [ ] `keywords` are French SEO keywords (not just literal translations)
+- [ ] `mainEntityOfPage.@id` is French URL
+- [ ] `breadcrumb` items have French names and French URLs
+
+**Common French Translations for JSON-LD:**
+| English | French |
+|---------|--------|
+| Adventure Tour | Circuit Aventure |
+| Cultural Tour | Circuit Culturel |
+| Private Tour | Circuit Privé |
+| Highland Adventure | Aventure Hautes Terres |
+| Island Adventure | Aventure Insulaire |
+| Northern Lights Tour | Circuit Aurores Boréales |
+| passengers | passagers |
+| Worldwide | Monde entier |
+| Home | Accueil |
+| Private Day Tours Iceland | Circuits Privés en Islande |
+| Waterfall | Cascade |
+| Geothermal Site | Site Géothermique |
+| Volcano | Volcan |
+| Glacier | Glacier |
+| National Park | Parc National |
+| Wildlife | Faune |
+| South Iceland | Sud de l'Islande |
+| West Iceland | Ouest de l'Islande |
+| Highlands | Hautes Terres d'Islande |
+| Capital Region | Région Capitale |
+
 ### Translation Workflow
 
 1. **Create FR collection file** with same filename as EN version

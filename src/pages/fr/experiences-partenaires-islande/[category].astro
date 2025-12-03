@@ -1,0 +1,359 @@
+---
+import "../../../styles/global.css"
+import Topbar from "../../../components/Topbar.astro"
+import Footer from "../../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	// Define all categories with French translations
+	const categories = [
+		{ name: 'Helicopter Tours', nameFr: 'Vols en Hélicoptère', slug: 'helicopter-tours' },
+		{ name: 'Hot Springs', nameFr: 'Sources Chaudes', slug: 'hot-springs' },
+		{ name: 'Ice Caves', nameFr: 'Grottes de Glace', slug: 'ice-caves' },
+		{ name: 'Lava Caves', nameFr: 'Grottes de Lave', slug: 'lava-caves' },
+		{ name: 'Cultural Experiences', nameFr: 'Expériences Culturelles', slug: 'cultural-experiences' },
+		{ name: 'Small Group Tours', nameFr: 'Tours en Petit Groupe', slug: 'small-group-tours' },
+		{ name: 'ATV and Snowmobile', nameFr: 'Quad et Motoneige', slug: 'atv-snowmobile' },
+		{ name: 'Glacier Tours', nameFr: 'Tours sur Glacier', slug: 'glacier-tours' },
+		{ name: 'Whale Watching', nameFr: 'Observation des Baleines', slug: 'whale-watching' },
+		{ name: 'Adventure', nameFr: 'Aventure', slug: 'adventure' }
+	];
+
+	const allExperiences = await getCollection('partner_experiences_FR');
+
+	return categories.map((cat) => {
+		// Filter experiences by category (case-insensitive match)
+		const categoryExperiences = allExperiences.filter(exp =>
+			exp.data.category.toLowerCase() === cat.name.toLowerCase()
+		);
+
+		return {
+			params: { category: cat.slug },
+			props: {
+				categoryName: cat.nameFr,
+				categoryNameEn: cat.name,
+				experiences: categoryExperiences
+			}
+		};
+	});
+}
+
+const { categoryName, categoryNameEn, experiences } = Astro.props;
+const categorySlug = Astro.params.category;
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={`Découvrez les expériences ${categoryName} en Islande. Explorez des aventures et activités uniques à travers les paysages et la culture islandaise.`}>
+		<link rel="alternate" hreflang="en" href={`https://www.lilja-tours.com/partner-experiences-iceland/${categorySlug}/`} />
+		<link rel="alternate" hreflang="fr" href={`https://www.lilja-tours.com/fr/experiences-partenaires-islande/${categorySlug}/`} />
+		<link rel="canonical" href={`https://www.lilja-tours.com/fr/experiences-partenaires-islande/${categorySlug}/`} />
+
+		<meta property="og:title" content={`${categoryName} en Islande | Lilja Tours`}>
+		<meta property="og:type" content="website">
+		<meta property="og:url" content={`https://www.lilja-tours.com/fr/experiences-partenaires-islande/${categorySlug}/`}>
+		<meta property="og:locale" content="fr_FR">
+		<meta property="og:locale:alternate" content="en_US">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>{categoryName} en Islande | Lilja Tours</title>
+
+		<!-- Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			/* Animation classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Header background styles */
+			.header-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 0;
+			}
+
+			.header-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.header-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Experience cards */
+			.experience-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+				gap: 2rem;
+			}
+
+			.experience-card {
+				position: relative;
+				height: 400px;
+				overflow: hidden;
+				border-radius: 4px;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.experience-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+			}
+
+			.experience-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+				z-index: 1;
+			}
+
+			.experience-card-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.3s ease;
+			}
+
+			.experience-card:hover .experience-card-bg {
+				transform: scale(1.05);
+			}
+
+			.experience-card-content {
+				position: relative;
+				z-index: 2;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				padding: 2rem;
+				color: white;
+			}
+
+			/* Discover button (ghost style) */
+			.discover-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.discover-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.discover-button:hover {
+				color: #5b7297;
+			}
+
+			/* Book now button (filled style) */
+			.book-now-button::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				z-index: -2;
+			}
+
+			.book-now-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.book-now-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.book-now-button:hover {
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<Topbar englishUrl={`/partner-experiences-iceland/${categorySlug}/`} currentLang="fr" />
+
+		<!-- Header Section -->
+		<header class="relative py-32 overflow-hidden">
+			<!-- Background Image -->
+			<img
+				src={`/pictures/experiences/${categorySlug}.webp`}
+				alt={`${categoryName} en Islande`}
+				class="header-bg"
+			/>
+
+			<!-- Overlay -->
+			<div class="header-overlay"></div>
+
+			<!-- Content -->
+			<div class="header-content max-w-7xl mx-auto px-8 text-center">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white slide-up">
+					{categoryName}
+				</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide max-w-4xl mx-auto slide-up">
+					Explorez notre sélection d'expériences {categoryName.toLowerCase()} en Islande, soigneusement choisies pour vous offrir des aventures exceptionnelles et inoubliables.
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<!-- Experiences Section -->
+			<section class="fade-in bg-white py-32">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					{experiences.length > 0 ? (
+						<div class="experience-grid slide-up">
+							{experiences.map((experience) => (
+								<div class="experience-card">
+									<img
+										src={experience.data.cardImg.srcPC}
+										alt={experience.data.cardImg.alt}
+										class="experience-card-bg"
+									/>
+									<div class="experience-card-content">
+										<h3 class="text-2xl md:text-3xl font-light tracking-wide mb-3">{experience.data.title}</h3>
+										<p class="text-sm md:text-base font-light mb-4 opacity-90">
+											{experience.data.shortDescription}
+										</p>
+										<div class="flex flex-wrap items-center gap-4 text-sm mb-6">
+											<span class="flex items-center gap-1.5">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+												</svg>
+												{experience.data.duration}
+											</span>
+											<span>•</span>
+											<span class="flex items-center gap-1.5">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+												</svg>
+												{experience.data.location}
+											</span>
+											<span>•</span>
+											<span>À partir de {experience.data.price.toLocaleString()} ISK</span>
+										</div>
+										<div class="flex gap-3 mt-auto">
+											<a
+												href={experience.data.url}
+												class="discover-button flex-1 inline-flex items-center justify-center gap-2 py-2 px-4 bg-transparent text-white border border-white rounded-sm font-light text-xs tracking-wide uppercase relative overflow-hidden"
+											>
+												Découvrir
+											</a>
+											<a
+												href={experience.data.bookingLink}
+												class="book-now-button flex-1 inline-flex items-center justify-center gap-2 py-2 px-4 bg-transparent text-gray-900 border border-white rounded-sm font-light text-xs tracking-wide uppercase relative overflow-hidden"
+											>
+												Réserver
+											</a>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+					) : (
+						<div class="text-center py-16">
+							<p class="text-xl text-gray-600 mb-8">
+								Aucune expérience disponible dans cette catégorie pour le moment. Revenez bientôt !
+							</p>
+							<a
+								href="/fr/experiences-partenaires-islande/"
+								class="inline-block bg-[var(--secondary)] text-white px-8 py-3 rounded-sm font-medium tracking-wide hover:bg-[#5b7297] transition-all duration-300"
+							>
+								Voir Toutes les Expériences
+							</a>
+						</div>
+					)}
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="fr" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-up');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+		</script>
+	</body>
+</html>

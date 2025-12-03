@@ -1,0 +1,122 @@
+---
+// French Partner Experience Dynamic Page
+import "../../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../../components/Footer.astro";
+import Topbar from "../../../components/Topbar.astro";
+
+export async function getStaticPaths() {
+  const experiences = await getCollection('partner_experiences_FR');
+  return experiences.map((exp) => ({
+    params: { slug: exp.data.slug || exp.slug },
+    props: { experience: exp },
+  }));
+}
+
+const { experience } = Astro.props;
+const { Content } = await experience.render();
+const data = experience.data;
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <title>{data.pageTitle}</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+  </head>
+
+  <body>
+    <Topbar currentLang={data.language} englishUrl={data.urlOtherLang} />
+
+    <header class="relative w-full h-[65dvh] overflow-hidden">
+      {data.headerImage && (
+        <picture class="absolute inset-0 w-full h-full">
+          {data.headerImage.srcMobile && (<source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />)}
+          <img src={data.headerImage.srcPC} alt={data.headerImage.alt || ''} class="w-full h-full object-cover object-center" />
+        </picture>
+      )}
+      <div class="absolute inset-0 bg-black/20 z-10"></div>
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight">{data.title}</h1>
+          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95" set:html={data.introductoryText}></p>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <section class="py-16 lg:py-24">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Détails de l'Expérience</h2>
+              <div class="space-y-6 mb-8">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Durée :</span>
+                  <span class="text-gray-900">{data.duration}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Lieu :</span>
+                  <span class="text-gray-900">{data.location}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <span class="font-medium text-gray-600">Prix :</span>
+                  <span class="text-gray-900">{data.price} ISK</span>
+                </div>
+              </div>
+            </div>
+
+            {data.highlights && data.highlights.length > 0 && (
+              <div>
+                <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Points Forts</h2>
+                <ul class="space-y-4">
+                  {data.highlights.map((highlight) => (
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-[var(--secondary)] mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-gray-700">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 lg:py-24 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-8">
+          <Content />
+        </div>
+      </section>
+
+      {data.bookingLink && (
+        <section class="py-16">
+          <div class="max-w-2xl mx-auto px-8 text-center">
+            <a href={data.bookingLink} class="inline-block bg-[var(--secondary)] text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-[#5b7297] transition-all duration-300">
+              Réserver Cette Expérience
+            </a>
+          </div>
+        </section>
+      )}
+    </main>
+
+    <Footer currentLang={data.language} />
+  </body>
+</html>
