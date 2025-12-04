@@ -297,14 +297,16 @@ For each French content file, ensure:
 - [ ] All SEO fields translated (title, metaDescription)
 - [ ] All array fields translated (highlights, included, etc.)
 - [ ] **ALL links replaced with French counterparts**
+- [ ] **`category` field: Keep in English** (do NOT translate - used for filtering/grouping)
 
 **Content Body:**
 - [ ] All headings translated
 - [ ] All paragraphs translated
+- [ ] **Body text approximately 50% shorter than English version** (concise, direct style)
 - [ ] Maintain proper markdown structure
 - [ ] **ALL internal links replaced with French URLs**
 - [ ] External links kept (translate link text only)
-- [ ] Check character limits (meta: 160, intro: 350, descriptions: 2000)
+- [ ] Check character limits (meta: 160, **introductoryText: 280 max**, descriptions: 2000)
 - [ ] Ensure "3 Kings Rule" compliance
 
 **Images:**
