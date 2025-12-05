@@ -302,11 +302,12 @@ For each French content file, ensure:
 **Content Body:**
 - [ ] All headings translated
 - [ ] All paragraphs translated
-- [ ] **Body text approximately 50% shorter than English version** (concise, direct style)
+- [ ] **For partner experiences ONLY: Body text approximately 50% shorter than English version** (concise, direct style)
+- [ ] **For blog articles: Translate fully, maintaining similar length to English version**
 - [ ] Maintain proper markdown structure
 - [ ] **ALL internal links replaced with French URLs**
 - [ ] External links kept (translate link text only)
-- [ ] Check character limits (meta: 160, **introductoryText: 280 max**, descriptions: 2000)
+- [ ] Check character limits (meta: 160, **introductoryText: 280 max for experiences**, descriptions: 2000)
 - [ ] Ensure "3 Kings Rule" compliance
 
 **Images:**

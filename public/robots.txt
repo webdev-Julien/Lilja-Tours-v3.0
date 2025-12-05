@@ -1,0 +1,46 @@
+# =====================================================
+# Lilja Tours - robots.txt
+# https://www.lilja-tours.com
+# =====================================================
+
+# Allow all crawlers access to the site
+User-agent: *
+Allow: /
+
+# Disallow access to admin and internal paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /*.json$
+
+# Disallow access to draft/unpublished content
+Disallow: /*_*
+
+# Crawl delay (optional, for server load management)
+Crawl-delay: 1
+
+# =====================================================
+# Specific bot rules
+# =====================================================
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /pictures/
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.png$
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# =====================================================
+# Sitemap location
+# =====================================================
+Sitemap: https://www.lilja-tours.com/sitemap-index.xml
