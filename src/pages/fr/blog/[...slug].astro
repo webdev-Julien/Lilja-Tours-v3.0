@@ -4,6 +4,7 @@ import "../../../styles/global.css"
 import { getCollection } from 'astro:content';
 import Footer from "../../../components/Footer.astro";
 import Topbar from "../../../components/Topbar.astro";
+import BlogCard from "../../../components/BlogCard.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection('blog_articles_FR');
@@ -16,6 +17,32 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await article.render();
 const data = article.data;
+
+// Get 3 random other articles from the same collection (random at build time)
+const allArticles = await getCollection('blog_articles_FR');
+const otherArticles = allArticles.filter(a => a.id !== article.id);
+// Fisher-Yates shuffle for random selection at build time
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+const randomArticles = shuffleArray(otherArticles).slice(0, 3);
+
+// Format date
+const formattedDate = new Date(data.publishDate).toLocaleDateString('fr-FR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Helper function to convert category name to URL slug
+function categoryToSlug(category: string): string {
+  return category.toLowerCase().replace(/\s+/g, '-');
+}
 ---
 
 <html lang={data.language}>
@@ -33,51 +60,306 @@ const data = article.data;
     <meta property="og:type" content="article" />
     <meta property="og:image" content={data.featuredImage} />
     <meta property="og:url" content={data.canonicalUrl} />
+    <meta property="og:description" content={data.metaDescription} />
 
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="generator" content={Astro.generator} />
     <title>{data.pageTitle}</title>
 
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
-		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
-		<link rel="stylesheet" href="/css/gdpr-consent.css" />
-		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
-		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+
+    <!-- GDPR Cookie Consent -->
+    <link rel="stylesheet" href="/css/gdpr-consent.css" />
+    <script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+    <!-- TrustIndex Rich Snippet -->
+    <script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
     <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+
+    <style is:inline>
+      /* Scroll Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+      }
+
+      .slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-down {
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .bg-fixed {
+          background-attachment: scroll;
+        }
+      }
+
+      /* Blog content styling */
+      .blog-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #374151;
+      }
+
+      .blog-content h1 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #5b7297;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .blog-content h2 {
+        font-size: 2rem;
+        font-weight: 300;
+        color: #5b7297;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.3;
+      }
+
+      .blog-content h3 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #5b7297;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+
+      .blog-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-content strong {
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .blog-content a {
+        color: #5b7297;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+      }
+
+      .blog-content a:hover {
+        color: #4a5d7d;
+      }
+
+      .blog-content ul, .blog-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+      }
+
+      .blog-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .blog-content blockquote {
+        border-left: 4px solid #5b7297;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+
+      .blog-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .blog-content code {
+        background-color: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-size: 0.9em;
+        font-family: 'Courier New', monospace;
+      }
+
+      .blog-content pre {
+        background-color: #1f2937;
+        color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        margin: 2rem 0;
+      }
+
+      .blog-content pre code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+      }
+
+      @media (max-width: 768px) {
+        .blog-content {
+          font-size: 1rem;
+        }
+
+        .blog-content h1 {
+          font-size: 2rem;
+        }
+
+        .blog-content h2 {
+          font-size: 1.75rem;
+        }
+
+        .blog-content h3 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <Topbar currentLang={data.language} englishUrl={data.urlOtherLang} />
+    <Topbar englishUrl={data.urlOtherLang || "/blog/"} currentLang="fr" />
 
-    <header class="relative w-full h-[65dvh] overflow-hidden">
-      {data.headerImage && (
-        <picture class="absolute inset-0 w-full h-full">
-          {data.headerImage.srcMobile && (<source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />)}
-          <img src={data.headerImage.srcPC} alt={data.headerImage.alt} class="w-full h-full object-cover" />
-        </picture>
-      )}
-      <div class="absolute inset-0 bg-black/30 z-10"></div>
-      <div class="relative z-20 h-full flex items-center justify-center">
+    <!-- Hero Header -->
+    <header class="relative h-[60dvh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <picture class="absolute inset-0 w-full h-full">
+        {data.headerImage.srcMobile && (
+          <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
+        )}
+        <img
+          src={data.headerImage.srcPC}
+          alt={data.headerImage.alt || ''}
+          class="w-full h-full object-cover object-center"
+        />
+      </picture>
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+      <!-- Header content -->
+      <div class="relative z-20 h-full flex items-center justify-center pt-[80px]">
         <div class="max-w-4xl mx-auto px-8 text-center text-white">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight">{data.title}</h1>
-          <div class="flex items-center justify-center gap-6 text-sm md:text-base">
-            <span>{data.author}</span>
-            <span>•</span>
-            <span>{data.readingTime}</span>
-            <span>•</span>
-            <span>{new Date(data.publishDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <div class="flex items-center justify-center gap-3 mb-6 slide-down flex-wrap">
+            {data.categories.map(category => (
+              <a
+                href={`/fr/blog/${categoryToSlug(category)}/`}
+                class="text-sm font-light tracking-wider uppercase bg-white/20 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/30 hover:bg-white/30 transition-colors duration-200 no-underline text-white"
+              >
+                {category}
+              </a>
+            ))}
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down">
+            {data.title}
+          </h1>
+          <div class="flex items-center justify-center gap-6 text-sm md:text-base font-light tracking-wide opacity-90 slide-up flex-wrap">
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              {data.author}
+            </span>
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              {formattedDate}
+            </span>
+            <span class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              {data.readingTime}
+            </span>
           </div>
         </div>
       </div>
     </header>
 
     <main class="bg-white">
-      <article class="max-w-4xl mx-auto px-8 py-16">
-        <div class="prose prose-lg max-w-none">
-          <Content />
+      <!-- Article Content Section -->
+      <article class="py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="blog-content prose prose-lg max-w-none">
+            <Content />
+          </div>
         </div>
       </article>
+
+      <!-- Related Articles Section -->
+      {randomArticles.length > 0 && (
+        <section class="fade-in bg-gray-50 py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">D'autres articles qui pourraient vous plaire</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+              {randomArticles.map((relatedArticle) => (
+                <BlogCard
+                  image={relatedArticle.data.cardImg?.srcPC || relatedArticle.data.featuredImage}
+                  imageAlt={relatedArticle.data.cardImg?.alt || relatedArticle.data.title}
+                  title={relatedArticle.data.title}
+                  excerpt={relatedArticle.data.excerpt}
+                  publishDate={relatedArticle.data.publishDate}
+                  readingTime={relatedArticle.data.readingTime}
+                  categories={relatedArticle.data.categories}
+                  slug={`/fr/blog/${relatedArticle.data.slug}/`}
+                  author={relatedArticle.data.author}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
 
-    <Footer currentLang={data.language} />
+    <Footer currentLang="fr" />
+
+    <!-- Scroll Animation Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in, .slide-up, .slide-down').forEach(el => {
+          observer.observe(el);
+        });
+      });
+    </script>
   </body>
 </html>

@@ -704,7 +704,7 @@ try {
                   duration={relatedTour.data.duration}
                   description={relatedTour.data.cardSentence}
                   price={relatedTour.data.priceMercedes?.toLocaleString() || relatedTour.data.priceLandCruiser?.toLocaleString()}
-                  slug={`/private-day-tours-iceland/${relatedTour.data.slug}/`}
+                  slug={relatedTour.data.url}
                   highlights={relatedTour.data.highlights?.slice(0, 3)}
                   season={relatedTour.data.season}
                 />

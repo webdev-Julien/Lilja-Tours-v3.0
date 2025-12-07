@@ -25,6 +25,8 @@ Every page MUST have the primary keyword in:
 - **Meta descriptions**: 160 characters maximum
 - **Header introductory texts**: 350 characters maximum
 - **Visit/tour descriptions**: 2,000 characters maximum, formatted in 2-3 paragraphs
+- **Partner experiences `introductoryText`**: 230 characters maximum
+- **Partner experiences `Good to Know` paragraph**: Keep concise (approximately 350-500 characters). Focus on essential practical information only: operation schedule, location, duration, group size, cancellation policy, key requirements, and booking notes.
 
 ### Content Guidelines
 
