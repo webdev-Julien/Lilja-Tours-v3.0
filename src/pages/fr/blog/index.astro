@@ -12,15 +12,15 @@ const sortedArticles = allArticles.sort((a, b) =>
 const latestArticles = sortedArticles.slice(0, 3);
 
 const categories = [
-	{ name: 'Travel Guides', slug: 'travel-guides', description: 'Guides complets' },
-	{ name: 'Itineraries', slug: 'itineraries', description: 'Itinéraires suggérés en Islande' },
-	{ name: 'Tops', slug: 'tops', description: 'Listes sélectionnées' },
-	{ name: 'Hotels', slug: 'hotels', description: 'Avis sur les hébergements' },
-	{ name: 'Excursions', slug: 'excursions', description: 'Critiques approfondies' },
-	{ name: 'Tours', slug: 'tours', description: 'Guides de circuits complets' },
-	{ name: 'Info', slug: 'info', description: 'Informations essentielles' },
-	{ name: 'Photographies', slug: 'photographies', description: 'Inspiration visuelle' },
-	{ name: 'News', slug: 'news', description: 'Dernières actualités' }
+	{ name: 'Travel Guides', nameFr: 'Guides de Voyage', slug: 'travel-guides', description: 'Guides complets' },
+	{ name: 'Itineraries', nameFr: 'Itinéraires', slug: 'itineraries', description: 'Itinéraires suggérés en Islande' },
+	{ name: 'Tops', nameFr: 'Tops', slug: 'tops', description: 'Listes sélectionnées' },
+	{ name: 'Hotels', nameFr: 'Hôtels', slug: 'hotels', description: 'Avis sur les hébergements' },
+	{ name: 'Excursions', nameFr: 'Excursions', slug: 'excursions', description: 'Critiques approfondies' },
+	{ name: 'Tours', nameFr: 'Circuits', slug: 'tours', description: 'Guides de circuits complets' },
+	{ name: 'Info', nameFr: 'Info', slug: 'info', description: 'Informations essentielles' },
+	{ name: 'Photographies', nameFr: 'Photographies', slug: 'photographies', description: 'Inspiration visuelle' },
+	{ name: 'News', nameFr: 'Actualités', slug: 'news', description: 'Dernières actualités' }
 ];
 
 const categoriesWithArticles = categories.filter(cat =>
@@ -112,7 +112,7 @@ const categoriesWithArticles = categories.filter(cat =>
 				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
 					<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Blog Voyage Islande</h1>
 					<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
-						Découvrez des conseils d'initiés, des guides de destinations des itinéraires et des récits d'Islande.
+						Découvrez des conseils d'initiés, des guides de destinations, des itinéraires et des récits d'Islande.
 					</p>
 				</div>
 			</header>
@@ -138,6 +138,7 @@ const categoriesWithArticles = categories.filter(cat =>
 								categories={article.data.categories}
 								slug={`/fr/blog/${article.data.slug || article.slug}`}
 								author={article.data.author}
+								lang="fr"
 							/>
 						))}
 					</div>
@@ -168,10 +169,10 @@ const categoriesWithArticles = categories.filter(cat =>
 								<picture>
 									<source media="(max-width: 768px)" srcset={`/pictures/blog/categories/${category.slug}-header-mobile.webp`} />
 									<source media="(min-width: 769px)" srcset={`/pictures/blog/categories/${category.slug}-header-pc.webp`} />
-									<img src={`/pictures/blog/categories/${category.slug}-header-pc.webp`} alt={`${category.name} blog category`} class="category-card-bg" onerror="this.onerror=null; this.src='/pictures/blog/articles/placeholder.webp';" />
+									<img src={`/pictures/blog/categories/${category.slug}-header-pc.webp`} alt={`Catégorie ${category.nameFr}`} class="category-card-bg" onerror="this.onerror=null; this.src='/pictures/blog/articles/placeholder.webp';" />
 								</picture>
 								<div class="category-card-content">
-									<h3 class="text-2xl md:text-3xl font-light tracking-wide text-white text-center px-4">{category.name}</h3>
+									<h3 class="text-2xl md:text-3xl font-light tracking-wide text-white text-center px-4">{category.nameFr}</h3>
 								</div>
 							</a>
 						))}

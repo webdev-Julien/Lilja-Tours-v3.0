@@ -91,6 +91,8 @@ const categorySlug = Astro.params.category;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={`Explore our ${categoryName} articles about Iceland. Travel tips, guides, and stories to help you plan the perfect Iceland adventure.`}>
+		<link rel="alternate" hreflang="en" href={`https://www.lilja-tours.com/blog/${categorySlug}/`} />
+		<link rel="alternate" hreflang="fr" href={`https://www.lilja-tours.com/fr/blog/${categorySlug}/`} />
 		<link rel="canonical" href={`https://www.lilja-tours.com/blog/${categorySlug}/`} />
 
 		<meta property="og:title" content={`${categoryName} - Iceland Travel Blog | Lilja Tours`}>
@@ -210,7 +212,7 @@ const categorySlug = Astro.params.category;
 		</style>
 	</head>
 	<body>
-		<Topbar currentLang="en" frenchUrl="#" />
+		<Topbar currentLang="en" frenchUrl={`/fr/blog/${categorySlug}/`} />
 
 		<!-- Header Section -->
 		<header class="relative py-32 overflow-hidden">

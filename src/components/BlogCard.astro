@@ -10,6 +10,7 @@ export interface Props {
   categories: string[];
   slug?: string;
   author?: string;
+  lang?: 'en' | 'fr';
 }
 
 const {
@@ -21,11 +22,47 @@ const {
   readingTime,
   categories,
   slug = '#',
-  author = 'Lilja Tours'
+  author = 'Lilja Tours',
+  lang = 'en'
 } = Astro.props;
 
-// Format date
-const formattedDate = new Date(publishDate).toLocaleDateString('en-US', {
+// Translations
+const translations = {
+  en: {
+    readMore: 'Read More',
+    by: 'By'
+  },
+  fr: {
+    readMore: 'Lire la suite',
+    by: 'Par'
+  }
+};
+
+// Category name translations (English to French)
+const categoryTranslations: Record<string, string> = {
+  'Itineraries': 'Itinéraires',
+  'Tops': 'Tops',
+  'Info': 'Info',
+  'Photographies': 'Photographies',
+  'Hotels': 'Hôtels',
+  'Excursions': 'Excursions',
+  'Tours': 'Circuits',
+  'News': 'Actualités',
+  'Travel Guides': 'Guides de Voyage'
+};
+
+// Get display name for category based on language
+function getCategoryDisplayName(category: string): string {
+  if (lang === 'fr' && categoryTranslations[category]) {
+    return categoryTranslations[category];
+  }
+  return category;
+}
+
+const t = translations[lang];
+
+// Format date based on language
+const formattedDate = new Date(publishDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
@@ -35,6 +72,9 @@ const formattedDate = new Date(publishDate).toLocaleDateString('en-US', {
 function categoryToSlug(category: string): string {
   return category.toLowerCase().replace(/\s+/g, '-');
 }
+
+// Get the correct blog base path for category links
+const blogBasePath = lang === 'fr' ? '/fr/blog' : '/blog';
 ---
 <article class="h-full">
 <div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col h-full hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
@@ -59,10 +99,10 @@ function categoryToSlug(category: string): string {
           <div class="flex gap-1.5 flex-wrap">
             {categories.slice(0, 2).map(category => (
               <a
-                href={`/blog/${categoryToSlug(category)}/`}
+                href={`${blogBasePath}/${categoryToSlug(category)}/`}
                 class="text-xs font-normal text-[#5b7297] bg-[#5b7297]/5 px-2 py-0.5 rounded-sm tracking-wide hover:bg-[#5b7297]/10 transition-colors duration-200 no-underline"
               >
-                {category}
+                {getCategoryDisplayName(category)}
               </a>
             ))}
           </div>
@@ -73,10 +113,10 @@ function categoryToSlug(category: string): string {
     <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base md:text-lg font-light flex-1 line-clamp-3">{excerpt}</p>
 
     <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 mt-auto">
-      <span class="text-xs sm:text-sm font-light text-gray-400 tracking-wide">By {author}</span>
+      <span class="text-xs sm:text-sm font-light text-gray-400 tracking-wide">{t.by} {author}</span>
 
       <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Read article: ${title}`}>
-        <span class="relative z-10">Read More</span>
+        <span class="relative z-10">{t.readMore}</span>
         <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

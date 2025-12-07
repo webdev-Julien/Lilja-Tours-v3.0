@@ -7,60 +7,340 @@ import Footer from "../../../components/Footer.astro"
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const allArticles = await getCollection('blog_articles_FR');
-  const categories = [...new Set(allArticles.flatMap(article => article.data.categories))];
+	// Define all blog categories with French translations (keeping English slugs for URL consistency)
+	const categories = [
+		{
+			name: 'Itineraries',
+			nameFr: 'Itinéraires',
+			slug: 'itineraries',
+			description: 'Découvrez nos itinéraires suggérés en Islande, conçus pour vous faire découvrir les paysages les plus spectaculaires et les trésors cachés du pays. Des aventures de plusieurs jours aux excursions d\'une journée optimisées, ces itinéraires sont souvent des programmes que nous avons créés pour nos clients.'
+		},
+		{
+			name: 'Tops',
+			nameFr: 'Tops',
+			slug: 'tops',
+			description: 'Explorez nos sélections des meilleures attractions, activités et expériences en Islande. Nos tops mettent en lumière les destinations incontournables, les meilleurs points de vue, les restaurants recommandés et les activités uniques pour enrichir votre aventure islandaise.'
+		},
+		{
+			name: 'Info',
+			nameFr: 'Info',
+			slug: 'info',
+			description: 'Informations essentielles sur l\'Islande. Actualités, articles mis à jour... Tout ce que vous devez savoir juste avant votre voyage.'
+		},
+		{
+			name: 'Photographies',
+			nameFr: 'Photographies',
+			slug: 'photographies',
+			description: 'Inspiration visuelle des paysages époustouflants d\'Islande. Parcourez des photographies sublimes de cascades spectaculaires, formations volcaniques, lagons glaciaires et aurores boréales, avec détails des lieux et conseils pour les photographes.'
+		},
+		{
+			name: 'Hotels',
+			nameFr: 'Hôtels',
+			slug: 'hotels',
+			description: 'Avis et recommandations d\'hébergements à travers l\'Islande. Des hôtels de luxe à Reykjavik aux maisons d\'hôtes de campagne et lodges isolés, découvrez où séjourner pour le confort, la commodité et l\'hospitalité islandaise authentique.'
+		},
+		{
+			name: 'Excursions',
+			nameFr: 'Excursions',
+			slug: 'excursions',
+			description: 'Avis détaillés sur les excursions et activités guidées les plus populaires d\'Islande. Explorez les options de randonnée glaciaire, visites de grottes de glace, observation des baleines et activités d\'aventure avec des conseils honnêtes pour choisir l\'excursion parfaite.'
+		},
+		{
+			name: 'Tours',
+			nameFr: 'Circuits',
+			slug: 'tours',
+			description: 'Guides complets couvrant les itinéraires et régions emblématiques d\'Islande. Découvrez les variantes du Cercle d\'Or, les points forts de la Côte Sud, les trésors de la péninsule de Snæfellsnes et d\'autres routes touristiques avec des arrêts détaillés et recommandations.'
+		},
+		{
+			name: 'News',
+			nameFr: 'Actualités',
+			slug: 'news',
+			description: 'Dernières nouvelles de la scène touristique islandaise. Restez informé sur l\'activité volcanique, les conditions routières, les nouvelles attractions, les changements saisonniers et les mises à jour importantes affectant les visiteurs en Islande.'
+		},
+		{
+			name: 'Travel Guides',
+			nameFr: 'Guides de Voyage',
+			slug: 'travel-guides',
+			description: 'Guides complets pour explorer les régions et attractions d\'Islande. Articles détaillés couvrant des destinations spécifiques, conseils de voyage saisonniers, planification budgétaire et informations complètes pour les voyageurs indépendants découvrant l\'Islande.'
+		}
+	];
 
-  return categories.map(category => ({
-    params: { category: category.toLowerCase().replace(/\s+/g, '-') },
-    props: {
-      category,
-      articles: allArticles.filter(article =>
-        article.data.categories.some(cat => cat.toLowerCase() === category.toLowerCase())
-      ).sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
-    },
-  }));
+	const allArticles = await getCollection('blog_articles_FR');
+
+	return categories.map((cat) => {
+		// Filter articles by category - articles can have multiple categories
+		const categoryArticles = allArticles.filter(article =>
+			article.data.categories.some(category =>
+				category.toLowerCase() === cat.name.toLowerCase()
+			)
+		);
+
+		// Sort articles by publish date (newest first)
+		const sortedArticles = categoryArticles.sort((a, b) =>
+			new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+		);
+
+		return {
+			params: { category: cat.slug },
+			props: {
+				categoryName: cat.nameFr,
+				categoryNameEn: cat.name,
+				categoryDescription: cat.description,
+				articles: sortedArticles
+			}
+		};
+	});
 }
 
-const { category, articles } = Astro.props;
-const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
+const { categoryName, categoryNameEn, categoryDescription, articles } = Astro.props;
+const categorySlug = Astro.params.category;
 ---
 
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content={`Articles ${category} - Blog Voyage Islande`}>
+		<meta name="description" content={`Découvrez nos articles ${categoryName} sur l'Islande. Conseils de voyage, guides et récits pour planifier l'aventure islandaise parfaite.`}>
+		<link rel="alternate" hreflang="en" href={`https://www.lilja-tours.com/blog/${categorySlug}/`} />
+		<link rel="alternate" hreflang="fr" href={`https://www.lilja-tours.com/fr/blog/${categorySlug}/`} />
 		<link rel="canonical" href={`https://www.lilja-tours.com/fr/blog/${categorySlug}/`} />
-		<title>{category} | Lilja Tours</title>
 
+		<meta property="og:title" content={`${categoryName} - Blog Voyage Islande | Lilja Tours`}>
+		<meta property="og:type" content="website">
+		<meta property="og:url" content={`https://www.lilja-tours.com/fr/blog/${categorySlug}/`}>
+		<meta property="og:description" content={`Découvrez nos articles ${categoryName} sur l'Islande. Conseils de voyage, guides et récits pour planifier l'aventure islandaise parfaite.`}>
+		<meta property="og:locale" content="fr_FR">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>{categoryName} - Blog Voyage Islande | Lilja Tours</title>
+
+		<!-- Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
 		<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-48C94854K2');</script>
+
+		<!-- GDPR Cookie Consent -->
 		<link rel="stylesheet" href="/css/gdpr-consent.css" />
 		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<style is:inline>
+			/* Animation classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Blog grid */
+			.blog-grid {
+				display: grid;
+				align-items: stretch;
+			}
+
+			.blog-grid > * {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.blog-grid article > div {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			/* Header background styles */
+			.header-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				z-index: 0;
+			}
+
+			.header-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1;
+			}
+
+			.header-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Back button hover effect */
+			.back-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: white;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.back-button:hover::before {
+				transform: translateY(0);
+			}
+
+			.back-button:hover {
+				color: #5b7297;
+			}
+		</style>
 	</head>
 	<body>
-		<Topbar currentLang="fr" englishUrl={`/blog/${category}/`} />
-		<main class="bg-gray-50 py-28 px-6">
-			<div class="max-w-7xl mx-auto">
-				<h1 class="text-5xl md:text-6xl font-light text-[#5b7297] mb-16 text-center">{category}</h1>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-					{articles.map((article) => (
-						<BlogCard
-							image={article.data.cardImg.srcPC}
-							imageAlt={article.data.cardImg.alt}
-							title={article.data.title}
-							excerpt={article.data.excerpt}
-							publishDate={article.data.publishDate}
-							readingTime={article.data.readingTime}
-							categories={article.data.categories}
-							slug={`/fr/blog/${article.data.slug || article.slug}`}
-							author={article.data.author}
-						/>
-					))}
+		<Topbar currentLang="fr" englishUrl={`/blog/${categorySlug}/`} />
+
+		<!-- Header Section -->
+		<header class="relative py-32 overflow-hidden">
+			<!-- Background Image -->
+			<picture>
+				<source media="(max-width: 768px)" srcset={`/pictures/blog/categories/${categorySlug}-header-mobile.webp`} />
+				<source media="(min-width: 769px)" srcset={`/pictures/blog/categories/${categorySlug}-header-pc.webp`} />
+				<img
+					src={`/pictures/blog/categories/${categorySlug}-header-pc.webp`}
+					alt={`Catégorie ${categoryName} du blog`}
+					class="header-bg"
+				/>
+			</picture>
+
+			<!-- Overlay -->
+			<div class="header-overlay"></div>
+
+			<div class="header-content max-w-7xl mx-auto px-8 text-center relative z-10">
+				<div class="slide-down mb-6">
+					<a
+						href="/fr/blog/"
+						class="back-button inline-flex items-center gap-2 px-5 py-2.5 bg-transparent text-white border border-white rounded-sm font-light text-sm tracking-wide uppercase relative overflow-hidden hover:text-[#5b7297] transition-colors duration-300"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+						</svg>
+						Retour aux articles
+					</a>
 				</div>
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white slide-down">
+					{categoryName}
+				</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide max-w-4xl mx-auto slide-up">
+					{articles.length} {articles.length === 1 ? 'article' : 'articles'} dans cette catégorie
+				</p>
 			</div>
+		</header>
+
+		<main>
+			<!-- Category Description Section -->
+			<section class="bg-white py-16 px-6">
+				<div class="max-w-4xl mx-auto text-center fade-in">
+					<p class="text-lg md:text-xl text-gray-700 leading-relaxed font-light">
+						{categoryDescription}
+					</p>
+				</div>
+			</section>
+
+			<!-- Articles Section -->
+			<section class="bg-gray-50 py-28 px-6">
+				<div class="max-w-7xl mx-auto">
+					{articles.length > 0 ? (
+						<div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center fade-in">
+							{articles.map((article) => (
+								<BlogCard
+									image={article.data.cardImg.srcPC}
+									imageAlt={article.data.cardImg.alt}
+									title={article.data.title}
+									excerpt={article.data.excerpt}
+									publishDate={article.data.publishDate}
+									readingTime={article.data.readingTime}
+									categories={article.data.categories}
+									slug={`/fr/blog/${article.data.slug || article.slug}`}
+									author={article.data.author}
+									lang="fr"
+								/>
+							))}
+						</div>
+					) : (
+						<div class="text-center py-16 fade-in">
+							<p class="text-xl text-gray-600 mb-8 font-light">
+								Aucun article disponible dans cette catégorie pour le moment. Revenez bientôt !
+							</p>
+							<a
+								href="/fr/blog/"
+								class="inline-flex items-center gap-2 px-6 py-3 bg-[#5b7297] text-white no-underline rounded-sm font-light text-sm transition-all duration-300 hover:bg-[#4a5d7d] tracking-wide uppercase"
+							>
+								Parcourir tous les articles
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+								</svg>
+							</a>
+						</div>
+					)}
+				</div>
+			</section>
 		</main>
+
 		<Footer currentLang="fr" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+		</script>
 	</body>
 </html>
