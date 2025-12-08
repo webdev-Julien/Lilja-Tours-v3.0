@@ -76,7 +76,7 @@ const allTours = await getCollection('tours_EN');
 				<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
 					<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Private Day Tours in Iceland</h1>
 					<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide">
-						Our private day tours in Iceland help you discover the country's most spectacular destinations through our carefully crafted itineraries. From iconic landmarks to hidden gems, each journey is designed to showcase the raw beauty and fascinating geology that make Iceland truly unique.
+						Discover Iceland's most spectacular destinations with our private day tours. From iconic landmarks to hidden gems, each journey showcases the raw beauty that makes Iceland unique.
 					</p>
 				</div>
 			</header>
@@ -84,9 +84,9 @@ const allTours = await getCollection('tours_EN');
 
 
 			<!-- Tours Grid Section -->
-			<section class="fade-in bg-white py-32">
+			<section class="fade-in visible bg-white py-32">
 				<div class="max-w-7xl w-full mx-auto px-8">
-					<div class="text-center mb-16 max-w-4xl mx-auto slide-up">
+					<div class="text-center mb-16 max-w-4xl mx-auto slide-up visible">
 						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Our ready-to-book day tours</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-8">
 							Choose from our complete collection of private day tours, each offering unique perspectives on Iceland's diverse landscapes and natural wonders.
@@ -99,7 +99,7 @@ const allTours = await getCollection('tours_EN');
 						</a>
 					</div>
 
-					<div class="tours-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 slide-up">
+					<div class="tours-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 slide-up visible">
 						{allTours.map((tour) => (
 							<ItineraryCard
 								image={tour.data.cardImg.srcPC || "/images/fallback-tour.jpg"}

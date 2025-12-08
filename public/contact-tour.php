@@ -2,7 +2,6 @@
 /**
  * Day Tour "Personalize Your Tour" Form Handler for Lilja Tours
  * Handles submissions from all day tour pages
- * Sends emails via Google Workspace SMTP
  */
 
 header('Access-Control-Allow-Origin: *');
@@ -77,11 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Server settings
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
         $mail->SMTPAuth = true;
         $mail->Username = SMTP_USERNAME;
         $mail->Password = SMTP_PASSWORD;
-        $mail->SMTPSecure = SMTP_ENCRYPTION;
-        $mail->Port = SMTP_PORT;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         // Recipients
         $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);

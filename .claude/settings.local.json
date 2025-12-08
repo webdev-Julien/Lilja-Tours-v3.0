@@ -28,7 +28,11 @@
       "Bash(python:*)",
       "Bash(npm install:*)",
       "Bash(test:*)",
-      "Bash(Select-String -Pattern \"DEBUG\")"
+      "Bash(Select-String -Pattern \"DEBUG\")",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl:*)",
+      "WebFetch(domain:support.google.com)",
+      "WebFetch(domain:mailtrap.io)"
     ],
     "deny": [],
     "ask": []

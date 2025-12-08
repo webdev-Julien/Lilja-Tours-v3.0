@@ -44,7 +44,7 @@ RewriteRule ^ %1 [R=301,L]
 
 # -----------------------------------------------------
 
-RedirectMatch 301 ^/about/?$ https://www.lilja-tours.com/about/
+# Removed: RedirectMatch 301 ^/about/?$ - This page now exists at /about/
 RedirectMatch 301 ^/all-day-tours/?$ https://www.lilja-tours.com/private-day-tours-iceland/
 RedirectMatch 301 ^/multiday/?$ https://www.lilja-tours.com/multiday-tours-iceland/
 RedirectMatch 301 ^/things-to-do-in-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/
@@ -236,7 +236,7 @@ RedirectMatch 301 ^/blog/the-10-best-activities-to-do-in-reykjavik/?$ https://ww
 
 # -----------------------------------------------------
 
-RedirectMatch 301 ^/fr/about/?$ https://www.lilja-tours.com/fr/
+# Removed: RedirectMatch 301 ^/fr/about/?$ - This page now exists at /fr/about/
 RedirectMatch 301 ^/fr/activites-en-islande/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/
 RedirectMatch 301 ^/fr/circuits/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
 RedirectMatch 301 ^/fr/toutes-nos-excursions/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/

@@ -86,9 +86,9 @@ const allTours = await getCollection('tours_FR');
 		<main>
 
 			<!-- Tours Grid Section -->
-			<section class="fade-in bg-white py-32">
+			<section class="fade-in visible bg-white py-32">
 				<div class="max-w-7xl w-full mx-auto px-8">
-					<div class="text-center mb-16 max-w-4xl mx-auto slide-up">
+					<div class="text-center mb-16 max-w-4xl mx-auto slide-up visible">
 						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Nos excursions prêtes à réserver</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-8">
 							Choisissez parmi notre collection d'excursions à la journée.
@@ -101,7 +101,7 @@ const allTours = await getCollection('tours_FR');
 						</a>
 					</div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16 items-start justify-items-center slide-up">
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16 items-start justify-items-center slide-up visible">
 						{allTours.map((tour) => (
 							<ItineraryCard
 								image={tour.data.cardImg?.srcPC || tour.data.featuredImage}

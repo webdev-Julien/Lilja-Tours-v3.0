@@ -2,7 +2,6 @@
 /**
  * Multiday Tour Booking Modal Form Handler for Lilja Tours
  * Handles "Book This Tour" modal submissions from multiday tour pages
- * Sends emails via Google Workspace SMTP
  */
 
 header('Access-Control-Allow-Origin: *');
@@ -35,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Validate required fields
+    // Validate required fields (using !isset or === '' to allow 0 values)
     $requiredFields = ['name', 'email', 'numPeople', 'departureDate', 'accommodation', 'tourName'];
     foreach ($requiredFields as $field) {
-        if (empty($data[$field])) {
+        if (!isset($data[$field]) || $data[$field] === '') {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Missing required field: ' . $field]);
             exit;
@@ -84,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Server settings
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
         $mail->SMTPAuth = true;
         $mail->Username = SMTP_USERNAME;
         $mail->Password = SMTP_PASSWORD;
-        $mail->SMTPSecure = SMTP_ENCRYPTION;
-        $mail->Port = SMTP_PORT;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         // Recipients
         $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
