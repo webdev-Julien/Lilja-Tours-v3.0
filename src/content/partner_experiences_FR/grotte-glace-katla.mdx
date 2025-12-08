@@ -81,7 +81,13 @@ jsonLD:
       "addressCountry": "IS"
       "addressRegion": "Sud de l'Islande"
       "addressLocality": "Vík í Mýrdal"
-  "touristType": ["Voyage d'aventure", "Tourisme géologique", "Tourisme nature"]
+  "touristType":
+    - "@type": "Audience"
+      "audienceType": "Voyage d'aventure"
+    - "@type": "Audience"
+      "audienceType": "Tourisme géologique"
+    - "@type": "Audience"
+      "audienceType": "Tourisme nature"
   "subjectOf":
     "@type": "CreativeWork"
     "name": "Détails de l'excursion Grotte de Glace Katla"

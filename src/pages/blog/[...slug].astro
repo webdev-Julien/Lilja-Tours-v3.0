@@ -322,7 +322,7 @@ function categoryToSlug(category: string): string {
                   publishDate={relatedArticle.data.publishDate}
                   readingTime={relatedArticle.data.readingTime}
                   categories={relatedArticle.data.categories}
-                  slug={`/blog/${relatedArticle.data.slug}/`}
+                  slug={`/blog/${relatedArticle.data.slug || relatedArticle.slug}/`}
                   author={relatedArticle.data.author}
                 />
               ))}

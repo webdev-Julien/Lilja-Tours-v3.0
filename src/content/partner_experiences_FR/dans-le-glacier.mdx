@@ -72,7 +72,13 @@ jsonLD:
       "addressCountry": "IS"
       "addressRegion": "Ouest de l'Islande"
       "addressLocality": "Húsafell"
-  "touristType": ["Voyage d'aventure", "Tourisme éducatif", "Tourisme nature"]
+  "touristType":
+    - "@type": "Audience"
+      "audienceType": "Voyage d'aventure"
+    - "@type": "Audience"
+      "audienceType": "Tourisme éducatif"
+    - "@type": "Audience"
+      "audienceType": "Tourisme nature"
   "offers":
     "@type": "Offer"
     "price": "23990"

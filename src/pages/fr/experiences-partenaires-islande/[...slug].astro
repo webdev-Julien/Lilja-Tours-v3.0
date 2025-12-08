@@ -550,7 +550,7 @@ try {
                   duration={relatedExp.data.duration}
                   description={relatedExp.data.shortDescription}
                   price={relatedExp.data.price}
-                  slug={`/fr/experiences-partenaires-islande/${relatedExp.data.slug}/`}
+                  slug={`/fr/experiences-partenaires-islande/${relatedExp.data.slug || relatedExp.slug}/`}
                   location={relatedExp.data.location}
                   difficulty={relatedExp.data.difficultyLevel}
                   season={relatedExp.data.season}

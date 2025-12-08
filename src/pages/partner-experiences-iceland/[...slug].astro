@@ -544,7 +544,7 @@ try {
                   duration={relatedExp.data.duration}
                   description={relatedExp.data.shortDescription}
                   price={relatedExp.data.price}
-                  slug={`/partner-experiences-iceland/${relatedExp.data.slug}/`}
+                  slug={`/partner-experiences-iceland/${relatedExp.data.slug || relatedExp.slug}/`}
                   location={relatedExp.data.location}
                   difficulty={relatedExp.data.difficultyLevel}
                   season={relatedExp.data.season}
