@@ -79,62 +79,30 @@ These are specific old URLs that don't fall under the prefixes above:
 
 ### Day 1 - Core Pages (Highest Priority)
 
-| #   | URL                                                                                           | Reason                      |
-| --- | --------------------------------------------------------------------------------------------- | --------------------------- |
-| 1   | `https://www.lilja-tours.com/`                                                                | Homepage - most important   |
-| 2   | `https://www.lilja-tours.com/private-day-tours-iceland/`                                      | Main day tours listing      |
-| 3   | `https://www.lilja-tours.com/multiday-tours-iceland/`                                         | Main multiday tours listing |
-| 4   | `https://www.lilja-tours.com/partner-experiences-iceland/`                                    | Main experiences listing    |
-| 5   | `https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete-farm-to-table/` | Best-seller tour            |
-| 6   | `https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/`       | Best-seller tour            |
-| 7   | `https://www.lilja-tours.com/private-day-tours-iceland/northern-lights-private-tour-iceland/` | Seasonal best-seller        |
-| 8   | `https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-essentials/`             | Popular tour                |
-| 9   | `https://www.lilja-tours.com/blog/`                                                           | Blog listing page           |
-| 10  | `https://www.lilja-tours.com/contact/`                                                        | Conversion page             |
+| #   | URL | Reason |
+| --- | --- | ------ |
 
 ### Day 2 - French Core Pages
 
-| #   | URL                                                                                     | Reason                        |
-| --- | --------------------------------------------------------------------------------------- | ----------------------------- |
-| 2   | `https://www.lilja-tours.com/fr/circuits-prives-islande/`                               | French day tours listing      |
-| 3   | `https://www.lilja-tours.com/fr/circuits-multi-jours-islande/`                          | French multiday tours listing |
-| 4   | `https://www.lilja-tours.com/fr/experiences-partenaires-islande/`                       | French experiences listing    |
-| 5   | `https://www.lilja-tours.com/fr/circuits-prives-islande/cercle-or-complet-ferme-table/` | Best-seller tour FR           |
-| 6   | `https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-complete-aventure/`    | Best-seller tour FR           |
-| 7   | `https://www.lilja-tours.com/fr/circuits-prives-islande/aurores-boreales-tour-prive/`   | Seasonal best-seller FR       |
-| 8   | `https://www.lilja-tours.com/fr/circuits-prives-islande/cercle-or-essentiels/`          | Popular tour FR               |
-| 9   | `https://www.lilja-tours.com/fr/blog/`                                                  | French blog listing           |
-| 10  | `https://www.lilja-tours.com/fr/contact/`                                               | French conversion page        |
+| #   | URL | Reason |
+| --- | --- | ------ |
 
 ### Day 3 - Multiday Tours & Other Day Tours
 
-| #   | URL                                                                                                    | Reason            |
-| --- | ------------------------------------------------------------------------------------------------------ | ----------------- |
-| 1   | `https://www.lilja-tours.com/multiday-tours-iceland/ring-road-essentials-7-days/`                      | Flagship multiday |
-| 2   | `https://www.lilja-tours.com/multiday-tours-iceland/golden-circle-south-coast-3-days/`                 | Popular multiday  |
-| 3   | `https://www.lilja-tours.com/multiday-tours-iceland/south-coast-adventure-2-days/`                     | Popular multiday  |
-| 4   | `https://www.lilja-tours.com/private-day-tours-iceland/snaefellsnes-peninsula/`                        | Popular day tour  |
-| 5   | `https://www.lilja-tours.com/private-day-tours-iceland/south-coast-glacier-hike-private-tour-iceland/` | Adventure tour    |
-| 6   | `https://www.lilja-tours.com/private-day-tours-iceland/colors-reykjanes/`                              | New tour          |
-| 7   | `https://www.lilja-tours.com/private-day-tours-iceland/solheimajokull-glacier-hike/`                   | Adventure tour    |
-| 8   | `https://www.lilja-tours.com/private-day-tours-iceland/westman-islands-adventure/`                     | Unique tour       |
-| 9   | `https://www.lilja-tours.com/private-day-tours-iceland/viking-heritage-waterfalls/`                    | Cultural tour     |
-| 10  | `https://www.lilja-tours.com/about/`                                                                   | Trust page        |
+| #   | URL | Reason |
+| --- | --- | ------ |
 
 ### Day 4 - French Multiday & Remaining Tours
 
-| #   | URL                                                                                        | Reason               |
-| --- | ------------------------------------------------------------------------------------------ | -------------------- |
-| 1   | `https://www.lilja-tours.com/fr/circuits-multi-jours-islande/route-1-essentiel-7-jours/`   | Flagship multiday FR |
-| 2   | `https://www.lilja-tours.com/fr/circuits-multi-jours-islande/cercle-or-cote-sud-3-jours/`  | Popular multiday FR  |
-| 3   | `https://www.lilja-tours.com/fr/circuits-multi-jours-islande/aventure-cote-sud/`           | Popular multiday FR  |
-| 4   | `https://www.lilja-tours.com/fr/circuits-prives-islande/peninsule-snaefellsnes/`           | Popular tour FR      |
-| 5   | `https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-randonnee-glacier/`       | Adventure tour FR    |
-| 6   | `https://www.lilja-tours.com/fr/circuits-prives-islande/couleurs-reykjanes/`               | New tour FR          |
-| 7   | `https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-glacier-solheimajokull/` | Adventure tour FR    |
-| 8   | `https://www.lilja-tours.com/fr/circuits-prives-islande/aventure-iles-westman/`            | Unique tour FR       |
-| 9   | `https://www.lilja-tours.com/fr/circuits-prives-islande/heritage-viking-cascades/`         | Cultural tour FR     |
-| 10  | `https://www.lilja-tours.com/private-day-tours-iceland/glymur-waterfall-hike/`             | Hiking tour          |
+| #   | URL | Reason |
+| --- | --- | ------ |
+
+| 5 | `https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-randonnee-glacier/` | Adventure tour FR |
+| 6 | `https://www.lilja-tours.com/fr/circuits-prives-islande/couleurs-reykjanes/` | New tour FR |
+| 7 | `https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-glacier-solheimajokull/` | Adventure tour FR |
+| 8 | `https://www.lilja-tours.com/fr/circuits-prives-islande/aventure-iles-westman/` | Unique tour FR |
+| 9 | `https://www.lilja-tours.com/fr/circuits-prives-islande/heritage-viking-cascades/` | Cultural tour FR |
+| 10 | `https://www.lilja-tours.com/private-day-tours-iceland/glymur-waterfall-hike/` | Hiking tour |
 
 ### Day 5 - Highland Tours & Blog Articles
 
