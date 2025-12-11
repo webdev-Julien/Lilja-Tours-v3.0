@@ -34,7 +34,8 @@
       "WebFetch(domain:support.google.com)",
       "WebFetch(domain:mailtrap.io)",
       "Bash(Select-String -Pattern \"error|Error|ERROR\" -Context 0,2)",
-      "Bash(Select-Object -First 20)"
+      "Bash(Select-Object -First 20)",
+      "WebFetch(domain:www.iceland-for-you.com)"
     ],
     "deny": [],
     "ask": []
