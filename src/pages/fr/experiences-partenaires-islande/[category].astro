@@ -327,6 +327,24 @@ const categorySlug = Astro.params.category;
 					)}
 				</div>
 			</section>
+
+			{/* Lien Galerie Photo - uniquement pour Vols en Hélicoptère */}
+			{categorySlug === 'helicopter-tours' && (
+				<section class="fade-in bg-gray-50 py-16">
+					<div class="max-w-7xl w-full mx-auto px-8 text-center">
+						<h2 class="text-3xl md:text-4xl font-light tracking-wide mb-6 text-black">L'Islande Vue du Ciel</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-700 max-w-3xl mx-auto mb-8">
+							Nos guides capturent de superbes photographies aériennes lors des tours privés en hélicoptère. Parcourez notre galerie photo présentant glaciers, volcans et hautes terres vus du ciel.
+						</p>
+						<a
+							href="/fr/blog/galerie-photos-helicoptere-circuits-prives/"
+							class="inline-block bg-[#5b7297] text-white px-8 py-3 rounded-sm font-light tracking-wide hover:bg-[#4a5f7a] transition-all duration-300"
+						>
+							Voir la Galerie Photo
+						</a>
+					</div>
+				</section>
+			)}
 		</main>
 
 		<Footer currentLang="fr" />

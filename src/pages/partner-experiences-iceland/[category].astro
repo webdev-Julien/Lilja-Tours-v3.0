@@ -320,6 +320,24 @@ const categorySlug = Astro.params.category;
 					)}
 				</div>
 			</section>
+
+			{/* Photo Gallery Link - only for Helicopter Tours */}
+			{categorySlug === 'helicopter-tours' && (
+				<section class="fade-in bg-gray-50 py-16">
+					<div class="max-w-7xl w-full mx-auto px-8 text-center">
+						<h2 class="text-3xl md:text-4xl font-light tracking-wide mb-6 text-black">See Iceland from Above</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-700 max-w-3xl mx-auto mb-8">
+							Our guides capture stunning aerial photography during private helicopter tours. Browse our photo gallery showcasing glaciers, volcanoes, and highlands from above.
+						</p>
+						<a
+							href="/blog/best-pictures-helicopter-private-tours/"
+							class="inline-block bg-[#5b7297] text-white px-8 py-3 rounded-sm font-light tracking-wide hover:bg-[#4a5f7a] transition-all duration-300"
+						>
+							View Photo Gallery
+						</a>
+					</div>
+				</section>
+			)}
 		</main>
 
 		<Footer currentLang="en" />

@@ -330,6 +330,11 @@ import Footer from "../components/Footer.astro"
 
 				const animatedElements = document.querySelectorAll('.fade-in, .slide-down');
 				animatedElements.forEach((element) => {
+					// Immediately show elements already in viewport
+					const rect = element.getBoundingClientRect();
+					if (rect.top < window.innerHeight && rect.bottom > 0) {
+						element.classList.add('visible');
+					}
 					observer.observe(element);
 				});
 			}
