@@ -1,0 +1,405 @@
+---
+/**
+ * SearchOverlay.astro
+ * Full-screen search overlay with live text previews
+ * Opens when clicking the magnifier icon in Topbar
+ */
+import { translations, urls } from '../../i18n/translations';
+import type { Language } from '../../i18n/translations';
+
+export interface Props {
+  currentLang?: 'en' | 'fr';
+}
+
+const { currentLang = 'en' } = Astro.props;
+const t = translations[currentLang as Language];
+const searchUrl = urls.search[currentLang];
+---
+
+<!-- Search Overlay -->
+<div
+  id="search-overlay"
+  class="search-overlay fixed inset-0 z-[2000] opacity-0 invisible transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-label={currentLang === 'en' ? 'Search' : 'Recherche'}
+>
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-black/85 backdrop-blur-sm" id="search-overlay-backdrop"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 h-full flex flex-col items-center pt-24 md:pt-32 px-6">
+    <!-- Close Button -->
+    <button
+      id="search-close-btn"
+      class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors duration-200 p-2"
+      aria-label={t.search.close}
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Search Form -->
+    <form
+      id="overlay-search-form"
+      action={searchUrl}
+      method="GET"
+      class="w-full max-w-3xl"
+    >
+      <div class="relative">
+        <input
+          type="text"
+          id="overlay-search-input"
+          name="q"
+          placeholder={t.search.placeholder}
+          autocomplete="off"
+          class="w-full bg-white/10 border border-white/30 rounded-sm px-6 py-5 text-white text-xl md:text-2xl placeholder-white/50 focus:outline-none focus:border-white/60 focus:bg-white/15 transition-all duration-200"
+        />
+        <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
+          <span id="overlay-search-hint" class="text-white/40 text-sm hidden md:block">{t.search.pressEnter}</span>
+          <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+      </div>
+    </form>
+
+    <!-- Live Results Preview -->
+    <div id="overlay-search-results" class="w-full max-w-3xl mt-8 hidden">
+      <!-- Results will be populated by JavaScript -->
+    </div>
+
+    <!-- Keyboard Shortcut Hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-sm">
+      <kbd class="px-2 py-1 bg-white/10 rounded text-xs mr-1">ESC</kbd> {t.search.close}
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Result item styling */
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease;
+    text-decoration: none;
+    color: white;
+  }
+
+  .search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-result-item:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .result-type-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    flex-shrink: 0;
+  }
+
+  .result-type-tour { background-color: rgba(91, 114, 151, 0.8); }
+  .result-type-multiday { background-color: rgba(91, 114, 151, 0.6); }
+  .result-type-experience { background-color: rgba(34, 197, 94, 0.6); }
+  .result-type-blog { background-color: rgba(239, 68, 68, 0.6); }
+
+  .result-title {
+    flex: 1;
+    font-size: 1.125rem;
+    font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white !important;
+  }
+
+  .view-all-link {
+    display: block;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .view-all-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+  }
+
+  /* Loading state */
+  .search-loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+</style>
+
+<script define:vars={{ currentLang, searchUrl }}>
+  // Search overlay functionality
+  console.log('[SearchOverlay] Script starting, currentLang:', currentLang);
+  (function() {
+    let searchIndex = null;
+    let fuse = null;
+    let isLoading = false;
+    let fuseLoaded = false;
+
+    const overlay = document.getElementById('search-overlay');
+    const backdrop = document.getElementById('search-overlay-backdrop');
+    const closeBtn = document.getElementById('search-close-btn');
+    const searchInput = document.getElementById('overlay-search-input');
+    const searchForm = document.getElementById('overlay-search-form');
+    const resultsPreview = document.getElementById('overlay-search-results');
+    const searchHint = document.getElementById('overlay-search-hint');
+
+    const translations = {
+      en: {
+        tour: 'Day Tour',
+        multiday: 'Multiday',
+        experience: 'Experience',
+        blog: 'Article',
+        viewAll: 'View all results',
+        noResults: 'No results found',
+        loading: 'Loading...'
+      },
+      fr: {
+        tour: 'Excursion',
+        multiday: 'Circuit',
+        experience: 'Expérience',
+        blog: 'Article',
+        viewAll: 'Voir tous les résultats',
+        noResults: 'Aucun résultat',
+        loading: 'Chargement...'
+      }
+    };
+    const t = translations[currentLang] || translations.en;
+
+    // Fuse.js class reference
+    let FuseClass = null;
+
+    // Load Fuse.js dynamically using ESM import
+    async function loadFuseJS() {
+      if (FuseClass) {
+        fuseLoaded = true;
+        return;
+      }
+      try {
+        const FuseModule = await import('https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs');
+        FuseClass = FuseModule.default;
+        fuseLoaded = true;
+        console.log('[SearchOverlay] Fuse.js ESM loaded successfully');
+      } catch (error) {
+        console.error('[SearchOverlay] Failed to load Fuse.js:', error);
+        throw error;
+      }
+    }
+
+    // Initialize Fuse with the search index
+    function initializeFuse() {
+      if (searchIndex && FuseClass && !fuse) {
+        fuse = new FuseClass(searchIndex, {
+          keys: [
+            { name: 'title', weight: 0.4 },
+            { name: 'description', weight: 0.3 },
+            { name: 'content', weight: 0.3 }
+          ],
+          threshold: 0.4,
+          ignoreLocation: true,
+          minMatchCharLength: 2
+        });
+      }
+    }
+
+    // Load search index
+    async function loadSearchIndex() {
+      console.log('[SearchOverlay] loadSearchIndex called, isLoading:', isLoading, 'searchIndex:', !!searchIndex);
+      if (searchIndex && fuse) {
+        console.log('[SearchOverlay] Already loaded, returning');
+        return;
+      }
+      if (isLoading) {
+        console.log('[SearchOverlay] Already loading, returning');
+        return;
+      }
+      isLoading = true;
+
+      try {
+        // Load Fuse.js first
+        console.log('[SearchOverlay] Loading Fuse.js...');
+        await loadFuseJS();
+        console.log('[SearchOverlay] Fuse.js loaded, FuseClass:', !!FuseClass);
+
+        console.log('[SearchOverlay] Fetching index from /search/index-' + currentLang + '.json');
+        const response = await fetch(`/search/index-${currentLang}.json`);
+        console.log('[SearchOverlay] Fetch response:', response.status, response.ok);
+        if (response.ok) {
+          searchIndex = await response.json();
+          console.log('[SearchOverlay] Index loaded, items:', searchIndex.length);
+          initializeFuse();
+          console.log('[SearchOverlay] Fuse initialized:', !!fuse);
+        } else {
+          console.error('[SearchOverlay] Fetch failed with status:', response.status);
+        }
+      } catch (error) {
+        console.error('[SearchOverlay] Failed to load search index:', error);
+      } finally {
+        isLoading = false;
+        console.log('[SearchOverlay] Loading complete, isLoading reset to false');
+      }
+    }
+
+    // Open overlay
+    window.openSearchOverlay = function() {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // Focus input after a brief delay to ensure overlay is visible
+      setTimeout(() => {
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }, 50);
+      loadSearchIndex();
+    };
+
+    // Close overlay
+    window.closeSearchOverlay = function() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      searchInput.value = '';
+      resultsPreview.classList.add('hidden');
+      resultsPreview.innerHTML = '';
+    };
+
+    // Event listeners
+    closeBtn?.addEventListener('click', closeSearchOverlay);
+    backdrop?.addEventListener('click', closeSearchOverlay);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeSearchOverlay();
+      }
+      // Cmd/Ctrl + K to open search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (overlay.classList.contains('active')) {
+          closeSearchOverlay();
+        } else {
+          openSearchOverlay();
+        }
+      }
+    });
+
+    // Live search with debounce
+    let debounceTimer;
+    searchInput?.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      const query = e.target.value.trim();
+
+      if (query.length < 2) {
+        resultsPreview.classList.add('hidden');
+        resultsPreview.innerHTML = '';
+        if (searchHint) searchHint.classList.remove('hidden');
+        return;
+      }
+
+      if (searchHint) searchHint.classList.add('hidden');
+
+      debounceTimer = setTimeout(() => {
+        performSearch(query);
+      }, 200);
+    });
+
+    // Pending query to retry after loading
+    let pendingQuery = null;
+
+    // Check if all query words are present in the item
+    function matchesAllWords(item, queryWords) {
+      const searchableText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
+      return queryWords.every(word => searchableText.includes(word));
+    }
+
+    // Escape HTML to prevent XSS attacks
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Perform search
+    function performSearch(query) {
+      console.log('[SearchOverlay] performSearch called with:', query, 'fuse:', !!fuse);
+      if (!fuse) {
+        pendingQuery = query;
+        resultsPreview.innerHTML = `<div class="search-loading">${t.loading}</div>`;
+        resultsPreview.classList.remove('hidden');
+        // Retry after a short delay
+        setTimeout(() => {
+          if (fuse && pendingQuery) {
+            console.log('[SearchOverlay] Retrying search with:', pendingQuery);
+            performSearch(pendingQuery);
+            pendingQuery = null;
+          }
+        }, 500);
+        return;
+      }
+
+      // Get query words for phrase matching
+      const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+
+      // Get Fuse results and filter to ensure all words match
+      const allResults = fuse.search(query, { limit: 20 });
+      const results = allResults.filter(r => matchesAllWords(r.item, queryWords)).slice(0, 8);
+
+      if (results.length === 0) {
+        resultsPreview.innerHTML = `
+          <div class="text-center text-white/60 py-8">${t.noResults}</div>
+        `;
+        resultsPreview.classList.remove('hidden');
+        return;
+      }
+
+      const html = results.map(({ item }) => `
+        <a href="${escapeHtml(item.url)}" class="search-result-item" style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:0.25rem;text-decoration:none;color:white;">
+          <span class="result-type-badge result-type-${escapeHtml(item.type)}" style="padding:0.25rem 0.5rem;border-radius:0.25rem;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.025em;flex-shrink:0;color:white;">${t[item.type]}</span>
+          <span style="flex:1;font-size:1.125rem;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:white;">${escapeHtml(item.title)}</span>
+          <svg style="width:1.25rem;height:1.25rem;color:rgba(255,255,255,0.4);flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      `).join('');
+
+      resultsPreview.innerHTML = html + `
+        <a href="${searchUrl}?q=${encodeURIComponent(query)}" style="display:block;text-align:center;padding:1rem;margin-top:1rem;color:rgba(255,255,255,0.7);text-decoration:none;border:1px solid rgba(255,255,255,0.2);border-radius:0.25rem;transition:all 0.2s ease;">
+          ${t.viewAll} →
+        </a>
+      `;
+      resultsPreview.classList.remove('hidden');
+    }
+
+    // Preload search index on magnifier hover
+    document.querySelectorAll('[data-search-trigger]').forEach(trigger => {
+      trigger.addEventListener('mouseenter', loadSearchIndex);
+    });
+  })();
+</script>

@@ -1,8 +1,11 @@
 ---
 // Navigation.astro
 import CTAButton from './CTAButton.astro';
+import SearchOverlay from './search/SearchOverlay.astro';
 import { translations, urls } from '../i18n/translations';
 import type { Language } from '../i18n/translations';
+
+// Fuse.js is loaded via script tag in SearchOverlay
 
 export interface Props {
   frenchUrl?: string;
@@ -41,7 +44,19 @@ const u = urls;
     </ul>
 
     <!-- Right Section -->
-    <div class="absolute right-8 hidden md:flex items-center gap-6 flex-shrink-0">
+    <div class="absolute right-4 hidden md:flex items-center gap-6 flex-shrink-0">
+      <!-- Search Button -->
+      <button
+        data-search-trigger
+        onclick="openSearchOverlay()"
+        class="text-white hover:text-white/70 transition-colors duration-300 p-2"
+        aria-label={currentLang === 'en' ? 'Search' : 'Rechercher'}
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </button>
+
       <!-- Language Switcher -->
       <div class="relative">
         {currentLang === 'en' ? (
@@ -84,6 +99,19 @@ const u = urls;
           <li class="w-full flex justify-center"><a href={u.contact[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.contact}</a></li>
         </ul>
 
+        <!-- Mobile Search Button -->
+        <button
+          data-search-trigger
+          onclick="openSearchOverlay(); document.getElementById('mobileOverlay').classList.remove('active'); document.getElementById('mobileMenu').classList.remove('active'); document.body.style.overflow = '';"
+          class="flex items-center justify-center gap-3 w-4/5 py-4 text-white font-light text-lg tracking-wide border-b border-white/10 transition-all duration-300 hover:text-white/70"
+          aria-label={currentLang === 'en' ? 'Search' : 'Rechercher'}
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span>{currentLang === 'en' ? 'Search' : 'Rechercher'}</span>
+        </button>
+
         <!-- Mobile Language Switcher -->
         <div class="flex justify-center w-full py-4 border-t border-white/10">
           {currentLang === 'en' ? (
@@ -99,6 +127,9 @@ const u = urls;
     </div>
   </div>
 </nav>
+
+<!-- Search Overlay Component -->
+<SearchOverlay currentLang={currentLang} />
 
 <style>
   /* Navigation link underline effect - expands from center */

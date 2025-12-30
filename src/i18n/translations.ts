@@ -118,6 +118,25 @@ export const translations = {
     common: {
       day: "Day",
     },
+
+    // Search
+    search: {
+      placeholder: "Search tours, experiences, articles...",
+      noResults: "No results found",
+      noResultsSubtext: "Try different keywords or explore these suggestions:",
+      resultsFor: "Results for",
+      results: "results",
+      result: "result",
+      viewAll: "View all results",
+      close: "Close",
+      dayTours: "Day Tours",
+      multidayTours: "Multiday Tours",
+      experiences: "Experiences",
+      articles: "Articles",
+      searching: "Searching...",
+      typeToSearch: "Type to search...",
+      pressEnter: "Press Enter for all results",
+    },
   },
 
   fr: {
@@ -227,6 +246,25 @@ export const translations = {
     common: {
       day: "Jour",
     },
+
+    // Search
+    search: {
+      placeholder: "Rechercher circuits, expériences...",
+      noResults: "Aucun résultat",
+      noResultsSubtext: "Essayez d'autres mots-clés ou explorez ces suggestions :",
+      resultsFor: "Résultats pour",
+      results: "résultats",
+      result: "résultat",
+      viewAll: "Voir tous les résultats",
+      close: "Fermer",
+      dayTours: "Excursions",
+      multidayTours: "Circuits multi-jours",
+      experiences: "Expériences",
+      articles: "Articles",
+      searching: "Recherche...",
+      typeToSearch: "Tapez pour rechercher...",
+      pressEnter: "Appuyez sur Entrée pour tous les résultats",
+    },
   },
 };
 
@@ -255,6 +293,7 @@ export const urls = {
     en: "/terms-and-conditions/",
     fr: "/fr/terms-and-conditions/",
   },
+  search: { en: "/search/", fr: "/fr/recherche/" },
 };
 
 /**

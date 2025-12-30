@@ -1,0 +1,589 @@
+---
+/**
+ * Search Results Page (English)
+ * Pre-renders all cards at build time, filters via client-side JS
+ */
+import "../styles/global.css"
+import Topbar from "../components/Topbar.astro"
+import Footer from "../components/Footer.astro"
+import ItineraryCard from "../components/ItineraryCard.astro"
+import MultidayItineraryCard from "../components/MultidayItineraryCard.astro"
+import ExperienceCard from "../components/ExperienceCard.astro"
+import BlogCard from "../components/BlogCard.astro"
+import { getCollection } from 'astro:content';
+import { translations, urls } from '../i18n/translations';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const currentLang = 'en';
+const t = translations[currentLang];
+
+// Load all collections
+const dayTours = await getCollection('tours_EN');
+const multidayTours = await getCollection('multiday_tours_EN');
+const experiences = await getCollection('partner_experiences_EN');
+const blogArticles = await getCollection('blog_articles_EN');
+
+// Helper to strip HTML and limit content
+function stripAndLimit(text: string, limit: number = 500): string {
+  if (!text) return '';
+  // Remove MDX/HTML tags
+  const stripped = text.replace(/<[^>]*>/g, '').replace(/\{[^}]*\}/g, '');
+  return stripped.substring(0, limit);
+}
+
+// Generate search index
+const searchIndex = [
+  ...dayTours.map(tour => ({
+    id: `tour-${tour.slug}`,
+    type: 'tour',
+    title: tour.data.title,
+    description: tour.data.metaDescription,
+    content: stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' ')),
+    url: tour.data.url
+  })),
+  ...multidayTours.map(tour => ({
+    id: `multiday-${tour.slug}`,
+    type: 'multiday',
+    title: tour.data.title,
+    description: tour.data.metaDescription,
+    content: stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' ')),
+    url: tour.data.url
+  })),
+  ...experiences.map(exp => ({
+    id: `experience-${exp.slug}`,
+    type: 'experience',
+    title: exp.data.title,
+    description: exp.data.metaDescription,
+    content: stripAndLimit(exp.data.introductoryText + ' ' + exp.data.highlights.join(' ')),
+    url: exp.data.url
+  })),
+  ...blogArticles.map(article => ({
+    id: `blog-${article.slug}`,
+    type: 'blog',
+    title: article.data.title,
+    description: article.data.metaDescription,
+    content: stripAndLimit(article.data.excerpt),
+    url: `/blog/${article.slug}/`
+  }))
+];
+
+// Write search index to both public and dist folders at build time
+// Public folder for dev server, dist folder for production build
+const publicDir = path.join(process.cwd(), 'public', 'search');
+const distDir = path.join(process.cwd(), 'dist', 'search');
+
+// Create directories if they don't exist
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+}
+if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
+}
+
+// Write to both locations
+const indexJson = JSON.stringify(searchIndex);
+fs.writeFileSync(path.join(publicDir, 'index-en.json'), indexJson);
+fs.writeFileSync(path.join(distDir, 'index-en.json'), indexJson);
+
+// Select fallback items (3 tours, 3 experiences, 3 articles)
+const fallbackTours = dayTours.slice(0, 3);
+const fallbackExperiences = experiences.slice(0, 3);
+const fallbackArticles = blogArticles.slice(0, 3);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Search tours, experiences, and articles on Lilja Tours. Find your perfect Iceland adventure.">
+    <link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/search/" />
+    <link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/recherche/" />
+    <link rel="canonical" href="https://www.lilja-tours.com/search/" />
+
+    <meta property="og:title" content="Search | Lilja Tours">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lilja-tours.com/search/">
+    <meta property="og:description" content="Search tours, experiences, and articles on Lilja Tours.">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="generator" content={Astro.generator} />
+    <title>Search | Lilja Tours</title>
+
+    <!-- GDPR Cookie Consent -->
+    <link rel="stylesheet" href="/css/gdpr-consent.css" />
+    <script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+    <!-- TrustIndex Rich Snippet -->
+    <script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-48C94854K2');
+    </script>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <Topbar frenchUrl="/fr/recherche/" currentLang="en" />
+
+      <!-- Background Image -->
+      <picture class="absolute inset-0 w-full h-full">
+        <source media="(max-width: 767px)" srcset="/pictures/headers/search-page-header-mobile.webp">
+        <source media="(min-width: 768px)" srcset="/pictures/headers/search-page-header-pc.webp">
+        <img
+          src="/pictures/headers/search-page-header-pc.webp"
+          alt="Search Iceland Tours"
+          class="w-full h-full object-cover"
+        />
+      </picture>
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 text-center max-w-4xl mx-auto px-8 mt-[70px]">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-white">Search</h1>
+
+        <!-- Search Form -->
+        <form id="search-form" action="/search/" method="GET" class="w-full max-w-2xl mx-auto">
+          <div class="relative">
+            <input
+              type="text"
+              id="search-input"
+              name="q"
+              placeholder={t.search.placeholder}
+              autocomplete="off"
+              class="w-full bg-white/10 border border-white/30 rounded-sm px-6 py-4 text-white text-lg md:text-xl placeholder-white/50 focus:outline-none focus:border-white/60 focus:bg-white/15 transition-all duration-200 backdrop-blur-sm"
+            />
+            <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </header>
+
+    <main>
+      <!-- Results Header -->
+      <section class="bg-white py-12 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-8">
+          <div id="results-header" class="text-center">
+            <p id="results-status" class="text-lg text-gray-600 font-light"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Day Tours Section -->
+      <section id="section-tours" class="bg-white py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.dayTours}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {dayTours.map((tour) => (
+              <div class="search-card" data-search-id={`tour-${tour.slug}`} data-type="tour">
+                <ItineraryCard
+                  image={tour.data.cardImg.srcPC}
+                  imageAlt={tour.data.cardImg.alt}
+                  title={tour.data.title}
+                  duration={tour.data.duration}
+                  description={tour.data.cardSentence}
+                  price={tour.data.price ? `From ${tour.data.price}` : undefined}
+                  highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+                  season={tour.data.season}
+                  slug={tour.data.url}
+                  currentLang="en"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Multiday Tours Section -->
+      <section id="section-multiday" class="bg-gray-50 py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.multidayTours}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {multidayTours.map((tour) => (
+              <div class="search-card" data-search-id={`multiday-${tour.slug}`} data-type="multiday">
+                <MultidayItineraryCard
+                  image={tour.data.cardImg.srcPC}
+                  imageAlt={tour.data.cardImg.alt}
+                  title={tour.data.title}
+                  duration={tour.data.duration}
+                  description={tour.data.cardSentence}
+                  price={tour.data.price?.toString()}
+                  highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+                  season={tour.data.season}
+                  slug={tour.slug}
+                  currentLang="en"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Experiences Section -->
+      <section id="section-experiences" class="bg-white py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.experiences}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {experiences.map((exp) => (
+              <div class="search-card" data-search-id={`experience-${exp.slug}`} data-type="experience">
+                <ExperienceCard
+                  image={exp.data.cardImg.srcPC}
+                  imageAlt={exp.data.cardImg.alt}
+                  title={exp.data.title}
+                  duration={exp.data.duration}
+                  description={exp.data.shortDescription}
+                  price={exp.data.price}
+                  location={exp.data.location}
+                  season={exp.data.season}
+                  slug={exp.data.url}
+                  isExclusive={exp.data.isExclusive}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Articles Section -->
+      <section id="section-blog" class="bg-gray-50 py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.articles}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {blogArticles.map((article) => (
+              <div class="search-card" data-search-id={`blog-${article.slug}`} data-type="blog">
+                <BlogCard
+                  image={article.data.cardImg.srcPC}
+                  imageAlt={article.data.cardImg.alt}
+                  title={article.data.title}
+                  excerpt={article.data.excerpt}
+                  publishDate={article.data.publishDate}
+                  readingTime={article.data.readingTime}
+                  categories={article.data.categories}
+                  slug={`/blog/${article.slug}/`}
+                  author={article.data.author}
+                  lang="en"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- No Results / Fallback Section -->
+      <section id="section-fallback" class="bg-white py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-4 text-gray-900">{t.search.noResults}</h2>
+            <p class="text-lg text-gray-600 font-light">{t.search.noResultsSubtext}</p>
+          </div>
+
+          <!-- Fallback Tours -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-light tracking-wide mb-8 text-gray-800">{t.search.dayTours}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {fallbackTours.map((tour) => (
+                <ItineraryCard
+                  image={tour.data.cardImg.srcPC}
+                  imageAlt={tour.data.cardImg.alt}
+                  title={tour.data.title}
+                  duration={tour.data.duration}
+                  description={tour.data.cardSentence}
+                  price={tour.data.price ? `From ${tour.data.price}` : undefined}
+                  highlights={tour.data.highlights.filter(h => h.trim() !== "")}
+                  season={tour.data.season}
+                  slug={tour.data.url}
+                  currentLang="en"
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Fallback Experiences -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-light tracking-wide mb-8 text-gray-800">{t.search.experiences}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {fallbackExperiences.map((exp) => (
+                <ExperienceCard
+                  image={exp.data.cardImg.srcPC}
+                  imageAlt={exp.data.cardImg.alt}
+                  title={exp.data.title}
+                  duration={exp.data.duration}
+                  description={exp.data.shortDescription}
+                  price={exp.data.price}
+                  location={exp.data.location}
+                  season={exp.data.season}
+                  slug={exp.data.url}
+                  isExclusive={exp.data.isExclusive}
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Fallback Articles -->
+          <div>
+            <h3 class="text-2xl font-light tracking-wide mb-8 text-gray-800">{t.search.articles}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {fallbackArticles.map((article) => (
+                <BlogCard
+                  image={article.data.cardImg.srcPC}
+                  imageAlt={article.data.cardImg.alt}
+                  title={article.data.title}
+                  excerpt={article.data.excerpt}
+                  publishDate={article.data.publishDate}
+                  readingTime={article.data.readingTime}
+                  categories={article.data.categories}
+                  slug={`/blog/${article.slug}/`}
+                  author={article.data.author}
+                  lang="en"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer currentLang="en" />
+
+    <script>
+      // Search functionality
+      console.log('[SearchPage] Script loaded');
+      document.addEventListener('DOMContentLoaded', async () => {
+        console.log('[SearchPage] DOMContentLoaded fired');
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+        console.log('[SearchPage] searchInput found:', !!searchInput);
+        const resultsStatus = document.getElementById('results-status');
+        const sectionTours = document.getElementById('section-tours');
+        const sectionMultiday = document.getElementById('section-multiday');
+        const sectionExperiences = document.getElementById('section-experiences');
+        const sectionBlog = document.getElementById('section-blog');
+        const sectionFallback = document.getElementById('section-fallback');
+        const allCards = document.querySelectorAll('.search-card');
+
+        // Translations
+        const t = {
+          resultsFor: 'Results for',
+          results: 'results',
+          result: 'result',
+          noResults: 'No results found',
+          searching: 'Searching...',
+          typeToSearch: 'Type to search...',
+          loading: 'Loading...'
+        };
+
+        // Get query from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q') || '';
+
+        if (searchInput && query) {
+          searchInput.value = query;
+        }
+
+        // Fuse.js class reference
+        let FuseClass: any = null;
+
+        // Load Fuse.js dynamically using ESM import
+        async function loadFuseJS(): Promise<void> {
+          if (FuseClass) return;
+          try {
+            const FuseModule = await import('https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs');
+            FuseClass = FuseModule.default;
+            console.log('[SearchPage] Fuse.js ESM loaded successfully');
+          } catch (error) {
+            console.error('[SearchPage] Failed to load Fuse.js:', error);
+            throw error;
+          }
+        }
+
+        // Load search index
+        let searchIndex: any[] = [];
+        let fuse: any = null;
+
+        // Show loading state
+        if (resultsStatus) resultsStatus.textContent = t.loading;
+
+        try {
+          // Load Fuse.js first
+          console.log('[SearchPage] Loading Fuse.js...');
+          await loadFuseJS();
+          console.log('[SearchPage] Fuse.js loaded, FuseClass:', !!FuseClass);
+
+          console.log('[SearchPage] Fetching search index...');
+          const response = await fetch('/search/index-en.json');
+          console.log('[SearchPage] Fetch response:', response.status, response.ok);
+          if (response.ok) {
+            searchIndex = await response.json();
+            console.log('[SearchPage] Index loaded, items:', searchIndex.length);
+            if (FuseClass) {
+              fuse = new FuseClass(searchIndex, {
+                keys: [
+                  { name: 'title', weight: 0.4 },
+                  { name: 'description', weight: 0.3 },
+                  { name: 'content', weight: 0.3 }
+                ],
+                threshold: 0.4,
+                ignoreLocation: true,
+                minMatchCharLength: 2
+              });
+              console.log('[SearchPage] Fuse initialized:', !!fuse);
+            } else {
+              console.error('[SearchPage] FuseClass not available after loading!');
+            }
+          } else {
+            console.error('[SearchPage] Failed to fetch index, status:', response.status);
+          }
+        } catch (error) {
+          console.error('[SearchPage] Failed to load search index:', error);
+        }
+
+        console.log('[SearchPage] Initialization complete, fuse:', !!fuse);
+
+        // Hide all cards initially
+        function hideAllCards() {
+          allCards.forEach(card => {
+            (card as HTMLElement).style.display = 'none';
+          });
+        }
+
+        // Show cards by IDs
+        function showCards(ids: string[]) {
+          const typeCounts: Record<string, number> = {
+            tour: 0,
+            multiday: 0,
+            experience: 0,
+            blog: 0
+          };
+
+          allCards.forEach(card => {
+            const cardId = card.getAttribute('data-search-id');
+            const cardType = card.getAttribute('data-type');
+
+            if (cardId && ids.includes(cardId)) {
+              (card as HTMLElement).style.display = 'block';
+              if (cardType) typeCounts[cardType]++;
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+
+          return typeCounts;
+        }
+
+        // Show/hide sections based on results
+        function updateSections(typeCounts: Record<string, number>) {
+          if (sectionTours) sectionTours.classList.toggle('hidden', typeCounts.tour === 0);
+          if (sectionMultiday) sectionMultiday.classList.toggle('hidden', typeCounts.multiday === 0);
+          if (sectionExperiences) sectionExperiences.classList.toggle('hidden', typeCounts.experience === 0);
+          if (sectionBlog) sectionBlog.classList.toggle('hidden', typeCounts.blog === 0);
+        }
+
+        // Check if all query words are present in the item
+        function matchesAllWords(item: any, queryWords: string[]): boolean {
+          const searchableText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
+          return queryWords.every(word => searchableText.includes(word));
+        }
+
+        // Escape HTML to prevent XSS attacks
+        function escapeHtml(text: string): string {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        // Perform search
+        function performSearch(searchQuery: string) {
+          if (!searchQuery || searchQuery.length < 2) {
+            // No query - show fallback
+            hideAllCards();
+            if (sectionTours) sectionTours.classList.add('hidden');
+            if (sectionMultiday) sectionMultiday.classList.add('hidden');
+            if (sectionExperiences) sectionExperiences.classList.add('hidden');
+            if (sectionBlog) sectionBlog.classList.add('hidden');
+            if (sectionFallback) sectionFallback.classList.remove('hidden');
+            if (resultsStatus) resultsStatus.textContent = '';
+            return;
+          }
+
+          if (sectionFallback) sectionFallback.classList.add('hidden');
+
+          if (!fuse) {
+            if (resultsStatus) resultsStatus.textContent = t.searching;
+            return;
+          }
+
+          // Get query words for phrase matching
+          const queryWords = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+
+          // Get Fuse results and filter to ensure all words match
+          const results = fuse.search(searchQuery);
+          const filteredResults = results.filter((r: any) => matchesAllWords(r.item, queryWords));
+          const matchingIds = filteredResults.map((r: any) => r.item.id);
+          const totalResults = matchingIds.length;
+
+          if (totalResults === 0) {
+            hideAllCards();
+            if (sectionTours) sectionTours.classList.add('hidden');
+            if (sectionMultiday) sectionMultiday.classList.add('hidden');
+            if (sectionExperiences) sectionExperiences.classList.add('hidden');
+            if (sectionBlog) sectionBlog.classList.add('hidden');
+            if (sectionFallback) sectionFallback.classList.remove('hidden');
+            if (resultsStatus) resultsStatus.innerHTML = `${t.noResults} "<strong>${escapeHtml(searchQuery)}</strong>"`;
+            return;
+          }
+
+          const typeCounts = showCards(matchingIds);
+          updateSections(typeCounts);
+
+          const resultWord = totalResults === 1 ? t.result : t.results;
+          if (resultsStatus) {
+            resultsStatus.innerHTML = `${t.resultsFor} "<strong>${escapeHtml(searchQuery)}</strong>" - ${totalResults} ${resultWord}`;
+          }
+        }
+
+        // Initial search if query exists
+        if (query) {
+          // Wait a bit for Fuse to initialize
+          setTimeout(() => performSearch(query), 100);
+        } else {
+          // No query - show fallback section
+          if (sectionFallback) sectionFallback.classList.remove('hidden');
+          if (resultsStatus) resultsStatus.textContent = '';
+        }
+
+        // Live search on input
+        let debounceTimer: ReturnType<typeof setTimeout>;
+        searchInput?.addEventListener('input', (e) => {
+          clearTimeout(debounceTimer);
+          const newQuery = (e.target as HTMLInputElement).value.trim();
+
+          debounceTimer = setTimeout(() => {
+            // Update URL without reload
+            const newUrl = newQuery
+              ? `${window.location.pathname}?q=${encodeURIComponent(newQuery)}`
+              : window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+
+            performSearch(newQuery);
+          }, 300);
+        });
+      });
+    </script>
+
+    <style>
+      .search-card {
+        transition: opacity 0.2s ease;
+      }
+    </style>
+  </body>
+</html>
