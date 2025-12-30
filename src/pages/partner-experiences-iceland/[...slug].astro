@@ -354,6 +354,14 @@ try {
           </h1>
           <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up" set:html={data.introductoryText}>
           </p>
+          <a
+            href={data.bookingLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="header-booking-cta inline-block mt-8 px-10 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/50 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:bg-white hover:text-gray-900 hover:border-white slide-up"
+          >
+            Book Now
+          </a>
         </div>
       </div>
     </header>
@@ -428,6 +436,30 @@ try {
           </div>
         </div>
       </section>
+      
+      <!-- Booking Section -->
+      <section class="fade-in bg-white py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Book This Experience</h2>
+
+          <div class="bg-gray-50 p-8 rounded-sm shadow-lg hover:shadow-xl transition-shadow duration-300 slide-up">
+            <div class="text-center mb-8">
+              <div class="text-3xl font-light text-gray-900 mb-2">{data.price.toLocaleString()} ISK</div>
+              <div class="text-sm text-gray-500 space-x-4">
+                <span>≈ ${Math.round(data.price * exchangeRates.USD).toLocaleString()} USD</span>
+                <span>≈ €{Math.round(data.price * exchangeRates.EUR).toLocaleString()} EUR</span>
+              </div>
+            </div>
+
+            <a
+              href={data.bookingLink}
+              class="booking-cta-button block w-full text-center bg-transparent text-[var(--secondary)] border border-[var(--secondary)] px-8 py-4 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:text-white hover:translate-y-0.5"
+            >
+              Book This Experience
+            </a>
+          </div>
+        </div>
+      </section>
 
       <!-- Gallery Section -->
       {data.gallery && data.gallery.length > 0 && (
@@ -477,29 +509,6 @@ try {
         </section>
       )}
 
-      <!-- Booking Section -->
-      <section class="fade-in bg-white py-16 lg:py-24">
-        <div class="max-w-4xl mx-auto px-8">
-          <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Book This Experience</h2>
-
-          <div class="bg-gray-50 p-8 rounded-sm shadow-lg hover:shadow-xl transition-shadow duration-300 slide-up">
-            <div class="text-center mb-8">
-              <div class="text-3xl font-light text-gray-900 mb-2">{data.price.toLocaleString()} ISK</div>
-              <div class="text-sm text-gray-500 space-x-4">
-                <span>≈ ${Math.round(data.price * exchangeRates.USD).toLocaleString()} USD</span>
-                <span>≈ €{Math.round(data.price * exchangeRates.EUR).toLocaleString()} EUR</span>
-              </div>
-            </div>
-
-            <a
-              href={data.bookingLink}
-              class="booking-cta-button block w-full text-center bg-transparent text-[var(--secondary)] border border-[var(--secondary)] px-8 py-4 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:text-white hover:translate-y-0.5"
-            >
-              Book This Experience
-            </a>
-          </div>
-        </div>
-      </section>
 
       <!-- Content from MDX -->
       <section class="fade-in py-16 lg:py-24 bg-gray-50">
