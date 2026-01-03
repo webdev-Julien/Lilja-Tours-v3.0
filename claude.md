@@ -64,8 +64,13 @@ Requirements:
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    // Set linker before the config command
+    gtag('set', 'linker', {
+      'domains': ['bokun.io']
+    });
+
     gtag('js', new Date());
-  
     gtag('config', 'G-48C94854K2');
   </script>
 
