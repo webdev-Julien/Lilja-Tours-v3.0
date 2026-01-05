@@ -7,10 +7,6 @@ import { getCollection } from 'astro:content';
 // Get all transfers from the collection
 const allTransfers = await getCollection('transfers_EN');
 
-// Separate transfers by category (entries can belong to multiple categories)
-const airportTransfers = allTransfers.filter(t => t.data.category.includes('airport-harbour'));
-const hotelTransfers = allTransfers.filter(t => t.data.category.includes('hotel'));
-
 // Helper function to format duration from ISO 8601
 function formatDuration(duration: string): string {
 	const match = duration.match(/PT(\d+)H?(\d+)?M?/);
@@ -118,7 +114,7 @@ function formatPrice(price: number): string {
 					<div class="text-center mb-16 max-w-4xl mx-auto slide-up visible">
 						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Premium Chauffeur Services</h2>
 						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-12">
-							Experience Iceland with the comfort and convenience of our private transfer services. Whether you're arriving at Keflavik Airport or traveling to a remote countryside hotel, we ensure your journey is as memorable as your destination.
+							Experience Iceland with the comfort and convenience of our private transfer services. Whether you're arriving at Keflavik Airport, disembarking at Reykjavik's cruise ship harbour, or traveling to a remote countryside hotel, we ensure your journey is as memorable as your destination.
 						</p>
 
 						<!-- Service Features -->
@@ -177,39 +173,38 @@ function formatPrice(price: number): string {
 				</div>
 			</section>
 
-			<!-- Transfers Tabs Section -->
+			<!-- Transfers Section -->
 			<section class="fade-in visible bg-gray-50 py-24">
 				<div class="max-w-7xl w-full mx-auto px-8">
 					<div class="text-center mb-12">
 						<h2 class="text-3xl md:text-4xl font-light tracking-[2px] mb-4 text-gray-900">Our Transfer Services</h2>
 					</div>
 
-					<!-- Tab Navigation -->
+					<!-- Search Bar -->
 					<div class="flex justify-center mb-12">
-						<div class="inline-flex bg-white rounded-lg p-1 shadow-sm border border-gray-200">
-							<button
-								id="tab-airport"
-								class="tab-button px-6 py-3 text-sm font-medium rounded-md transition-all duration-300 bg-[#5b7297] text-white"
-								data-tab="airport"
-							>
-								Airport & Harbour
-							</button>
-							<button
-								id="tab-hotel"
-								class="tab-button px-6 py-3 text-sm font-medium rounded-md transition-all duration-300 text-gray-600 hover:text-gray-900"
-								data-tab="hotel"
-							>
-								Hotel Transfers
-							</button>
+						<div class="relative w-full max-w-md">
+							<input
+								type="text"
+								id="transfer-search"
+								placeholder="Search transfers..."
+								class="w-full px-5 py-3 pl-12 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300 text-gray-700"
+							/>
+							<svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+							</svg>
 						</div>
 					</div>
 
-					<!-- Airport/Harbour Transfers Tab Content -->
-					<div id="content-airport" class="tab-content">
-						{airportTransfers.length > 0 ? (
+					<!-- Transfers Grid -->
+					<div id="transfers-grid">
+						{allTransfers.length > 0 ? (
 							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-								{airportTransfers.map((transfer) => (
-									<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+								{allTransfers.map((transfer) => (
+									<div
+										class="transfer-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
+										data-title={transfer.data.title.toLowerCase()}
+										data-text={transfer.data.cardText.toLowerCase()}
+									>
 										<img
 											src={transfer.data.cardImg.src}
 											alt={transfer.data.cardImg.alt}
@@ -247,59 +242,16 @@ function formatPrice(price: number): string {
 							</div>
 						) : (
 							<div class="text-center py-16 bg-white rounded-lg">
-								<p class="text-gray-500 text-lg">Airport and harbour transfers coming soon.</p>
+								<p class="text-gray-500 text-lg">Transfers coming soon.</p>
 								<p class="text-gray-400 mt-2">In the meantime, use the form below to request a custom transfer.</p>
 							</div>
 						)}
 					</div>
 
-					<!-- Hotel Transfers Tab Content -->
-					<div id="content-hotel" class="tab-content hidden">
-						{hotelTransfers.length > 0 ? (
-							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-								{hotelTransfers.map((transfer) => (
-									<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-										<img
-											src={transfer.data.cardImg.src}
-											alt={transfer.data.cardImg.alt}
-											class="w-full h-48 object-cover"
-										/>
-										<div class="p-6 flex flex-col flex-1">
-											<h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>
-											<div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
-												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-												</svg>
-												<span>{formatDuration(transfer.data.duration)}</span>
-											</div>
-											<p class="text-gray-600 text-sm mb-4 flex-1">{transfer.data.cardText}</p>
-											<div class="flex items-center justify-between mb-4">
-												<span class="text-lg font-medium text-[#5b7297]">{formatPrice(transfer.data.price)} ISK</span>
-											</div>
-											<div class="flex gap-3 mt-auto">
-												<a
-													href={transfer.data.url}
-													class="flex-1 text-center py-2 px-4 border border-[#5b7297] text-[#5b7297] rounded-sm text-sm font-medium hover:bg-[#5b7297] hover:text-white transition-colors duration-300"
-												>
-													Learn More
-												</a>
-												<a
-													href={transfer.data.bookingLink}
-													class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
-												>
-													Book Now
-												</a>
-											</div>
-										</div>
-									</div>
-								))}
-							</div>
-						) : (
-							<div class="text-center py-16 bg-white rounded-lg">
-								<p class="text-gray-500 text-lg">Hotel transfers coming soon.</p>
-								<p class="text-gray-400 mt-2">In the meantime, use the form below to request a custom transfer.</p>
-							</div>
-						)}
+					<!-- No Results Message -->
+					<div id="no-results" class="hidden text-center py-16 bg-white rounded-lg">
+						<p class="text-gray-500 text-lg">No transfers found matching your search.</p>
+						<p class="text-gray-400 mt-2">Try a different search term or use the form below to request a custom transfer.</p>
 					</div>
 				</div>
 			</section>
@@ -517,29 +469,37 @@ function formatPrice(price: number): string {
 		<Footer currentLang="en" />
 
 		<script>
-			// Tab switching functionality
+			// Search functionality
 			document.addEventListener('DOMContentLoaded', () => {
-				const tabButtons = document.querySelectorAll('.tab-button');
-				const tabContents = document.querySelectorAll('.tab-content');
+				const searchInput = document.getElementById('transfer-search') as HTMLInputElement;
+				const transferCards = document.querySelectorAll('.transfer-card');
+				const transfersGrid = document.getElementById('transfers-grid');
+				const noResultsMessage = document.getElementById('no-results');
 
-				tabButtons.forEach(button => {
-					button.addEventListener('click', () => {
-						const tab = button.getAttribute('data-tab');
+				searchInput?.addEventListener('input', () => {
+					const searchTerm = searchInput.value.toLowerCase().trim();
+					let visibleCount = 0;
 
-						// Update button styles
-						tabButtons.forEach(btn => {
-							btn.classList.remove('bg-[#5b7297]', 'text-white');
-							btn.classList.add('text-gray-600', 'hover:text-gray-900');
-						});
-						button.classList.add('bg-[#5b7297]', 'text-white');
-						button.classList.remove('text-gray-600', 'hover:text-gray-900');
+					transferCards.forEach((card) => {
+						const title = card.getAttribute('data-title') || '';
+						const text = card.getAttribute('data-text') || '';
 
-						// Update content visibility
-						tabContents.forEach(content => {
-							content.classList.add('hidden');
-						});
-						document.getElementById(`content-${tab}`)?.classList.remove('hidden');
+						if (searchTerm === '' || title.includes(searchTerm) || text.includes(searchTerm)) {
+							(card as HTMLElement).style.display = '';
+							visibleCount++;
+						} else {
+							(card as HTMLElement).style.display = 'none';
+						}
 					});
+
+					// Show/hide no results message
+					if (visibleCount === 0 && searchTerm !== '') {
+						transfersGrid?.classList.add('hidden');
+						noResultsMessage?.classList.remove('hidden');
+					} else {
+						transfersGrid?.classList.remove('hidden');
+						noResultsMessage?.classList.add('hidden');
+					}
 				});
 
 				// Show/hide children age field based on number of children
