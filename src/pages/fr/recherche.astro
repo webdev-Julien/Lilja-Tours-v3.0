@@ -23,6 +23,7 @@ const dayTours = await getCollection('tours_FR');
 const multidayTours = await getCollection('multiday_tours_FR');
 const experiences = await getCollection('partner_experiences_FR');
 const blogArticles = await getCollection('blog_articles_FR');
+const transfers = await getCollection('transfers_FR');
 
 // Helper to strip HTML and limit content
 function stripAndLimit(text: string, limit: number = 500): string {
@@ -30,6 +31,24 @@ function stripAndLimit(text: string, limit: number = 500): string {
   // Remove MDX/HTML tags
   const stripped = text.replace(/<[^>]*>/g, '').replace(/\{[^}]*\}/g, '');
   return stripped.substring(0, limit);
+}
+
+// Helper function to format duration from ISO 8601
+function formatDuration(duration: string): string {
+  const match = duration.match(/PT(\d+)H?(\d+)?M?/);
+  if (match) {
+    const hours = match[1] ? parseInt(match[1]) : 0;
+    const minutes = match[2] ? parseInt(match[2]) : 0;
+    if (hours && minutes) return `${hours}h ${minutes}min`;
+    if (hours) return `${hours}h`;
+    if (minutes) return `${minutes}min`;
+  }
+  return duration;
+}
+
+// Helper function to format price
+function formatPrice(price: number): string {
+  return new Intl.NumberFormat('fr-FR').format(price);
 }
 
 // Generate search index
@@ -65,6 +84,14 @@ const searchIndex = [
     description: article.data.metaDescription,
     content: stripAndLimit(article.data.excerpt),
     url: `/fr/blog/${article.slug}/`
+  })),
+  ...transfers.map(transfer => ({
+    id: `transfer-${transfer.slug}`,
+    type: 'transfer',
+    title: transfer.data.title,
+    description: transfer.data.metaDescription,
+    content: stripAndLimit(transfer.data.introductoryText + ' ' + transfer.data.cardText),
+    url: transfer.data.url
   }))
 ];
 
@@ -286,6 +313,53 @@ const fallbackArticles = blogArticles.slice(0, 3);
         </div>
       </section>
 
+      <!-- Transfers Section -->
+      <section id="section-transfers" class="bg-white py-16 hidden">
+        <div class="max-w-7xl mx-auto px-8">
+          <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.transfers}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {transfers.map((transfer) => (
+              <div class="search-card" data-search-id={`transfer-${transfer.slug}`} data-type="transfer">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                  <img
+                    src={transfer.data.cardImg.src}
+                    alt={transfer.data.cardImg.alt}
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-6 flex flex-col flex-1">
+                    <h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      <span>{formatDuration(transfer.data.duration)}</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4 flex-1">{transfer.data.cardText}</p>
+                    <div class="flex items-center justify-between mb-4">
+                      <span class="text-lg font-medium text-[#5b7297]">{formatPrice(transfer.data.price)} ISK</span>
+                    </div>
+                    <div class="flex gap-3 mt-auto">
+                      <a
+                        href={transfer.data.url}
+                        class="flex-1 text-center py-2 px-4 border border-[#5b7297] text-[#5b7297] rounded-sm text-sm font-medium hover:bg-[#5b7297] hover:text-white transition-colors duration-300"
+                      >
+                        En savoir plus
+                      </a>
+                      <a
+                        href={transfer.data.bookingLink}
+                        class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
+                      >
+                        Réserver
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <!-- No Results / Fallback Section -->
       <section id="section-fallback" class="bg-white py-16 hidden">
         <div class="max-w-7xl mx-auto px-8">
@@ -371,6 +445,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
         const sectionMultiday = document.getElementById('section-multiday');
         const sectionExperiences = document.getElementById('section-experiences');
         const sectionBlog = document.getElementById('section-blog');
+        const sectionTransfers = document.getElementById('section-transfers');
         const sectionFallback = document.getElementById('section-fallback');
         const allCards = document.querySelectorAll('.search-card');
 
@@ -465,7 +540,8 @@ const fallbackArticles = blogArticles.slice(0, 3);
             tour: 0,
             multiday: 0,
             experience: 0,
-            blog: 0
+            blog: 0,
+            transfer: 0
           };
 
           allCards.forEach(card => {
@@ -489,6 +565,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
           if (sectionMultiday) sectionMultiday.classList.toggle('hidden', typeCounts.multiday === 0);
           if (sectionExperiences) sectionExperiences.classList.toggle('hidden', typeCounts.experience === 0);
           if (sectionBlog) sectionBlog.classList.toggle('hidden', typeCounts.blog === 0);
+          if (sectionTransfers) sectionTransfers.classList.toggle('hidden', typeCounts.transfer === 0);
         }
 
         // Check if all query words are present in the item
@@ -513,6 +590,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
             if (sectionMultiday) sectionMultiday.classList.add('hidden');
             if (sectionExperiences) sectionExperiences.classList.add('hidden');
             if (sectionBlog) sectionBlog.classList.add('hidden');
+            if (sectionTransfers) sectionTransfers.classList.add('hidden');
             if (sectionFallback) sectionFallback.classList.remove('hidden');
             if (resultsStatus) resultsStatus.textContent = '';
             return;
@@ -540,6 +618,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
             if (sectionMultiday) sectionMultiday.classList.add('hidden');
             if (sectionExperiences) sectionExperiences.classList.add('hidden');
             if (sectionBlog) sectionBlog.classList.add('hidden');
+            if (sectionTransfers) sectionTransfers.classList.add('hidden');
             if (sectionFallback) sectionFallback.classList.remove('hidden');
             if (resultsStatus) resultsStatus.innerHTML = `${t.noResults} "<strong>${escapeHtml(searchQuery)}</strong>"`;
             return;

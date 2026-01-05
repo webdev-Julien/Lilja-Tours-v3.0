@@ -87,6 +87,389 @@ Requirements:
 
 ---
 
+## Transfers Collection (Private Chauffeur Services)
+
+### Overview
+
+The Transfers section provides private chauffeuring services between destinations in Iceland. This is for discerning travelers who want to reach far-away destinations with private transportation without joining a tour.
+
+**Navigation Link Text:** "Journeys" (in both Topbar and Footer)
+
+### URL Structure
+
+| English URL | French URL |
+|-------------|------------|
+| `/transfers-iceland/` | `/fr/transferts-islande/` |
+| `/transfers-iceland/[slug]/` | `/fr/transferts-islande/[slug]/` |
+
+### Folder Structure
+
+**Content Collections:**
+```
+src/content/
+├── transfers_EN/            (English transfers)
+├── transfers_FR/            (French transfers)
+└── config.ts                (update to include transfer collections)
+```
+
+**Page Routes:**
+```
+src/pages/
+├── transfers-iceland/
+│   ├── index.astro          (List page with tabs)
+│   └── [...slug].astro      (Individual transfer pages)
+└── fr/
+    └── transferts-islande/
+        ├── index.astro      (French list page)
+        └── [...slug].astro  (French individual pages)
+```
+
+### Transfer Categories
+
+Transfers are divided into two categories (displayed as tabs on list page):
+1. **Airport/Harbour Transfers** - category includes `"airport-harbour"`
+2. **Hotel Transfers** - category includes `"hotel"`
+
+**Note:** A transfer can belong to multiple categories (e.g., airport-to-hotel transfer appears in both tabs).
+
+---
+
+### List Page Structure (`/transfers-iceland/`)
+
+#### Header Section
+- **Style:** Same as `/private-day-tours-iceland/` or `/multiday-tours-iceland/` (short video background, overlay title, small text)
+- **Messaging:** Convey that this page is for discerning travelers looking to reach far-away destinations with private transportation without going on a tour
+- **CTA Button:** "Request a Transfer" - internal anchor link to the form section (`#transfer-request-form`)
+
+#### Services Section (After Header)
+- **h2** introducing the services
+- **Text** detailing services:
+  - Child seats available on request
+  - Premium vehicles
+  - Professional luggage handling
+  - Experienced English-speaking drivers
+  - Door-to-door service
+
+#### Tabs Section
+Two tabs to switch between transfer types:
+1. **Airport/Harbour Transfers**
+2. **Hotel Transfers**
+
+#### Transfer Cards (In Each Tab)
+Simple cards displaying:
+- **Picture** (from `/pictures/transfers/`)
+- **Title**
+- **Duration**
+- **Concise text** (e.g., "Hassle-free transfer to Rangá Hotel")
+- **Price**
+- **Two buttons:**
+  - "Learn More" → links to collection item page
+  - "Book Now" → links to `bookingLink` in frontmatter
+
+#### Transfer Request Form Section
+**Form ID:** `transfer-request-form` (for CTA anchor link)
+
+**Required Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| Departure Place | Text | Yes | |
+| Arrival Place | Text | Yes | |
+| Number of People | Number | Yes | |
+| Date | Date | Yes | |
+| Time | Time | No | |
+| Number of Children | Number | Yes | Default: 0 |
+| Age of Children | Text | No | Only show if children > 0 |
+| Luggage Information | Long Text | No | Placeholder: "We have a large trunk, but sometimes a trailer might be needed. Please describe your luggage (large, medium, small suitcases, special equipment, etc.)" |
+
+**Airport Transfer Subsection:**
+Header: "If this is an airport transfer, please fill the following fields"
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| Flight Number | Text | No | |
+| Flight Time | Time | No | |
+
+#### Footer
+Standard website footer
+
+---
+
+### Individual Transfer Page Structure (`/transfers-iceland/[slug]/`)
+
+#### Header Section
+- **Style:** Classic header with picture background (similar to `/private-day-tours-iceland/[slug].astro` or `/multiday-tours-iceland/[slug].astro`)
+- **h1:** Transfer title
+- **Introductory text:** Very short description
+
+#### Main Content Section
+- **h2:** Service details heading
+- **Short text:** A few sentences about the transfer
+- **Inclusions list:** What's included
+- **Exclusions list:** What's not included
+- **"BOOK NOW" CTA button** → links to `bookingLink`
+- **Booking Disclaimer:** Discrete text stating:
+  > "Please note: Bookings are not instant and must be confirmed by our services. Confirmation usually takes 24 hours but can in some cases take up to 72 hours."
+
+#### Related Day Tours Section (OPTIONAL)
+- **When to include:** Only if specific tours are provided when creating the transfer entry
+- **When to skip:** If no tours are specified, omit this section entirely
+- **Display:** Same card components as found on `/private-day-tours-iceland/`
+- **Content:** Tours specified during transfer creation
+
+#### Other Transfers Suggestions Section
+- **h2:** "Other Journeys You Might Like" (or similar)
+- **Display:** 3 transfer cards
+- **Selection:** Randomly generated at build time from other transfers in the collection
+
+#### Footer
+Standard website footer
+
+---
+
+### Content Frontmatter Schema
+
+```yaml
+# Required fields
+language: "en"  # or "fr"
+slug: "keflavik-to-reykjavik"
+url: "/transfers-iceland/keflavik-to-reykjavik/"
+urlOtherLang: "/fr/transferts-islande/keflavik-vers-reykjavik/"
+canonicalUrl: "https://www.lilja-tours.com/transfers-iceland/keflavik-to-reykjavik/"
+hreflangAlternates:
+  - lang: "en"
+    url: "https://www.lilja-tours.com/transfers-iceland/keflavik-to-reykjavik/"
+  - lang: "fr"
+    url: "https://www.lilja-tours.com/fr/transferts-islande/keflavik-vers-reykjavik/"
+
+# SEO
+pageTitle: "Private Transfer from Keflavik Airport to Reykjavik | Lilja Tours"
+metaDescription: "Book a private transfer from Keflavik Airport to Reykjavik. Premium vehicle, professional driver, luggage handling included."
+ogImage: "/pictures/transfers/keflavik-reykjavik.webp"
+
+# Content
+title: "Keflavik Airport to Reykjavik"
+introductoryText: "Start your Iceland adventure with a comfortable private transfer from Keflavik International Airport to your Reykjavik accommodation."
+cardText: "Hassle-free private transfer from the airport to your hotel"
+
+# Category (for tab filtering) - can belong to multiple categories
+category:
+  - "airport-harbour"  # and/or "hotel" - DO NOT TRANSLATE
+
+# Pricing & Booking
+price: 35000  # in ISK
+bookingLink: "https://..."
+duration: "PT45M"  # ISO 8601 format
+
+# Images
+cardImg:
+  src: "/pictures/transfers/keflavik-reykjavik-card.webp"
+  alt: "Private transfer vehicle at Keflavik Airport"
+headerImg:
+  src: "/pictures/transfers/keflavik-reykjavik-header.webp"
+  alt: "Scenic drive from Keflavik to Reykjavik"
+
+# Service Details
+included:
+  - "Private premium vehicle"
+  - "Professional English-speaking driver"
+  - "Luggage handling"
+  - "Door-to-door service"
+  - "Child seat on request"
+excluded:
+  - "Sightseeing stops (Driving service only)"
+  # Add specific exclusions if applicable (e.g., "Blue Lagoon entrance tickets")
+
+# Related Content (OPTIONAL - omit if not specified)
+relatedTours:
+  - "golden-circle-complete"
+  - "blue-lagoon-reykjanes"
+
+# JSON-LD (see schema below)
+jsonLD:
+  # ... (complete schema)
+```
+
+---
+
+### Character Limits for Transfers
+
+| Element | Max Characters |
+|---------|----------------|
+| Meta description | 160 |
+| Header introductory text | 350 |
+| Card text | 100 |
+| Main content text | 1,000 |
+
+---
+
+### Standard Exclusions for Transfers
+
+**All transfers use this standard exclusion:**
+- English: `"Sightseeing stops (Driving service only)"`
+- French: `"Arrets pour visites (service de transport uniquement)"`
+
+**Additional exclusions when applicable:**
+- For Blue Lagoon transfers:
+  - English: `"Blue Lagoon entrance tickets (must be booked separately)"`
+  - French: `"Billets d'entree au Blue Lagoon (a reserver separement)"`
+
+**Do NOT include these as exclusions:**
+- ~~Meals and refreshments~~ / ~~Repas et rafraichissements~~
+- ~~Gratuities~~ / ~~Pourboires~~
+
+---
+
+### JSON-LD Schema for Transfers
+
+Use `@type: "Service"` with `serviceType: "TransportService"`:
+
+```yaml
+jsonLD:
+  "@context": "https://schema.org"
+  "@type": "Service"
+  "serviceType": "TransportService"
+  "name": "[Transfer title]"
+  "description": "[Meta description]"
+  "url": "[Full canonical URL]"
+  "image": "[Header image URL]"
+  "provider":
+    "@type": "TravelAgency"
+    "name": "Lilja Tours"
+    "alternateName": "Lilja Tours Iceland"
+    "url": "https://www.lilja-tours.com"
+    "logo": "https://www.lilja-tours.com/Lilja-Tours-Logo.jpg"
+    "sameAs":
+      - "https://www.instagram.com/lilja_tours"
+      - "https://www.facebook.com/LiljaTours"
+    "address":
+      "@type": "PostalAddress"
+      "addressCountry": "IS"
+      "addressLocality": "Reykjavik"
+      "addressRegion": "Capital Region"
+    "telephone": "+354 764 3715"
+    "email": "info@lilja-tours.com"
+    "aggregateRating":
+      "@type": "AggregateRating"
+      "ratingValue": "5.0"
+      "reviewCount": "150"
+      "bestRating": "5"
+      "worstRating": "1"
+  "areaServed":
+    "@type": "Country"
+    "name": "Iceland"
+  "offers":
+    "@type": "Offer"
+    "price": "[Price in ISK]"
+    "priceCurrency": "ISK"
+    "availability": "https://schema.org/InStock"
+    "url": "[Page URL]"
+    "validFrom": "[Start date]"
+    "validThrough": "[End date]"
+  "termsOfService": "Bookings require confirmation within 24-72 hours"
+  "providerMobility": "dynamic"  # Service comes to customer
+  "serviceOutput":
+    "@type": "TransferAction"
+    "fromLocation":
+      "@type": "Place"
+      "name": "[Departure location]"
+      "address":
+        "@type": "PostalAddress"
+        "addressLocality": "[City/Location]"
+        "addressCountry": "IS"
+    "toLocation":
+      "@type": "Place"
+      "name": "[Arrival location]"
+      "address":
+        "@type": "PostalAddress"
+        "addressLocality": "[City/Location]"
+        "addressCountry": "IS"
+  "duration": "[ISO 8601 format]"
+  "inLanguage": "en"  # or "fr" for French
+  "hasOfferCatalog":
+    "@type": "OfferCatalog"
+    "name": "Included Services"
+    "itemListElement":
+      - "@type": "Offer"
+        "itemOffered":
+          "@type": "Service"
+          "name": "Private premium vehicle"
+      - "@type": "Offer"
+        "itemOffered":
+          "@type": "Service"
+          "name": "Professional driver"
+      - "@type": "Offer"
+        "itemOffered":
+          "@type": "Service"
+          "name": "Luggage handling"
+  "audience":
+    "@type": "PeopleAudience"
+    "audienceType": "Travelers"
+    "geographicArea":
+      "@type": "Place"
+      "name": "Worldwide"
+  "mainEntityOfPage":
+    "@type": "WebPage"
+    "@id": "[Full canonical URL]"
+  "breadcrumb":
+    "@type": "BreadcrumbList"
+    "itemListElement":
+      - "@type": "ListItem"
+        "position": 1
+        "name": "Home"
+        "item": "https://www.lilja-tours.com/"
+      - "@type": "ListItem"
+        "position": 2
+        "name": "Journeys"
+        "item": "https://www.lilja-tours.com/transfers-iceland/"
+      - "@type": "ListItem"
+        "position": 3
+        "name": "[Transfer title]"
+        "item": "[Full canonical URL]"
+```
+
+---
+
+### Website Integration Requirements
+
+#### Navigation (Topbar)
+- Add "Journeys" link in main navigation
+- Link to `/transfers-iceland/` (EN) or `/fr/transferts-islande/` (FR)
+
+#### Footer
+- Add "Journeys" link in footer navigation
+- Same URL pattern as topbar
+
+#### Search Functionality
+- Include `transfers_EN` and `transfers_FR` collections in search index
+- Display transfer results with same efficiency as other collection types
+- Search result cards should show: title, category badge, duration, price
+
+---
+
+### Pictures for Transfers
+
+**Location:** `/pictures/transfers/`
+**Format:** `.webp` only (do not use `.avif`)
+**Naming Convention:**
+- Card image: `[slug]-card.webp`
+- Header image: `[slug]-header.webp`
+
+---
+
+### Creating a New Transfer Entry Checklist
+
+1. [ ] Create EN file in `src/content/transfers_EN/[slug].mdx`
+2. [ ] Create FR file in `src/content/transfers_FR/[slug].mdx`
+3. [ ] Add images to `/pictures/transfers/`
+4. [ ] Verify category array is correct (includes `airport-harbour` and/or `hotel`)
+5. [ ] Ensure all URLs are correct in frontmatter
+6. [ ] Complete JSON-LD schema
+7. [ ] If related tours specified, verify slugs exist
+8. [ ] If no related tours specified, ensure `relatedTours` field is omitted
+9. [ ] Test both EN and FR pages render correctly
+10. [ ] Verify search includes the new transfer
+
+---
+
 ## French Translation System
 
 ### Overview
@@ -106,6 +489,8 @@ src/content/
 ├── partner_experiences_FR/  (French partner experiences)
 ├── tours_EN/                (existing)
 ├── tours_FR/                (French day tours)
+├── transfers_EN/            (English transfers)
+├── transfers_FR/            (French transfers)
 └── config.ts                (defines all EN/FR collections)
 ```
 
@@ -113,12 +498,18 @@ src/content/
 ```
 src/pages/
 ├── [English pages at root]
+├── transfers-iceland/                     (Transfers - EN)
+│   ├── index.astro
+│   └── [...slug].astro
 └── fr/                                    (French section)
     ├── index.astro                        (French homepage)
     ├── blog/
     ├── circuits-prives-islande/           (Day tours)
     ├── circuits-multi-jours-islande/      (Multiday tours)
-    └── experiences-partenaires-islande/   (Partner experiences)
+    ├── experiences-partenaires-islande/   (Partner experiences)
+    └── transferts-islande/                (Transfers - FR)
+        ├── index.astro
+        └── [...slug].astro
 ```
 
 ### URL Mapping Reference
@@ -129,12 +520,17 @@ src/pages/
 | `/private-day-tours-iceland/` | `/fr/circuits-prives-islande/` |
 | `/multiday-tours-iceland/` | `/fr/circuits-multi-jours-islande/` |
 | `/partner-experiences-iceland/` | `/fr/experiences-partenaires-islande/` |
+| `/transfers-iceland/` | `/fr/transferts-islande/` |
 | `/blog/` | `/fr/blog/` |
 | `/contact/` | `/fr/contact/` |
 
 **Example tour mappings:**
 - `/private-day-tours-iceland/golden-circle-complete-farm-to-table/` → `/fr/circuits-prives-islande/cercle-or-complet-ferme-table/`
 - `/multiday-tours-iceland/ring-road-essentials-7-days/` → `/fr/circuits-multi-jours-islande/route-1-essentiel-7-jours/`
+
+**Example transfer mappings:**
+- `/transfers-iceland/keflavik-to-reykjavik/` → `/fr/transferts-islande/keflavik-vers-reykjavik/`
+- `/transfers-iceland/reykjavik-to-hotel-ranga/` → `/fr/transferts-islande/reykjavik-vers-hotel-ranga/`
 
 ### Link Replacement Rule (CRITICAL)
 
@@ -174,6 +570,7 @@ Each English file has a French counterpart with mirrored filename:
 
 ```
 tours_EN/golden-circle-complete.mdx → tours_FR/golden-circle-complete.mdx
+transfers_EN/keflavik-to-reykjavik.mdx → transfers_FR/keflavik-to-reykjavik.mdx
 ```
 
 **Frontmatter structure (bidirectional):**
@@ -498,6 +895,67 @@ jsonLD:
 | West Iceland | Ouest de l'Islande |
 | Highlands | Hautes Terres d'Islande |
 | Capital Region | Région Capitale |
+| Journeys | Trajets |
+| Private Transfer | Transfert Privé |
+| Airport Transfer | Transfert Aéroport |
+| Hotel Transfer | Transfert Hôtel |
+| Harbour Transfer | Transfert Port |
+| Luggage handling | Prise en charge des bagages |
+| Door-to-door service | Service porte à porte |
+| Child seat | Siège enfant |
+| Premium vehicle | Véhicule premium |
+| Professional driver | Chauffeur professionnel |
+| Book Now | Réserver |
+| Learn More | En savoir plus |
+| Request a Transfer | Demander un transfert |
+| Other Journeys You Might Like | Autres trajets qui pourraient vous plaire |
+
+### French Transfer Form Field Translations
+
+When creating the French transfer request form, use these translations:
+
+| English | French |
+|---------|--------|
+| Request a Transfer | Demander un transfert |
+| Departure Place | Lieu de départ |
+| Arrival Place | Lieu d'arrivée |
+| Number of People | Nombre de personnes |
+| Date | Date |
+| Time | Heure |
+| Number of Children | Nombre d'enfants |
+| Age of Children | Âge des enfants |
+| Luggage Information | Informations bagages |
+| (Luggage placeholder) | "Nous avons un grand coffre, mais parfois une remorque peut être nécessaire. Décrivez vos bagages (grandes, moyennes, petites valises, équipement spécial, etc.)" |
+| If this is an airport transfer, please fill the following fields | Si c'est un transfert aéroport, veuillez remplir les champs suivants |
+| Flight Number | Numéro de vol |
+| Flight Time | Heure du vol |
+| Submit | Envoyer |
+
+### French Transfer Page Specifics
+
+**List Page Header Message (French):**
+Convey that this page is for discerning travelers ("voyageurs exigeants") looking for private transportation to reach destinations without joining a tour.
+
+**Booking Disclaimer (French):**
+> "Veuillez noter : Les réservations ne sont pas instantanées et doivent être confirmées par nos services. La confirmation prend généralement 24 heures mais peut dans certains cas aller jusqu'à 72 heures."
+
+**French Breadcrumb for Transfers:**
+```yaml
+breadcrumb:
+  itemListElement:
+    - "@type": "ListItem"
+      "position": 1
+      "name": "Accueil"
+      "item": "https://www.lilja-tours.com/fr/"
+    - "@type": "ListItem"
+      "position": 2
+      "name": "Trajets"
+      "item": "https://www.lilja-tours.com/fr/transferts-islande/"
+    - "@type": "ListItem"
+      "position": 3
+      "name": "[French transfer title]"
+      "item": "[Full French canonical URL]"
+```
 
 ### Translation Workflow
 

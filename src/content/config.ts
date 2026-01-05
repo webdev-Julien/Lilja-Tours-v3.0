@@ -495,6 +495,111 @@ const blogArticlesFR = defineCollection({
   }),
 });
 
+// Transfers Collections (Private Chauffeur Services)
+const transfersEN = defineCollection({
+  type: "content",
+  schema: z.object({
+    // Required fields
+    language: z.literal("en"),
+    slug: z.string().optional(),
+    url: z.string(),
+    urlOtherLang: z.string(),
+    canonicalUrl: z.string(),
+    hreflangAlternates: z.array(
+      z.object({
+        lang: z.string(),
+        url: z.string(),
+      })
+    ),
+    // SEO
+    pageTitle: z.string(),
+    metaDescription: z.string(),
+    ogImage: z.string().optional(),
+    // Content
+    title: z.string(),
+    introductoryText: z.string(),
+    cardText: z.string(),
+    mainText: z.string().optional(),
+    // Category (for tab filtering) - can belong to multiple categories
+    category: z.array(z.enum(["airport-harbour", "hotel"])),
+    // Pricing & Booking
+    price: z.number(),
+    bookingLink: z.string(),
+    duration: z.string(), // ISO 8601 format (e.g., "PT45M")
+    // Images
+    cardImg: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    headerImg: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string(),
+    }),
+    // Service Details
+    included: z.array(z.string()),
+    excluded: z.array(z.string()),
+    // Related Content (OPTIONAL)
+    relatedTours: z.array(z.string()).optional(),
+    // JSON-LD
+    jsonLD: z.object({}).passthrough(),
+    // Link to French version
+    linkFr: z.string(),
+  }),
+});
+
+const transfersFR = defineCollection({
+  type: "content",
+  schema: z.object({
+    // Required fields
+    language: z.literal("fr"),
+    slug: z.string().optional(),
+    url: z.string(),
+    urlOtherLang: z.string(),
+    canonicalUrl: z.string(),
+    hreflangAlternates: z.array(
+      z.object({
+        lang: z.string(),
+        url: z.string(),
+      })
+    ),
+    // SEO
+    pageTitle: z.string(),
+    metaDescription: z.string(),
+    ogImage: z.string().optional(),
+    // Content
+    title: z.string(),
+    introductoryText: z.string(),
+    cardText: z.string(),
+    mainText: z.string().optional(),
+    // Category (for tab filtering) - can belong to multiple categories - DO NOT TRANSLATE
+    category: z.array(z.enum(["airport-harbour", "hotel"])),
+    // Pricing & Booking
+    price: z.number(),
+    bookingLink: z.string(),
+    duration: z.string(), // ISO 8601 format (e.g., "PT45M")
+    // Images
+    cardImg: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    headerImg: z.object({
+      srcPC: z.string(),
+      srcMobile: z.string(),
+      alt: z.string(),
+    }),
+    // Service Details
+    included: z.array(z.string()),
+    excluded: z.array(z.string()),
+    // Related Content (OPTIONAL)
+    relatedTours: z.array(z.string()).optional(),
+    // JSON-LD
+    jsonLD: z.object({}).passthrough(),
+    // Link to English version
+    linkEn: z.string(),
+  }),
+});
+
 export const collections = {
   tours_EN: toursEN,
   tours_FR: toursFR,
@@ -504,4 +609,6 @@ export const collections = {
   partner_experiences_FR: partnerExperiencesFR,
   blog_articles_EN: blogArticlesEN,
   blog_articles_FR: blogArticlesFR,
+  transfers_EN: transfersEN,
+  transfers_FR: transfersFR,
 };

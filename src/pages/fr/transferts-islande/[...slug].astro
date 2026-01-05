@@ -1,0 +1,527 @@
+---
+import "../../../styles/global.css"
+import { getCollection } from 'astro:content';
+import Footer from "../../../components/Footer.astro";
+import Topbar from "../../../components/Topbar.astro";
+import ItineraryCard from "../../../components/ItineraryCard.astro";
+
+export async function getStaticPaths() {
+  const transfers = await getCollection('transfers_FR');
+  return transfers.map((transfer) => ({
+    params: { slug: transfer.data.slug || transfer.slug },
+    props: { transfer },
+  }));
+}
+
+const { transfer } = Astro.props;
+const { Content } = await transfer.render();
+const data = transfer.data;
+
+// Get related tours if specified
+let relatedTours = [];
+if (data.relatedTours && data.relatedTours.length > 0) {
+  const allTours = await getCollection('tours_FR');
+  relatedTours = allTours.filter(tour =>
+    data.relatedTours.includes(tour.data.slug || tour.slug)
+  );
+}
+
+// Fetch currency conversion rates
+let exchangeRates = { USD: 0.0073, EUR: 0.0067 }; // Fallback rates
+try {
+  const response = await fetch('https://api.frankfurter.app/latest?from=ISK&to=USD,EUR');
+  if (response.ok) {
+    const currencyData = await response.json();
+    exchangeRates = currencyData.rates;
+  }
+} catch (error) {
+  console.log('Currency API unavailable, using fallback rates');
+}
+
+// Helper function to format duration from ISO 8601
+function formatDuration(duration: string): string {
+  const match = duration.match(/PT(\d+)H?(\d+)?M?/);
+  if (match) {
+    const hours = match[1] ? parseInt(match[1]) : 0;
+    const minutes = match[2] ? parseInt(match[2]) : 0;
+    if (hours && minutes) return `${hours}h ${minutes}min`;
+    if (hours) return `${hours} heures`;
+    if (minutes) return `${minutes} min`;
+  }
+  return duration;
+}
+---
+
+<html lang={data.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={data.metaDescription} />
+
+    <link rel="canonical" href={data.canonicalUrl} />
+    {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+    ))}
+
+    <meta property="og:title" content={data.pageTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={data.ogImage || data.headerImg.src} />
+    <meta property="og:url" content={data.canonicalUrl} />
+    <meta property="og:description" content={data.metaDescription} />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{data.pageTitle}</title>
+
+    <!-- GDPR Cookie Consent -->
+    <link rel="stylesheet" href="/css/gdpr-consent.css" />
+    <script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+    <!-- TrustIndex Rich Snippet -->
+    <script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('set', 'linker', {
+        'domains': ['bokun.io']
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-48C94854K2');
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+
+    <style is:inline>
+      /* Scroll Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+      }
+
+      .slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-down {
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-left {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .slide-right {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .slide-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .bg-fixed {
+          background-attachment: scroll;
+        }
+      }
+
+      /* Booking Button Hover Effects */
+      .booking-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #5b7297;
+        transform: translateY(-100%);
+        transition: transform 0.8s ease;
+        z-index: -1;
+      }
+
+      .booking-cta-button:hover::before {
+        transform: translateY(0);
+      }
+
+      /* Floating Book Button */
+      .floating-book-btn.show {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      @media (max-width: 640px) {
+        .floating-book-btn {
+          bottom: 1.5rem;
+          right: 1.5rem;
+          padding: 0.75rem 1.25rem;
+          font-size: 0.875rem;
+        }
+
+        .floating-book-btn svg {
+          width: 1.125rem;
+          height: 1.125rem;
+        }
+      }
+
+      /* Transfer content styling */
+      .transfer-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #374151;
+      }
+
+      .transfer-content h2 {
+        font-size: 1.75rem;
+        font-weight: 300;
+        color: #111827;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+        letter-spacing: 0.025em;
+      }
+
+      .transfer-content h3 {
+        font-size: 1.375rem;
+        font-weight: 400;
+        color: #1f2937;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+      }
+
+      .transfer-content p {
+        margin-bottom: 1.25rem;
+      }
+
+      .transfer-content strong {
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .transfer-content a {
+        color: #5b7297;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+      }
+
+      .transfer-content a:hover {
+        color: #4a5d7d;
+      }
+
+      .transfer-content ul, .transfer-content ol {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
+      }
+
+      .transfer-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .transfer-content {
+          font-size: 1rem;
+        }
+
+        .transfer-content h2 {
+          font-size: 1.5rem;
+        }
+
+        .transfer-content h3 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Topbar currentLang={data.language} englishUrl={data.urlOtherLang} />
+
+    <!-- Header Section with Background Image -->
+    <header class="relative w-full h-[65dvh] overflow-hidden">
+      <picture class="absolute inset-0 w-full h-full">
+        <source media="(max-width: 767px)" srcset={data.headerImg.srcMobile} />
+        <img
+          src={data.headerImg.srcPC}
+          alt={data.headerImg.alt}
+          class="w-full h-full object-cover object-center"
+        />
+      </picture>
+
+      <!-- Dark overlay for better text readability-->
+      <div class="absolute inset-0 bg-black/30 z-10"></div>
+
+      <!-- Header content -->
+      <div class="relative z-20 h-full flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-8 text-center text-white">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight slide-down visible">
+            {data.title}
+          </h1>
+          <p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed tracking-wide opacity-95 slide-up visible mb-8">
+            {data.introductoryText}
+          </p>
+          <a
+            href="#booking"
+            class="header-cta-button inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/50 rounded-sm font-light text-sm md:text-base tracking-wide uppercase relative overflow-hidden transition-all duration-300 hover:bg-white hover:text-gray-900 hover:border-white slide-up visible"
+          >
+            Reserver ce transfert
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white">
+      <!-- Transfer Information Section -->
+      <section class="fade-in py-16 lg:py-24">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <!-- Transfer Details -->
+            <div class="slide-right">
+              <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-8 text-gray-900">Details du transfert</h2>
+
+              <div class="space-y-6 mb-8">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Duree :</span>
+                  </div>
+                  <span class="text-gray-900">{formatDuration(data.duration)}</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Passagers max :</span>
+                  </div>
+                  <span class="text-gray-900">6</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-[var(--secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="font-medium text-gray-600">Tarif :</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-gray-900 font-medium">{data.price.toLocaleString('fr-FR')} ISK</span>
+                    <div class="text-xs text-gray-500">
+                      ≈ {Math.round(data.price * exchangeRates.USD).toLocaleString('fr-FR')} $ / {Math.round(data.price * exchangeRates.EUR).toLocaleString('fr-FR')} €
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- What's Included -->
+              <div class="mt-8">
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Inclus</h3>
+                <ul class="space-y-3">
+                  {data.included.map((item) => (
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- What's Not Included -->
+              {data.excluded && data.excluded.length > 0 && (
+                <div class="mt-6">
+                  <h3 class="text-xl font-medium text-gray-900 mb-4">Non inclus</h3>
+                  <ul class="space-y-3">
+                    {data.excluded.map((item) => (
+                      <li class="flex items-start">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-gray-600">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <!-- Content from MDX -->
+            <div class="slide-left transfer-content">
+              <Content />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Section -->
+      <section id="booking" class="fade-in bg-gray-50 py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-8">
+          <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-8 text-center text-gray-900 slide-down">Reserver votre transfert</h2>
+
+          <div class="bg-white p-8 rounded-sm shadow-lg slide-up">
+            <div class="text-center mb-8">
+              <div class="text-4xl font-light text-gray-900 mb-2">{data.price.toLocaleString('fr-FR')} ISK</div>
+              <div class="text-gray-500 space-x-4">
+                <span>≈ {Math.round(data.price * exchangeRates.USD).toLocaleString('fr-FR')} $ USD</span>
+                <span>≈ {Math.round(data.price * exchangeRates.EUR).toLocaleString('fr-FR')} € EUR</span>
+              </div>
+              <p class="text-gray-600 mt-4">Par vehicule, jusqu'a 6 passagers</p>
+            </div>
+
+            <a
+              href={data.bookingLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="booking-cta-button inline-block w-full text-center bg-[var(--secondary)] text-white px-8 py-4 rounded-sm font-medium tracking-wide relative overflow-hidden transition-all duration-300 hover:translate-y-0.5"
+            >
+              Reserver maintenant
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Tours Section -->
+      {relatedTours.length > 0 && (
+        <section class="fade-in py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-8 text-center text-gray-900 slide-down">Prolongez votre aventure</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg max-w-2xl mx-auto">
+              Transformez votre transfert en excursion. Decouvrez ces circuits qui traversent des paysages similaires.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+              {relatedTours.map((tour) => (
+                <ItineraryCard
+                  image={tour.data.cardImg?.srcPC || tour.data.featuredImage}
+                  imageAlt={tour.data.cardImg?.alt || tour.data.title}
+                  title={tour.data.title}
+                  duration={tour.data.duration}
+                  description={tour.data.cardSentence}
+                  price={tour.data.priceMercedes?.toLocaleString('fr-FR') || tour.data.priceLandCruiser?.toLocaleString('fr-FR')}
+                  slug={tour.data.url}
+                  highlights={tour.data.highlights?.slice(0, 3)}
+                  season={tour.data.season}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
+
+    <Footer currentLang={data.language} />
+
+    <!-- Floating Book Button -->
+    <a
+      id="floating-book-button"
+      href="#booking"
+      class="floating-book-btn fixed bottom-8 right-8 bg-[var(--secondary)] text-white px-6 py-3 rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 z-[1000] hover:bg-[#5b7297] hover:shadow-3xl hover:scale-110 flex items-center gap-2 font-medium tracking-wide no-underline"
+      aria-label="Reserver ce transfert"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>Reserver</span>
+    </a>
+
+    <script>
+      // Intersection Observer for scroll animations
+      function initScrollAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        const animatedElements = document.querySelectorAll(
+          '.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+        );
+
+        animatedElements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+
+      // Floating button functionality
+      function initFloatingButton() {
+        const floatingButton = document.getElementById('floating-book-button');
+        const header = document.querySelector('header');
+
+        if (!floatingButton || !header) return;
+
+        const headerHeight = header.offsetHeight;
+
+        const handleScroll = () => {
+          const currentScrollY = window.scrollY;
+
+          // Show button when scrolled past header
+          if (currentScrollY > headerHeight) {
+            floatingButton.classList.add('show');
+          } else {
+            floatingButton.classList.remove('show');
+          }
+        };
+
+        // Throttle scroll events
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+          }
+          scrollTimeout = setTimeout(handleScroll, 10);
+        }, { passive: true });
+
+        // Initial check
+        handleScroll();
+      }
+
+      // Initialize everything when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+        initFloatingButton();
+      });
+    </script>
+  </body>
+</html>

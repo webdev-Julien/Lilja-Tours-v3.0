@@ -1,0 +1,632 @@
+---
+import "../../../src/styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
+import { getCollection } from 'astro:content';
+
+// Get all transfers from the collection
+const allTransfers = await getCollection('transfers_EN');
+
+// Separate transfers by category (entries can belong to multiple categories)
+const airportTransfers = allTransfers.filter(t => t.data.category.includes('airport-harbour'));
+const hotelTransfers = allTransfers.filter(t => t.data.category.includes('hotel'));
+
+// Helper function to format duration from ISO 8601
+function formatDuration(duration: string): string {
+	const match = duration.match(/PT(\d+)H?(\d+)?M?/);
+	if (match) {
+		const hours = match[1] ? parseInt(match[1]) : 0;
+		const minutes = match[2] ? parseInt(match[2]) : 0;
+		if (hours && minutes) return `${hours}h ${minutes}min`;
+		if (hours) return `${hours}h`;
+		if (minutes) return `${minutes}min`;
+	}
+	return duration;
+}
+
+// Helper function to format price
+function formatPrice(price: number): string {
+	return new Intl.NumberFormat('en-US').format(price);
+}
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Private transfer services in Iceland. Airport transfers, hotel transfers, and custom chauffeur services with premium vehicles and professional drivers.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/transfers-iceland/" />
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/transferts-islande/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/transfers-iceland/" />
+
+		<meta property="og:title" content="Private Transfers in Iceland | Lilja Tours">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://www.lilja-tours.com/videos/tours-bg.webp">
+		<meta property="og:url" content="https://www.lilja-tours.com/transfers-iceland/">
+		<meta property="og:description" content="Private transfer services in Iceland. Airport transfers, hotel transfers, and custom chauffeur services with premium vehicles and professional drivers.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:locale:alternate" content="fr_FR">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<meta name="generator" content={Astro.generator} />
+		<title>Private Transfers in Iceland - Journeys | Lilja Tours</title>
+
+		<!-- Resource Preloading for Performance -->
+		<link rel="preload" href="/logos/topbar-logo.webp" as="image" fetchpriority="high">
+		<link rel="preload" href="/videos/tours-bg.webp" as="image">
+		<link rel="preconnect" href="https://www.googletagmanager.com">
+		<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('set', 'linker', {
+				'domains': ['bokun.io']
+			});
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+	</head>
+	<body>
+		<!-- Video Header Section -->
+		<header class="video-header h-[75dvh] flex items-center justify-center relative">
+			<Topbar frenchUrl="/fr/transferts-islande/" currentLang="en" />
+
+			<!-- Responsive Video Background -->
+			<video
+				autoplay
+				muted
+				loop
+				playsinline
+				preload="auto"
+				poster="/videos/tours-bg.webp"
+				aria-label="Iceland landscape background video"
+				class="video-source absolute inset-0 w-full h-full object-cover"
+			>
+				<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4" media="(min-width: 1024px)">
+				<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4" media="(min-width: 768px) and (max-width: 1023px)">
+				<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
+			</video>
+
+			<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Private Transfers in Iceland</h1>
+				<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide mb-8">
+					For discerning travelers seeking seamless private transportation to reach distant destinations without the constraints of a group tour.
+				</p>
+				<a href="#transfer-request-form" class="inline-flex items-center gap-2 py-3 px-6 bg-white/10 backdrop-blur-sm text-white no-underline border border-white/50 rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase hover:bg-white hover:text-gray-900">
+					Request a Transfer
+				</a>
+			</div>
+		</header>
+
+		<main>
+			<!-- Services Section -->
+			<section class="fade-in visible bg-white py-24">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-16 max-w-4xl mx-auto slide-up visible">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-[2px] mb-8 leading-tight text-gray-900">Premium Chauffeur Services</h2>
+						<p class="text-lg md:text-xl font-light leading-relaxed text-gray-600 tracking-wide mb-12">
+							Experience Iceland with the comfort and convenience of our private transfer services. Whether you're arriving at Keflavik Airport or traveling to a remote countryside hotel, we ensure your journey is as memorable as your destination.
+						</p>
+
+						<!-- Service Features -->
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-center">
+							<div class="flex flex-col items-center gap-3">
+								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
+									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+									</svg>
+								</div>
+								<h3 class="text-base font-medium text-gray-900">Premium Vehicles</h3>
+								<p class="text-sm text-gray-600">Luxury comfort for every journey</p>
+							</div>
+
+							<div class="flex flex-col items-center gap-3">
+								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
+									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+									</svg>
+								</div>
+								<h3 class="text-base font-medium text-gray-900">Professional Drivers</h3>
+								<p class="text-sm text-gray-600">English-speaking & experienced</p>
+							</div>
+
+							<div class="flex flex-col items-center gap-3">
+								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
+									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+									</svg>
+								</div>
+								<h3 class="text-base font-medium text-gray-900">Luggage Handling</h3>
+								<p class="text-sm text-gray-600">Full assistance with your bags</p>
+							</div>
+
+							<div class="flex flex-col items-center gap-3">
+								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
+									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+									</svg>
+								</div>
+								<h3 class="text-base font-medium text-gray-900">Door-to-Door</h3>
+								<p class="text-sm text-gray-600">From pickup to destination</p>
+							</div>
+
+							<div class="flex flex-col items-center gap-3">
+								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
+									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+									</svg>
+								</div>
+								<h3 class="text-base font-medium text-gray-900">Child Seats</h3>
+								<p class="text-sm text-gray-600">Available on request</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Transfers Tabs Section -->
+			<section class="fade-in visible bg-gray-50 py-24">
+				<div class="max-w-7xl w-full mx-auto px-8">
+					<div class="text-center mb-12">
+						<h2 class="text-3xl md:text-4xl font-light tracking-[2px] mb-4 text-gray-900">Our Transfer Services</h2>
+					</div>
+
+					<!-- Tab Navigation -->
+					<div class="flex justify-center mb-12">
+						<div class="inline-flex bg-white rounded-lg p-1 shadow-sm border border-gray-200">
+							<button
+								id="tab-airport"
+								class="tab-button px-6 py-3 text-sm font-medium rounded-md transition-all duration-300 bg-[#5b7297] text-white"
+								data-tab="airport"
+							>
+								Airport & Harbour
+							</button>
+							<button
+								id="tab-hotel"
+								class="tab-button px-6 py-3 text-sm font-medium rounded-md transition-all duration-300 text-gray-600 hover:text-gray-900"
+								data-tab="hotel"
+							>
+								Hotel Transfers
+							</button>
+						</div>
+					</div>
+
+					<!-- Airport/Harbour Transfers Tab Content -->
+					<div id="content-airport" class="tab-content">
+						{airportTransfers.length > 0 ? (
+							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+								{airportTransfers.map((transfer) => (
+									<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+										<img
+											src={transfer.data.cardImg.src}
+											alt={transfer.data.cardImg.alt}
+											class="w-full h-48 object-cover"
+										/>
+										<div class="p-6 flex flex-col flex-1">
+											<h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>
+											<div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+												</svg>
+												<span>{formatDuration(transfer.data.duration)}</span>
+											</div>
+											<p class="text-gray-600 text-sm mb-4 flex-1">{transfer.data.cardText}</p>
+											<div class="flex items-center justify-between mb-4">
+												<span class="text-lg font-medium text-[#5b7297]">{formatPrice(transfer.data.price)} ISK</span>
+											</div>
+											<div class="flex gap-3 mt-auto">
+												<a
+													href={transfer.data.url}
+													class="flex-1 text-center py-2 px-4 border border-[#5b7297] text-[#5b7297] rounded-sm text-sm font-medium hover:bg-[#5b7297] hover:text-white transition-colors duration-300"
+												>
+													Learn More
+												</a>
+												<a
+													href={transfer.data.bookingLink}
+													class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
+												>
+													Book Now
+												</a>
+											</div>
+										</div>
+									</div>
+								))}
+							</div>
+						) : (
+							<div class="text-center py-16 bg-white rounded-lg">
+								<p class="text-gray-500 text-lg">Airport and harbour transfers coming soon.</p>
+								<p class="text-gray-400 mt-2">In the meantime, use the form below to request a custom transfer.</p>
+							</div>
+						)}
+					</div>
+
+					<!-- Hotel Transfers Tab Content -->
+					<div id="content-hotel" class="tab-content hidden">
+						{hotelTransfers.length > 0 ? (
+							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+								{hotelTransfers.map((transfer) => (
+									<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+										<img
+											src={transfer.data.cardImg.src}
+											alt={transfer.data.cardImg.alt}
+											class="w-full h-48 object-cover"
+										/>
+										<div class="p-6 flex flex-col flex-1">
+											<h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>
+											<div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+												</svg>
+												<span>{formatDuration(transfer.data.duration)}</span>
+											</div>
+											<p class="text-gray-600 text-sm mb-4 flex-1">{transfer.data.cardText}</p>
+											<div class="flex items-center justify-between mb-4">
+												<span class="text-lg font-medium text-[#5b7297]">{formatPrice(transfer.data.price)} ISK</span>
+											</div>
+											<div class="flex gap-3 mt-auto">
+												<a
+													href={transfer.data.url}
+													class="flex-1 text-center py-2 px-4 border border-[#5b7297] text-[#5b7297] rounded-sm text-sm font-medium hover:bg-[#5b7297] hover:text-white transition-colors duration-300"
+												>
+													Learn More
+												</a>
+												<a
+													href={transfer.data.bookingLink}
+													class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
+												>
+													Book Now
+												</a>
+											</div>
+										</div>
+									</div>
+								))}
+							</div>
+						) : (
+							<div class="text-center py-16 bg-white rounded-lg">
+								<p class="text-gray-500 text-lg">Hotel transfers coming soon.</p>
+								<p class="text-gray-400 mt-2">In the meantime, use the form below to request a custom transfer.</p>
+							</div>
+						)}
+					</div>
+				</div>
+			</section>
+
+			<!-- Transfer Request Form Section -->
+			<section id="transfer-request-form" class="fade-in visible bg-white py-24">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="text-center mb-12">
+						<h2 class="text-3xl md:text-4xl font-light tracking-[2px] mb-4 text-gray-900">Request a Custom Transfer</h2>
+						<p class="text-lg text-gray-600">Can't find the transfer you need? Fill out the form below and we'll get back to you with a personalized quote.</p>
+					</div>
+
+					<form
+						id="transferForm"
+						class="bg-gray-50 rounded-lg p-8 shadow-sm"
+						action="https://formspree.io/f/xvgopbzp"
+						method="POST"
+					>
+						<input type="hidden" name="_subject" value="New Transfer Request from Lilja Tours" />
+
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+							<!-- Departure Place -->
+							<div>
+								<label for="departure" class="block text-sm font-medium text-gray-700 mb-2">
+									Departure Place <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="text"
+									id="departure"
+									name="departure"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+									placeholder="e.g., Keflavik Airport"
+								/>
+							</div>
+
+							<!-- Arrival Place -->
+							<div>
+								<label for="arrival" class="block text-sm font-medium text-gray-700 mb-2">
+									Arrival Place <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="text"
+									id="arrival"
+									name="arrival"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+									placeholder="e.g., Hotel Ranga"
+								/>
+							</div>
+
+							<!-- Number of People -->
+							<div>
+								<label for="people" class="block text-sm font-medium text-gray-700 mb-2">
+									Number of People <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="number"
+									id="people"
+									name="people"
+									min="1"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+									placeholder="2"
+								/>
+							</div>
+
+							<!-- Date -->
+							<div>
+								<label for="date" class="block text-sm font-medium text-gray-700 mb-2">
+									Date <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="date"
+									id="date"
+									name="date"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								/>
+							</div>
+
+							<!-- Time -->
+							<div>
+								<label for="time" class="block text-sm font-medium text-gray-700 mb-2">
+									Time
+								</label>
+								<input
+									type="time"
+									id="time"
+									name="time"
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								/>
+							</div>
+
+							<!-- Number of Children -->
+							<div>
+								<label for="children" class="block text-sm font-medium text-gray-700 mb-2">
+									Number of Children <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="number"
+									id="children"
+									name="children"
+									min="0"
+									value="0"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								/>
+							</div>
+						</div>
+
+						<!-- Age of Children (conditional) -->
+						<div id="childrenAgeSection" class="mb-6 hidden">
+							<label for="childrenAge" class="block text-sm font-medium text-gray-700 mb-2">
+								Age of Children
+							</label>
+							<input
+								type="text"
+								id="childrenAge"
+								name="childrenAge"
+								class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								placeholder="e.g., 3 years, 7 years"
+							/>
+						</div>
+
+						<!-- Luggage Information -->
+						<div class="mb-6">
+							<label for="luggage" class="block text-sm font-medium text-gray-700 mb-2">
+								Luggage Information
+							</label>
+							<textarea
+								id="luggage"
+								name="luggage"
+								rows="3"
+								class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								placeholder="We have a large trunk, but sometimes a trailer might be needed. Please describe your luggage (large, medium, small suitcases, special equipment, etc.)"
+							></textarea>
+						</div>
+
+						<!-- Airport Transfer Section -->
+						<div class="bg-white rounded-lg p-6 mb-6 border border-gray-200">
+							<h3 class="text-lg font-medium text-gray-900 mb-4">If this is an airport transfer, please fill the following fields</h3>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<!-- Flight Number -->
+								<div>
+									<label for="flightNumber" class="block text-sm font-medium text-gray-700 mb-2">
+										Flight Number
+									</label>
+									<input
+										type="text"
+										id="flightNumber"
+										name="flightNumber"
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+										placeholder="e.g., FI615"
+									/>
+								</div>
+
+								<!-- Flight Time -->
+								<div>
+									<label for="flightTime" class="block text-sm font-medium text-gray-700 mb-2">
+										Flight Time
+									</label>
+									<input
+										type="time"
+										id="flightTime"
+										name="flightTime"
+										class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<!-- Contact Information -->
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+							<div>
+								<label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+									Your Name <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="text"
+									id="name"
+									name="name"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								/>
+							</div>
+							<div>
+								<label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+									Email Address <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="email"
+									id="email"
+									name="email"
+									required
+									class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#5b7297] focus:border-transparent transition-all duration-300"
+								/>
+							</div>
+						</div>
+
+						<!-- Submit Button -->
+						<div class="text-center">
+							<button
+								type="submit"
+								class="inline-flex items-center gap-2 py-3 px-8 bg-[#5b7297] text-white rounded-sm font-medium text-base transition-all duration-300 hover:bg-[#4a6180]"
+							>
+								Send Request
+							</button>
+						</div>
+					</form>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Tab switching functionality
+			document.addEventListener('DOMContentLoaded', () => {
+				const tabButtons = document.querySelectorAll('.tab-button');
+				const tabContents = document.querySelectorAll('.tab-content');
+
+				tabButtons.forEach(button => {
+					button.addEventListener('click', () => {
+						const tab = button.getAttribute('data-tab');
+
+						// Update button styles
+						tabButtons.forEach(btn => {
+							btn.classList.remove('bg-[#5b7297]', 'text-white');
+							btn.classList.add('text-gray-600', 'hover:text-gray-900');
+						});
+						button.classList.add('bg-[#5b7297]', 'text-white');
+						button.classList.remove('text-gray-600', 'hover:text-gray-900');
+
+						// Update content visibility
+						tabContents.forEach(content => {
+							content.classList.add('hidden');
+						});
+						document.getElementById(`content-${tab}`)?.classList.remove('hidden');
+					});
+				});
+
+				// Show/hide children age field based on number of children
+				const childrenInput = document.getElementById('children') as HTMLInputElement;
+				const childrenAgeSection = document.getElementById('childrenAgeSection');
+
+				childrenInput?.addEventListener('input', () => {
+					const numChildren = parseInt(childrenInput.value) || 0;
+					if (numChildren > 0) {
+						childrenAgeSection?.classList.remove('hidden');
+					} else {
+						childrenAgeSection?.classList.add('hidden');
+					}
+				});
+
+				// Scroll animations
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .slide-down');
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			});
+		</script>
+
+		<style>
+			/* Video header styles */
+			.video-header {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.video-header::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 100%);
+				z-index: 1;
+			}
+
+			.video-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Animation classes */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.6s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(30px);
+				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-30px);
+				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		</style>
+	</body>
+</html>
