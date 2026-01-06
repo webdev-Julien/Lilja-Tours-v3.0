@@ -17,13 +17,32 @@ const { transfer } = Astro.props;
 const { Content } = await transfer.render();
 const data = transfer.data;
 
-// Get related tours if specified
+// Get related tours if specified (check both day tours and multiday tours)
 let relatedTours = [];
 if (data.relatedTours && data.relatedTours.length > 0) {
-  const allTours = await getCollection('tours_FR');
-  relatedTours = allTours.filter(tour =>
+  const allDayTours = await getCollection('tours_FR');
+  const allMultidayTours = await getCollection('multiday_tours_FR');
+
+  const matchingDayTours = allDayTours.filter(tour =>
     data.relatedTours.includes(tour.data.slug || tour.slug)
   );
+  const matchingMultidayTours = allMultidayTours.filter(tour =>
+    data.relatedTours.includes(tour.data.slug || tour.slug)
+  );
+
+  relatedTours = [...matchingDayTours, ...matchingMultidayTours];
+}
+
+// Get return transfer if specified
+let returnTransferData = null;
+if (data.returnTransfer) {
+  const allTransfers = await getCollection('transfers_FR');
+  const returnTransfer = allTransfers.find(t =>
+    (t.data.slug || t.slug) === data.returnTransfer
+  );
+  if (returnTransfer) {
+    returnTransferData = returnTransfer.data;
+  }
 }
 
 // Fetch currency conversion rates
@@ -376,6 +395,21 @@ function formatDuration(duration: string): string {
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+
+              <!-- Return Transfer Button -->
+              {returnTransferData && (
+                <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+                  <a
+                    href={returnTransferData.url}
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-sm font-medium tracking-wide transition-all duration-300 hover:bg-[var(--secondary)] hover:text-white"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                    </svg>
+                    Reserver le trajet retour
+                  </a>
                 </div>
               )}
             </div>

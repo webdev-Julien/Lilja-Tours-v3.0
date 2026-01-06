@@ -541,6 +541,8 @@ const transfersEN = defineCollection({
     excluded: z.array(z.string()),
     // Related Content (OPTIONAL)
     relatedTours: z.array(z.string()).optional(),
+    // Return Transfer (OPTIONAL)
+    returnTransfer: z.string().optional(),
     // JSON-LD
     jsonLD: z.object({}).passthrough(),
     // Link to French version
@@ -593,6 +595,8 @@ const transfersFR = defineCollection({
     excluded: z.array(z.string()),
     // Related Content (OPTIONAL)
     relatedTours: z.array(z.string()).optional(),
+    // Return Transfer (OPTIONAL)
+    returnTransfer: z.string().optional(),
     // JSON-LD
     jsonLD: z.object({}).passthrough(),
     // Link to English version
