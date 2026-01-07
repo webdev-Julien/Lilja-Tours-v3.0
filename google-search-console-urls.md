@@ -44,6 +44,12 @@ https://www.lilja-tours.com/transfers-iceland/ion-adventure-hotel-to-keflavik-ai
 ```
 https://www.lilja-tours.com/blog/top-10-favourite-hotels/
 https://www.lilja-tours.com/fr/blog/top-10-hotels-favoris/
+https://www.lilja-tours.com/blog/ultimate-reykjanes-guide/
+https://www.lilja-tours.com/fr/blog/guide-ultime-reykjanes/
+https://www.lilja-tours.com/blog/ultimate-golden-circle-guide/
+https://www.lilja-tours.com/fr/blog/guide-ultime-cercle-or/
+https://www.lilja-tours.com/blog/ultimate-south-coast-discovery/
+https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
 ```
 
 ## French Transfer Pages
@@ -120,13 +126,19 @@ https://www.lilja-tours.com/fr/transferts-islande/aeroport-keflavik-ion-adventur
 https://www.lilja-tours.com/fr/transferts-islande/ion-adventure-hotel-aeroport-keflavik/
 https://www.lilja-tours.com/blog/top-10-favourite-hotels/
 https://www.lilja-tours.com/fr/blog/top-10-hotels-favoris/
+https://www.lilja-tours.com/blog/ultimate-reykjanes-guide/
+https://www.lilja-tours.com/fr/blog/guide-ultime-reykjanes/
+https://www.lilja-tours.com/blog/ultimate-golden-circle-guide/
+https://www.lilja-tours.com/fr/blog/guide-ultime-cercle-or/
+https://www.lilja-tours.com/blog/ultimate-south-coast-discovery/
+https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
 ```
 
 ---
 
-**Total URLs: 46**
+**Total URLs: 52**
 - Homepages: 2
 - Transfer list pages: 2
 - English transfers: 20
 - French transfers: 20
-- Blog articles: 2
+- Blog articles: 8

@@ -91,9 +91,9 @@ function formatPrice(price: number): string {
 				aria-label="Vidéo de paysage islandais en arrière-plan"
 				class="video-source absolute inset-0 w-full h-full object-cover"
 			>
-				<source src="/videos/HD/tours-bg-hd.mp4" type="video/mp4" media="(min-width: 1024px)">
-				<source src="/videos/MD/tours-bg-medium.mp4" type="video/mp4" media="(min-width: 768px) and (max-width: 1023px)">
-				<source src="/videos/SD/tours-bg-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
+				<source src="/videos/HD/transfers-bg.mp4" type="video/mp4" media="(min-width: 1024px)">
+				<source src="/videos/MD/transfers-bg.mp4" type="video/mp4" media="(min-width: 768px) and (max-width: 1023px)">
+				<source src="/videos/SD/transfers-bg.mp4" type="video/mp4" media="(max-width: 767px)">
 			</video>
 
 			<div class="video-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">
@@ -162,7 +162,9 @@ function formatPrice(price: number): string {
 							<div class="flex flex-col items-center gap-3">
 								<div class="w-16 h-16 bg-[#5b7297]/10 rounded-full flex items-center justify-center">
 									<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+										<!-- Child figure icon -->
+										<circle cx="12" cy="5" r="2.5" stroke-width="1.5"/>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 7.5v5m-3 7l3-4.5 3 4.5m-6-4.5h6"/>
 									</svg>
 								</div>
 								<h3 class="text-base font-medium text-gray-900">Sièges Enfants</h3>
