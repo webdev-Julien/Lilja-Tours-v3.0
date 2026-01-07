@@ -417,6 +417,23 @@ import Footer from "../components/Footer.astro"
 					</div>
 				</div>
 			</section>
+			<!-- Calendly Scheduling Section -->
+			<section class="fade-in bg-gray-50 py-24 md:py-32">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="text-center mb-12 slide-up">
+						<h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-6 leading-tight text-gray-900">Schedule a Phone Call</h2>
+						<p class="text-base md:text-lg font-light leading-relaxed text-gray-600 tracking-wide max-w-2xl mx-auto">
+							Prefer to discuss your Iceland adventure over the phone? Book a convenient time slot and we'll call you to answer all your questions.
+						</p>
+					</div>
+					<div class="slide-up bg-white rounded-sm shadow-sm overflow-hidden">
+						<!-- Calendly inline widget begin -->
+						<div class="calendly-inline-widget" data-url="https://calendly.com/julien-lilja-tours/schedule-phone-meeting" style="min-width:320px;height:700px;"></div>
+						<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+						<!-- Calendly inline widget end -->
+					</div>
+				</div>
+			</section>
 		</main>
 
 		<Footer currentLang="en" />
