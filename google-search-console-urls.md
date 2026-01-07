@@ -1,19 +1,5 @@
 # Google Search Console - URLs to Index
 
-## Homepages
-
-```
-https://www.lilja-tours.com/
-https://www.lilja-tours.com/fr/
-```
-
-## Transfer List Pages
-
-```
-https://www.lilja-tours.com/transfers-iceland/
-https://www.lilja-tours.com/fr/transferts-islande/
-```
-
 ## English Transfer Pages
 
 ```
@@ -42,13 +28,7 @@ https://www.lilja-tours.com/transfers-iceland/ion-adventure-hotel-to-keflavik-ai
 ## Blog Articles (Updated)
 
 ```
-https://www.lilja-tours.com/blog/top-10-favourite-hotels/
-https://www.lilja-tours.com/fr/blog/top-10-hotels-favoris/
-https://www.lilja-tours.com/blog/ultimate-reykjanes-guide/
-https://www.lilja-tours.com/fr/blog/guide-ultime-reykjanes/
-https://www.lilja-tours.com/blog/ultimate-golden-circle-guide/
-https://www.lilja-tours.com/fr/blog/guide-ultime-cercle-or/
-https://www.lilja-tours.com/blog/ultimate-south-coast-discovery/
+
 https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
 ```
 
@@ -137,6 +117,7 @@ https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
 ---
 
 **Total URLs: 52**
+
 - Homepages: 2
 - Transfer list pages: 2
 - English transfers: 20
