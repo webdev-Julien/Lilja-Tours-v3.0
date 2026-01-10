@@ -82,15 +82,20 @@ try {
       .slide-right { transform: translateX(-50px); }
 
       .gallery-container { display: flex; flex-direction: column; gap: 1.5rem; }
-      .gallery-track { display: flex; width: fit-content; gap: 1.5rem; animation: scroll-left 225s linear infinite; }
+      .gallery-track { display: flex; width: fit-content; gap: 1.5rem; animation: scroll-left 300s linear infinite; }
       .gallery-track:hover { animation-play-state: paused; }
       .gallery-slide-group { display: flex; gap: 1.5rem; flex-shrink: 0; }
       .gallery-item { flex-shrink: 0; width: 375px; height: 375px; }
       @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-100% - 1.5rem)); } }
 
+      @media (max-width: 1023px) {
+        .gallery-item { width: 312px; height: 312px; }
+        .gallery-track { animation: scroll-left 100s linear infinite; }
+      }
+
       @media (max-width: 767px) {
         .gallery-item { width: 250px; height: 250px; }
-        .gallery-track { animation: scroll-left 100s linear infinite; }
+        .gallery-track { animation: scroll-left 150s linear infinite; }
       }
     </style>
   </head>
@@ -140,12 +145,15 @@ try {
                 </div>
                 <div class="flex justify-between items-center border-b border-gray-200 pb-3">
                   <span class="font-medium text-gray-600">À partir de :</span>
-                  <span class="text-gray-900">{data.price?.toLocaleString()} ISK</span>
+                  <div class="text-right">
+                    <span class="text-gray-900">{data.price?.toLocaleString()} ISK</span>
+                    <span class="block text-xs text-gray-500">(par groupe, non par personne)</span>
+                  </div>
                 </div>
               </div>
 
               <p class="text-xs text-gray-500 leading-relaxed mb-8">
-                Le prix ci-dessus comprend le guidage et le transport. Il n'inclut pas votre hébergement, l'hébergement du guide en dehors de Reykjavík, les activités optionnelles, les déjeuners et dîners.
+                Le prix ci-dessus est par groupe (non par personne) et comprend le guidage et le transport. Il n'inclut pas votre hébergement, l'hébergement du guide en dehors de Reykjavík, les activités optionnelles, les déjeuners et dîners.
               </p>
 
               <div class="bg-blue-50 border border-blue-200 rounded-sm p-6 mb-6">

@@ -178,11 +178,11 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
         display: flex;
         width: fit-content;
         gap: 1.5rem;
-        animation: scroll-left 225s linear infinite;
+        animation: scroll-left 300s linear infinite;
       }
 
       .gallery-track-reverse {
-        animation: scroll-right 225s linear infinite;
+        animation: scroll-right 300s linear infinite;
       }
 
       .gallery-track:hover {
@@ -227,11 +227,11 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
 
         .gallery-track {
           gap: 1rem;
-          animation: scroll-left 50s linear infinite;
+          animation: scroll-left 100s linear infinite;
         }
 
         .gallery-track-reverse {
-          animation: scroll-right 50s linear infinite;
+          animation: scroll-right 100s linear infinite;
         }
 
         .gallery-slide-group {
@@ -269,11 +269,11 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
         }
 
         .gallery-track {
-          animation: scroll-left 100s linear infinite;
+          animation: scroll-left 150s linear infinite;
         }
 
         .gallery-track-reverse {
-          animation: scroll-right 100s linear infinite;
+          animation: scroll-right 150s linear infinite;
         }
       }
     </style>
@@ -365,12 +365,15 @@ const activitiesByDay = data.activities.reduce((acc, activity) => {
                     </svg>
                     <span class="font-medium text-gray-600">Starting from:</span>
                   </div>
-                  <span class="text-gray-900">{data.price.toLocaleString()} ISK</span>
+                  <div class="text-right">
+                    <span class="text-gray-900">{data.price.toLocaleString()} ISK</span>
+                    <span class="block text-xs text-gray-500">(per group, not per person)</span>
+                  </div>
                 </div>
               </div>
 
               <p class="text-xs text-gray-500 leading-relaxed mb-8">
-                The price above is for guiding and transportation. It does not include your accommodation, guide's accommodation when outside of Reykjavík, optional activities, lunches and dinners.
+                The price above is per group (not per person) and includes guiding and transportation. It does not include your accommodation, guide's accommodation when outside of Reykjavík, optional activities, lunches and dinners.
               </p>
 
               <div class="bg-blue-50 border border-blue-200 rounded-sm p-6 mb-6">

@@ -32,7 +32,7 @@ const buttonHref = href || `${u.multidayTours[currentLang]}#custom-tour-form`;
 const Element = buttonHref ? 'a' : 'button';
 const baseClass = variant === 'mobile' ?
   'group bg-transparent text-white border border-white/50 px-8 py-4 font-light text-base md:text-lg lg:text-xl tracking-wide cursor-pointer transition-all duration-300 rounded-sm w-auto max-w-[250px] sm:max-w-[200px] no-underline inline-block text-center relative overflow-hidden hover:border-white cta-mobile' :
-  'group bg-transparent text-white border border-white/50 px-6 py-2 font-light text-sm md:text-base lg:text-lg tracking-wide cursor-pointer transition-all duration-300 rounded-sm no-underline inline-flex items-center justify-center box-border h-11 relative overflow-hidden hover:border-white cta-default';
+  'group bg-transparent text-white border border-white/50 px-3 xl:px-5 2xl:px-6 py-2 font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide cursor-pointer transition-all duration-300 rounded-sm no-underline inline-flex items-center justify-center box-border h-9 xl:h-10 2xl:h-11 relative overflow-hidden hover:border-white cta-default';
 const className = `${baseClass} ${customClass}`.trim();
 ---
 

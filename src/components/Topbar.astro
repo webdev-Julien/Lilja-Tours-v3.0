@@ -34,18 +34,18 @@ const u = urls;
     </div>
 
     <!-- Navigation Links -->
-    <ul class="hidden lg:flex gap-4 xl:gap-6 2xl:gap-8 items-center list-none m-0 p-0">
-      <li><a href={u.dayTours[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.dayTours}</a></li>
-      <li><a href={u.multidayTours[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.multidayTours}</a></li>
-      <li><a href={u.transfers[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.transfers}</a></li>
-      <li><a href={u.experiences[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.experiences}</a></li>
-      <li><a href={u.blog[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.blog}</a></li>
-      <li><a href={u.about[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.about}</a></li>
-      <li><a href={u.contact[currentLang]} class="nav-link text-white no-underline font-light text-sm xl:text-base 2xl:text-lg tracking-wide relative whitespace-nowrap">{t.nav.contact}</a></li>
+    <ul class="hidden lg:flex gap-2 xl:gap-5 2xl:gap-8 items-center list-none m-0 p-0">
+      <li><a href={u.dayTours[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.dayTours}</a></li>
+      <li><a href={u.multidayTours[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.multidayTours}</a></li>
+      <li><a href={u.transfers[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.transfers}</a></li>
+      <li><a href={u.experiences[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.experiences}</a></li>
+      <li><a href={u.blog[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.blog}</a></li>
+      <li><a href={u.about[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.about}</a></li>
+      <li><a href={u.contact[currentLang]} class="nav-link text-white no-underline font-light text-xs xl:text-sm 2xl:text-base tracking-normal xl:tracking-wide relative whitespace-nowrap">{t.nav.contact}</a></li>
     </ul>
 
     <!-- Right Section -->
-    <div class="absolute right-4 hidden lg:flex items-center gap-4 xl:gap-6 flex-shrink-0">
+    <div class="absolute right-4 hidden lg:flex items-center gap-2 xl:gap-4 2xl:gap-6 flex-shrink-0">
       <!-- Search Button -->
       <button
         data-search-trigger
@@ -61,9 +61,9 @@ const u = urls;
       <!-- Language Switcher -->
       <div class="relative">
         {currentLang === 'en' ? (
-          <a href={altLangUrl} class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">{t.lang.fr}</a>
+          <a href={altLangUrl} class="text-white no-underline font-light text-xs xl:text-sm px-3 xl:px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-9 xl:h-11 inline-flex items-center justify-center tracking-normal xl:tracking-wide hover:border-white hover:bg-white/10">{t.lang.fr}</a>
         ) : (
-          <a href={altLangUrl} class="text-white no-underline font-light text-sm lg:text-base px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-11 inline-flex items-center justify-center tracking-wide hover:border-white hover:bg-white/10">{t.lang.en}</a>
+          <a href={altLangUrl} class="text-white no-underline font-light text-xs xl:text-sm px-3 xl:px-4 py-2 border border-white/30 rounded-sm transition-all duration-300 h-9 xl:h-11 inline-flex items-center justify-center tracking-normal xl:tracking-wide hover:border-white hover:bg-white/10">{t.lang.en}</a>
         )}
       </div>
 
@@ -81,31 +81,31 @@ const u = urls;
 
   <!-- Mobile Menu Overlay -->
   <div class="mobile-overlay fixed top-0 left-0 right-0 bottom-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-[1001]" id="mobileOverlay">
-    <div class="mobile-menu absolute top-0 right-0 w-[90vw] h-screen bg-gray-900/95 backdrop-blur-xl border-l border-white/10 transition-transform duration-300 flex flex-col items-center justify-center p-8 mx-auto" id="mobileMenu">
+    <div class="mobile-menu absolute top-0 right-0 w-[90vw] h-screen bg-gray-900/95 backdrop-blur-xl border-l border-white/10 transition-transform duration-300 flex flex-col items-center pt-16 pb-6 px-6 overflow-y-auto mx-auto" id="mobileMenu">
       <!-- Close Button -->
-      <button class="close-button absolute top-8 right-8 bg-none border-none cursor-pointer w-8 h-8 flex items-center justify-center" id="closeButton">
+      <button class="close-button absolute top-4 right-4 bg-none border-none cursor-pointer w-8 h-8 flex items-center justify-center z-10" id="closeButton">
         <span class="absolute w-5 h-px bg-white transition-all duration-300 rotate-45"></span>
         <span class="absolute w-5 h-px bg-white transition-all duration-300 -rotate-45"></span>
       </button>
 
       <!-- Mobile Navigation Content -->
-      <div class="flex flex-col items-center justify-center w-full text-center gap-8">
+      <div class="flex flex-col items-center w-full text-center gap-4">
         <!-- Mobile Navigation Links -->
-        <ul class="flex flex-col gap-6 list-none m-0 p-0 w-full items-center">
-          <li class="w-full flex justify-center"><a href={u.dayTours[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.dayTours}</a></li>
-          <li class="w-full flex justify-center"><a href={u.multidayTours[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.multidayTours}</a></li>
-          <li class="w-full flex justify-center"><a href={u.transfers[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.transfers}</a></li>
-          <li class="w-full flex justify-center"><a href={u.experiences[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.experiences}</a></li>
-          <li class="w-full flex justify-center"><a href={u.blog[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.blog}</a></li>
-          <li class="w-full flex justify-center"><a href={u.about[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.about}</a></li>
-          <li class="w-full flex justify-center"><a href={u.contact[currentLang]} class="text-white no-underline font-light text-lg lg:text-xl tracking-wider py-4 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.contact}</a></li>
+        <ul class="flex flex-col gap-2 list-none m-0 p-0 w-full items-center">
+          <li class="w-full flex justify-center"><a href={u.dayTours[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.dayTours}</a></li>
+          <li class="w-full flex justify-center"><a href={u.multidayTours[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.multidayTours}</a></li>
+          <li class="w-full flex justify-center"><a href={u.transfers[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.transfers}</a></li>
+          <li class="w-full flex justify-center"><a href={u.experiences[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.experiences}</a></li>
+          <li class="w-full flex justify-center"><a href={u.blog[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.blog}</a></li>
+          <li class="w-full flex justify-center"><a href={u.about[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.about}</a></li>
+          <li class="w-full flex justify-center"><a href={u.contact[currentLang]} class="text-white no-underline font-light text-base tracking-wider py-3 border-b border-white/10 transition-all duration-300 w-4/5 text-center hover:text-white/70 hover:scale-105">{t.nav.contact}</a></li>
         </ul>
 
         <!-- Mobile Search Button -->
         <button
           data-search-trigger
           onclick="openSearchOverlay(); document.getElementById('mobileOverlay').classList.remove('active'); document.getElementById('mobileMenu').classList.remove('active'); document.body.style.overflow = '';"
-          class="flex items-center justify-center gap-3 w-4/5 py-4 text-white font-light text-lg tracking-wide border-b border-white/10 transition-all duration-300 hover:text-white/70"
+          class="flex items-center justify-center gap-3 w-4/5 py-3 text-white font-light text-base tracking-wide border-b border-white/10 transition-all duration-300 hover:text-white/70"
           aria-label={currentLang === 'en' ? 'Search' : 'Rechercher'}
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,11 +115,11 @@ const u = urls;
         </button>
 
         <!-- Mobile Language Switcher -->
-        <div class="flex justify-center w-full py-4 border-t border-white/10">
+        <div class="flex justify-center w-full py-3 border-t border-white/10">
           {currentLang === 'en' ? (
-            <a href={altLangUrl} class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.french}</a>
+            <a href={altLangUrl} class="text-white no-underline font-light text-sm tracking-wide inline-block py-2 px-5 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.french}</a>
           ) : (
-            <a href={altLangUrl} class="text-white no-underline font-light text-base lg:text-lg tracking-wide inline-block py-3 px-6 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.english}</a>
+            <a href={altLangUrl} class="text-white no-underline font-light text-sm tracking-wide inline-block py-2 px-5 border border-white/30 rounded-sm transition-all duration-300 hover:border-white hover:bg-white/10">{t.lang.english}</a>
           )}
         </div>
 
@@ -186,14 +186,15 @@ const u = urls;
   /* Responsive adjustments for mobile menu */
   @media (max-width: 480px) {
     .mobile-menu {
-      width: 90vw !important;
-      padding: 2rem !important;
-      margin-inline: auto;
+      width: 100vw !important;
+      padding-top: 3.5rem !important;
+      padding-bottom: 1rem !important;
+      padding-inline: 1rem !important;
     }
 
     .close-button {
-      top: 1.5rem !important;
-      right: 1.5rem !important;
+      top: 0.75rem !important;
+      right: 0.75rem !important;
     }
   }
 </style>

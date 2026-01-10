@@ -174,6 +174,27 @@ const searchUrl = urls.search[currentLang];
     const resultsPreview = document.getElementById('overlay-search-results');
     const searchHint = document.getElementById('overlay-search-hint');
 
+    // Icelandic character normalization
+    const icelandicToAscii = {
+      'á': 'a', 'ð': 'd', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ý': 'y',
+      'þ': 'th', 'æ': 'ae', 'ö': 'o',
+      'Á': 'A', 'Ð': 'D', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U', 'Ý': 'Y',
+      'Þ': 'Th', 'Æ': 'Ae', 'Ö': 'O'
+    };
+
+    function normalizeIcelandic(text) {
+      if (!text) return '';
+      let result = text;
+      for (const [icelandic, ascii] of Object.entries(icelandicToAscii)) {
+        result = result.split(icelandic).join(ascii);
+      }
+      return result;
+    }
+
+    function normalizeForSearch(text) {
+      return normalizeIcelandic(text).toLowerCase();
+    }
+
     const translations = {
       en: {
         tour: 'Day Tour',
@@ -221,11 +242,15 @@ const searchUrl = urls.search[currentLang];
     // Initialize Fuse with the search index
     function initializeFuse() {
       if (searchIndex && FuseClass && !fuse) {
+        // Include both original and normalized fields for Icelandic character support
         fuse = new FuseClass(searchIndex, {
           keys: [
-            { name: 'title', weight: 0.4 },
-            { name: 'description', weight: 0.3 },
-            { name: 'content', weight: 0.3 }
+            { name: 'title', weight: 0.2 },
+            { name: 'description', weight: 0.15 },
+            { name: 'content', weight: 0.15 },
+            { name: 'titleNorm', weight: 0.2 },
+            { name: 'descNorm', weight: 0.15 },
+            { name: 'contentNorm', weight: 0.15 }
           ],
           threshold: 0.4,
           ignoreLocation: true,
@@ -336,10 +361,20 @@ const searchUrl = urls.search[currentLang];
     // Pending query to retry after loading
     let pendingQuery = null;
 
-    // Check if all query words are present in the item
+    // Check if all query words are present in the item (supports Icelandic characters)
     function matchesAllWords(item, queryWords) {
-      const searchableText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
-      return queryWords.every(word => searchableText.includes(word));
+      // Check both original and normalized text
+      const originalText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
+      const normalizedText = `${item.titleNorm || ''} ${item.descNorm || ''} ${item.contentNorm || ''}`;
+
+      return queryWords.every(word => {
+        const normalizedWord = normalizeForSearch(word);
+        // Match if word is found in either original or normalized text
+        return originalText.includes(word) ||
+               originalText.includes(normalizedWord) ||
+               normalizedText.includes(word) ||
+               normalizedText.includes(normalizedWord);
+      });
     }
 
     // Escape HTML to prevent XSS attacks
@@ -370,9 +405,23 @@ const searchUrl = urls.search[currentLang];
       // Get query words for phrase matching
       const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
 
-      // Get Fuse results and filter to ensure all words match
+      // Search with both original query and normalized query for better Icelandic support
+      const normalizedQuery = normalizeForSearch(query);
       const allResults = fuse.search(query, { limit: 20 });
-      const results = allResults.filter(r => matchesAllWords(r.item, queryWords)).slice(0, 8);
+      const normalizedResults = query.toLowerCase() !== normalizedQuery ? fuse.search(normalizedQuery, { limit: 20 }) : [];
+
+      // Combine and deduplicate results
+      const seenIds = new Set();
+      const combinedResults = [];
+
+      [...allResults, ...normalizedResults].forEach(r => {
+        if (!seenIds.has(r.item.id)) {
+          seenIds.add(r.item.id);
+          combinedResults.push(r);
+        }
+      });
+
+      const results = combinedResults.filter(r => matchesAllWords(r.item, queryWords)).slice(0, 8);
 
       if (results.length === 0) {
         resultsPreview.innerHTML = `

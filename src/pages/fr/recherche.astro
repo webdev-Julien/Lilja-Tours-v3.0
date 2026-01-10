@@ -12,6 +12,7 @@ import ExperienceCard from "../../components/ExperienceCard.astro"
 import BlogCard from "../../components/BlogCard.astro"
 import { getCollection } from 'astro:content';
 import { translations, urls } from '../../i18n/translations';
+import { normalizeForSearch } from '../../utils/icelandicNormalization';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -51,48 +52,89 @@ function formatPrice(price: number): string {
   return new Intl.NumberFormat('fr-FR').format(price);
 }
 
-// Generate search index
+// Generate search index with normalized fields for Icelandic character support
 const searchIndex = [
-  ...dayTours.map(tour => ({
-    id: `tour-${tour.slug}`,
-    type: 'tour',
-    title: tour.data.title,
-    description: tour.data.metaDescription,
-    content: stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' ')),
-    url: tour.data.url
-  })),
-  ...multidayTours.map(tour => ({
-    id: `multiday-${tour.slug}`,
-    type: 'multiday',
-    title: tour.data.title,
-    description: tour.data.metaDescription,
-    content: stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' ')),
-    url: tour.data.url
-  })),
-  ...experiences.map(exp => ({
-    id: `experience-${exp.slug}`,
-    type: 'experience',
-    title: exp.data.title,
-    description: exp.data.metaDescription,
-    content: stripAndLimit(exp.data.introductoryText + ' ' + exp.data.highlights.join(' ')),
-    url: exp.data.url
-  })),
-  ...blogArticles.map(article => ({
-    id: `blog-${article.slug}`,
-    type: 'blog',
-    title: article.data.title,
-    description: article.data.metaDescription,
-    content: stripAndLimit(article.data.excerpt),
-    url: `/fr/blog/${article.slug}/`
-  })),
-  ...transfers.map(transfer => ({
-    id: `transfer-${transfer.slug}`,
-    type: 'transfer',
-    title: transfer.data.title,
-    description: transfer.data.metaDescription,
-    content: stripAndLimit(transfer.data.introductoryText + ' ' + transfer.data.cardText),
-    url: transfer.data.url
-  }))
+  ...dayTours.map(tour => {
+    const title = tour.data.title;
+    const description = tour.data.metaDescription;
+    const content = stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' '));
+    return {
+      id: `tour-${tour.slug}`,
+      type: 'tour',
+      title,
+      description,
+      content,
+      url: tour.data.url,
+      // Normalized fields for Icelandic character search
+      titleNorm: normalizeForSearch(title),
+      descNorm: normalizeForSearch(description),
+      contentNorm: normalizeForSearch(content)
+    };
+  }),
+  ...multidayTours.map(tour => {
+    const title = tour.data.title;
+    const description = tour.data.metaDescription;
+    const content = stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' '));
+    return {
+      id: `multiday-${tour.slug}`,
+      type: 'multiday',
+      title,
+      description,
+      content,
+      url: tour.data.url,
+      titleNorm: normalizeForSearch(title),
+      descNorm: normalizeForSearch(description),
+      contentNorm: normalizeForSearch(content)
+    };
+  }),
+  ...experiences.map(exp => {
+    const title = exp.data.title;
+    const description = exp.data.metaDescription;
+    const content = stripAndLimit(exp.data.introductoryText + ' ' + exp.data.highlights.join(' '));
+    return {
+      id: `experience-${exp.slug}`,
+      type: 'experience',
+      title,
+      description,
+      content,
+      url: exp.data.url,
+      titleNorm: normalizeForSearch(title),
+      descNorm: normalizeForSearch(description),
+      contentNorm: normalizeForSearch(content)
+    };
+  }),
+  ...blogArticles.map(article => {
+    const title = article.data.title;
+    const description = article.data.metaDescription;
+    const content = stripAndLimit(article.data.excerpt);
+    return {
+      id: `blog-${article.slug}`,
+      type: 'blog',
+      title,
+      description,
+      content,
+      url: `/fr/blog/${article.slug}/`,
+      titleNorm: normalizeForSearch(title),
+      descNorm: normalizeForSearch(description),
+      contentNorm: normalizeForSearch(content)
+    };
+  }),
+  ...transfers.map(transfer => {
+    const title = transfer.data.title;
+    const description = transfer.data.metaDescription;
+    const content = stripAndLimit(transfer.data.introductoryText + ' ' + transfer.data.cardText);
+    return {
+      id: `transfer-${transfer.slug}`,
+      type: 'transfer',
+      title,
+      description,
+      content,
+      url: transfer.data.url,
+      titleNorm: normalizeForSearch(title),
+      descNorm: normalizeForSearch(description),
+      contentNorm: normalizeForSearch(content)
+    };
+  })
 ];
 
 // Write search index to both public and dist folders at build time
@@ -449,6 +491,27 @@ const fallbackArticles = blogArticles.slice(0, 3);
         const sectionFallback = document.getElementById('section-fallback');
         const allCards = document.querySelectorAll('.search-card');
 
+        // Icelandic character normalization
+        const icelandicToAscii: Record<string, string> = {
+          'á': 'a', 'ð': 'd', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ý': 'y',
+          'þ': 'th', 'æ': 'ae', 'ö': 'o',
+          'Á': 'A', 'Ð': 'D', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U', 'Ý': 'Y',
+          'Þ': 'Th', 'Æ': 'Ae', 'Ö': 'O'
+        };
+
+        function normalizeIcelandic(text: string): string {
+          if (!text) return '';
+          let result = text;
+          for (const [icelandic, ascii] of Object.entries(icelandicToAscii)) {
+            result = result.split(icelandic).join(ascii);
+          }
+          return result;
+        }
+
+        function normalizeForSearch(text: string): string {
+          return normalizeIcelandic(text).toLowerCase();
+        }
+
         // French translations
         const t = {
           resultsFor: 'Résultats pour',
@@ -504,11 +567,15 @@ const fallbackArticles = blogArticles.slice(0, 3);
             searchIndex = await response.json();
             console.log('[SearchPageFR] Index loaded, items:', searchIndex.length);
             if (FuseClass) {
+              // Include both original and normalized fields for Icelandic character support
               fuse = new FuseClass(searchIndex, {
                 keys: [
-                  { name: 'title', weight: 0.4 },
-                  { name: 'description', weight: 0.3 },
-                  { name: 'content', weight: 0.3 }
+                  { name: 'title', weight: 0.2 },
+                  { name: 'description', weight: 0.15 },
+                  { name: 'content', weight: 0.15 },
+                  { name: 'titleNorm', weight: 0.2 },
+                  { name: 'descNorm', weight: 0.15 },
+                  { name: 'contentNorm', weight: 0.15 }
                 ],
                 threshold: 0.4,
                 ignoreLocation: true,
@@ -568,10 +635,20 @@ const fallbackArticles = blogArticles.slice(0, 3);
           if (sectionTransfers) sectionTransfers.classList.toggle('hidden', typeCounts.transfer === 0);
         }
 
-        // Check if all query words are present in the item
+        // Check if all query words are present in the item (supports Icelandic characters)
         function matchesAllWords(item: any, queryWords: string[]): boolean {
-          const searchableText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
-          return queryWords.every(word => searchableText.includes(word));
+          // Check both original and normalized text
+          const originalText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
+          const normalizedText = `${item.titleNorm || ''} ${item.descNorm || ''} ${item.contentNorm || ''}`;
+
+          return queryWords.every(word => {
+            const normalizedWord = normalizeForSearch(word);
+            // Match if word is found in either original or normalized text
+            return originalText.includes(word) ||
+                   originalText.includes(normalizedWord) ||
+                   normalizedText.includes(word) ||
+                   normalizedText.includes(normalizedWord);
+          });
         }
 
         // Escape HTML to prevent XSS attacks
@@ -603,12 +680,26 @@ const fallbackArticles = blogArticles.slice(0, 3);
             return;
           }
 
-          // Get query words for phrase matching
+          // Get query words for phrase matching (both original and normalized)
           const queryWords = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 1);
 
-          // Get Fuse results and filter to ensure all words match
+          // Search with both original query and normalized query for better Icelandic support
+          const normalizedQuery = normalizeForSearch(searchQuery);
           const results = fuse.search(searchQuery);
-          const filteredResults = results.filter((r: any) => matchesAllWords(r.item, queryWords));
+          const normalizedResults = searchQuery !== normalizedQuery ? fuse.search(normalizedQuery) : [];
+
+          // Combine and deduplicate results
+          const seenIds = new Set<string>();
+          const combinedResults: any[] = [];
+
+          [...results, ...normalizedResults].forEach((r: any) => {
+            if (!seenIds.has(r.item.id)) {
+              seenIds.add(r.item.id);
+              combinedResults.push(r);
+            }
+          });
+
+          const filteredResults = combinedResults.filter((r: any) => matchesAllWords(r.item, queryWords));
           const matchingIds = filteredResults.map((r: any) => r.item.id);
           const totalResults = matchingIds.length;
 
