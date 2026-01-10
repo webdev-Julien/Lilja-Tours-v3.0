@@ -13,14 +13,14 @@
 
 
 
-https://www.lilja-tours.com/transfers-iceland/reykjavik-to-vik/
-https://www.lilja-tours.com/transfers-iceland/vik-to-reykjavik/
-https://www.lilja-tours.com/transfers-iceland/reykjavik-to-kerlingarfjoll/
-https://www.lilja-tours.com/transfers-iceland/kerlingarfjoll-to-reykjavik/
-https://www.lilja-tours.com/transfers-iceland/reykjavik-to-ion-adventure-hotel/
-https://www.lilja-tours.com/transfers-iceland/ion-adventure-hotel-to-reykjavik/
-https://www.lilja-tours.com/transfers-iceland/keflavik-airport-to-ion-adventure-hotel/
-https://www.lilja-tours.com/transfers-iceland/ion-adventure-hotel-to-keflavik-airport/
+
+
+
+
+
+
+
+
 ```
 
 ## Blog Articles (Updated)
@@ -33,15 +33,15 @@ https://www.lilja-tours.com/transfers-iceland/ion-adventure-hotel-to-keflavik-ai
 ## French Transfer Pages
 
 ```
-https://www.lilja-tours.com/fr/transferts-islande/aeroport-keflavik-vers-reykjavik/
-https://www.lilja-tours.com/fr/transferts-islande/reykjavik-vers-aeroport-keflavik/
-https://www.lilja-tours.com/fr/transferts-islande/aeroport-keflavik-blue-lagoon-reykjavik/
-https://www.lilja-tours.com/fr/transferts-islande/reykjavik-blue-lagoon-aeroport-keflavik/
-https://www.lilja-tours.com/fr/transferts-islande/reykjavik-vers-hotel-ranga/
-https://www.lilja-tours.com/fr/transferts-islande/hotel-ranga-vers-reykjavik/
-https://www.lilja-tours.com/fr/transferts-islande/aeroport-keflavik-vers-hotel-ranga/
-https://www.lilja-tours.com/fr/transferts-islande/hotel-ranga-vers-aeroport-keflavik/
-https://www.lilja-tours.com/fr/transferts-islande/reykjavik-vers-fosshotel-glacier-lagoon/
+
+
+
+
+
+
+
+
+
 https://www.lilja-tours.com/fr/transferts-islande/fosshotel-glacier-lagoon-vers-reykjavik/
 https://www.lilja-tours.com/fr/transferts-islande/reykjavik-vers-hotel-jokulsarlon/
 https://www.lilja-tours.com/fr/transferts-islande/hotel-jokulsarlon-vers-reykjavik/
