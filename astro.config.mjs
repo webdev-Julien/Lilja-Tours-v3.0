@@ -15,6 +15,7 @@ import partytown from '@astrojs/partytown';
 export default defineConfig({
   output: 'static',
   site: 'https://www.lilja-tours.com',
+  trailingSlash: 'always',
 
   vite: {
     plugins: [tailwindcss()]
