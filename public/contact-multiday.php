@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validate required fields (using !isset or === '' to allow 0 values)
-    $requiredFields = ['firstName', 'lastName', 'email', 'phone', 'numPeople', 'numChildren', 'numDays', 'travelDates', 'accommodationType', 'budget'];
+    $requiredFields = ['firstName', 'lastName', 'email', 'phone', 'numPeople', 'numChildren', 'numDays', 'travelDates', 'accommodationType', 'budgetAmount', 'budgetCurrency'];
     foreach ($requiredFields as $field) {
         if (!isset($data[$field]) || $data[$field] === '') {
             http_response_code(400);
@@ -56,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $travelDates = htmlspecialchars(strip_tags($data['travelDates']));
     $interests = !empty($data['interests']) ? htmlspecialchars(strip_tags($data['interests'])) : 'Not specified';
     $accommodationType = htmlspecialchars(strip_tags($data['accommodationType']));
-    $budget = htmlspecialchars(strip_tags($data['budget']));
+    $budgetAmount = htmlspecialchars(strip_tags($data['budgetAmount']));
+    $budgetCurrency = htmlspecialchars(strip_tags($data['budgetCurrency']));
     $details = !empty($data['details']) ? htmlspecialchars(strip_tags($data['details'])) : 'No additional details provided';
 
     // Validate email format
@@ -82,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailBody .= "Travel Dates: " . $travelDates . "\n";
     $emailBody .= "Main Interests: " . $interests . "\n";
     $emailBody .= "Accommodation Type: " . $accommodationType . "\n";
-    $emailBody .= "Total Budget: " . number_format($budget) . " ISK\n\n";
+    $emailBody .= "Total Budget (Entire Group): " . number_format($budgetAmount) . " " . $budgetCurrency . "\n\n";
     $emailBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
     $emailBody .= "ADDITIONAL DETAILS\n\n";
     $emailBody .= $details . "\n\n";

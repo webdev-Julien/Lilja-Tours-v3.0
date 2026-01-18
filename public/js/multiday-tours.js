@@ -33,18 +33,6 @@ function initScrollAnimations() {
 	});
 }
 
-// Budget slider value update
-function initBudgetSlider() {
-	const budgetSlider = document.getElementById('budget');
-	const budgetValue = document.getElementById('budget-value');
-
-	if (budgetSlider && budgetValue) {
-		budgetSlider.addEventListener('input', (e) => {
-			const value = parseInt(e.target.value).toLocaleString();
-			budgetValue.textContent = value + ' Kr';
-		});
-	}
-}
 
 // Form submission handling
 function initMultidayForm() {
@@ -78,7 +66,8 @@ function initMultidayForm() {
 			travelDates: formData.get('travelDates'),
 			interests: interests.join(', ') || 'Not specified',
 			accommodationType: formData.get('accommodationType'),
-			budget: formData.get('budget'),
+			budgetAmount: formData.get('budgetAmount'),
+			budgetCurrency: formData.get('budgetCurrency'),
 			details: formData.get('details') || 'No additional details provided'
 		};
 
@@ -109,7 +98,6 @@ function initMultidayForm() {
 
 					// Reset form
 					form.reset();
-					document.getElementById('budget-value').textContent = '1,500,000 Kr';
 
 					// Scroll to message
 					formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -145,6 +133,5 @@ function initMultidayForm() {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
 	initScrollAnimations();
-	initBudgetSlider();
 	initMultidayForm();
 });
