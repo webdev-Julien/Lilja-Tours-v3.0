@@ -7,6 +7,8 @@ import Topbar from "../../../components/Topbar.astro";
 import FloatingBookButton from "../../../components/FloatingBookButton.astro";
 import TourBookingModal from "../../../components/TourBookingModal.astro";
 import ActivityFlipCard from "../../../components/ActivityFlipCard.astro";
+import OptimizedImage from "../../../components/OptimizedImage.astro";
+import { getOgImageUrl, getJsonLdImages } from "../../../utils/images";
 
 export async function getStaticPaths() {
   const tours = await getCollection('multiday_tours_FR');
@@ -30,6 +32,18 @@ try {
 } catch (error) {
   console.log('Currency API unavailable');
 }
+
+// Generate optimized image URLs
+const ogImagePath = data.featuredImage || data.headerImage?.srcPC;
+const ogImage = ogImagePath ? getOgImageUrl(ogImagePath) : null;
+
+// Transform JSON-LD images for production
+const transformedJsonLD = { ...data.jsonLD };
+if (transformedJsonLD.image) {
+  const originalImage = Array.isArray(transformedJsonLD.image) ? transformedJsonLD.image[0] : transformedJsonLD.image;
+  const imagePath = originalImage.replace('https://www.lilja-tours.com', '');
+  transformedJsonLD.image = getJsonLdImages(imagePath);
+}
 ---
 
 <html lang={data.language}>
@@ -45,9 +59,13 @@ try {
 
     <meta property="og:title" content={data.pageTitle} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={data.featuredImage} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
+    {ogImage && <meta property="og:image:type" content="image/jpeg" />}
     <meta property="og:url" content={data.canonicalUrl} />
     <meta property="og:description" content={data.metaDescription} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <title>{data.pageTitle}</title>
@@ -70,7 +88,7 @@ try {
 		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
 
     <style is:inline>
       /* Same styles as day tours */
@@ -105,10 +123,15 @@ try {
 
     <header class="relative w-full h-[65dvh] overflow-hidden">
       {data.headerImage && (
-        <picture class="absolute inset-0 w-full h-full">
-          {data.headerImage.srcMobile && (<source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />)}
-          <img src={data.headerImage.srcPC} alt={data.headerImage.alt || ''} class="w-full h-full object-cover object-center" />
-        </picture>
+        <div class="absolute inset-0 w-full h-full">
+          <OptimizedImage
+            src={data.headerImage.srcPC}
+            alt={data.headerImage.alt || ''}
+            sizes="100vw"
+            loading="eager"
+            class="w-full h-full object-cover object-center"
+          />
+        </div>
       )}
       <div class="absolute inset-0 bg-black/20 z-10"></div>
       <div class="relative z-20 h-full flex items-center justify-center">
@@ -199,20 +222,32 @@ try {
                 <div class="gallery-slide-group">
                   {data.gallery.map((image) => (
                     <div class="gallery-item">
-                      <picture class="block aspect-square overflow-hidden rounded-sm">
-                        {image.srcMobile && (<source media="(max-width: 767px)" srcset={image.srcMobile} />)}
-                        <img src={image.srcPC} alt={image.alt || ''} class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300" />
-                      </picture>
+                      <div class="block aspect-square overflow-hidden rounded-sm">
+                        <OptimizedImage
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          sizes="375px"
+                          widths={[375, 750]}
+                          loading="lazy"
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
                 <div class="gallery-slide-group">
                   {data.gallery.map((image) => (
                     <div class="gallery-item">
-                      <picture class="block aspect-square overflow-hidden rounded-sm">
-                        {image.srcMobile && (<source media="(max-width: 767px)" srcset={image.srcMobile} />)}
-                        <img src={image.srcPC} alt={image.alt || ''} class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300" />
-                      </picture>
+                      <div class="block aspect-square overflow-hidden rounded-sm">
+                        <OptimizedImage
+                          src={image.srcPC}
+                          alt={image.alt || ''}
+                          sizes="375px"
+                          widths={[375, 750]}
+                          loading="lazy"
+                          class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -260,16 +295,15 @@ try {
                       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div class="lg:order-2">
                           {day.image && (
-                            <picture class="block aspect-square overflow-hidden rounded-sm">
-                              {day.image.srcMobile && (
-                                <source media="(max-width: 767px)" srcset={day.image.srcMobile} />
-                              )}
-                              <img
+                            <div class="block aspect-square overflow-hidden rounded-sm">
+                              <OptimizedImage
                                 src={day.image.srcPC}
                                 alt={day.image.alt || ''}
+                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                loading="lazy"
                                 class="w-full h-full object-cover object-center"
                               />
-                            </picture>
+                            </div>
                           )}
                         </div>
                         <div class="lg:order-1">

@@ -2,6 +2,11 @@
 import "../../src/styles/global.css"
 import Topbar from "../components/Topbar.astro"
 import Footer from "../components/Footer.astro"
+import { getOgImageUrl, getBackgroundImageUrl } from '../utils/images';
+
+const ogImage = getOgImageUrl('/pictures/headers/northern-lights-header-pc.webp');
+const headerBgDesktop = getBackgroundImageUrl('/pictures/headers/northern-lights-header-pc.webp', 1920);
+const headerBgMobile = getBackgroundImageUrl('/pictures/headers/northern-lights-header-mobile.webp', 768);
 ---
 
 <html lang="en">
@@ -13,7 +18,8 @@ import Footer from "../components/Footer.astro"
 
 		<meta property="og:title" content="Page Not Found - Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/pictures/headers/northern-lights-header-pc.webp">
+		<meta property="og:image" content={ogImage}>
+		<meta property="og:image:type" content="image/jpeg">
 		<meta property="og:url" content="https://www.lilja-tours.com/404/">
 
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -86,7 +92,7 @@ import Footer from "../components/Footer.astro"
 			/* Desktop background */
 			@media (min-width: 768px) {
 				.image-header {
-					background-image: url('/pictures/headers/northern-lights-header-pc.webp');
+					background-image: var(--bg-desktop);
 					background-attachment: fixed;
 				}
 			}
@@ -94,7 +100,7 @@ import Footer from "../components/Footer.astro"
 			/* Mobile background */
 			@media (max-width: 767px) {
 				.image-header {
-					background-image: url('/pictures/headers/northern-lights-header-mobile.webp');
+					background-image: var(--bg-mobile);
 					background-attachment: scroll;
 				}
 			}
@@ -172,7 +178,7 @@ import Footer from "../components/Footer.astro"
 	</head>
 	<body>
 		<!-- Image Header Section -->
-		<header class="image-header min-h-screen flex items-center justify-center relative">
+		<header class="image-header min-h-screen flex items-center justify-center relative" style={`--bg-desktop: url('${headerBgDesktop}'); --bg-mobile: url('${headerBgMobile}')`}>
 			<Topbar frenchUrl="#" currentLang="en" />
 			<div class="image-overlay"></div>
 			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">

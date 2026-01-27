@@ -4,6 +4,7 @@ import Topbar from "../../components/Topbar.astro"
 import BlogCard from "../../components/BlogCard.astro"
 import Footer from "../../components/Footer.astro"
 import { getCollection } from 'astro:content';
+import { getOgImageUrl } from '../../utils/images';
 
 // Get all blog articles from the collection
 const allArticles = await getCollection('blog_articles_EN');
@@ -12,6 +13,8 @@ const allArticles = await getCollection('blog_articles_EN');
 const sortedArticles = allArticles.sort((a, b) =>
   new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
+
+const ogImage = getOgImageUrl('/videos/blog-bg.webp');
 ---
 
 <html lang="en">
@@ -25,7 +28,8 @@ const sortedArticles = allArticles.sort((a, b) =>
 
 		<meta property="og:title" content="All Articles - Iceland Travel Blog | Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/videos/blog-bg.webp">
+		<meta property="og:image" content={ogImage}>
+		<meta property="og:image:type" content="image/jpeg">
 		<meta property="og:url" content="https://www.lilja-tours.com/blog/all-articles/">
 		<meta property="og:description" content="Browse all Iceland travel articles from Lilja Tours. Complete collection of travel guides and stories.">
 

@@ -2,6 +2,8 @@
 // HomeHeader.astro
 import CTAButton from './CTAButton.astro';
 import Navigation from './Topbar.astro';
+import { getDisplayImageUrl } from '../utils/images';
+import OptimizedImage from './OptimizedImage.astro';
 
 export interface Props {
   frenchUrl?: string;
@@ -95,7 +97,7 @@ const {
         muted
         playsinline
         preload="metadata"
-        poster={video.poster}
+        poster={video.poster ? getDisplayImageUrl(video.poster, 1920) : undefined}
         data-video-index={index}
         autoplay={index === 0}
         aria-label={video.alt || `Iceland tour video ${index + 1}`}
@@ -136,7 +138,7 @@ const {
     ))}
     
     <!-- Fallback for browsers that don't support video -->
-    <img src={fallbackPoster} alt="Iceland landscape" class="absolute top-0 left-0 w-full h-full object-cover object-center z-0 hidden" />
+    <OptimizedImage src={fallbackPoster} alt="Iceland landscape" class="absolute top-0 left-0 w-full h-full object-cover object-center z-0 hidden" sizes="100vw" loading="eager" />
 
     <!-- Loading Indicator -->
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-sm opacity-80 z-[4] font-light tracking-wider" id="loadingText" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">

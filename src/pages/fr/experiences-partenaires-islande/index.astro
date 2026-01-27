@@ -2,10 +2,15 @@
 import "../../../styles/global.css"
 import Topbar from "../../../components/Topbar.astro"
 import Footer from "../../../components/Footer.astro"
+import OptimizedImage from "../../../components/OptimizedImage.astro"
+import { getOgImageUrl } from "../../../utils/images"
 import { getCollection } from 'astro:content';
 
 // Get all partner experiences from the collection
 const allExperiences = await getCollection('partner_experiences_FR');
+
+// Generate optimized OG image URL
+const ogImageUrl = getOgImageUrl("/videos/experiences-bg.webp");
 
 // Separate exclusive and regular experiences
 const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
@@ -37,14 +42,16 @@ const categories = [
 
 		<meta property="og:title" content="Expériences Partenaires en Islande | Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/videos/experiences-bg.webp">
+		<meta property="og:image" content={ogImageUrl}>
+		<meta property="og:image:type" content="image/jpeg">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:alt" content="Expériences partenaires en Islande avec Lilja Tours">
 		<meta property="og:url" content="https://www.lilja-tours.com/fr/experiences-partenaires-islande/">
 		<meta property="og:description" content="Découvrez des expériences exceptionnelles en Islande grâce à nos partenaires de confiance. Aventures exclusives et rencontres culturelles authentiques.">
 
 		<meta property="og:locale" content="fr_FR">
 		<meta property="og:locale:alternate" content="en_US">
-		<meta property="og:image:width" content="1200">
-		<meta property="og:image:height" content="630">
 
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="generator" content={Astro.generator} />
@@ -438,10 +445,11 @@ const categories = [
 						{exclusiveExperiences.map((experience, index) => (
 							<article class="experience-card-wrapper" data-index={index}>
 								<div class="experience-card">
-									<img
+									<OptimizedImage
 										src={experience.data.cardImg.srcPC}
 										alt={experience.data.cardImg.alt}
 										class="experience-card-bg"
+										sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
 									/>
 									<div class="experience-card-content">
 										<div class="max-w-3xl">
@@ -524,10 +532,11 @@ const categories = [
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 slide-up">
 						{categories.map((category) => (
 							<a href={`/fr/experiences-partenaires-islande/${category.slug}/`} class="category-card">
-								<img
+								<OptimizedImage
 									src={category.image}
 									alt={`Expériences ${category.name} en Islande`}
 									class="category-card-bg"
+									sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 								/>
 								<div class="category-card-content">
 									<h3 class="text-2xl md:text-3xl font-light tracking-wide text-white text-center px-4">{category.name}</h3>

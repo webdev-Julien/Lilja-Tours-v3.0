@@ -45,7 +45,9 @@
       "WebFetch(domain:mycar.is)",
       "WebFetch(domain:www.bluecarrental.is)",
       "Bash(cmd /c \"cd /d D:\\\\JULIEN\\\\09 - WEBSITES\\\\Lilja Tours v3.0\\\\public\\\\pictures\\\\blog\\\\articles\\\\_temp && move *.webp ..\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(grep:*)",
+      "Bash(npx astro:*)"
     ],
     "deny": [],
     "ask": []

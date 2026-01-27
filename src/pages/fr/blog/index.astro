@@ -3,9 +3,14 @@ import "../../../styles/global.css"
 import Topbar from "../../../components/Topbar.astro"
 import BlogCard from "../../../components/BlogCard.astro"
 import Footer from "../../../components/Footer.astro"
+import OptimizedImage from "../../../components/OptimizedImage.astro";
+import { getOgImageUrl } from "../../../utils/images";
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('blog_articles_FR');
+
+// Generate optimized OG image URL
+const ogImageUrl = getOgImageUrl("/videos/blog-bg.webp");
 const sortedArticles = allArticles.sort((a, b) =>
   new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
@@ -43,14 +48,15 @@ const categoriesWithArticles = categories.filter(cat =>
 
 		<meta property="og:title" content="Blog Voyage Islande | Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/videos/blog-bg.webp">
+		<meta property="og:image" content={ogImageUrl}>
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:type" content="image/jpeg">
 		<meta property="og:url" content="https://www.lilja-tours.com/fr/blog/">
 		<meta property="og:description" content="Explorez notre blog pour découvrir des conseils de voyage en Islande, des guides et des récits d'aventure.">
 
 		<meta property="og:locale" content="fr_FR">
 		<meta property="og:locale:alternate" content="en_US">
-		<meta property="og:image:width" content="1200">
-		<meta property="og:image:height" content="630">
 
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<title>Blog Voyage Islande | Lilja Tours</title>

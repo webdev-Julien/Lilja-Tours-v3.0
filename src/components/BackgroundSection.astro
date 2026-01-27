@@ -1,0 +1,28 @@
+---
+interface Props {
+  src: string;
+  class?: string;
+  width?: number;
+  quality?: number;
+}
+
+const {
+  src,
+  class: className = '',
+  width = 1920,
+  quality = 85
+} = Astro.props;
+
+const isDev = import.meta.env.DEV;
+
+const bgUrl = isDev
+  ? src
+  : `/cdn-cgi/image/width=${width},format=auto,quality=${quality},fit=cover${src}`;
+---
+
+<div
+  class={className}
+  style={`background-image: url('${bgUrl}'); background-size: cover; background-position: center;`}
+>
+  <slot />
+</div>

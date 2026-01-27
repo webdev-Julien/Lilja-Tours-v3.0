@@ -3,10 +3,14 @@ import "../../../src/styles/global.css"
 import Topbar from "../../components/Topbar.astro"
 import Footer from "../../components/Footer.astro"
 import { getCollection } from 'astro:content';
+import OptimizedImage from '../../components/OptimizedImage.astro';
+import { getOgImageUrl } from '../../utils/images';
 
 // Get all exclusive experiences from the collection
 const allExperiences = await getCollection('partner_experiences_EN');
 const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
+
+const ogImage = getOgImageUrl('/videos/experiences-bg.webp');
 ---
 
 <html lang="en">
@@ -20,7 +24,8 @@ const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
 
 		<meta property="og:title" content="Exclusive Experiences in Iceland | Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/videos/experiences-bg.webp">
+		<meta property="og:image" content={ogImage}>
+		<meta property="og:image:type" content="image/jpeg">
 		<meta property="og:url" content="https://www.lilja-tours.com/partner-experiences-iceland/exclusive/">
 		<meta property="og:description" content="Discover all our exclusive private experiences in Iceland. Premium adventures for discerning travelers.">
 
@@ -254,10 +259,12 @@ const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
 						{exclusiveExperiences.map((experience) => (
 							<article class="experience-card-wrapper">
 								<div class="experience-card">
-									<img
+									<OptimizedImage
 										src={experience.data.cardImg.srcPC}
 										alt={experience.data.cardImg.alt}
 										class="experience-card-bg"
+										sizes="100vw"
+										loading="lazy"
 									/>
 									<div class="experience-card-content">
 										<div class="max-w-3xl">

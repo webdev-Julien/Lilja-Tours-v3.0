@@ -4,6 +4,7 @@ import CTAButton from './CTAButton.astro';
 import SearchOverlay from './search/SearchOverlay.astro';
 import { translations, urls } from '../i18n/translations';
 import type { Language } from '../i18n/translations';
+import OptimizedImage from './OptimizedImage.astro';
 
 // Fuse.js is loaded via script tag in SearchOverlay
 
@@ -29,7 +30,7 @@ const u = urls;
     <!-- Logo -->
     <div class="absolute left-8 flex-shrink-0">
       <a href={u.home[currentLang]} class="block">
-        <img src="/logos/topbar-logo.webp" alt="Lilja Tours" class="h-15 w-auto brightness-0 invert" />
+        <OptimizedImage src="/logos/topbar-logo.webp" alt="Lilja Tours" class="h-15 w-auto brightness-0 invert" widths={[200, 400]} sizes="200px" loading="eager" />
       </a>
     </div>
 

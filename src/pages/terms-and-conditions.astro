@@ -2,6 +2,9 @@
 import "../../src/styles/global.css"
 import Topbar from "../components/Topbar.astro"
 import Footer from "../components/Footer.astro"
+import { getBackgroundImageUrl } from "../utils/images"
+
+const headerBgImage = getBackgroundImageUrl('/pictures/index/multiday-bg.webp', 1920);
 ---
 
 <html lang="en">
@@ -53,7 +56,6 @@ import Footer from "../components/Footer.astro"
 			.image-header {
 				position: relative;
 				overflow: hidden;
-				background-image: url('/pictures/index/multiday-bg.webp');
 				background-size: cover;
 				background-position: center;
 				background-attachment: fixed;
@@ -82,7 +84,7 @@ import Footer from "../components/Footer.astro"
 		</style>
 	</head>
 	<body>
-		<header class="image-header h-[50dvh] flex items-center justify-center relative">
+		<header class="image-header h-[50dvh] flex items-center justify-center relative" style={`background-image: url('${headerBgImage}')`}>
 			<Topbar frenchUrl="/fr/terms-and-conditions/" currentLang="en" />
 			<div class="image-overlay"></div>
 			<div class="image-content text-center max-w-4xl mx-auto px-8 slide-down visible mt-[70px]">

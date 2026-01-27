@@ -2,6 +2,8 @@
 import "../../../src/styles/global.css"
 import Topbar from "../../components/Topbar.astro"
 import Footer from "../../components/Footer.astro"
+import OptimizedImage from "../../components/OptimizedImage.astro"
+import { getOgImageUrl } from "../../utils/images"
 import { getCollection } from 'astro:content';
 
 // Get all transfers from the collection
@@ -24,6 +26,9 @@ function formatDuration(duration: string): string {
 function formatPrice(price: number): string {
 	return new Intl.NumberFormat('en-US').format(price);
 }
+
+// Generate optimized OG image URL
+const ogImageUrl = getOgImageUrl("/videos/tours-bg.webp");
 ---
 
 <html lang="en">
@@ -37,14 +42,17 @@ function formatPrice(price: number): string {
 
 		<meta property="og:title" content="Private Transfers in Iceland | Lilja Tours">
 		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://www.lilja-tours.com/videos/tours-bg.webp">
-		<meta property="og:url" content="https://www.lilja-tours.com/transfers-iceland/">
-		<meta property="og:description" content="Private transfer services in Iceland. Airport transfers, hotel transfers, and custom chauffeur services with premium vehicles and professional drivers.">
-
-		<meta property="og:locale" content="en_US">
-		<meta property="og:locale:alternate" content="fr_FR">
+		<meta property="og:image" content={ogImageUrl}>
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
+		<meta property="og:image:type" content="image/jpeg">
+		<meta property="og:url" content="https://www.lilja-tours.com/transfers-iceland/">
+		<meta property="og:description" content="Private transfer services in Iceland. Airport transfers, hotel transfers, and custom chauffeur services with premium vehicles and professional drivers.">
+		<meta property="og:locale" content="en_US">
+		<meta property="og:locale:alternate" content="fr_FR">
+
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content={ogImageUrl}>
 
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="generator" content={Astro.generator} />
@@ -207,11 +215,13 @@ function formatPrice(price: number): string {
 										data-title={transfer.data.title.toLowerCase()}
 										data-text={transfer.data.cardText.toLowerCase()}
 									>
-										<img
+										<OptimizedImage
 											src={transfer.data.cardImg.src}
 											alt={transfer.data.cardImg.alt}
 											class="w-full h-48 object-cover"
-										/>
+											widths={[400, 640, 800]}
+											sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+									/>
 										<div class="p-6 flex flex-col flex-1">
 											<h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>
 											<div class="flex items-center gap-2 text-sm text-gray-500 mb-3">

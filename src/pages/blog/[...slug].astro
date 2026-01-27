@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import Footer from "../../components/Footer.astro";
 import Topbar from "../../components/Topbar.astro";
 import BlogCard from "../../components/BlogCard.astro";
+import OptimizedImage from "../../components/OptimizedImage.astro";
+import { getOgImageUrl, getJsonLdImages } from "../../utils/images";
 
 export async function getStaticPaths() {
   const articles = await getCollection('blog_articles_EN');
@@ -42,6 +44,16 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
 function categoryToSlug(category: string): string {
   return category.toLowerCase().replace(/\s+/g, '-');
 }
+
+// Generate optimized image URLs for OG and JSON-LD
+const ogImageUrl = getOgImageUrl(data.featuredImage);
+const jsonLdImages = getJsonLdImages(data.featuredImage);
+
+// Transform JSON-LD with optimized images
+const transformedJsonLD = {
+  ...data.jsonLD,
+  image: jsonLdImages
+};
 ---
 
 <html lang={data.language}>
@@ -57,9 +69,14 @@ function categoryToSlug(category: string): string {
 
     <meta property="og:title" content={data.pageTitle} />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content={data.featuredImage} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:url" content={data.canonicalUrl} />
     <meta property="og:description" content={data.metaDescription} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <meta name="generator" content={Astro.generator} />
@@ -72,7 +89,7 @@ function categoryToSlug(category: string): string {
 		<!-- TrustIndex Rich Snippet -->
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
 
     <style is:inline>
       /* Scroll Animation Classes */
@@ -243,16 +260,38 @@ function categoryToSlug(category: string): string {
 
     <!-- Hero Header -->
     <header class="relative h-[60dvh] min-h-[500px] flex items-center justify-center overflow-hidden">
-      <picture class="absolute inset-0 w-full h-full">
-        {data.headerImage.srcMobile && (
-          <source media="(max-width: 767px)" srcset={data.headerImage.srcMobile} />
+      <div class="absolute inset-0 w-full h-full">
+        {data.headerImage.srcMobile ? (
+          <>
+            <div class="block md:hidden w-full h-full">
+              <OptimizedImage
+                src={data.headerImage.srcMobile}
+                alt={data.headerImage.alt || ''}
+                class="w-full h-full object-cover object-center"
+                sizes="100vw"
+                loading="eager"
+              />
+            </div>
+            <div class="hidden md:block w-full h-full">
+              <OptimizedImage
+                src={data.headerImage.srcPC}
+                alt={data.headerImage.alt || ''}
+                class="w-full h-full object-cover object-center"
+                sizes="100vw"
+                loading="eager"
+              />
+            </div>
+          </>
+        ) : (
+          <OptimizedImage
+            src={data.headerImage.srcPC}
+            alt={data.headerImage.alt || ''}
+            class="w-full h-full object-cover object-center"
+            sizes="100vw"
+            loading="eager"
+          />
         )}
-        <img
-          src={data.headerImage.srcPC}
-          alt={data.headerImage.alt || ''}
-          class="w-full h-full object-cover object-center"
-        />
-      </picture>
+      </div>
 
       <!-- Dark overlay for better text readability -->
       <div class="absolute inset-0 bg-black/40 z-10"></div>

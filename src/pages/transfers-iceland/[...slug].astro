@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import Footer from "../../components/Footer.astro";
 import Topbar from "../../components/Topbar.astro";
 import ItineraryCard from "../../components/ItineraryCard.astro";
+import OptimizedImage from "../../components/OptimizedImage.astro";
+import { getOgImageUrl, getJsonLdImages } from "../../utils/images";
 
 export async function getStaticPaths() {
   const transfers = await getCollection('transfers_EN');
@@ -69,6 +71,18 @@ function formatDuration(duration: string): string {
   }
   return duration;
 }
+
+// Generate optimized image URLs
+const ogImagePath = data.ogImage || data.headerImg?.srcPC;
+const ogImage = ogImagePath ? getOgImageUrl(ogImagePath) : null;
+
+// Transform JSON-LD images for production
+const transformedJsonLD = { ...data.jsonLD };
+if (transformedJsonLD.image) {
+  const originalImage = Array.isArray(transformedJsonLD.image) ? transformedJsonLD.image[0] : transformedJsonLD.image;
+  const imagePath = originalImage.replace('https://www.lilja-tours.com', '');
+  transformedJsonLD.image = getJsonLdImages(imagePath);
+}
 ---
 
 <html lang={data.language}>
@@ -84,7 +98,15 @@ function formatDuration(duration: string): string {
 
     <meta property="og:title" content={data.pageTitle} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={data.ogImage || data.headerImg.src} />
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta name="twitter:image" content={ogImage} />
+      </>
+    )}
     <meta property="og:url" content={data.canonicalUrl} />
     <meta property="og:description" content={data.metaDescription} />
 
@@ -111,7 +133,7 @@ function formatDuration(duration: string): string {
       gtag('config', 'G-48C94854K2');
     </script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(data.jsonLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
 
     <style is:inline>
       /* Scroll Animation Classes */
@@ -288,14 +310,15 @@ function formatDuration(duration: string): string {
 
     <!-- Header Section with Background Image -->
     <header class="relative w-full h-[65dvh] overflow-hidden">
-      <picture class="absolute inset-0 w-full h-full">
-        <source media="(max-width: 767px)" srcset={data.headerImg.srcMobile} />
-        <img
+      <div class="absolute inset-0 w-full h-full">
+        <OptimizedImage
           src={data.headerImg.srcPC}
           alt={data.headerImg.alt}
           class="w-full h-full object-cover object-center"
+          sizes="100vw"
+          loading="eager"
         />
-      </picture>
+      </div>
 
       <!-- Dark overlay for better text readability-->
       <div class="absolute inset-0 bg-black/30 z-10"></div>

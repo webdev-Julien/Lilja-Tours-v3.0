@@ -6,6 +6,7 @@
 import "../styles/global.css"
 import Topbar from "../components/Topbar.astro"
 import Footer from "../components/Footer.astro"
+import OptimizedImage from '../components/OptimizedImage.astro'
 import ItineraryCard from "../components/ItineraryCard.astro"
 import MultidayItineraryCard from "../components/MultidayItineraryCard.astro"
 import ExperienceCard from "../components/ExperienceCard.astro"
@@ -207,15 +208,13 @@ const fallbackArticles = blogArticles.slice(0, 3);
       <Topbar frenchUrl="/fr/recherche/" currentLang="en" />
 
       <!-- Background Image -->
-      <picture class="absolute inset-0 w-full h-full">
-        <source media="(max-width: 767px)" srcset="/pictures/headers/search-page-header-mobile.webp">
-        <source media="(min-width: 768px)" srcset="/pictures/headers/search-page-header-pc.webp">
-        <img
-          src="/pictures/headers/search-page-header-pc.webp"
-          alt="Search Iceland Tours"
-          class="w-full h-full object-cover"
-        />
-      </picture>
+      <OptimizedImage
+        src="/pictures/headers/search-page-header-pc.webp"
+        alt="Search Iceland Tours"
+        class="absolute inset-0 w-full h-full object-cover"
+        sizes="100vw"
+        loading="eager"
+      />
 
       <!-- Overlay -->
       <div class="absolute inset-0 bg-black/40"></div>
@@ -363,10 +362,12 @@ const fallbackArticles = blogArticles.slice(0, 3);
             {transfers.map((transfer) => (
               <div class="search-card" data-search-id={`transfer-${transfer.slug}`} data-type="transfer">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-                  <img
+                  <OptimizedImage
                     src={transfer.data.cardImg.src}
                     alt={transfer.data.cardImg.alt}
                     class="w-full h-48 object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
                   />
                   <div class="p-6 flex flex-col flex-1">
                     <h3 class="text-xl font-medium text-gray-900 mb-2">{transfer.data.title}</h3>

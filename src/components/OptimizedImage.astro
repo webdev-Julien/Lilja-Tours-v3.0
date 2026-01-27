@@ -1,0 +1,45 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  quality?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const {
+  src,
+  alt,
+  sizes = '100vw',
+  widths = [640, 1280, 1920, 2400],
+  quality = 85,
+  class: className = '',
+  loading = 'lazy'
+} = Astro.props;
+
+const isDev = import.meta.env.DEV;
+
+const baseParams = `format=auto,quality=${quality},fit=scale-down,metadata=none`;
+
+const srcset = isDev
+  ? undefined
+  : widths
+      .map(w => `/cdn-cgi/image/width=${w},${baseParams}${src} ${w}w`)
+      .join(', ');
+
+const imageSrc = isDev
+  ? src
+  : `/cdn-cgi/image/width=${widths[widths.length - 2]},${baseParams}${src}`;
+---
+
+<img
+  src={imageSrc}
+  srcset={srcset}
+  sizes={isDev ? undefined : sizes}
+  alt={alt}
+  class={className}
+  loading={loading}
+  decoding="async"
+/>

@@ -1,4 +1,6 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+
 export interface Props {
   name: string;
   description: string;
@@ -23,7 +25,7 @@ const t = translations[currentLang];
     <div class="flip-card-inner">
       <!-- Front -->
       <div class="flip-card-front">
-        <img src={image} alt={alt} class="flip-card-bg-image" />
+        <OptimizedImage src={image} alt={alt} class="flip-card-bg-image" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" loading="lazy" />
         <div class="flip-card-overlay"></div>
         <div class="flip-card-content">
           <span class="day-badge">{t.day} {day}</span>
