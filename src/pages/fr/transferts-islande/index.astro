@@ -279,10 +279,7 @@ const ogImageUrl = getOgImageUrl("/videos/tours-bg.webp");
 					<form
 						id="transferForm"
 						class="bg-gray-50 rounded-lg p-8 shadow-sm"
-						action="https://formspree.io/f/xvgopbzp"
-						method="POST"
 					>
-						<input type="hidden" name="_subject" value="Nouvelle Demande de Transfert - Lilja Tours" />
 
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 							<!-- Departure Place -->
@@ -464,10 +461,14 @@ const ogImageUrl = getOgImageUrl("/videos/tours-bg.webp");
 							</div>
 						</div>
 
+						<!-- Form Message -->
+						<div id="transfer-form-message" class="hidden p-4 rounded-sm text-sm mb-6"></div>
+
 						<!-- Submit Button -->
 						<div class="text-center">
 							<button
 								type="submit"
+								id="transfer-submit-btn"
 								class="inline-flex items-center gap-2 py-3 px-8 bg-[#5b7297] text-white rounded-sm font-medium text-base transition-all duration-300 hover:bg-[#4a6180]"
 							>
 								Envoyer la demande
@@ -526,6 +527,76 @@ const ogImageUrl = getOgImageUrl("/videos/tours-bg.webp");
 						childrenAgeSection?.classList.add('hidden');
 					}
 				});
+
+				// Transfer form submission
+				const transferForm = document.getElementById('transferForm') as HTMLFormElement;
+				const submitBtn = document.getElementById('transfer-submit-btn') as HTMLButtonElement;
+				const formMessage = document.getElementById('transfer-form-message') as HTMLDivElement;
+
+				if (transferForm) {
+					transferForm.addEventListener('submit', async (e) => {
+						e.preventDefault();
+
+						// Disable submit button
+						submitBtn.disabled = true;
+						submitBtn.textContent = 'Envoi en cours...';
+
+						// Get form data
+						const formData = new FormData(transferForm);
+						const data = {
+							name: formData.get('name'),
+							email: formData.get('email'),
+							departure: formData.get('departure'),
+							arrival: formData.get('arrival'),
+							people: formData.get('people'),
+							date: formData.get('date'),
+							time: formData.get('time') || '',
+							children: formData.get('children') || '0',
+							childrenAge: formData.get('childrenAge') || '',
+							luggage: formData.get('luggage') || '',
+							flightNumber: formData.get('flightNumber') || '',
+							flightTime: formData.get('flightTime') || '',
+							language: 'fr'
+						};
+
+						try {
+							const response = await fetch('/transfer-request.php', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(data)
+							});
+
+							const result = await response.json();
+
+							if (response.ok && result.success) {
+								// Success
+								formMessage.textContent = result.message;
+								formMessage.className = 'p-4 rounded-sm text-sm mb-6 bg-green-100 text-green-800 border border-green-300';
+								formMessage.classList.remove('hidden');
+								transferForm.reset();
+								// Scroll to message
+								formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+							} else {
+								// Error
+								formMessage.textContent = result.error || 'Échec de l\'envoi. Veuillez réessayer.';
+								formMessage.className = 'p-4 rounded-sm text-sm mb-6 bg-red-100 text-red-800 border border-red-300';
+								formMessage.classList.remove('hidden');
+								formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+							}
+						} catch (error) {
+							formMessage.textContent = 'Erreur réseau. Vérifiez votre connexion et réessayez.';
+							formMessage.className = 'p-4 rounded-sm text-sm mb-6 bg-red-100 text-red-800 border border-red-300';
+							formMessage.classList.remove('hidden');
+							formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+						} finally {
+							// Re-enable submit button
+							submitBtn.disabled = false;
+							submitBtn.textContent = 'Envoyer la demande';
+						}
+					});
+				}
 
 				// Scroll animations
 				const observerOptions = {
