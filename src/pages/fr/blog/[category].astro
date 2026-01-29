@@ -289,7 +289,7 @@ const categorySlug = Astro.params.category;
 									publishDate={article.data.publishDate}
 									readingTime={article.data.readingTime}
 									categories={article.data.categories}
-									slug={`/fr/blog/${article.data.slug || article.slug}`}
+									slug={`/fr/blog/${article.data.slug || article.slug}/`}
 									author={article.data.author}
 									lang="fr"
 								/>

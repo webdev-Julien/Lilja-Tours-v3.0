@@ -47,7 +47,17 @@
       "Bash(cmd /c \"cd /d D:\\\\JULIEN\\\\09 - WEBSITES\\\\Lilja Tours v3.0\\\\public\\\\pictures\\\\blog\\\\articles\\\\_temp && move *.webp ..\")",
       "Bash(git push:*)",
       "Bash(grep:*)",
-      "Bash(npx astro:*)"
+      "Bash(npx astro:*)",
+      "Bash(for prefix in \"caves-of-hella\" \"fly-fishing\" \"overnight-fjallsarlon\" \"private-caves-of-hella\" \"private-early-bird\" \"private-thakgil\" \"glacier-lagoon-helicopter\" \"helico-landmannalaugar\")",
+      "Bash(do echo \"=== $prefix ===\")",
+      "Bash(done)",
+      "Bash(git diff-tree:*)",
+      "Bash(git cat-file:*)",
+      "Bash(git rev-list:*)",
+      "Bash(git config:*)",
+      "Bash(git branch:*)",
+      "Bash(git reset:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
