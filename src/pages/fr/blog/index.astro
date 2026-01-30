@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const allArticles = await getCollection('blog_articles_FR');
 
 // Generate optimized OG image URL
-const ogImageUrl = getOgImageUrl("/videos/blog-bg.webp");
+const ogImageUrl = getOgImageUrl("/pictures/blog/articles/northern-lights-11-november-2025/northern-lights-11-november-2025-header-pc.jpg");
 const sortedArticles = allArticles.sort((a, b) =>
   new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );

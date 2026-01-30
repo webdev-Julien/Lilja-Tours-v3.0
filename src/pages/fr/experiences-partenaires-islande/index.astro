@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const allExperiences = await getCollection('partner_experiences_FR');
 
 // Generate optimized OG image URL
-const ogImageUrl = getOgImageUrl("/videos/experiences-bg.webp");
+const ogImageUrl = getOgImageUrl("/pictures/index/experiences-bg.jpg");
 
 // Separate exclusive and regular experiences
 const exclusiveExperiences = allExperiences.filter(exp => exp.data.isExclusive);
