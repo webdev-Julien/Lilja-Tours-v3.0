@@ -178,11 +178,13 @@ const categoriesWithArticles = categories.filter(cat =>
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 slide-up">
 						{categoriesWithArticles.map((category) => (
 							<a href={`/fr/blog/${category.slug}/`} class="category-card">
-								<picture>
-									<source media="(max-width: 768px)" srcset={`/pictures/blog/categories/${category.slug}-header-mobile.webp`} />
-									<source media="(min-width: 769px)" srcset={`/pictures/blog/categories/${category.slug}-header-pc.webp`} />
-									<img src={`/pictures/blog/categories/${category.slug}-header-pc.webp`} alt={`Catégorie ${category.nameFr}`} class="category-card-bg" onerror="this.onerror=null; this.src='/pictures/blog/articles/placeholder.webp';" />
-								</picture>
+								<OptimizedImage
+									src={`/pictures/blog/categories/${category.slug}-header-pc.webp`}
+									alt={`Catégorie ${category.nameFr}`}
+									class="category-card-bg"
+									widths={[400, 640, 800, 1200]}
+									sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+								/>
 								<div class="category-card-content">
 									<h3 class="text-2xl md:text-3xl font-light tracking-wide text-white text-center px-4">{category.nameFr}</h3>
 								</div>
