@@ -62,6 +62,7 @@ if (transformedJsonLD.image) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="max-image-preview:large">
     <meta name="description" content={data.metaDescription} />
 
     <link rel="canonical" href={data.canonicalUrl} />
@@ -83,7 +84,12 @@ if (transformedJsonLD.image) {
     <meta property="og:url" content={data.canonicalUrl} />
     <meta property="og:description" content={data.metaDescription} />
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Standard Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta name="generator" content={Astro.generator} />
     <title>{data.pageTitle}</title>
 

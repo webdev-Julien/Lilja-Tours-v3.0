@@ -12,6 +12,7 @@ const headerBgImage = getBackgroundImageUrl('/pictures/index/contact.webp', 1920
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="max-image-preview:large">
 		<meta name="description" content="Contactez Lilja Tours pour des expériences de voyage personnalisées en Islande. Joignez-nous par email, WhatsApp ou réseaux sociaux. Guides locaux experts.">
 		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/contact/" />
 		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/contact/" />
@@ -28,7 +29,12 @@ const headerBgImage = getBackgroundImageUrl('/pictures/index/contact.webp', 1920
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<!-- Apple Touch Icon -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<!-- Standard Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
 		<meta name="generator" content={Astro.generator} />
 		<title>Contactez-nous - Circuits Privés Islande | Lilja Tours</title>
 

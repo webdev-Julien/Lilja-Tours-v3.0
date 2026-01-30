@@ -11,6 +11,7 @@ const headerBgImage = getBackgroundImageUrl('/pictures/index/multiday-bg.webp', 
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="max-image-preview:large">
 		<meta name="description" content="Conditions générales de Lilja Tours. Consultez nos politiques de réservation, conditions d'annulation, exigences de paiement et informations de responsabilité.">
 		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/terms-and-conditions/" />
 		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/terms-and-conditions/" />
@@ -21,7 +22,12 @@ const headerBgImage = getBackgroundImageUrl('/pictures/index/multiday-bg.webp', 
 		<meta property="og:url" content="https://www.lilja-tours.com/fr/terms-and-conditions/">
 		<meta property="og:description" content="Conditions générales de Lilja Tours. Consultez nos politiques de réservation, conditions d'annulation, exigences de paiement et informations de responsabilité.">
 
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<!-- Apple Touch Icon -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<!-- Standard Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
 		<meta name="generator" content={Astro.generator} />
 		<title>Conditions Générales | Lilja Tours</title>
 
