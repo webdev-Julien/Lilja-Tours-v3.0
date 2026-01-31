@@ -1,0 +1,72 @@
+---
+/**
+ * MdxImage - Image component for MDX content
+ *
+ * This component replaces standard <img> tags in MDX content to apply
+ * Cloudflare Image Transformations with responsive srcset.
+ *
+ * Used automatically via MDX component mapping - no manual usage required.
+ * Standard markdown image syntax ![alt](src) will use this component.
+ */
+
+interface Props {
+  src: string;
+  alt?: string;
+  title?: string;
+  width?: string | number;
+  height?: string | number;
+  class?: string;
+}
+
+const {
+  src,
+  alt = '',
+  title,
+  width,
+  height,
+  class: className = ''
+} = Astro.props;
+
+const isDev = import.meta.env.DEV;
+
+// Normalize path: strip domain if present and ensure it starts with /
+const SITE_URL = 'https://www.lilja-tours.com';
+const normalizedSrc = (() => {
+  let cleanPath = src.replace(SITE_URL, '');
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+})();
+
+// Cloudflare transformation parameters
+const quality = 85;
+const widths = [640, 1280, 1920, 2400];
+const baseParams = `format=auto,quality=${quality},fit=scale-down,metadata=none`;
+
+// Generate srcset for responsive images
+const srcset = isDev
+  ? undefined
+  : widths
+      .map(w => `/cdn-cgi/image/width=${w},${baseParams}${normalizedSrc} ${w}w`)
+      .join(', ');
+
+// Default src uses second-largest width (1920)
+const imageSrc = isDev
+  ? src
+  : `/cdn-cgi/image/width=${widths[widths.length - 2]},${baseParams}${normalizedSrc}`;
+
+// Responsive sizes attribute - images in blog content are typically max 4xl (896px)
+// but can go full width on mobile
+const sizes = '(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 896px';
+---
+
+<img
+  src={imageSrc}
+  srcset={srcset}
+  sizes={isDev ? undefined : sizes}
+  alt={alt}
+  title={title}
+  width={width}
+  height={height}
+  class={className}
+  loading="lazy"
+  decoding="async"
+/>

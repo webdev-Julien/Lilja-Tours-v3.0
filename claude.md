@@ -76,6 +76,61 @@ Requirements:
 
 - All future pages must have this code (Only once) inside of the head tag: <script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
+## Images in MDX Content (Cloudflare Transformations)
+
+### How It Works
+
+Images in MDX blog articles automatically use Cloudflare Image Transformations for optimized delivery. This is handled via MDX component mapping - **no special syntax required**.
+
+**Standard markdown image syntax works automatically:**
+```markdown
+![Alt text for the image](/pictures/blog/articles/article-name/image-name.jpg)
+```
+
+This will be transformed at build time to include:
+- Responsive `srcset` with breakpoints: 640w, 1280w, 1920w, 2400w
+- Cloudflare transformation URL: `/cdn-cgi/image/width=X,format=auto,quality=85,fit=scale-down,metadata=none/...`
+- Lazy loading (`loading="lazy"`)
+- Async decoding (`decoding="async"`)
+
+### Transformation Parameters
+
+All MDX images use these Cloudflare parameters:
+- `format=auto` - Automatic format selection (WebP/AVIF where supported)
+- `quality=85` - Good balance of quality and file size
+- `fit=scale-down` - Never upscale, only downscale
+- `metadata=none` - Strip EXIF data for smaller files
+
+### File Locations
+
+- **Component:** `src/components/MdxImage.astro`
+- **MDX config:** `src/components/mdx/index.ts`
+- **Image utils:** `src/utils/images.ts`
+
+### Usage Examples
+
+**Basic image (recommended):**
+```markdown
+![Þingvellir National Park with continental rift](/pictures/blog/articles/ultimate-golden-circle-guide/ultimate-golden-circle-guide-Thingvellir.jpg)
+```
+
+**Image with title attribute:**
+```markdown
+![Alt text](/pictures/path/image.jpg "Optional title")
+```
+
+### Development vs Production
+
+- **Development:** Images serve directly without transformations
+- **Production:** Images automatically get Cloudflare CDN URLs with transformations
+
+### Important Notes
+
+1. **Use relative paths** starting with `/pictures/...`
+2. **Alt text is required** for accessibility
+3. **No need to import** the MdxImage component - it's applied automatically
+4. **Works for both EN and FR** blog articles
+
 ## When Writing Content
 
 1. Check existing pages to avoid content duplication

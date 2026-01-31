@@ -5,6 +5,7 @@ import Footer from "../../components/Footer.astro";
 import Topbar from "../../components/Topbar.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import OptimizedImage from "../../components/OptimizedImage.astro";
+import { mdxComponents } from "../../components/mdx";
 import { getOgImageUrl, getJsonLdImages } from "../../utils/images";
 
 export async function getStaticPaths() {
@@ -347,7 +348,7 @@ const transformedJsonLD = {
       <article class="py-16 lg:py-24">
         <div class="max-w-4xl mx-auto px-8">
           <div class="blog-content prose prose-lg max-w-none">
-            <Content />
+            <Content components={mdxComponents} />
           </div>
         </div>
       </article>
