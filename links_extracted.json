@@ -4092,8 +4092,8 @@
       },
       {
         "line": 106,
-        "url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-mobile.webp",
-        "original_url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-mobile.webp",
+        "url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-pc.webp",
+        "original_url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-pc.webp",
         "pattern": "markdown_link",
         "context": "![Reykjanes Peninsula volcanic systems map](/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-he"
       },
@@ -7017,8 +7017,8 @@
       },
       {
         "line": 107,
-        "url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-mobile.webp",
-        "original_url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-mobile.webp",
+        "url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-pc.webp",
+        "original_url": "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-pc.webp",
         "pattern": "markdown_link",
         "context": "![Carte syst\u00e8mes volcaniques p\u00e9ninsule Reykjanes](/pictures/blog/articles/eruptions-of-Fagradalsfjal"
       },
@@ -18091,7 +18091,7 @@
         "pattern": "href_html"
       }
     ],
-    "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-mobile.webp": [
+    "/pictures/blog/articles/eruptions-of-Fagradalsfjall-2-header-pc.webp": [
       {
         "file": "src\\content\\blog_articles_EN\\reyjanes-volcanic-recent-history.mdx",
         "line": 106,

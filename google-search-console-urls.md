@@ -92,16 +92,7 @@ https://www.lilja-tours.com/fr/transferts-islande/kerlingarfjoll-vers-reykjavik/
 ## BATCH 6 - New Blog Articles EN
 
 ```
-https://www.lilja-tours.com/blog/10-day-private-multiday-tour-may-2024/
-https://www.lilja-tours.com/blog/5-day-summer-family-iceland-trip/
-https://www.lilja-tours.com/blog/6-day-private-tour-father-son-august-2025/
-https://www.lilja-tours.com/blog/7-day-highland-camping-expedition/
-https://www.lilja-tours.com/blog/luxury-wellness-weekend-iceland/
-https://www.lilja-tours.com/blog/best-pictures-helicopter-private-tours/
-https://www.lilja-tours.com/blog/eruptions-of-fagradalsfjall/
-https://www.lilja-tours.com/blog/how-to-see-lava-in-iceland/
-https://www.lilja-tours.com/blog/new-kilometric-tax-iceland/
-https://www.lilja-tours.com/blog/northern-lights-11-november-2025/
+
 ```
 
 ---
@@ -444,12 +435,12 @@ https://www.lilja-tours.com/fr/terms-and-conditions/
 
 ## Summary
 
-| Batches | Category | URLs |
-|---------|----------|------|
-| 1-5 | Transfers (EN + FR) | 50 |
-| 6-10 | Blog Articles (EN + FR) | 50 |
-| 11-20 | Partner Experiences (EN + FR) | 100 |
-| 21-23 | Day Tours (EN + FR) | 30 |
-| 24-25 | Multiday Tours + Main Pages | 20 |
-| 26 | Utility Pages | 6 |
-| **Total** | | **~256 URLs** |
+| Batches   | Category                      | URLs          |
+| --------- | ----------------------------- | ------------- |
+| 1-5       | Transfers (EN + FR)           | 50            |
+| 6-10      | Blog Articles (EN + FR)       | 50            |
+| 11-20     | Partner Experiences (EN + FR) | 100           |
+| 21-23     | Day Tours (EN + FR)           | 30            |
+| 24-25     | Multiday Tours + Main Pages   | 20            |
+| 26        | Utility Pages                 | 6             |
+| **Total** |                               | **~256 URLs** |
