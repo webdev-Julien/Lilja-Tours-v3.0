@@ -11,9 +11,15 @@ html, body {
 }
 
 /* Ensure sections don't overflow */
-section, main, header, footer {
+main, header, footer {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+/* Sections need clip instead of hidden to preserve 3D transforms */
+section {
+  max-width: 100vw;
+  overflow-x: clip;
 }
 
 /* Ensure all buttons and form elements have pointer cursor */
@@ -26,4 +32,106 @@ label:has(input[type="checkbox"]),
 label:has(input[type="radio"]),
 select {
   cursor: pointer;
+}
+
+/* Responsive header text - prevent overflow on small screens */
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 380px) {
+  /* Headers in video/hero sections */
+  .video-content h1,
+  .video-header h1,
+  header h1 {
+    font-size: 1.5rem !important; /* 24px */
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Introductory text in headers */
+  .video-content p,
+  .video-header p,
+  header .text-lg,
+  header .text-xl,
+  header .text-2xl {
+    font-size: 0.875rem !important; /* 14px */
+    line-height: 1.4 !important;
+  }
+
+  /* Section h2 headings */
+  section h2 {
+    font-size: 1.25rem !important; /* 20px */
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Section intro text */
+  section .text-lg,
+  section .text-xl {
+    font-size: 0.875rem !important;
+  }
+
+  /* Reduce padding on very small screens */
+  .video-content,
+  header > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Small screens (larger phones) */
+@media (min-width: 381px) and (max-width: 480px) {
+  /* Headers in video/hero sections */
+  .video-content h1,
+  .video-header h1,
+  header h1 {
+    font-size: 1.75rem !important; /* 28px */
+    letter-spacing: 1px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Introductory text in headers */
+  .video-content p,
+  .video-header p,
+  header .text-lg,
+  header .text-xl,
+  header .text-2xl {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Section h2 headings */
+  section h2 {
+    font-size: 1.5rem !important; /* 24px */
+    letter-spacing: 1px !important;
+  }
+
+  /* Section intro text */
+  section .text-lg,
+  section .text-xl {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* Medium-small screens (phablets, small tablets) */
+@media (min-width: 481px) and (max-width: 640px) {
+  /* Headers in video/hero sections */
+  .video-content h1,
+  .video-header h1,
+  header h1 {
+    font-size: 2.25rem !important; /* 36px */
+    letter-spacing: 1px !important;
+  }
+
+  /* Introductory text in headers */
+  .video-content p,
+  .video-header p,
+  header .text-lg,
+  header .text-xl,
+  header .text-2xl {
+    font-size: 1rem !important;
+  }
+
+  /* Section h2 headings */
+  section h2 {
+    font-size: 1.875rem !important; /* 30px */
+  }
 }

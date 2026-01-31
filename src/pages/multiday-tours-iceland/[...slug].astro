@@ -582,9 +582,10 @@ if (transformedJsonLD.image) {
                   duration={relatedTour.data.duration}
                   description={relatedTour.data.cardSentence}
                   price={relatedTour.data.price?.toLocaleString()}
-                  slug={relatedTour.data.slug}
+                  slug={relatedTour.slug}
                   highlights={relatedTour.data.highlights?.slice(0, 3)}
                   season={relatedTour.data.season}
+                  currentLang="en"
                 />
               ))}
             </div>

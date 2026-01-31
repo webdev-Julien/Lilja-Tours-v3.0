@@ -7,6 +7,7 @@ import Topbar from "../../../components/Topbar.astro";
 import FloatingBookButton from "../../../components/FloatingBookButton.astro";
 import TourBookingModal from "../../../components/TourBookingModal.astro";
 import ActivityFlipCard from "../../../components/ActivityFlipCard.astro";
+import MultidayItineraryCard from "../../../components/MultidayItineraryCard.astro";
 import OptimizedImage from "../../../components/OptimizedImage.astro";
 import { getOgImageUrl, getJsonLdImages } from "../../../utils/images";
 
@@ -44,6 +45,20 @@ if (transformedJsonLD.image) {
   const imagePath = originalImage.replace('https://www.lilja-tours.com', '');
   transformedJsonLD.image = getJsonLdImages(imagePath);
 }
+
+// Get 3 random other tours from the same collection (random at build time)
+const allTours = await getCollection('multiday_tours_FR');
+const otherTours = allTours.filter(t => t.id !== tour.id);
+// Fisher-Yates shuffle for random selection at build time
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+const randomTours = shuffleArray(otherTours).slice(0, 3);
 ---
 
 <html lang={data.language}>
@@ -339,6 +354,31 @@ if (transformedJsonLD.image) {
                   day={activity.day}
                   image={activity.image}
                   alt={activity.alt}
+                  currentLang="fr"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Related Tours Section -->
+      {randomTours.length > 0 && (
+        <section class="fade-in bg-white py-16 lg:py-24">
+          <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-light tracking-wide mb-16 text-center text-gray-900 slide-down">Découvrez nos autres circuits</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+              {randomTours.map((relatedTour) => (
+                <MultidayItineraryCard
+                  image={relatedTour.data.cardImg?.srcPC || relatedTour.data.featuredImage}
+                  imageAlt={relatedTour.data.cardImg?.alt || relatedTour.data.title}
+                  title={relatedTour.data.title}
+                  duration={relatedTour.data.duration}
+                  description={relatedTour.data.cardSentence}
+                  price={relatedTour.data.price?.toLocaleString()}
+                  slug={relatedTour.slug}
+                  highlights={relatedTour.data.highlights?.slice(0, 3)}
+                  season={relatedTour.data.season}
                   currentLang="fr"
                 />
               ))}
