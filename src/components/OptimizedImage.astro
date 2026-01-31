@@ -21,17 +21,24 @@ const {
 
 const isDev = import.meta.env.DEV;
 
+// Normalize path: strip domain if present and ensure it starts with /
+const SITE_URL = 'https://www.lilja-tours.com';
+const normalizedSrc = (() => {
+  let cleanPath = src.replace(SITE_URL, '');
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+})();
+
 const baseParams = `format=auto,quality=${quality},fit=scale-down,metadata=none`;
 
 const srcset = isDev
   ? undefined
   : widths
-      .map(w => `/cdn-cgi/image/width=${w},${baseParams}${src} ${w}w`)
+      .map(w => `/cdn-cgi/image/width=${w},${baseParams}${normalizedSrc} ${w}w`)
       .join(', ');
 
 const imageSrc = isDev
   ? src
-  : `/cdn-cgi/image/width=${widths[widths.length - 2]},${baseParams}${src}`;
+  : `/cdn-cgi/image/width=${widths[widths.length - 2]},${baseParams}${normalizedSrc}`;
 ---
 
 <img

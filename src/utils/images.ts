@@ -1,16 +1,24 @@
 const SITE_URL = 'https://www.lilja-tours.com';
 
+// Helper to strip domain from full URLs and normalize to relative path
+function normalizeToRelativePath(path: string): string {
+  // Strip domain if present
+  let cleanPath = path.replace(SITE_URL, '');
+  // Ensure it starts with /
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+}
+
 export function getDisplayImageUrl(path: string, width: number, quality = 85): string {
   const isDev = import.meta.env.DEV;
   if (isDev) return path;
 
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = normalizeToRelativePath(path);
   return `/cdn-cgi/image/width=${width},format=auto,quality=${quality},fit=scale-down,metadata=none${normalizedPath}`;
 }
 
 export function getOgImageUrl(path: string): string {
   const isDev = import.meta.env.DEV;
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = normalizeToRelativePath(path);
 
   if (isDev) return normalizedPath;
 
@@ -19,7 +27,7 @@ export function getOgImageUrl(path: string): string {
 
 export function getJsonLdImages(path: string): string[] {
   const isDev = import.meta.env.DEV;
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = normalizeToRelativePath(path);
 
   if (isDev) return [normalizedPath];
 
@@ -43,6 +51,6 @@ export function getBackgroundImageUrl(path: string, width = 1920, quality = 85):
   const isDev = import.meta.env.DEV;
   if (isDev) return path;
 
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = normalizeToRelativePath(path);
   return `/cdn-cgi/image/width=${width},format=auto,quality=${quality},fit=cover${normalizedPath}`;
 }

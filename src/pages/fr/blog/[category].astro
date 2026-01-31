@@ -69,29 +69,32 @@ export async function getStaticPaths() {
 
 	const allArticles = await getCollection('blog_articles_FR');
 
-	return categories.map((cat) => {
-		// Filter articles by category - articles can have multiple categories
-		const categoryArticles = allArticles.filter(article =>
-			article.data.categories.some(category =>
-				category.toLowerCase() === cat.name.toLowerCase()
-			)
-		);
+	// Only generate pages for categories that have at least 1 article
+	return categories
+		.map((cat) => {
+			// Filter articles by category - articles can have multiple categories
+			const categoryArticles = allArticles.filter(article =>
+				article.data.categories.some(category =>
+					category.toLowerCase() === cat.name.toLowerCase()
+				)
+			);
 
-		// Sort articles by publish date (newest first)
-		const sortedArticles = categoryArticles.sort((a, b) =>
-			new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
-		);
+			// Sort articles by publish date (newest first)
+			const sortedArticles = categoryArticles.sort((a, b) =>
+				new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+			);
 
-		return {
-			params: { category: cat.slug },
-			props: {
-				categoryName: cat.nameFr,
-				categoryNameEn: cat.name,
-				categoryDescription: cat.description,
-				articles: sortedArticles
-			}
-		};
-	});
+			return {
+				params: { category: cat.slug },
+				props: {
+					categoryName: cat.nameFr,
+					categoryNameEn: cat.name,
+					categoryDescription: cat.description,
+					articles: sortedArticles
+				}
+			};
+		})
+		.filter(path => path.props.articles.length > 0);
 }
 
 const { categoryName, categoryNameEn, categoryDescription, articles } = Astro.props;
