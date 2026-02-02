@@ -100,16 +100,7 @@ https://www.lilja-tours.com/fr/transferts-islande/kerlingarfjoll-vers-reykjavik/
 ## BATCH 7 - Updated Blog Articles EN
 
 ```
-https://www.lilja-tours.com/blog/ultimate-golden-circle-guide/
-https://www.lilja-tours.com/blog/ultimate-south-coast-discovery/
-https://www.lilja-tours.com/blog/ultimate-snaefellsnes-guide/
-https://www.lilja-tours.com/blog/ultimate-reykjanes-guide/
-https://www.lilja-tours.com/blog/ultimate-guide-silver-circle/
-https://www.lilja-tours.com/blog/one-day-itineraries-silver-circle-iceland/
-https://www.lilja-tours.com/blog/winter-vs-summer-iceland/
-https://www.lilja-tours.com/blog/private-tours-self-drive-small-group/
-https://www.lilja-tours.com/blog/best-helicopter-tours/
-https://www.lilja-tours.com/blog/reykjanes-volcanic-recent-history/
+
 ```
 
 ---
