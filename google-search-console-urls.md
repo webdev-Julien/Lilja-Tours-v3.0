@@ -371,16 +371,7 @@ https://www.lilja-tours.com/fr/circuits-prives-islande/aventure-iles-westman/
 ## BATCH 24 - Multiday Tours EN
 
 ```
-https://www.lilja-tours.com/multiday-tours-iceland/
-https://www.lilja-tours.com/multiday-tours-iceland/ring-road-essentials-7-days/
-https://www.lilja-tours.com/multiday-tours-iceland/ring-road-highlands-10-days/
-https://www.lilja-tours.com/multiday-tours-iceland/golden-circle-south-coast/
-https://www.lilja-tours.com/multiday-tours-iceland/south-coast-adventure/
-https://www.lilja-tours.com/multiday-tours-iceland/south-coast-highlands/
-https://www.lilja-tours.com/multiday-tours-iceland/west-iceland-silver-circle/
-https://www.lilja-tours.com/fr/circuits-multi-jours-islande/
-https://www.lilja-tours.com/fr/circuits-multi-jours-islande/ring-road-7-jours/
-https://www.lilja-tours.com/fr/circuits-multi-jours-islande/ring-road-hautes-terres-10-jours/
+
 ```
 
 ---
