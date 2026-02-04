@@ -329,16 +329,7 @@ https://www.lilja-tours.com/fr/experiences-partenaires-islande/helicopter-tours/
 ## BATCH 21 - Day Tours EN
 
 ```
-https://www.lilja-tours.com/private-day-tours-iceland/
-https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete/
-https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-essentials/
-https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete/
-https://www.lilja-tours.com/private-day-tours-iceland/south-coast-glacier-hike/
-https://www.lilja-tours.com/private-day-tours-iceland/snaefellsnes-peninsula/
-https://www.lilja-tours.com/private-day-tours-iceland/colors-reykjanes/
-https://www.lilja-tours.com/private-day-tours-iceland/northern-lights/
-https://www.lilja-tours.com/private-day-tours-iceland/glacier-hike/
-https://www.lilja-tours.com/private-day-tours-iceland/glymur-waterfall-hike/
+
 ```
 
 ---
