@@ -714,33 +714,20 @@ const backgroundImageUrl = getBackgroundImageUrl("/pictures/index/travel-advisor
 
 					// Get form data
 					const formData = new FormData(form);
-					const requestPriceSheet = formData.get('request-price-sheet') === 'yes';
-					const clientInquiry = formData.get('client-inquiry') === 'yes';
-					const userMessage = formData.get('message') || '';
-
-					// Build message with all form details
-					let fullMessage = `TRAVEL ADVISOR INQUIRY\n\n`;
-					fullMessage += `Company: ${formData.get('company')}\n`;
-					fullMessage += `Country: ${formData.get('country')}\n\n`;
-					fullMessage += `Requests:\n`;
-					fullMessage += `- Price Sheet: ${requestPriceSheet ? 'Yes' : 'No'}\n`;
-					fullMessage += `- Specific Client Inquiry: ${clientInquiry ? 'Yes' : 'No'}\n\n`;
-					if (userMessage) {
-						fullMessage += `Additional Message:\n${userMessage}`;
-					} else {
-						fullMessage += `No additional message provided.`;
-					}
 
 					const data = {
 						name: formData.get('name'),
+						company: formData.get('company'),
 						email: formData.get('email'),
 						phone: formData.get('phone') || '',
-						'tour-type': 'Travel Advisor Partnership',
-						message: fullMessage
+						country: formData.get('country'),
+						message: formData.get('message') || '',
+						requestPriceSheet: formData.get('request-price-sheet') || 'no',
+						clientInquiry: formData.get('client-inquiry') || 'no'
 					};
 
 					try {
-						const response = await fetch('/contact.php', {
+						const response = await fetch('/contact-advisor.php', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
