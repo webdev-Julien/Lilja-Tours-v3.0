@@ -1,0 +1,788 @@
+---
+import "../../styles/global.css"
+import Topbar from "../../components/Topbar.astro"
+import Footer from "../../components/Footer.astro"
+import OptimizedImage from "../../components/OptimizedImage.astro"
+import { getOgImageUrl, getBackgroundImageUrl } from "../../utils/images"
+
+// Generate optimized image URLs
+const ogImageUrl = getOgImageUrl("/pictures/index/travel-advisors-bg.jpg");
+const backgroundImageUrl = getBackgroundImageUrl("/pictures/index/travel-advisors-bg.jpg");
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="max-image-preview:large">
+		<meta name="description" content="Partner with Lilja Tours, Iceland's boutique luxury DMC. Fully guided private tours, white label operations, and bespoke itinerary design for travel advisors worldwide.">
+		<link rel="alternate" hreflang="en" href="https://www.lilja-tours.com/travel-advisors/" />
+		<link rel="alternate" hreflang="fr" href="https://www.lilja-tours.com/fr/conseillers-voyage/" />
+		<link rel="canonical" href="https://www.lilja-tours.com/travel-advisors/" />
+
+		<meta property="og:title" content="Travel Advisors — Partner with Lilja Tours | Iceland DMC">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content={ogImageUrl}>
+		<meta property="og:url" content="https://www.lilja-tours.com/travel-advisors/">
+		<meta property="og:description" content="Partner with Lilja Tours, Iceland's boutique luxury DMC. Fully guided private tours, white label operations, and bespoke itinerary design for travel advisors worldwide.">
+
+		<meta property="og:locale" content="en_US">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+
+		<!-- Apple Touch Icon -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<!-- Standard Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="icon" type="image/x-icon" href="/favicon.ico">
+		<meta name="generator" content={Astro.generator} />
+		<title>Travel Advisors — Partner with Lilja Tours | Iceland DMC</title>
+
+		<!-- GDPR Cookie Consent -->
+		<link rel="stylesheet" href="/css/gdpr-consent.css" />
+		<script type="text/javascript" defer src="/js/gdpr-consent.js"></script>
+
+		<!-- TrustIndex Rich Snippet -->
+		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-48C94854K2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+
+			// Set linker before the config command
+			gtag('set', 'linker', {
+				'domains': ['bokun.io']
+			});
+
+			gtag('js', new Date());
+			gtag('config', 'G-48C94854K2');
+		</script>
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebPage",
+			"name": "Travel Advisors — Partner with Lilja Tours | Iceland DMC",
+			"description": "Partner with Lilja Tours, Iceland's boutique luxury DMC. Fully guided private tours, white label operations, and bespoke itinerary design for travel advisors worldwide.",
+			"url": "https://www.lilja-tours.com/travel-advisors/",
+			"mainEntity": {
+				"@type": "LocalBusiness",
+				"@id": "https://www.lilja-tours.com",
+				"name": "Lilja Tours",
+				"alternateName": "Lilja Tours Iceland DMC",
+				"description": "Boutique Destination Management Company based in Reykjavík, specializing in fully guided, luxury private tours across Iceland. Partnering with travel advisors and agencies worldwide.",
+				"url": "https://www.lilja-tours.com",
+				"telephone": "+354-764-3715",
+				"email": "info@lilja-tours.com",
+				"foundingDate": "2021",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Reykjavik",
+					"addressRegion": "Capital Region",
+					"addressCountry": "IS"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "64.1466",
+					"longitude": "-21.9426"
+				},
+				"priceRange": "€€€",
+				"sameAs": [
+					"https://www.facebook.com/liljatours",
+					"https://www.instagram.com/lilja_tours",
+					"https://www.tripadvisor.com/Attraction_Review-g189970-d23867059-Reviews-Lilja_Tours-Reykjavik_Capital_Region.html"
+				],
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "5.0",
+					"reviewCount": "150",
+					"bestRating": "5",
+					"worstRating": "1"
+				},
+				"makesOffer": [
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "White Label / Ground Operator Services",
+							"description": "Behind-the-scenes tour operation under your brand with detailed operational support and real-time communication."
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "Full-Service DMC",
+							"description": "Complete bespoke Icelandic itinerary design including accommodations, activities, dining, transfers, and guided touring."
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Service",
+							"name": "À La Carte Services",
+							"description": "Flexible guided touring segments, day tours, airport transfers, and multi-day guided segments."
+						}
+					}
+				],
+				"areaServed": {
+					"@type": "Country",
+					"name": "Iceland"
+				},
+				"audience": {
+					"@type": "BusinessAudience",
+					"audienceType": "Travel Advisors and Travel Agencies"
+				}
+			},
+			"breadcrumb": {
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Home",
+						"item": "https://www.lilja-tours.com/"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Travel Advisors",
+						"item": "https://www.lilja-tours.com/travel-advisors/"
+					}
+				]
+			}
+		}
+		</script>
+
+		<style is:inline>
+			/* Minimal CSS for features not available in Tailwind */
+			.fade-in {
+				opacity: 0;
+				transition: opacity 0.8s ease-out;
+			}
+
+			.fade-in.visible {
+				opacity: 1;
+			}
+
+			.slide-up {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-up.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-down {
+				opacity: 0;
+				transform: translateY(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-down.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.slide-left {
+				opacity: 0;
+				transform: translateX(50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-left.visible {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			.slide-right {
+				opacity: 0;
+				transform: translateX(-50px);
+				transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+			}
+
+			.slide-right.visible {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			/* Header background image styles */
+			.image-header {
+				position: relative;
+				overflow: hidden;
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+
+			.image-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.55);
+				z-index: 1;
+			}
+
+			.image-content {
+				position: relative;
+				z-index: 2;
+			}
+
+			/* CTA button styles */
+			.cta-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.cta-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			.cta-btn:hover {
+				color: white;
+				border-color: #5b7297;
+			}
+
+			/* Submit button styles */
+			.submit-btn::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: #5b7297;
+				transform: translateY(-100%);
+				transition: transform 0.6s ease;
+				z-index: -1;
+			}
+
+			.submit-btn:hover::before {
+				transform: translateY(0);
+			}
+
+			/* Partnership card hover */
+			.partnership-card {
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.partnership-card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+			}
+
+			/* Mobile responsive adjustments for background */
+			@media (max-width: 768px) {
+				.image-header {
+					background-attachment: scroll;
+				}
+			}
+
+			/* Form input focus styles */
+			.form-input:focus,
+			.form-textarea:focus,
+			.form-select:focus {
+				outline: none;
+				border-color: #5b7297;
+				box-shadow: 0 0 0 3px rgba(91, 114, 151, 0.1);
+			}
+
+			/* Checkbox styling */
+			.form-checkbox {
+				accent-color: #5b7297;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Image Header Section -->
+		<header class="image-header min-h-screen flex items-center justify-center relative" style={`background-image: url('${backgroundImageUrl}')`}>
+			<Topbar frenchUrl="/fr/conseillers-voyage/" currentLang="en" />
+			<div class="image-overlay"></div>
+			<div class="image-content text-center max-w-5xl mx-auto px-8 slide-down visible mt-[70px]">
+				<h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-[2px] mb-8 leading-tight text-white">Your Iceland Partner on the Ground</h1>
+				<p class="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white opacity-95 tracking-wide max-w-4xl mx-auto mb-12">
+					Lilja Tours is a boutique Destination Management Company based in Reykjavík, specializing in fully guided, luxury private tours across Iceland. We partner with travel advisors and agencies worldwide to deliver seamless, premium Icelandic experiences to their clients.
+				</p>
+				<a href="#advisor-contact-form" class="cta-btn inline-flex items-center gap-2 py-3 px-8 bg-transparent text-white border border-white rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-white">
+					Request Our Price Sheet
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+					</svg>
+				</a>
+			</div>
+		</header>
+
+		<main>
+			<!-- Why Partner Section -->
+			<section class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-16 slide-down">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-8 leading-tight text-gray-900">A DMC Built for Advisors Who Demand Excellence</h2>
+						<div class="max-w-4xl mx-auto">
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-700 mb-6 tracking-wide">
+								Whether you need a reliable ground operator to execute your custom itineraries or a full-service DMC to design the entire Icelandic chapter of your client's journey, Lilja Tours delivers. Every detail, from route planning to restaurant reservations, hotel bookings to glacier hikes, is handled with precision and a personal touch.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-700 tracking-wide">
+								We have maintained a perfect 5-star rating across every review platform for over four years. That track record isn't a marketing claim — it's a promise your clients will experience firsthand.
+							</p>
+						</div>
+					</div>
+
+					<!-- Key Selling Points Grid -->
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mt-16 slide-up">
+						<!-- Fully Guided -->
+						<div class="flex gap-6 items-start p-6 bg-gray-50 rounded-sm">
+							<div class="flex-shrink-0 w-14 h-14 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+								<svg class="w-7 h-7 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-gray-900">Fully Guided, Always</h3>
+								<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide">
+									We do not offer self-drive tours. Every journey is led by an expert local guide in a premium vehicle, ensuring safety, comfort, and a truly immersive experience for your clients.
+								</p>
+							</div>
+						</div>
+
+						<!-- Premium Fleet -->
+						<div class="flex gap-6 items-start p-6 bg-gray-50 rounded-sm">
+							<div class="flex-shrink-0 w-14 h-14 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+								<svg class="w-7 h-7 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h8m-8 4h8m-4-8v16M3 12h1m16 0h1M6.5 6.5L5 5m13.5 1.5L20 5M6.5 17.5L5 19m13.5-1.5L20 19"/>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 10h14v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-gray-900">Premium Fleet</h3>
+								<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide">
+									Our guests travel in Mercedes V-Class luxury vans and Toyota Land Cruiser SUVs, maintained to the highest standards for Icelandic roads and conditions.
+								</p>
+							</div>
+						</div>
+
+						<!-- Perfect Track Record -->
+						<div class="flex gap-6 items-start p-6 bg-gray-50 rounded-sm">
+							<div class="flex-shrink-0 w-14 h-14 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+								<svg class="w-7 h-7 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-gray-900">Perfect Track Record</h3>
+								<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide">
+									5-star rating across all platforms since 2021, with hundreds of consistently glowing reviews from guests worldwide.
+								</p>
+							</div>
+						</div>
+
+						<!-- Year-Round Operation -->
+						<div class="flex gap-6 items-start p-6 bg-gray-50 rounded-sm">
+							<div class="flex-shrink-0 w-14 h-14 bg-[#5b7297]/10 rounded-sm flex items-center justify-center">
+								<svg class="w-7 h-7 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl md:text-2xl font-normal tracking-wide mb-3 text-gray-900">Year-Round Operation</h3>
+								<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide">
+									From midnight sun adventures to Northern Lights expeditions, we operate across every Icelandic season with tours tailored to what each one does best.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Partnership Models Section -->
+			<section class="fade-in bg-gray-50 py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-16 slide-down">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-8 leading-tight text-gray-900">Work with Us Your Way</h2>
+						<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-700 tracking-wide max-w-3xl mx-auto">
+							We understand that every agency operates differently. That's why we offer flexible collaboration models designed to fit your workflow, not the other way around.
+						</p>
+					</div>
+
+					<!-- Partnership Cards -->
+					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 slide-up">
+						<!-- White Label -->
+						<div class="partnership-card bg-white p-8 md:p-10 rounded-sm shadow-lg flex flex-col h-full">
+							<div class="w-16 h-16 bg-[#5b7297]/10 rounded-sm flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+								</svg>
+							</div>
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-gray-900">White Label / Ground Operator</h3>
+							<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide flex-grow">
+								You own the client relationship. We operate behind the scenes, executing tours under your brand. Your clients enjoy a flawless experience on the ground — and you get the credit. We provide detailed operational support, daily itinerary management, and real-time communication throughout the trip.
+							</p>
+						</div>
+
+						<!-- Full-Service DMC -->
+						<div class="partnership-card bg-white p-8 md:p-10 rounded-sm shadow-lg flex flex-col h-full">
+							<div class="w-16 h-16 bg-[#5b7297]/10 rounded-sm flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+								</svg>
+							</div>
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-gray-900">Full-Service DMC</h3>
+							<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide flex-grow">
+								Let us take the lead. Share your client's dates, interests, and budget, and we'll design a bespoke Icelandic itinerary from scratch — accommodations, activities, dining, transfers, and guided touring included. We handle the complexity so you can focus on your client relationship.
+							</p>
+						</div>
+
+						<!-- À La Carte -->
+						<div class="partnership-card bg-white p-8 md:p-10 rounded-sm shadow-lg flex flex-col h-full">
+							<div class="w-16 h-16 bg-[#5b7297]/10 rounded-sm flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-[#5b7297]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+								</svg>
+							</div>
+							<h3 class="text-2xl md:text-3xl font-normal tracking-wide mb-4 text-gray-900">À La Carte Services</h3>
+							<p class="text-base font-light leading-relaxed text-gray-600 tracking-wide flex-grow">
+								Need just a few days of guided touring within a larger itinerary you've already built? We're happy to plug in wherever you need us — whether it's a single day tour, an airport transfer in a luxury vehicle, or a multi-day guided segment.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- What Sets Us Apart Section -->
+			<section class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight text-gray-900 lg:hidden order-1 text-left w-full">Local Expertise, Global Standards</h2>
+						<div class="slide-left relative order-2 lg:order-2 w-full">
+							<OptimizedImage
+								src="/pictures/index/travel-advisors-second-pic.jpg"
+								alt="Lilja Tours guide with guests exploring Iceland"
+								class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-[1.02]"
+								sizes="(max-width: 1024px) 100vw, 50vw"
+								loading="lazy"
+							/>
+						</div>
+						<div class="slide-right text-left order-3 lg:order-1">
+							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-10 leading-tight text-gray-900 lg:block hidden">Local Expertise, Global Standards</h2>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-700 mb-6 tracking-wide">
+								Lilja Tours was founded by travel professionals who fell in love with Iceland and chose to build something here — not a franchise, not a reseller, but a hands-on operation run by people who drive the roads, know the guides, and personally vet every hotel and restaurant we recommend.
+							</p>
+							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-700 tracking-wide">
+								We speak fluent English and French, and we understand what high-end travelers expect because we've spent years serving them. Your clients won't be handed off to a subcontractor. They'll be cared for by our own team, in our own vehicles, with the attention to detail that has earned us the reputation we have.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Services Overview Section -->
+			<section class="fade-in bg-gray-50 py-24 md:py-32">
+				<div class="max-w-6xl w-full mx-auto px-8">
+					<div class="text-center mb-16 slide-down">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-8 leading-tight text-gray-900">What We Offer Your Clients</h2>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 slide-up">
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Bespoke multi-day private tours across Iceland</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Curated day tours departing from Reykjavík</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Luxury airport transfers and inter-city journeys</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Northern Lights private expeditions (September–March)</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Highland and off-road adventures (June–September)</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Access to premium partner experiences: helicopter tours, ice caves, glacier hikes, hot springs, whale watching, and more</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">Hotel and restaurant sourcing and booking</p>
+						</div>
+						<div class="flex items-start gap-4 p-5 bg-white rounded-sm shadow-sm">
+							<div class="flex-shrink-0 w-2 h-2 bg-[#5b7297] rounded-full mt-2.5"></div>
+							<p class="text-base md:text-lg font-light text-gray-700 tracking-wide">24/7 on-the-ground support during the trip</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Contact Form Section -->
+			<section id="advisor-contact-form" class="fade-in bg-white py-24 md:py-32">
+				<div class="max-w-4xl w-full mx-auto px-8">
+					<div class="text-center mb-12 slide-down">
+						<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 leading-tight text-gray-900">Let's Start the Conversation</h2>
+						<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-gray-600 tracking-wide max-w-3xl mx-auto">
+							Ready to explore a partnership? Request our advisor price sheet and discover how Lilja Tours can become your go-to Iceland DMC. We'll get back to you within 24 hours.
+						</p>
+					</div>
+
+					<div class="slide-up bg-gray-50 p-8 md:p-12 rounded-sm shadow-lg">
+						<form id="advisor-form" method="POST" class="space-y-6">
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="name" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Full Name *</label>
+									<input
+										type="text"
+										id="name"
+										name="name"
+										required
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="Your name"
+									/>
+								</div>
+
+								<div>
+									<label for="company" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Agency / Company Name *</label>
+									<input
+										type="text"
+										id="company"
+										name="company"
+										required
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="Your agency or company"
+									/>
+								</div>
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label for="email" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Email Address *</label>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										required
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="email@agency.com"
+									/>
+								</div>
+
+								<div>
+									<label for="phone" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Phone Number</label>
+									<input
+										type="tel"
+										id="phone"
+										name="phone"
+										class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+										placeholder="Include country code"
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label for="country" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Country *</label>
+								<input
+									type="text"
+									id="country"
+									name="country"
+									required
+									class="form-input w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300"
+									placeholder="Your country"
+								/>
+							</div>
+
+							<div>
+								<label for="message" class="block text-sm font-light text-gray-700 mb-2 tracking-wide">Message / How can we help?</label>
+								<textarea
+									id="message"
+									name="message"
+									rows="5"
+									class="form-textarea w-full px-4 py-3 border border-gray-300 rounded-sm text-gray-900 font-light text-base transition-all duration-300 resize-vertical"
+									placeholder="Tell us about your agency and how we might work together..."
+								></textarea>
+							</div>
+
+							<div class="space-y-4">
+								<label class="flex items-start gap-3 cursor-pointer">
+									<input
+										type="checkbox"
+										name="request-price-sheet"
+										value="yes"
+										class="form-checkbox w-5 h-5 mt-0.5 border-gray-300 rounded-sm"
+									/>
+									<span class="text-base font-light text-gray-700 tracking-wide">I'd like to receive the Lilja Tours advisor price sheet</span>
+								</label>
+
+								<label class="flex items-start gap-3 cursor-pointer">
+									<input
+										type="checkbox"
+										name="client-inquiry"
+										value="yes"
+										class="form-checkbox w-5 h-5 mt-0.5 border-gray-300 rounded-sm"
+									/>
+									<span class="text-base font-light text-gray-700 tracking-wide">I have a specific client inquiry to discuss</span>
+								</label>
+							</div>
+
+							<div id="advisor-form-message" class="hidden p-3 rounded-sm text-sm"></div>
+
+							<button
+								type="submit"
+								id="advisor-submit-btn"
+								class="submit-btn w-full md:w-auto inline-flex items-center justify-center gap-2 py-3 px-10 bg-transparent text-[#5b7297] border border-[#5b7297] rounded-sm font-light text-base transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-white cursor-pointer"
+							>
+								Send Request
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+								</svg>
+							</button>
+						</form>
+					</div>
+				</div>
+			</section>
+
+			<!-- Footer Tagline -->
+			<section class="bg-gray-900 py-12">
+				<div class="max-w-6xl w-full mx-auto px-8 text-center">
+					<p class="text-xl md:text-2xl font-light tracking-wide text-white opacity-90">
+						Lilja Tours — Privately guided. Personally crafted. Proudly Icelandic.
+					</p>
+				</div>
+			</section>
+		</main>
+
+		<Footer currentLang="en" />
+
+		<script>
+			// Intersection Observer for scroll animations
+			function initScrollAnimations() {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				};
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				}, observerOptions);
+
+				const animatedElements = document.querySelectorAll(
+					'.fade-in, .slide-up, .slide-down, .slide-left, .slide-right'
+				);
+
+				animatedElements.forEach((element) => {
+					observer.observe(element);
+				});
+			}
+
+			// Advisor form submission
+			function initAdvisorForm() {
+				const form = document.getElementById('advisor-form');
+				const submitBtn = document.getElementById('advisor-submit-btn');
+				const formMessage = document.getElementById('advisor-form-message');
+
+				if (!form) return;
+
+				form.addEventListener('submit', async (e) => {
+					e.preventDefault();
+
+					// Disable submit button
+					submitBtn.disabled = true;
+					submitBtn.textContent = 'Sending...';
+
+					// Get form data
+					const formData = new FormData(form);
+					const requestPriceSheet = formData.get('request-price-sheet') === 'yes';
+					const clientInquiry = formData.get('client-inquiry') === 'yes';
+					const userMessage = formData.get('message') || '';
+
+					// Build message with all form details
+					let fullMessage = `TRAVEL ADVISOR INQUIRY\n\n`;
+					fullMessage += `Company: ${formData.get('company')}\n`;
+					fullMessage += `Country: ${formData.get('country')}\n\n`;
+					fullMessage += `Requests:\n`;
+					fullMessage += `- Price Sheet: ${requestPriceSheet ? 'Yes' : 'No'}\n`;
+					fullMessage += `- Specific Client Inquiry: ${clientInquiry ? 'Yes' : 'No'}\n\n`;
+					if (userMessage) {
+						fullMessage += `Additional Message:\n${userMessage}`;
+					} else {
+						fullMessage += `No additional message provided.`;
+					}
+
+					const data = {
+						name: formData.get('name'),
+						email: formData.get('email'),
+						phone: formData.get('phone') || '',
+						'tour-type': 'Travel Advisor Partnership',
+						message: fullMessage
+					};
+
+					try {
+						const response = await fetch('/contact.php', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(data)
+						});
+
+						const result = await response.json();
+
+						if (response.ok && result.success) {
+							// Success
+							formMessage.textContent = result.message || 'Thank you for your inquiry. We will be in touch within 24 hours.';
+							formMessage.className = 'p-3 rounded-sm text-sm bg-green-100 text-green-800 border border-green-300';
+							formMessage.classList.remove('hidden');
+							form.reset();
+							// Scroll to message
+							formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+						} else {
+							// Error
+							formMessage.textContent = result.error || 'Failed to send message. Please try again.';
+							formMessage.className = 'p-3 rounded-sm text-sm bg-red-100 text-red-800 border border-red-300';
+							formMessage.classList.remove('hidden');
+							formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+						}
+					} catch (error) {
+						formMessage.textContent = 'Network error. Please check your connection and try again.';
+						formMessage.className = 'p-3 rounded-sm text-sm bg-red-100 text-red-800 border border-red-300';
+						formMessage.classList.remove('hidden');
+						formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					} finally {
+						// Re-enable submit button
+						submitBtn.disabled = false;
+						submitBtn.innerHTML = 'Send Request<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>';
+					}
+				});
+			}
+
+			// Initialize all functions when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				initScrollAnimations();
+				initAdvisorForm();
+			});
+		</script>
+	</body>
+</html>
