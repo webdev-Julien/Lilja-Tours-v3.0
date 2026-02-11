@@ -58,7 +58,8 @@
       "Bash(git branch:*)",
       "Bash(git reset:*)",
       "Bash(git commit:*)",
-      "Bash(ls -la \"D:\\\\JULIEN\\\\09 - WEBSITES\\\\Lilja Tours v3.0\\\\public\\\\pictures\\\\blog\\\\articles\\\\honeymoon-in-iceland\"\" 2>/dev/null || dir \"D:JULIEN09 - WEBSITESLilja Tours v3.0publicpicturesblogarticleshoneymoon-in-iceland \")"
+      "Bash(ls -la \"D:\\\\JULIEN\\\\09 - WEBSITES\\\\Lilja Tours v3.0\\\\public\\\\pictures\\\\blog\\\\articles\\\\honeymoon-in-iceland\"\" 2>/dev/null || dir \"D:JULIEN09 - WEBSITESLilja Tours v3.0publicpicturesblogarticleshoneymoon-in-iceland \")",
+      "WebFetch(domain:developers.google.com)"
     ],
     "deny": [],
     "ask": []
