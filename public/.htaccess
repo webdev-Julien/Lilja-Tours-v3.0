@@ -3,41 +3,47 @@
 # Hosted on HostGator | Cloudflare Active
 # =====================================================
 
+
 # Enable RewriteEngine
 RewriteEngine On
+
 
 # HTTPS redirect removed - handled by Cloudflare "Always Use HTTPS" setting
 # (SSL/TLS → Edge Certificates → Always Use HTTPS)
 
+
 # Force www
-RewriteCond %{HTTP_HOST} ^lilja-tours\.com [NC]
+RewriteCond %{HTTP_HOST} ^lilja-tours\\.com [NC]
 RewriteRule ^(.*)$ https://www.lilja-tours.com/$1 [L,R=301]
+
 
 # Remove trailing slash (except for directories)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} (.+)/$
 RewriteRule ^ %1 [R=301,L]
 
+
 # =====================================================
 # 301 REDIRECTS - OLD URLs to NEW URLs
 # =====================================================
 
-# Instructions: Replace [NEW-URL] with the actual new URL path
-# Format: RedirectMatch 301 ^/old-path/?$ https://www.lilja-tours.com/[NEW-URL]
 
 # =====================================================
 # -----------------------------------------------------
 # MAIN PAGES
 # -----------------------------------------------------
 
-# Removed: RedirectMatch 301 ^/about/?$ - This page now exists at /about/
+
 RedirectMatch 301 ^/all-day-tours/?$ https://www.lilja-tours.com/private-day-tours-iceland/
 RedirectMatch 301 ^/multiday/?$ https://www.lilja-tours.com/multiday-tours-iceland/
 RedirectMatch 301 ^/things-to-do-in-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/
+RedirectMatch 301 ^/lander/?$ https://www.lilja-tours.com/
+
 
 # -----------------------------------------------------
 # DAY TOUR CATEGORIES (redirect to main day tours page)
 # -----------------------------------------------------
+
 
 RedirectMatch 301 ^/day-tours-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/
 RedirectMatch 301 ^/day-tours-iceland/adventure/?$ https://www.lilja-tours.com/private-day-tours-iceland/
@@ -49,65 +55,64 @@ RedirectMatch 301 ^/day-tours-iceland/reykjavik/?$ https://www.lilja-tours.com/p
 RedirectMatch 301 ^/day-tours-iceland/sightseeing/?$ https://www.lilja-tours.com/private-day-tours-iceland/
 RedirectMatch 301 ^/day-tours-iceland/south-coast/?$ https://www.lilja-tours.com/private-day-tours-iceland/
 RedirectMatch 301 ^/day-tours-iceland/west-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/day-tours-iceland/private/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/day-tours-iceland/private-/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+
 
 # -----------------------------------------------------
-# ENGLISH PRIVATE DAY TOURS
+# ENGLISH PRIVATE DAY TOURS (from /day-tours-iceland/)
 # -----------------------------------------------------
 
-# Golden Circle Complete (Farm to Table)
+
 RedirectMatch 301 ^/day-tours-iceland/private-golden-circle-tour-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete-farm-to-table/
-
-# Golden Circle Essentials
 RedirectMatch 301 ^/day-tours-iceland/private-tour-golden-circle-essentials-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-essentials/
-
-# Golden Circle + Silfra Snorkel
 RedirectMatch 301 ^/day-tours-iceland/private-golden-circle-tour-and-silfra-snorkel/?$ https://www.lilja-tours.com/private-day-tours-iceland/
-
-# South Coast Complete
 RedirectMatch 301 ^/day-tours-iceland/private-south-coast-tour-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
-
-# South Coast + Lava Center/Show
 RedirectMatch 301 ^/day-tours-iceland/private-south-coast-tour-lava-center-and-lava-show/?$ https://www.lilja-tours.com/private-day-tours-iceland/
-
-# South Coast + Glacier Hike
 RedirectMatch 301 ^/day-tours-iceland/private-tour-south-coast-glacier-hike/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-glacier-hike-private-tour-iceland/
-
-# Glacier Hike (standalone)
 RedirectMatch 301 ^/day-tours-iceland/private-glacier-hike-in-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/solheimajokull-glacier-hike/
-
-# Snaefellsnes Peninsula
 RedirectMatch 301 ^/day-tours-iceland/private-tour-snaefellsnes-peninsula-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/snaefellsnes-peninsula/
-
-# Reykjanes Peninsula
-RedirectMatch 301 ^/day-tours-iceland/private-tour-reykjanes-peninsula-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/colors-reykjanes/
-
-# Northern Lights
+RedirectMatch 301 ^/day-tours-iceland/private-tour-reykjanes-peninsula-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/reykjanes-peninsula/
 RedirectMatch 301 ^/day-tours-iceland/private-northern-lights-tour-in-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/northern-lights-private-tour-iceland/
-
-# Westman Islands
 RedirectMatch 301 ^/day-tours-iceland/private-tour-westman-islands/?$ https://www.lilja-tours.com/private-day-tours-iceland/westman-islands-adventure/
-
-# Viking Heritage / Cultural Tour
 RedirectMatch 301 ^/day-tours-iceland/private-cultural-tour-viking-history/?$ https://www.lilja-tours.com/private-day-tours-iceland/viking-heritage-waterfalls/
-
-# Silver Circle (West Iceland)
 RedirectMatch 301 ^/day-tours-iceland/silver-circle-private-tour-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/
-
-# Glymur Waterfall Hike
 RedirectMatch 301 ^/day-tours-iceland/private-hiking-tour-glymur/?$ https://www.lilja-tours.com/private-day-tours-iceland/glymur-waterfall-hike/
-
-# Thorsmork Hiking
 RedirectMatch 301 ^/day-tours-iceland/private-hiking-tour-in-thorsmork/?$ https://www.lilja-tours.com/private-day-tours-iceland/thorsmork-highland-valley-hiking/
-
-# Kerlingarfjoll Hiking
 RedirectMatch 301 ^/day-tours-iceland/private-hiking-tour-kerlingarfjoll/?$ https://www.lilja-tours.com/private-day-tours-iceland/kerlingarfjoll-highland-hiking/
-
-# Landmannalaugar Hiking
 RedirectMatch 301 ^/day-tours-iceland/private-hiking-tour-to-the-landmannalaugar/?$ https://www.lilja-tours.com/private-day-tours-iceland/landmannalaugar-highland-paradise/
+
+
+# -----------------------------------------------------
+# OLD /private-day-tours-iceland/ SLUGS (404s → new slugs)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/private-day-tours-iceland/golden-circle/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete-farm-to-table/
+RedirectMatch 301 ^/private-day-tours-iceland/golden-circle-culinary-experience/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete-farm-to-table/
+RedirectMatch 301 ^/private-day-tours-iceland/golden-circle-snorkel-silfra/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-essentials/
+RedirectMatch 301 ^/private-day-tours-iceland/south-coast/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
+RedirectMatch 301 ^/private-day-tours-iceland/south-coast-highlights/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
+RedirectMatch 301 ^/private-day-tours-iceland/south-coast-lava-center-lava-show/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
+RedirectMatch 301 ^/private-day-tours-iceland/south-coast-glacier-hike/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-glacier-hike-private-tour-iceland/
+RedirectMatch 301 ^/private-day-tours-iceland/glacier-hike-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/solheimajokull-glacier-hike/
+RedirectMatch 301 ^/private-day-tours-iceland/west-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/snaefellsnes-peninsula/
+RedirectMatch 301 ^/private-day-tours-iceland/borgarfjordur-silver-circle/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/private-day-tours-iceland/highlands/?$ https://www.lilja-tours.com/private-day-tours-iceland/landmannalaugar-highland-paradise/
+RedirectMatch 301 ^/private-day-tours-iceland/spectacular-landmannalaugar/?$ https://www.lilja-tours.com/private-day-tours-iceland/landmannalaugar-highland-paradise/
+RedirectMatch 301 ^/private-day-tours-iceland/thorsmork-hiking-tour/?$ https://www.lilja-tours.com/private-day-tours-iceland/thorsmork-highland-valley-hiking/
+RedirectMatch 301 ^/private-day-tours-iceland/reykjanes-colors/?$ https://www.lilja-tours.com/private-day-tours-iceland/reykjanes-peninsula/
+RedirectMatch 301 ^/private-day-tours-iceland/westman-islands/?$ https://www.lilja-tours.com/private-day-tours-iceland/westman-islands-adventure/
+RedirectMatch 301 ^/private-day-tours-iceland/vikings-waterfalls/?$ https://www.lilja-tours.com/private-day-tours-iceland/viking-heritage-waterfalls/
+RedirectMatch 301 ^/private-day-tours-iceland/sightseeing/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/private-day-tours-iceland/reykjadalur-hot-river-hike/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+
 
 # -----------------------------------------------------
 # ENGLISH "THINGS TO DO" / PARTNER EXPERIENCES
+# (from /things-to-do-in-iceland/)
 # -----------------------------------------------------
+
 
 # Hot Springs & Spas
 RedirectMatch 301 ^/things-to-do-in-iceland/book-sky-lagoon-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/sky-lagoon-pure-pass/
@@ -170,17 +175,101 @@ RedirectMatch 301 ^/things-to-do-in-iceland/northern-lights-small-group-tour-ice
 # Other Activities
 RedirectMatch 301 ^/things-to-do-in-iceland/book-silfra-snorkeling/?$ https://www.lilja-tours.com/partner-experiences-iceland/snorkeling-silfra/
 
+
+# -----------------------------------------------------
+# OLD /things-to-do-iceland/ URLS (404s → partner experiences)
+# -----------------------------------------------------
+
+
+# Hot Springs & Spas
+RedirectMatch 301 ^/things-to-do-iceland/book-sky-lagoon-sky-pass/?$ https://www.lilja-tours.com/partner-experiences-iceland/sky-lagoon-sky-pass/
+RedirectMatch 301 ^/things-to-do-iceland/book-sky-lagoon-pure-pass/?$ https://www.lilja-tours.com/partner-experiences-iceland/sky-lagoon-pure-pass/
+RedirectMatch 301 ^/things-to-do-iceland/book-hvammsvik-hot-springs-and-spa/?$ https://www.lilja-tours.com/partner-experiences-iceland/hvammsvik-hot-springs/
+RedirectMatch 301 ^/things-to-do-iceland/book-hvammsvik-with-transfer/?$ https://www.lilja-tours.com/partner-experiences-iceland/hvammsvik-hot-springs-transfer/
+RedirectMatch 301 ^/things-to-do-iceland/book-husafell-canyon-baths/?$ https://www.lilja-tours.com/partner-experiences-iceland/husafell-canyon-baths/
+RedirectMatch 301 ^/things-to-do-iceland/krauma-geothermal-spa/?$ https://www.lilja-tours.com/partner-experiences-iceland/krauma-geothermal-baths/
+RedirectMatch 301 ^/things-to-do-iceland/fontana-geothermal-spa-golden-circle/?$ https://www.lilja-tours.com/partner-experiences-iceland/laugarvatn-fontana-spa/
+RedirectMatch 301 ^/things-to-do-iceland/myvatn-nature-baths/?$ https://www.lilja-tours.com/partner-experiences-iceland/hot-springs/
+
+# Lava & Caves
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-cave-vatnshellir/?$ https://www.lilja-tours.com/partner-experiences-iceland/vatnshellir-cave-tour/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-cave-vidgelmir/?$ https://www.lilja-tours.com/partner-experiences-iceland/vidgelmir-lava-cave-tour/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-tunnel-iceland-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/the-lava-tunnel/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-tunnel-adventure-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/raufarholshellir-adventure/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-center-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/lava-centre/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-show-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/lava-show-reykjavik/
+RedirectMatch 301 ^/things-to-do-iceland/the-lava-show-in-vik/?$ https://www.lilja-tours.com/partner-experiences-iceland/lava-show-vik/
+
+# Ice Caves & Glaciers
+RedirectMatch 301 ^/things-to-do-iceland/blue-ice-cave-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/blue-ice-cave-jokulsarlon/
+RedirectMatch 301 ^/things-to-do-iceland/blue-ice-cave-and-glacier-hike-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/glacier-hike-ice-cave-photos/
+RedirectMatch 301 ^/things-to-do-iceland/katla-ice-cave-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/katla-ice-cave/
+RedirectMatch 301 ^/things-to-do-iceland/glacier-hike-solheimajokull-small-group-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/ice-caves/
+RedirectMatch 301 ^/things-to-do-iceland/glacier-hike-vatnajokull-small-group-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/glacier-tours/
+RedirectMatch 301 ^/things-to-do-iceland/book-into-the-glacier/?$ https://www.lilja-tours.com/partner-experiences-iceland/into-the-glacier/
+RedirectMatch 301 ^/things-to-do-iceland/snowmobile-glacier-langjokull-meet-in-gullfoss/?$ https://www.lilja-tours.com/partner-experiences-iceland/langjokull-snowmobile/
+RedirectMatch 301 ^/things-to-do-iceland/glacier-lagoon-zodiac-boat-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/iceberg-boat-tour/
+
+# Whale Watching
+RedirectMatch 301 ^/things-to-do-iceland/whale-watching-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/whale-watching-cruise/
+RedirectMatch 301 ^/things-to-do-iceland/whale-watching-rib-boat-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/whale-watching-rib-boat/
+RedirectMatch 301 ^/things-to-do-iceland/whale-watching-sea-angling-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/whale-watching-sea-angling/
+RedirectMatch 301 ^/things-to-do-iceland/whale-watching-akureyri/?$ https://www.lilja-tours.com/partner-experiences-iceland/whale-watching/
+RedirectMatch 301 ^/things-to-do-iceland/whale-watching-husavik-small-boat/?$ https://www.lilja-tours.com/partner-experiences-iceland/whale-watching/
+RedirectMatch 301 ^/things-to-do-iceland/whale-of-iceland-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/whales-of-iceland/
+
+# Museums
+RedirectMatch 301 ^/things-to-do-iceland/perlan-museum-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/perlan-museum/
+RedirectMatch 301 ^/things-to-do-iceland/northern-lights-museum-reykjavik/?$ https://www.lilja-tours.com/partner-experiences-iceland/northern-lights-museum/
+
+# Helicopter Tours
+RedirectMatch 301 ^/things-to-do-iceland/2-hour-helicopter-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/helicopter-tours/
+RedirectMatch 301 ^/things-to-do-iceland/helicopter-tour-above-glacier/?$ https://www.lilja-tours.com/partner-experiences-iceland/helicopter-glacier-landing/
+RedirectMatch 301 ^/things-to-do-iceland/helicopter-tour-above-erupting-volcano/?$ https://www.lilja-tours.com/partner-experiences-iceland/helicopter-volcanic-eruption/
+
+# ATV Tours
+RedirectMatch 301 ^/things-to-do-iceland/atv-ride-iceland-1-hour-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/atv-tour-reykjavik/
+RedirectMatch 301 ^/things-to-do-iceland/atv-ride-iceland-2-hours-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/twin-peaks-atv-adventure/
+RedirectMatch 301 ^/things-to-do-iceland/atv-ride-iceland-3-hours-tour/?$ https://www.lilja-tours.com/partner-experiences-iceland/volcanic-springs-atv-adventure/
+
+# Snorkeling
+RedirectMatch 301 ^/things-to-do-iceland/snorkel-in-silfra-tectonic-fissure-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/silfra-snorkeling/
+
+# Small Group Tours
+RedirectMatch 301 ^/things-to-do-iceland/golden-circle-small-group-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/south-coast-tour-small-group-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/snaefellsnes-peninsula-tour-small-group-tour-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/golden-circle-small-group-tour-in-french-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/south-coast-small-group-tour-in-french-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/snaefellsnes-peninsula-small-group-tour-in-french/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/reykjanes-peninsula-small-group-tour-in-french/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/landmannalaugar-icelandic-highlands-small-group-tour-in-french/?$ https://www.lilja-tours.com/partner-experiences-iceland/small-group-tours/
+RedirectMatch 301 ^/things-to-do-iceland/northern-lights-tour-small-group-iceland/?$ https://www.lilja-tours.com/partner-experiences-iceland/northern-lights-small-group-tour/
+
+
+# -----------------------------------------------------
+# OLD /partner-experiences-iceland/ SLUGS (404s)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/partner-experiences-iceland/sky-lagoon/?$ https://www.lilja-tours.com/partner-experiences-iceland/sky-lagoon-pure-pass/
+RedirectMatch 301 ^/partner-experiences-iceland/undefined/?$ https://www.lilja-tours.com/partner-experiences-iceland/
+
+
 # -----------------------------------------------------
 # MULTIDAY TOURS
 # -----------------------------------------------------
+
 
 RedirectMatch 301 ^/multiday/5-day-private-tour-golden-circle-south-coast-and-highlands/?$ https://www.lilja-tours.com/multiday-tours-iceland/
 RedirectMatch 301 ^/multiday/4-day-private-tour-westfjords-iceland/?$ https://www.lilja-tours.com/multiday-tours-iceland/
 RedirectMatch 301 ^/multiday/ring-road-of-iceland-private-tour-8-days/?$ https://www.lilja-tours.com/multiday-tours-iceland/
 
+
 # -----------------------------------------------------
 # BLOG POSTS (English)
 # -----------------------------------------------------
+
 
 RedirectMatch 301 ^/the-mesmerizing-world-of-northern-lights-in-iceland/?$ https://www.lilja-tours.com/blog/northern-lights-iceland-guide/
 RedirectMatch 301 ^/unveiling-icelands-splendor-a-premium-tour-guide/?$ https://www.lilja-tours.com/blog/
@@ -190,88 +279,151 @@ RedirectMatch 301 ^/golden-circle-tour-in-iceland/?$ https://www.lilja-tours.com
 RedirectMatch 301 ^/private-tours-in-iceland/?$ https://www.lilja-tours.com/blog/
 RedirectMatch 301 ^/exploring-the-volcanic-wonders-of-iceland/?$ https://www.lilja-tours.com/blog/
 
+# English blog - French content in wrong path
+RedirectMatch 301 ^/blog/les-meilleurs-hotels-d-islande/?$ https://www.lilja-tours.com/fr/blog/top-10-hotels-favoris/
+RedirectMatch 301 ^/blog/voir-lave-en-fusion-en-islande/?$ https://www.lilja-tours.com/fr/blog/comment-voir-lave-islande/
+RedirectMatch 301 ^/blog/autotour-excursions-en-groupe-guide-prive/?$ https://www.lilja-tours.com/fr/blog/self-drive-petit-groupe-circuits-prives/
+RedirectMatch 301 ^/blog/les-10-meilleures-activites-a-reykjavik/?$ https://www.lilja-tours.com/fr/blog/
+RedirectMatch 301 ^/blog/circuits-prives-autotour-petit-groupe/?$ https://www.lilja-tours.com/fr/blog/self-drive-petit-groupe-circuits-prives/
+
+# English blog - old slugs
+RedirectMatch 301 ^/blog/best-hotels-in-iceland-complete-guide/?$ https://www.lilja-tours.com/blog/top-10-favourite-hotels/
+RedirectMatch 301 ^/blog/the-10-best-activities-to-do-in-reykjavik/?$ https://www.lilja-tours.com/blog/
+RedirectMatch 301 ^/blog/how-to-see-real-lava-in-iceland/?$ https://www.lilja-tours.com/blog/how-to-see-lava-in-iceland/
+RedirectMatch 301 ^/blog/private-tours-self-drive-small-group/?$ https://www.lilja-tours.com/blog/self-drive-tour-small-group-tour-private-tour/
+RedirectMatch 301 ^/blog/inspirations/?$ https://www.lilja-tours.com/blog/
+RedirectMatch 301 ^/blog/undefined/?$ https://www.lilja-tours.com/blog/
+
+
+# -----------------------------------------------------
+# FRENCH BLOG - OLD SLUGS & WRONG LANGUAGE (404s)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/blog/guide-ultime-cote-sud-islande/?$ https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
+RedirectMatch 301 ^/fr/blog/guide-ultime-cote-sud/?$ https://www.lilja-tours.com/fr/blog/decouverte-ultime-cote-sud/
+RedirectMatch 301 ^/fr/blog/les-meilleurs-hotels-d-islande/?$ https://www.lilja-tours.com/fr/blog/top-10-hotels-favoris/
+RedirectMatch 301 ^/fr/blog/les-10-meilleures-activites-a-reykjavik/?$ https://www.lilja-tours.com/fr/blog/
+RedirectMatch 301 ^/fr/blog/voir-lave-en-fusion-en-islande/?$ https://www.lilja-tours.com/fr/blog/comment-voir-lave-islande/
+RedirectMatch 301 ^/fr/blog/autotour-excursions-en-groupe-guide-prive/?$ https://www.lilja-tours.com/fr/blog/self-drive-petit-groupe-circuits-prives/
+RedirectMatch 301 ^/fr/blog/circuits-prives-autotour-petit-groupe/?$ https://www.lilja-tours.com/fr/blog/self-drive-petit-groupe-circuits-prives/
+RedirectMatch 301 ^/fr/blog/how-to-see-real-lava-in-iceland/?$ https://www.lilja-tours.com/blog/how-to-see-lava-in-iceland/
+RedirectMatch 301 ^/fr/blog/the-10-best-activities-to-do-in-reykjavik/?$ https://www.lilja-tours.com/blog/
+RedirectMatch 301 ^/fr/blog/best-hotels-in-iceland-complete-guide/?$ https://www.lilja-tours.com/blog/top-10-favourite-hotels/
+RedirectMatch 301 ^/fr/blog/undefined/?$ https://www.lilja-tours.com/fr/blog/
+
 # -----------------------------------------------------
 # FRENCH PAGES - MAIN
 # -----------------------------------------------------
 
-RedirectMatch 301 ^/fr/excursion-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/
-RedirectMatch 301 ^/fr/voyages-plusieurs-jours/?$ https://www.lilja-tours.com/fr/circuits-plusieurs-jours-islande/
+
+RedirectMatch 301 ^/fr/excursion-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+RedirectMatch 301 ^/fr/voyages-plusieurs-jours/?$ https://www.lilja-tours.com/fr/circuits-multi-jours-islande/
 RedirectMatch 301 ^/fr/a-faire-en-islande/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/
+RedirectMatch 301 ^/fr/activites-en-islande/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/
+RedirectMatch 301 ^/fr/toutes-nos-excursions/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+RedirectMatch 301 ^/fr/circuits/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+
 
 # -----------------------------------------------------
-# FRENCH PRIVATE DAY TOURS
+# FRENCH PRIVATE DAY TOURS (from /fr/excursion-islande/)
 # -----------------------------------------------------
+
 
 # Golden Circle Complete (Farm to Table)
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/cercle-or-complet-ferme-a-table/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cercle-or-complet-ferme-table/
 
 # Golden Circle Essentials
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-essentiel-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/cercle-or-essentiel/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-essentiel-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cercle-or-essentiels/
 
 # Golden Circle + Silfra Snorkel
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-et-silfra/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cercle-d-or-et-silfra/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
 
 # South Coast Complete
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/cote-sud-aventure-complete/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-complete-aventure/
 
 # South Coast + Lava Center/Show
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-lava-center-et-lava-show/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-lava-center-et-lava-show/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
 
 # South Coast + Glacier Hike
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-rando-glacier/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/cote-sud-randonnee-glacier-excursion-privee/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-cote-sud-rando-glacier/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-randonnee-glacier/
 
 # Glacier Hike (standalone)
-RedirectMatch 301 ^/fr/excursion-islande/randonnee-glacier-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/randonnee-glacier-solheimajokull/
+RedirectMatch 301 ^/fr/excursion-islande/randonnee-glacier-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-glacier-solheimajokull/
 
 # Snaefellsnes Peninsula
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-peninsule-snaefellsnes/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/peninsule-snaefellsnes/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-peninsule-snaefellsnes/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/peninsule-snaefellsnes/
 
 # Reykjanes Peninsula
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-peninsule-reykjanes/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/couleurs-reykjanes/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-peninsule-reykjanes/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/couleurs-reykjanes/
 
 # Northern Lights
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-aurores-boreales-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/aurores-boreales-excursion-privee/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-aurores-boreales-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/aurores-boreales-tour-prive/
 
 # Westman Islands
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-iles-vestmann/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/iles-vestmann-aventure/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-iles-vestmann/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/aventure-iles-westman/
 
 # Viking Heritage / Cultural Tour
-RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-culture-viking-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/heritage-viking-cascades/
+RedirectMatch 301 ^/fr/excursion-islande/excursion-privee-culture-viking-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/heritage-viking-cascades/
 
 # Silver Circle (West Iceland)
-RedirectMatch 301 ^/fr/excursion-islande/silver-circle-excursion-privee-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/
+RedirectMatch 301 ^/fr/excursion-islande/silver-circle-excursion-privee-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
 
 # Glymur Waterfall Hike
-RedirectMatch 301 ^/fr/excursion-islande/randonnee-glymur-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/randonnee-cascade-glymur/
+RedirectMatch 301 ^/fr/excursion-islande/randonnee-glymur-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-cascade-glymur/
 
 # Thorsmork Hiking
-RedirectMatch 301 ^/fr/excursion-islande/randonnee-thorsmork-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/randonnee-thorsmork-hautes-terres/
+RedirectMatch 301 ^/fr/excursion-islande/randonnee-thorsmork-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-thorsmork-vallee-montagne/
 
 # Kerlingarfjoll Hiking
-RedirectMatch 301 ^/fr/excursion-islande/randonnee-kerlingarfjoll-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/randonnee-kerlingarfjoll-hautes-terres/
+RedirectMatch 301 ^/fr/excursion-islande/randonnee-kerlingarfjoll-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-kerlingarfjoll-highlands/
 
 # Landmannalaugar Hiking
-RedirectMatch 301 ^/fr/excursion-islande/randonnee-landmannalaugar-islande/?$ https://www.lilja-tours.com/fr/excursions-privees-islande/landmannalaugar-paradis-hautes-terres/
+RedirectMatch 301 ^/fr/excursion-islande/randonnee-landmannalaugar-islande/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-landmannalaugar-paradis-montagne/
+
+
+# -----------------------------------------------------
+# OLD /fr/circuits-prives-islande/ SLUGS (404s → new slugs)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/circuits-prives-islande/cote-sud-complete/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cote-sud-complete-aventure/
+RedirectMatch 301 ^/fr/circuits-prives-islande/randonnee-kerlingarfjoll-hautes-terres/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-kerlingarfjoll-highlands/
+RedirectMatch 301 ^/fr/circuits-prives-islande/randonnee-vallee-thorsmork/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-thorsmork-vallee-montagne/
+RedirectMatch 301 ^/fr/circuits-prives-islande/randonnee-thorsmork/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-thorsmork-vallee-montagne/
+
+
+# -----------------------------------------------------
+# OLD /fr/circuits-multi-jours-islande/ SLUGS (404s → new slugs)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/circuits-multi-jours-islande/ouest-islande-cercle-argent/?$ https://www.lilja-tours.com/fr/circuits-multi-jours-islande/ouest-cercle-argent/
+RedirectMatch 301 ^/fr/circuits-multi-jours-islande/route-1-essentiel-7-jours/?$ https://www.lilja-tours.com/fr/circuits-multi-jours-islande/ring-road-7-jours/
+RedirectMatch 301 ^/fr/circuits-multi-jours-islande/route-1-hautes-terres-10-jours/?$ https://www.lilja-tours.com/fr/circuits-multi-jours-islande/ring-road-hautes-terres-10-jours/
+
 
 # -----------------------------------------------------
 # FRENCH "THINGS TO DO" / PARTNER EXPERIENCES
+# (from /fr/a-faire-en-islande/)
 # -----------------------------------------------------
 
+
 # Hot Springs & Spas
-RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pure-pass/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-pur/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon-avec-transfert/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pure-transfert/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-blue-lagoon/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/blue-lagoon-comfort/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-blue-lagoon-avec-transfert/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/blue-lagoon-comfort-transfert/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-hvammsvik-hot-springs/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sources-chaudes-hvammsvik/
-RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-hvammsvik-hot-springs-avec-transfert/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/hvammsvik-avec-transfert/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-hvammsvik-hot-springs-avec-transfert/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sources-chaudes-hvammsvik-transfert/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-husafell-canyon-baths/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-canyon-husafell/
-RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-krauma-geothermal-baths/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-geothermiques-krauma/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-krauma-geothermal-baths/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-geothermaux-krauma/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-fontana-hot-springs/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/spa-fontana-laugarvatn/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-myvatn-nature-baths/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/hot-springs/
 
 # Lava & Caves
 RedirectMatch 301 ^/fr/a-faire-en-islande/tunnel-de-lave-raufarholshellir/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/tunnel-lave-raufarholshellir/
-RedirectMatch 301 ^/fr/a-faire-en-islande/tunnel-de-lave-vidgelmir/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/grotte-lave-vidgelmir/
+RedirectMatch 301 ^/fr/a-faire-en-islande/tunnel-de-lave-vidgelmir/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/visite-grotte-vidgelmir/
 RedirectMatch 301 ^/fr/a-faire-en-islande/tunnel-de-lave-vatnshellir/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/visite-grotte-vatnshellir/
 RedirectMatch 301 ^/fr/a-faire-en-islande/le-lava-center/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/centre-lave-musee/
 RedirectMatch 301 ^/fr/a-faire-en-islande/le-lava-show-reykjavik/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/spectacle-lave-reykjavik/
@@ -318,21 +470,118 @@ RedirectMatch 301 ^/fr/a-faire-en-islande/peninsule-snaefellsnes-minibus/?$ http
 RedirectMatch 301 ^/fr/a-faire-en-islande/snaefellsnes-minibus-guide-francais/?$ https://iceland-for-you.com/tours/west-of-iceland/
 RedirectMatch 301 ^/fr/a-faire-en-islande/reykjanes-minibus-guide-francais/?$ https://iceland-for-you.com/tours/west-of-iceland/
 RedirectMatch 301 ^/fr/a-faire-en-islande/landmannalaugar-minibus-guide-francais/?$ https://www.iceland-for-you.com/
-RedirectMatch 301 ^/fr/a-faire-en-islande/aurores-boreales-minibus/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/small-group-tours/
+RedirectMatch 301 ^/fr/a-faire-en-islande/aurores-boreales-minibus/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/aurores-boreales-petit-groupe/
 
 # Other Activities
 RedirectMatch 301 ^/fr/a-faire-en-islande/plongee-faille-tectonique-silfra/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/snorkeling-silfra/
+
+
+# -----------------------------------------------------
+# OLD /fr/a-faire-en-islande/ SLUGS NOT COVERED ABOVE (404s)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon-sky-pass/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-premium/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon-pure-pass/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-pur/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-sky-lagoon-ser-pass/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-premium/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-hvammsvik-spa/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sources-chaudes-hvammsvik/
+RedirectMatch 301 ^/fr/a-faire-en-islande/reserver-hvammsvik-avec-transfert-en-bus/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sources-chaudes-hvammsvik-transfert/
+RedirectMatch 301 ^/fr/a-faire-en-islande/sources-chaudes-laugarvatn-fontana/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/spa-fontana-laugarvatn/
+RedirectMatch 301 ^/fr/a-faire-en-islande/krauma-spa-geothermal/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-geothermaux-krauma/
+RedirectMatch 301 ^/fr/a-faire-en-islande/bains-chauds-myvatn/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/hot-springs/
+RedirectMatch 301 ^/fr/a-faire-en-islande/exploration-en-profondeur-d-un-tunnel-de-lave/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/lava-caves/
+RedirectMatch 301 ^/fr/a-faire-en-islande/exploration-d-un-tunnel-de-lave/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/lava-caves/
+RedirectMatch 301 ^/fr/a-faire-en-islande/rando-glacier-falljokull-guide-francais/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/ice-caves/
+
+
+# -----------------------------------------------------
+# OLD /fr/experiences-partenaires-islande/ SLUGS (404s → new slugs)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/husafell-canyon-baths/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-canyon-husafell/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/grotte-de-glace-bleue-jokulsarlon/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/grotte-glace-bleue-jokulsarlon/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/krauma-bains-geothermaux/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bains-geothermaux-krauma/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/vidgelmir-grotte-de-lave/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/visite-grotte-vidgelmir/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/grotte-de-glace-katla/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/grotte-glace-katla/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/croisiere-icebergs/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/bateau-icebergs-fjallsarlon/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/sky-lagoon-sky-pass/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-premium/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/sky-lagoon-pure-pass/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/sky-lagoon-pass-pur/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/perlan-museum/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/musee-perlan/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/helicopter-landmannalaugar-glaciers/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/helicoptere-landmannalaugar-glaciers/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/whales-of-iceland/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/exposition-baleines-islande/
+RedirectMatch 301 ^/fr/experiences-partenaires-islande/undefined/?$ https://www.lilja-tours.com/fr/experiences-partenaires-islande/
+
+
+# -----------------------------------------------------
+# DEAD FRENCH SECTIONS - CATCH-ALL REDIRECTS
+# (These entire sections no longer exist on the site)
+# IMPORTANT: Place these AFTER all specific redirects above
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/fr/guide-francophone-islande/(.*)$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+RedirectMatch 301 ^/fr/excursions-en-islande/(.*)$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+RedirectMatch 301 ^/excursions-in-iceland/(.*)$ https://www.lilja-tours.com/partner-experiences-iceland/
+
+
+# -----------------------------------------------------
+# BOOKING SYSTEM REMNANTS
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/booking/(.*)$ https://www.lilja-tours.com/contact/
+
+
+# -----------------------------------------------------
+# UNDEFINED URL BUG CATCHES
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/(.+)/undefined/?$ https://www.lilja-tours.com/$1/
+
+
+# -----------------------------------------------------
+# LEGACY NON-WWW OLD SITE URLS
+# (These are caught by the Force www rule above,
+# but the paths themselves need redirects too)
+# -----------------------------------------------------
+
+
+RedirectMatch 301 ^/homepage/?$ https://www.lilja-tours.com/
+RedirectMatch 301 ^/private-hiking-tours-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/private-sightseeing-tours-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/
+RedirectMatch 301 ^/private-northern-lights-tours/?$ https://www.lilja-tours.com/private-day-tours-iceland/northern-lights-private-tour-iceland/
+RedirectMatch 301 ^/contact-personalized-private-tours/?$ https://www.lilja-tours.com/contact/
+RedirectMatch 301 ^/private-tour-south-coast-glacier-hike/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-glacier-hike-private-tour-iceland/
+RedirectMatch 301 ^/private-glacier-hike-/?$ https://www.lilja-tours.com/private-day-tours-iceland/solheimajokull-glacier-hike/
+RedirectMatch 301 ^/tag/geysir/?$ https://www.lilja-tours.com/blog/
+RedirectMatch 301 ^/private-tour-of-the-south-coast-of-iceland/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
+RedirectMatch 301 ^/private-golden-circle-and-northern-lights-tour/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-complete-farm-to-table/
+RedirectMatch 301 ^/south-coast-and-northern-lights-private-tour/?$ https://www.lilja-tours.com/private-day-tours-iceland/south-coast-complete-adventure/
+RedirectMatch 301 ^/private-tour-golden-circle-essentials-thingvellir-geysir-and-gulfoss/?$ https://www.lilja-tours.com/private-day-tours-iceland/golden-circle-essentials/
+RedirectMatch 301 ^/scheduled-/?$ https://www.lilja-tours.com/
+RedirectMatch 301 ^/partner-/?$ https://www.lilja-tours.com/partner-experiences-iceland/
+
+# Legacy French non-www URLs
+RedirectMatch 301 ^/fr/decouvrez-la-vallee-de-thorsmork-et-sa-nature-exceptionnelle/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/randonnee-thorsmork-vallee-montagne/
+RedirectMatch 301 ^/fr/tag/excursion-individuelles/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/
+RedirectMatch 301 ^/fr/circuit-privatif-avec-chauffeur-gudie-le-cercle-dor-et-visites-de-fermes/?$ https://www.lilja-tours.com/fr/circuits-prives-islande/cercle-or-complet-ferme-table/
+
 
 # =====================================================
 # 404 ERROR HANDLING
 # =====================================================
 
+
 # Custom 404 error page
 ErrorDocument 404 /404.html
+
 
 # =====================================================
 # SECURITY HEADERS
 # =====================================================
+
 
 # Note: These can also be managed via Cloudflare dashboard
 # Keeping them here as a fallback for direct server access
@@ -351,9 +600,11 @@ ErrorDocument 404 /404.html
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
+
 # =====================================================
 # CACHING
 # =====================================================
+
 
 # Note: Cloudflare handles edge caching, but these headers
 # tell Cloudflare (and browsers) how long to cache content
@@ -390,9 +641,11 @@ ErrorDocument 404 /404.html
     ExpiresByType text/html "access plus 1 hour"
 </IfModule>
 
+
 # =====================================================
 # COMPRESSION
 # =====================================================
+
 
 # Note: Cloudflare compresses automatically at the edge,
 # but this ensures compression for direct server requests
