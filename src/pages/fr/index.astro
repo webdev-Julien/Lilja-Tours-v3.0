@@ -95,6 +95,83 @@ const latestArticles = allBlogArticles
 		<!-- TrustIndex Rich Snippet -->
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "LocalBusiness",
+			"@id": "https://www.lilja-tours.com",
+			"name": "Lilja Tours",
+			"alternateName": "Lilja Tours Islande",
+			"description": "Tour-opérateur privé de référence en Islande, spécialisé dans les circuits guidés personnalisés et les aventures sur mesure de plusieurs jours. Guides locaux experts, véhicules de luxe et itinéraires sur mesure.",
+			"url": "https://www.lilja-tours.com",
+			"logo": "https://www.lilja-tours.com/cdn-cgi/image/width=600,format=auto,quality=85,fit=scale-down,metadata=none/Lilja-Tours-Logo.jpg",
+			"image": "https://www.lilja-tours.com/cdn-cgi/image/width=1200,format=auto,quality=85,fit=scale-down,metadata=none/Lilja-Tours-Logo.jpg",
+			"foundingDate": "2021",
+			"telephone": "+354-764-3715",
+			"email": "info@lilja-tours.com",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Reykjavik",
+				"addressCountry": "IS",
+				"addressRegion": "Région Capitale"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "64.1466",
+				"longitude": "-21.9426"
+			},
+			"priceRange": "€€€",
+			"currenciesAccepted": "ISK, EUR, USD",
+			"paymentAccepted": "Carte bancaire",
+			"areaServed": {
+				"@type": "Country",
+				"name": "Islande"
+			},
+			"serviceType": ["Circuits Privés", "Circuits Multi-Jours", "Transferts Privés", "Itinéraires Sur Mesure"],
+			"sameAs": [
+				"https://www.facebook.com/LiljaTours",
+				"https://www.instagram.com/lilja_tours",
+				"https://www.tripadvisor.com/Attraction_Review-g189970-d23867059-Reviews-Lilja_Tours-Reykjavik_Capital_Region.html"
+			],
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "5.0",
+				"reviewCount": "150",
+				"bestRating": "5",
+				"worstRating": "1"
+			},
+			"founder": {
+				"@type": "Person",
+				"name": "Julien",
+				"jobTitle": "Fondateur & Concepteur de Voyages"
+			},
+			"hasOfferCatalog": {
+				"@type": "OfferCatalog",
+				"name": "Circuits Privés en Islande",
+				"itemListElement": [
+					{
+						"@type": "OfferCatalog",
+						"name": "Circuits Privés",
+						"url": "https://www.lilja-tours.com/fr/circuits-prives-islande/",
+						"description": "Circuits guidés privés d'une journée à travers l'Islande"
+					},
+					{
+						"@type": "OfferCatalog",
+						"name": "Circuits Multi-Jours",
+						"url": "https://www.lilja-tours.com/fr/circuits-multi-jours-islande/",
+						"description": "Circuits sur mesure de plusieurs jours autour de l'Islande"
+					},
+					{
+						"@type": "OfferCatalog",
+						"name": "Transferts Privés",
+						"url": "https://www.lilja-tours.com/fr/transferts-islande/",
+						"description": "Services de chauffeur privé entre destinations en Islande"
+					}
+				]
+			}
+		}
+		</script>
+
 		<style is:inline>
   /* Minimal CSS for features not available in Tailwind */
   .itinerary-cta-button::after {
@@ -241,7 +318,7 @@ const latestArticles = allBlogArticles
 								Depuis notre création en 2021, Lilja Tours se consacre à la confection de voyages inoubliables à travers les paysages sauvages de l'Islande.
 							</p>
 							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
-								Nos guides locaux apportent des années d'expérience et une connaissance approfondie de la culture, de la géologie et de l'histoire islandaises à chaque aventure.
+								Nos guides locaux apportent des années d'expérience et une connaissance approfondie de la culture, de la géologie et de l'histoire islandaises à chaque aventure. Que vous souhaitiez observer les <a href="/fr/circuits-prives-islande/aurores-boreales-tour-prive/">aurores boréales</a>, explorer des <a href="/fr/blog/comment-voir-lave-islande/">paysages volcaniques</a> ou randonner vers des <a href="/fr/circuits-prives-islande/randonnee-cascade-glymur/">cascades isolées</a>, chaque voyage est conçu selon vos envies.
 							</p>
 							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-0 tracking-wide">
 								Des <a href="/fr/circuits-prives-islande/">excursions intimistes d'une journée</a> aux <a href="/fr/circuits-multi-jours-islande/">expéditions complètes et sur mesure de plusieurs jours</a>, Lilja Tours propose des expériences de voyage mémorables et haut de gamme.
@@ -255,6 +332,33 @@ const latestArticles = allBlogArticles
 				<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-32 leading-tight text-gray-900 text-center fade-in">La confiance de voyageurs du monde entier</h2>
 				<div style="min-height: 400px;">
 					<div id="trustindex-widget-container"></div>
+				</div>
+			</section>
+
+			<section class="fade-in relative bg-cover bg-center bg-fixed py-32 min-h-screen flex items-center" style="background-image: url('/pictures/index/private-tours.jpg');">
+				<div class="absolute top-0 left-0 right-0 bottom-0 bg-black/60 z-10"></div>
+				<div class="relative z-20 max-w-5xl w-full mx-auto px-8">
+					<div class="text-left slide-up">
+						<h2 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-wide mb-12 leading-tight text-white">Circuits privés en Islande : votre voyage, à votre rythme</h2>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							L'Islande se révèle à ceux qui prennent le temps de la découvrir. Avec un <a href="/fr/circuits-prives-islande/" class="text-white section-link hover:opacity-80 transition-opacity">circuit privé</a>, vous choisissez votre rythme — attardez-vous devant une cascade quand la lumière est parfaite, faites un détour vers une source chaude secrète ou évitez la foule. Chez Lilja Tours, chaque itinéraire est conçu autour de vos envies, guidé par des locaux passionnés.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Nos <a href="/fr/circuits-prives-islande/" class="text-white section-link hover:opacity-80 transition-opacity">excursions à la journée</a> couvrent les régions emblématiques : les geysers et failles tectoniques du <a href="/fr/blog/guide-ultime-cercle-or/" class="text-white section-link hover:opacity-80 transition-opacity">Cercle d'Or</a>, les plages noires et langues glaciaires de la <a href="/fr/blog/decouverte-ultime-cote-sud/" class="text-white section-link hover:opacity-80 transition-opacity">Côte Sud</a>, le terrain volcanique de la <a href="/fr/blog/guide-ultime-reykjanes/" class="text-white section-link hover:opacity-80 transition-opacity">péninsule de Reykjanes</a> et les falaises de <a href="/fr/blog/guide-ultime-snaefellsnes/" class="text-white section-link hover:opacity-80 transition-opacity">Snæfellsnes</a>. Pour les amoureux de nature sauvage, nos excursions dans les Hautes Terres rejoignent <a href="/fr/circuits-prives-islande/randonnee-landmannalaugar-paradis-montagne/" class="text-white section-link hover:opacity-80 transition-opacity">Landmannalaugar</a>, <a href="/fr/circuits-prives-islande/randonnee-kerlingarfjoll-highlands/" class="text-white section-link hover:opacity-80 transition-opacity">Kerlingarfjöll</a> et <a href="/fr/circuits-prives-islande/randonnee-thorsmork-vallee-montagne/" class="text-white section-link hover:opacity-80 transition-opacity">Þórsmörk</a> — des lieux accessibles uniquement en 4x4 avec un guide expérimenté.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-8 tracking-wide opacity-95">
+							Envie d'une aventure plus longue ? Nos <a href="/fr/circuits-multi-jours-islande/" class="text-white section-link hover:opacity-80 transition-opacity">circuits multi-jours sur mesure</a> combinent les meilleures destinations en un road trip fluide avec des hébergements triés sur le volet. Chaque véhicule de notre flotte offre un confort premium — Mercedes V-Class pour six passagers ou Toyota Land Cruiser pour le terrain des Hautes Terres.
+						</p>
+						<p class="text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-white mb-12 tracking-wide opacity-95">
+							Que vous planifiiez un voyage en famille, une expédition photo ou une escapade romantique, le circuit privé offre une flexibilité que les bus ne peuvent égaler. Nos guides partagent leurs connaissances sur la géologie, les sagas et la culture locale. <a href="/fr/contact/" class="text-white section-link hover:opacity-80 transition-opacity">Contactez-nous</a> pour imaginer ensemble votre voyage en Islande.
+						</p>
+						<a href="/fr/circuits-prives-islande/" class="iceland-for-you-cta inline-flex items-center gap-2 py-3 px-6 bg-transparent text-white no-underline border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px">
+							Découvrir nos circuits privés
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+							</svg>
+						</a>
+					</div>
 				</div>
 			</section>
 
@@ -503,6 +607,7 @@ const latestArticles = allBlogArticles
 					</div>
 				</div>
 			</section>
+
 		</main>
 
 		<Footer currentLang="fr" />

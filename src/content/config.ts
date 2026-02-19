@@ -51,6 +51,12 @@ const toursEN = defineCollection({
     bookingLinkLandCruiser: z.string().optional(),
     bookingLinkMeetOnLocation: z.string().optional(),
     jsonLD: z.object({}).passthrough(),
+    faqSchema: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ).optional(),
     gallery: z.array(
       z.object({
         srcPC: z.string(),
@@ -299,6 +305,12 @@ const toursFR = defineCollection({
     bookingLinkLandCruiser: z.string().optional(),
     bookingLinkMeetOnLocation: z.string().optional(),
     jsonLD: z.object({}).passthrough(),
+    faqSchema: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ).optional(),
     gallery: z.array(
       z.object({
         srcPC: z.string(),

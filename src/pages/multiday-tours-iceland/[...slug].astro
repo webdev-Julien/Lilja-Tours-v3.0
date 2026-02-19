@@ -173,6 +173,56 @@ if (transformedJsonLD.image) {
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
 
+      /* Prose styling for MDX body content */
+      .tour-video-container h2 {
+        font-size: 1.875rem;
+        font-weight: 300;
+        letter-spacing: 0.025em;
+        color: #111827;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+      }
+
+      .tour-video-container p {
+        font-size: 1.125rem;
+        line-height: 1.75;
+        color: #374151;
+        margin-bottom: 1.25rem;
+      }
+
+      .tour-video-container a {
+        color: #5b7297;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+      }
+
+      .tour-video-container a:hover {
+        color: #111827;
+      }
+
+      .tour-video-container ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .tour-video-container li {
+        font-size: 1.125rem;
+        line-height: 1.75;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .tour-video-container h2:first-child {
+        margin-top: 2rem;
+      }
+
+      .tour-video-container iframe + h2 {
+        margin-top: 3rem;
+      }
+
       /* Book Button Hover Effects */
       .book-tour-cta::before {
         content: '';
