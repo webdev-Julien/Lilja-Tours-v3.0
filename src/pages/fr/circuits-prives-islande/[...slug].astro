@@ -644,7 +644,7 @@ const faqSchema = data.faqSchema ? {
     <script>
       // Same scripts as English version - Scroll animations, accordion, contact form
       function initScrollAnimations() {
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px 100px 0px' };
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
