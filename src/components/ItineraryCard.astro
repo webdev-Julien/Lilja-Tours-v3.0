@@ -45,7 +45,7 @@ const t = translations[currentLang];
 ---
 <article class="h-full">
 <div class="group bg-white border border-gray-100 rounded-sm overflow-hidden shadow-sm transition-all duration-400 ease-out flex max-w-[450px] md:max-w-[560px] flex-col h-full hover:-translate-y-0.5 hover:shadow-lg hover:border-[#5b7297]">
-  <div class="relative aspect-[4/3] overflow-hidden flex-shrink-0">
+  <a href={slug} class="relative aspect-[4/3] overflow-hidden flex-shrink-0 block">
     <OptimizedImage
       src={image}
       alt={imageAlt}
@@ -63,11 +63,11 @@ const t = translations[currentLang];
         {difficulty}
       </div>
     )}
-  </div>
+  </a>
 
   <div class="p-7 sm:p-5 md:p-7 flex flex-col flex-1 bg-white">
     <div class="mb-4 border-b border-gray-50 pb-4">
-      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight line-clamp-2 min-h-[3.5rem]">{title}</h3>
+      <h3 class="text-lg sm:text-xl md:text-2xl font-normal text-[#5b7297] leading-tight mb-2 tracking-tight line-clamp-2 min-h-[3.5rem]"><a href={slug} class="no-underline text-inherit hover:text-inherit">{title}</a></h3>
       {season && <span class="text-xs sm:text-sm font-normal text-gray-400 uppercase tracking-wider">{season}</span>}
     </div>
 
