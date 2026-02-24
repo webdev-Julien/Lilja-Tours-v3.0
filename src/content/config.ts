@@ -249,6 +249,12 @@ const blogArticlesEN = defineCollection({
     readingTime: z.string(),
     excerpt: z.string(),
     jsonLD: z.object({}).passthrough(),
+    faqSchema: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ).optional(),
     slug: z.string().optional(),
   }),
 });
@@ -503,6 +509,12 @@ const blogArticlesFR = defineCollection({
     readingTime: z.string(),
     excerpt: z.string(),
     jsonLD: z.object({}).passthrough(),
+    faqSchema: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ).optional(),
     slug: z.string().optional(),
   }),
 });

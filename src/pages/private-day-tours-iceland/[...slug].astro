@@ -57,6 +57,14 @@ if (transformedJsonLD.image) {
   transformedJsonLD.image = getJsonLdImages(imagePath);
 }
 
+// Extract nested FAQPage from TouristTrip mainEntity (if present) and remove it
+// Google flags duplicate FAQPage when it appears both nested in TouristTrip and as standalone
+let nestedFaqQuestions: Array<{ "@type": string; name: string; acceptedAnswer: { "@type": string; text: string } }> | null = null;
+if (transformedJsonLD.mainEntity && transformedJsonLD.mainEntity["@type"] === "FAQPage") {
+  nestedFaqQuestions = transformedJsonLD.mainEntity.mainEntity;
+  delete transformedJsonLD.mainEntity;
+}
+
 // Product schema for tour pricing
 const productSchema = {
   "@context": "https://schema.org",
@@ -88,7 +96,7 @@ const productSchema = {
   "category": "Private Tour"
 };
 
-// FAQ schema (only for pages with FAQ data)
+// FAQ schema: prefer explicit faqSchema field, fall back to extracted nested FAQ from TouristTrip
 const faqSchema = data.faqSchema ? {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -100,6 +108,10 @@ const faqSchema = data.faqSchema ? {
       "text": faq.answer
     }
   }))
+} : nestedFaqQuestions ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": nestedFaqQuestions
 } : null;
 ---
 

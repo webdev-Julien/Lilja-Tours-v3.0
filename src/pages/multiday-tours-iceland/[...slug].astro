@@ -56,6 +56,17 @@ if (transformedJsonLD.image) {
   const imagePath = originalImage.replace('https://www.lilja-tours.com', '');
   transformedJsonLD.image = getJsonLdImages(imagePath);
 }
+
+// Extract nested FAQPage from TouristTrip mainEntity (if present) into standalone script
+let faqSchema: Record<string, any> | null = null;
+if (transformedJsonLD.mainEntity && transformedJsonLD.mainEntity["@type"] === "FAQPage") {
+  faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": transformedJsonLD.mainEntity.mainEntity
+  };
+  delete transformedJsonLD.mainEntity;
+}
 ---
 
 <html lang={data.language}>
@@ -97,6 +108,7 @@ if (transformedJsonLD.image) {
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
     <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
     <style is:inline>
       /* Scroll Animation Classes */

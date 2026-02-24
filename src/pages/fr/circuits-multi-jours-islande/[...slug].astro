@@ -46,6 +46,17 @@ if (transformedJsonLD.image) {
   transformedJsonLD.image = getJsonLdImages(imagePath);
 }
 
+// Extract nested FAQPage from TouristTrip mainEntity (if present) into standalone script
+let faqSchema: Record<string, any> | null = null;
+if (transformedJsonLD.mainEntity && transformedJsonLD.mainEntity["@type"] === "FAQPage") {
+  faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": transformedJsonLD.mainEntity.mainEntity
+  };
+  delete transformedJsonLD.mainEntity;
+}
+
 // Get 3 random other tours from the same collection (random at build time)
 const allTours = await getCollection('multiday_tours_FR');
 const otherTours = allTours.filter(t => t.id !== tour.id);
@@ -110,6 +121,7 @@ const randomTours = shuffleArray(otherTours).slice(0, 3);
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
     <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
     <style is:inline>
       /* Same styles as day tours */

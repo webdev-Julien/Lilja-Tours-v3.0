@@ -22,11 +22,43 @@ Every page MUST have the primary keyword in:
 
 ### Character Limits (STRICT)
 
-- **Meta descriptions**: 160 characters maximum
+- **Page titles (`pageTitle`)**: 60 characters maximum
+- **Meta descriptions (`metaDescription`)**: 130-155 characters target range (minimum 120, maximum 160)
 - **Header introductory texts**: 350 characters maximum
 - **Visit/tour descriptions**: 2,000 characters maximum, formatted in 2-3 paragraphs
 - **Partner experiences `introductoryText`**: 230 characters maximum
 - **Partner experiences `Good to Know` paragraph**: Keep concise (approximately 350-500 characters). Focus on essential practical information only: operation schedule, location, duration, group size, cancellation policy, key requirements, and booking notes.
+
+### Title Standards (STRICT)
+
+Every `pageTitle` (and `<title>` tag in static .astro pages) MUST follow these rules:
+
+1. **Brand suffix**: Always end with ` | Lilja Tours` (exactly this format, with spaces around the pipe)
+2. **Max 60 characters** including the brand suffix
+3. **Front-load the primary keyword** before the pipe — put the most important terms first
+4. **No redundant words**: Avoid filler like "Discover", "Explore", "Experience" when they eat into the 60-char limit
+5. **For evergreen blog guides**: Include the current year in the title (e.g., "Golden Circle Guide 2026 | Lilja Tours"). Do NOT add year to trip reports, photo articles, or news articles.
+6. **`og:title`** must always match `pageTitle` exactly
+
+**Examples:**
+- `"Golden Circle Private Tour | Lilja Tours"` (40 chars)
+- `"Keflavík to Reykjavík Transfer | Lilja Tours"` (47 chars)
+- `"Best Hotels in Reykjavík 2026 | Lilja Tours"` (46 chars)
+
+### Meta Description Standards (STRICT)
+
+Every `metaDescription` (and `<meta name="description">` in static .astro pages) MUST follow these rules:
+
+1. **Target 130-155 characters** — long enough to be informative, short enough to avoid truncation
+2. **End with a natural CTA** — every description must close with a call to action (e.g., "Book your private tour today!", "Plan your Iceland trip now!", "Reserve your spot!", "Explore our tours!")
+3. **Vary opening words** — never start multiple pages in the same category with the same opening word. Avoid formulaic patterns like always starting with "Discover..." or "Explore..."
+4. **Be specific and compelling** — mention concrete details (destinations, unique features, duration) rather than generic travel language
+5. **`og:description`** must always match `metaDescription` exactly
+
+**Examples of varied openings across day tours:**
+- "Journey through Iceland's Golden Circle with a private guide..."
+- "Hike Sólheimajökull glacier on this private south coast tour..."
+- "Witness the raw beauty of Reykjanes Peninsula with your own driver..."
 
 ### Content Guidelines
 
@@ -134,11 +166,15 @@ All MDX images use these Cloudflare parameters:
 ## When Writing Content
 
 1. Check existing pages to avoid content duplication
-2. Verify character counts before finalizing
-3. Ensure keyword appears in title, h1, and intro
-4. Keep meta descriptions concise and compelling
-5. Structure visit descriptions with 2-3 clear paragraphs
-6. Create comprehensive JSON-LD following existing page examples
+2. Verify `pageTitle` is ≤60 chars and ends with `| Lilja Tours`
+3. Verify `metaDescription` is 130-155 chars and ends with a natural CTA
+4. Ensure `og:title` matches `pageTitle` and `og:description` matches `metaDescription`
+5. Ensure keyword appears in title, h1, and intro (3 Kings Rule)
+6. Vary meta description opening words — check existing pages in the same category to avoid repetition
+7. For evergreen blog guides, include the current year in the title
+8. Structure visit descriptions with 2-3 clear paragraphs
+9. Create comprehensive JSON-LD following existing page examples
+10. For French pages: verify `pageTitle` length is ≤ English counterpart
 
 ---
 
@@ -295,9 +331,9 @@ hreflangAlternates:
   - lang: "fr"
     url: "https://www.lilja-tours.com/fr/transferts-islande/keflavik-vers-reykjavik/"
 
-# SEO
-pageTitle: "Private Transfer from Keflavik Airport to Reykjavik | Lilja Tours"
-metaDescription: "Book a private transfer from Keflavik Airport to Reykjavik. Premium vehicle, professional driver, luggage handling included."
+# SEO (pageTitle ≤60 chars, metaDescription 130-155 chars with CTA, og:title = pageTitle, og:description = metaDescription)
+pageTitle: "Keflavík to Reykjavík Transfer | Lilja Tours"
+metaDescription: "Private transfer from Keflavík Airport to your Reykjavík hotel. Premium vehicle, professional driver, luggage handling. Book now!"
 ogImage: "/pictures/transfers/keflavik-reykjavik.webp"
 
 # Content
@@ -349,7 +385,8 @@ jsonLD:
 
 | Element | Max Characters |
 |---------|----------------|
-| Meta description | 160 |
+| Page title (`pageTitle`) | 60 (including `\| Lilja Tours`) |
+| Meta description | 130-155 (with CTA) |
 | Header introductory text | 350 |
 | Card text | 100 |
 | Main content text | 1,000 |
@@ -714,9 +751,16 @@ Every French page must have the primary French keyword in:
 3. Introductory text (first paragraph)
 
 **Character Limits (STRICT):**
-- Meta descriptions: 160 characters maximum
+- Page titles: 60 characters maximum (including `| Lilja Tours`), must be ≤ English counterpart length
+- Meta descriptions: 130-155 characters target (max 160), must end with a natural CTA
 - Header introductory texts: 350 characters maximum
 - Visit/tour descriptions: 2,000 characters maximum (2-3 paragraphs)
+
+**Title & Meta Description Rules (same as English):**
+- Every `pageTitle` ends with ` | Lilja Tours`
+- Every `metaDescription` ends with a natural French CTA (e.g., "Réservez dès maintenant !", "Planifiez votre voyage !")
+- `og:title` = `pageTitle`, `og:description` = `metaDescription`
+- Vary opening words across same-category pages
 
 **Content Guidelines:**
 - Write as SEO copywriter specializing in travel/tourism
@@ -753,7 +797,9 @@ For each French content file, ensure:
 - [ ] `urlOtherLang` points to EN version
 - [ ] `canonicalUrl` is full FR URL
 - [ ] `hreflangAlternates` includes both EN and FR
-- [ ] All SEO fields translated (title, metaDescription)
+- [ ] `pageTitle` translated, ≤60 chars, ends with `| Lilja Tours`, ≤ EN counterpart length
+- [ ] `metaDescription` translated, 130-155 chars, ends with French CTA, varied opening word
+- [ ] `og:title` matches `pageTitle`, `og:description` matches `metaDescription`
 - [ ] All array fields translated (highlights, included, etc.)
 - [ ] **ALL links replaced with French counterparts**
 - [ ] **`category` field: Keep in English** (do NOT translate - used for filtering/grouping)
@@ -766,7 +812,7 @@ For each French content file, ensure:
 - [ ] Maintain proper markdown structure
 - [ ] **ALL internal links replaced with French URLs**
 - [ ] External links kept (translate link text only)
-- [ ] Check character limits (meta: 160, **introductoryText: 280 max for experiences**, descriptions: 2000)
+- [ ] Check character limits (title: 60, meta: 130-155 with CTA, **introductoryText: 280 max for experiences**, descriptions: 2000)
 - [ ] Ensure "3 Kings Rule" compliance
 
 **Images:**

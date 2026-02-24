@@ -56,6 +56,20 @@ const transformedJsonLD = {
   ...data.jsonLD,
   image: jsonLdImages
 };
+
+// FAQ schema (only for pages with FAQ data)
+const faqSchema = data.faqSchema ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": data.faqSchema.map((faq: { question: string; answer: string }) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+} : null;
 ---
 
 <html lang={data.language}>
@@ -102,6 +116,7 @@ const transformedJsonLD = {
     <script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
     <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
     <style is:inline>
       /* Scroll Animation Classes */
