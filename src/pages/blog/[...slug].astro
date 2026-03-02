@@ -79,6 +79,7 @@ const faqSchema = data.faqSchema ? {
     <meta name="description" content={data.metaDescription} />
 
     <link rel="canonical" href={data.canonicalUrl} />
+    <link rel="alternate" type="application/rss+xml" title="Lilja Tours Blog" href="/rss.xml" />
     {data.hreflangAlternates && data.hreflangAlternates.map((alt) => (
       <link rel="alternate" hreflang={alt.lang} href={alt.url} />
     ))}
