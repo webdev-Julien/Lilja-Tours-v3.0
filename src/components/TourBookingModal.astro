@@ -137,6 +137,13 @@ const t = translations[currentLang as Language];
         >
           {t.cta.sendBookingRequest}
         </button>
+        <p class="text-center text-sm text-gray-500 mt-4">
+          {currentLang === 'fr' ? 'Vous préférez en discuter ?' : 'Prefer to talk?'}
+          {' '}
+          <a href="https://calendly.com/julien-lilja-tours/schedule-phone-meeting?month=2026-03" target="_blank" rel="noopener noreferrer" class="text-[#c49a6c] underline hover:text-[#b08a5c] transition-colors">
+            {currentLang === 'fr' ? 'Planifiez un appel' : 'Schedule a call'}
+          </a>
+        </p>
       </form>
     </div>
   </div>
