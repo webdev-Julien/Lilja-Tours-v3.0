@@ -56,6 +56,32 @@ if (transformedJsonLD.image) {
   const imagePath = originalImage.replace('https://www.lilja-tours.com', '');
   transformedJsonLD.image = getJsonLdImages(imagePath);
 }
+
+// Extract aggregateRating/review from TouristAttraction → Product schema
+const { aggregateRating, review, ...cleanJsonLD } = transformedJsonLD;
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": data.title,
+  "description": data.metaDescription,
+  "image": data.featuredImage,
+  "url": data.canonicalUrl,
+  "brand": {
+    "@type": "Brand",
+    "name": "Lilja Tours"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": data.price,
+    "priceCurrency": "ISK",
+    "availability": "https://schema.org/InStock",
+    "url": data.canonicalUrl
+  },
+  ...(aggregateRating && { aggregateRating }),
+  ...(review && { review }),
+  "category": "Partner Experience"
+};
 ---
 
 <html lang={data.language}>
@@ -100,7 +126,8 @@ if (transformedJsonLD.image) {
 		<!-- TrustIndex Rich Snippet -->
 		<script type="text/javascript" defer async src="https://cdn.trustindex.io/assets/js/richsnippet.js?505b36156145g5ee"></script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(transformedJsonLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(cleanJsonLD)} />
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
 
     <style is:inline>
       /* Scroll Animation Classes */

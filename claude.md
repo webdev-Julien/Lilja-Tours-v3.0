@@ -85,6 +85,45 @@ Requirements:
 - Include all relevant properties: name, description, offers, provider, location, aggregateRating, review, etc.
 - Make it as comprehensive as existing examples - don't skimp on detail
 
+### Review Snippet Rules (aggregateRating / review)
+
+Google only validates Review Snippets on specific schema types (`Product`, `LocalBusiness`, etc.) — **not** on `TouristAttraction` or `TouristTrip`.
+
+- **`aggregateRating` and `review` must only appear on a `Product` schema**, never on `TouristAttraction` or `TouristTrip`.
+- Every **partner experience** page outputs two JSON-LD blocks:
+  1. `TouristAttraction` — main structured data, **without** `aggregateRating` or `review`
+  2. `Product` — carries `aggregateRating` and `review` (if present in frontmatter)
+- Every **private day tour** page follows the same pattern: `TouristTrip` (no rating) + `Product` (with rating).
+- The template extracts `aggregateRating`/`review` from the frontmatter JSON-LD and moves them to the `Product` block at render time.
+
+## FAQ Schema (FAQPage JSON-LD) for Blog Articles
+
+Blog articles with a FAQ section should include a `faqSchema` field in their frontmatter. This is the **only** way FAQ structured data gets generated — it is NOT auto-extracted from markdown headings or body content.
+
+### How it works
+
+1. Add `faqSchema` to the article's YAML frontmatter as an array of `{question, answer}` objects
+2. The blog `[...slug].astro` page template reads `data.faqSchema` and generates a `FAQPage` JSON-LD script tag
+3. If `faqSchema` is absent or empty, no FAQ structured data is generated
+
+### Format
+
+```yaml
+faqSchema:
+  - question: "Your question here?"
+    answer: "Plain text answer. No markdown, no links — just text."
+  - question: "Another question?"
+    answer: "Another answer."
+```
+
+### Rules
+
+- **Answers must be plain text** — no markdown formatting, no HTML, no links
+- **Questions must end with a question mark**
+- **Both EN and FR** versions of the article need their own `faqSchema` with translated Q&A pairs
+- **Keep answers concise** — Google truncates long FAQ answers in search results
+- When writing a blog article with a FAQ section in the body, always add the corresponding `faqSchema` frontmatter field with matching Q&A pairs
+
 ## Technical Notes
 
 - Project language: English (owner is French, website targets international travelers)
