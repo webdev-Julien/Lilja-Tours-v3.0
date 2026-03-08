@@ -23,10 +23,16 @@ const {
   publishDate,
   readingTime,
   categories,
-  slug = '#',
+  slug = '',
   author = 'Lilja Tours',
   lang = 'en'
 } = Astro.props;
+
+// Guard: detect missing or broken slugs at build time
+const hasValidSlug = !!slug && slug !== '#' && !slug.includes('undefined');
+if (!hasValidSlug) {
+  console.warn(`[BlogCard] Missing or invalid slug for "${title}" — received: "${slug}"`);
+}
 
 // Translations
 const translations = {
@@ -119,12 +125,14 @@ const blogBasePath = lang === 'fr' ? '/fr/blog' : '/blog';
     <div class="flex justify-between items-center gap-5 pt-5 border-t border-gray-50 mt-auto">
       <span class="text-xs sm:text-sm font-light text-gray-400 tracking-wide">{t.by} {author}</span>
 
-      <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Read article: ${title}`}>
-        <span class="relative z-10">{t.readMore}</span>
-        <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      {hasValidSlug && (
+        <a href={slug} class="group/btn inline-flex items-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-xs sm:text-sm transition-all duration-300 ease-out flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px cta-btn" aria-label={`Read article: ${title}`}>
+          <span class="relative z-10">{t.readMore}</span>
+          <svg class="w-4 h-4 transition-transform duration-300 ease-out opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:opacity-100" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )}
     </div>
   </div>
 </div>

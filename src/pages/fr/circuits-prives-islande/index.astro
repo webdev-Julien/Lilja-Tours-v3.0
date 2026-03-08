@@ -131,7 +131,7 @@ const ogImageUrl = getOgImageUrl("/pictures/index/multiday-bg.jpg");
 								price={`${tour.data.price}`}
 								highlights={tour.data.highlights?.slice(0, 3)}
 								season={tour.data.season}
-								slug={tour.data.url}
+								slug={tour.data.url || `/fr/circuits-prives-islande/${tour.slug}`}
 								currentLang="fr"
 							/>
 						))}

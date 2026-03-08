@@ -481,7 +481,7 @@ const categories = [
 											</div>
 											<div class="flex items-center gap-4">
 												<a
-													href={experience.data.url}
+													href={experience.data.url || `/fr/experiences-partenaires-islande/${experience.data.slug || experience.slug}/`}
 													class="discover-button inline-flex items-center gap-2 py-3 px-6 bg-transparent text-white border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
 												>
 													Découvrir
@@ -489,6 +489,7 @@ const categories = [
 														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
 													</svg>
 												</a>
+												{experience.data.bookingLink && (
 												<a
 													href={experience.data.bookingLink}
 													class="book-now-button inline-flex items-center gap-2 py-3 px-6 bg-transparent text-[#5b7297] border border-white rounded-sm font-light text-sm transition-all duration-300 tracking-wide uppercase relative overflow-hidden"
@@ -498,6 +499,7 @@ const categories = [
 														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
 													</svg>
 												</a>
+												)}
 											</div>
 										</div>
 									</div>

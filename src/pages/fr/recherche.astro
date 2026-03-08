@@ -59,13 +59,15 @@ const searchIndex = [
     const title = tour.data.title;
     const description = tour.data.metaDescription;
     const content = stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' '));
+    const url = tour.data.url || `/fr/circuits-prives-islande/${tour.slug}/`;
+    if (!tour.data.url) console.warn(`[Search FR] Missing url for day tour "${title}", using fallback: ${url}`);
     return {
       id: `tour-${tour.slug}`,
       type: 'tour',
       title,
       description,
       content,
-      url: tour.data.url,
+      url,
       // Normalized fields for Icelandic character search
       titleNorm: normalizeForSearch(title),
       descNorm: normalizeForSearch(description),
@@ -76,13 +78,15 @@ const searchIndex = [
     const title = tour.data.title;
     const description = tour.data.metaDescription;
     const content = stripAndLimit(tour.data.introductoryText + ' ' + tour.data.highlights.join(' '));
+    const url = tour.data.url || `/fr/circuits-multi-jours-islande/${tour.slug}/`;
+    if (!tour.data.url) console.warn(`[Search FR] Missing url for multiday tour "${title}", using fallback: ${url}`);
     return {
       id: `multiday-${tour.slug}`,
       type: 'multiday',
       title,
       description,
       content,
-      url: tour.data.url,
+      url,
       titleNorm: normalizeForSearch(title),
       descNorm: normalizeForSearch(description),
       contentNorm: normalizeForSearch(content)
@@ -92,13 +96,15 @@ const searchIndex = [
     const title = exp.data.title;
     const description = exp.data.metaDescription;
     const content = stripAndLimit(exp.data.introductoryText + ' ' + exp.data.highlights.join(' '));
+    const url = exp.data.url || `/fr/experiences-partenaires-islande/${exp.slug}/`;
+    if (!exp.data.url) console.warn(`[Search FR] Missing url for experience "${title}", using fallback: ${url}`);
     return {
       id: `experience-${exp.slug}`,
       type: 'experience',
       title,
       description,
       content,
-      url: exp.data.url,
+      url,
       titleNorm: normalizeForSearch(title),
       descNorm: normalizeForSearch(description),
       contentNorm: normalizeForSearch(content)
@@ -114,7 +120,7 @@ const searchIndex = [
       title,
       description,
       content,
-      url: `/fr/blog/${article.slug}/`,
+      url: `/fr/blog/${article.data.slug || article.slug}/`,
       titleNorm: normalizeForSearch(title),
       descNorm: normalizeForSearch(description),
       contentNorm: normalizeForSearch(content)
@@ -124,13 +130,15 @@ const searchIndex = [
     const title = transfer.data.title;
     const description = transfer.data.metaDescription;
     const content = stripAndLimit(transfer.data.introductoryText + ' ' + transfer.data.cardText);
+    const url = transfer.data.url || `/fr/transferts-islande/${transfer.slug}/`;
+    if (!transfer.data.url) console.warn(`[Search FR] Missing url for transfer "${title}", using fallback: ${url}`);
     return {
       id: `transfer-${transfer.slug}`,
       type: 'transfer',
       title,
       description,
       content,
-      url: transfer.data.url,
+      url,
       titleNorm: normalizeForSearch(title),
       descNorm: normalizeForSearch(description),
       contentNorm: normalizeForSearch(content)
@@ -276,7 +284,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={tour.data.price ? `À partir de ${tour.data.price}` : undefined}
                   highlights={tour.data.highlights.filter(h => h.trim() !== "")}
                   season={tour.data.season}
-                  slug={tour.data.url}
+                  slug={tour.data.url || `/fr/circuits-prives-islande/${tour.slug}`}
                   currentLang="fr"
                 />
               </div>
@@ -301,7 +309,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={tour.data.price?.toString()}
                   highlights={tour.data.highlights.filter(h => h.trim() !== "")}
                   season={tour.data.season}
-                  slug={tour.slug}
+                  slug={tour.data.slug || tour.slug}
                   currentLang="fr"
                 />
               </div>
@@ -326,7 +334,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={exp.data.price}
                   location={exp.data.location}
                   season={exp.data.season}
-                  slug={exp.data.url}
+                  slug={exp.data.url || `/fr/experiences-partenaires-islande/${exp.slug}/`}
                   isExclusive={exp.data.isExclusive}
                 />
               </div>
@@ -350,7 +358,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   publishDate={article.data.publishDate}
                   readingTime={article.data.readingTime}
                   categories={article.data.categories}
-                  slug={`/fr/blog/${article.slug}/`}
+                  slug={`/fr/blog/${article.data.slug || article.slug}/`}
                   author={article.data.author}
                   lang="fr"
                 />
@@ -389,17 +397,19 @@ const fallbackArticles = blogArticles.slice(0, 3);
                     </div>
                     <div class="flex gap-3 mt-auto">
                       <a
-                        href={transfer.data.url}
+                        href={transfer.data.url || `/fr/transferts-islande/${transfer.slug}/`}
                         class="flex-1 text-center py-2 px-4 border border-[#5b7297] text-[#5b7297] rounded-sm text-sm font-medium hover:bg-[#5b7297] hover:text-white transition-colors duration-300"
                       >
                         En savoir plus
                       </a>
-                      <a
-                        href={transfer.data.bookingLink}
-                        class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
-                      >
-                        Réserver
-                      </a>
+                      {transfer.data.bookingLink && (
+                        <a
+                          href={transfer.data.bookingLink}
+                          class="flex-1 text-center py-2 px-4 bg-[#5b7297] text-white rounded-sm text-sm font-medium hover:bg-[#4a6180] transition-colors duration-300"
+                        >
+                          Réserver
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -431,7 +441,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={tour.data.price ? `À partir de ${tour.data.price}` : undefined}
                   highlights={tour.data.highlights.filter(h => h.trim() !== "")}
                   season={tour.data.season}
-                  slug={tour.data.url}
+                  slug={tour.data.url || `/fr/circuits-prives-islande/${tour.slug}`}
                   currentLang="fr"
                 />
               ))}
@@ -452,7 +462,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={exp.data.price}
                   location={exp.data.location}
                   season={exp.data.season}
-                  slug={exp.data.url}
+                  slug={exp.data.url || `/fr/experiences-partenaires-islande/${exp.slug}/`}
                   isExclusive={exp.data.isExclusive}
                 />
               ))}
