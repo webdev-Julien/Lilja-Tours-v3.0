@@ -62,7 +62,9 @@
       "WebFetch(domain:developers.google.com)",
       "Bash(git lfs:*)",
       "Bash(nslookup:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(find:*)",
+      "Bash(cd:*)"
     ],
     "deny": [],
     "ask": []
