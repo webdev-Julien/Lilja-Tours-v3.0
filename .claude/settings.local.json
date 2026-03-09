@@ -64,6 +64,12 @@
       "Bash(nslookup:*)",
       "Bash(git pull:*)",
       "Bash(find:*)",
+      "Bash(git merge:*)",
+      "Bash(git stash:*)",
+      "Bash(ls:*)",
+      "Bash(echo:*)",
+      "Bash(tee:*)",
+      "Bash(where:*)",
       "Bash(cd:*)"
     ],
     "deny": [],
