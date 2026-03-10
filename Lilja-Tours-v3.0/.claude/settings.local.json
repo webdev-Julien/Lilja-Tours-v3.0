@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.lilja-tours.com)"
+      "WebFetch(domain:www.lilja-tours.com)",
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(npx astro:*)"
     ],
     "deny": [],
     "ask": []
