@@ -70,7 +70,8 @@
       "Bash(echo:*)",
       "Bash(tee:*)",
       "Bash(where:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(head -80 /c/Users/julie/Documents/GitHub/Lilja-Tours-v3.0/src/pages/blog/[category].astro | tail -40)"
     ],
     "deny": [],
     "ask": []
