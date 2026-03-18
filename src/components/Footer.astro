@@ -64,6 +64,17 @@ const u = urls;
           <h4 class="text-base md:text-lg font-normal tracking-wider text-white m-0 mb-2 uppercase">{currentLang === 'en' ? 'Travel Advisors' : 'Agents de voyage'}</h4>
           <p class="text-sm md:text-base font-light text-white/60 m-0 mb-4">{currentLang === 'en' ? 'Partner with us' : 'Devenez partenaire'}</p>
           <a href={currentLang === 'en' ? '/travel-advisors/' : '/fr/conseillers-voyage/'} class="footer-link text-white/80 no-underline text-sm md:text-lg font-light tracking-wide transition-all duration-300 relative pl-0 hover:text-white hover:translate-x-1.5">{currentLang === 'en' ? 'B2B Partnership' : 'Partenariat B2B'}</a>
+          <p class="text-xs font-light tracking-widest text-white/40 m-0 mt-5 mb-3">{currentLang === 'en' ? 'Trusted by' : 'Recommandé par'}</p>
+          <a href="https://www.smartflyer.com/" target="_blank" rel="noopener noreferrer" aria-label="SmartFlyer - Elevate Partner" class="inline-block transition-all duration-300 grayscale brightness-200 opacity-60 hover:grayscale-0 hover:opacity-100 hover:brightness-100">
+            <OptimizedImage
+              src="/logos/SmartFlyer-Stacked-Logo-Blue.png"
+              alt="SmartFlyer Elevate Partner"
+              class="h-12 w-auto block"
+              sizes="60px"
+              widths={[60, 120]}
+              loading="lazy"
+            />
+          </a>
         </div>
       </div>
 

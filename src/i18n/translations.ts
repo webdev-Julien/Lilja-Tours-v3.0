@@ -105,6 +105,7 @@ export const translations = {
       experiences: "Experiences",
       blog: "Stories",
       contact: "Contact",
+      ourPartners: "Our Partners",
     },
 
     // Form Messages
@@ -241,6 +242,7 @@ export const translations = {
       experiences: "Expériences",
       blog: "Histoires",
       contact: "Contact",
+      ourPartners: "Nos Partenaires",
     },
 
     // Form Messages
