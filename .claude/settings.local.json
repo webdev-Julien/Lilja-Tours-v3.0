@@ -71,7 +71,11 @@
       "Bash(tee:*)",
       "Bash(where:*)",
       "Bash(cd:*)",
-      "Bash(head -80 /c/Users/julie/Documents/GitHub/Lilja-Tours-v3.0/src/pages/blog/[category].astro | tail -40)"
+      "Bash(head -80 /c/Users/julie/Documents/GitHub/Lilja-Tours-v3.0/src/pages/blog/[category].astro | tail -40)",
+      "Bash(for file:*)",
+      "Bash(do head:*)",
+      "Bash(sed 's/\"\"\"\"$//')",
+      "Bash(sed s/\"\"$//)"
     ],
     "deny": [],
     "ask": []
