@@ -75,7 +75,8 @@
       "Bash(for file:*)",
       "Bash(do head:*)",
       "Bash(sed 's/\"\"\"\"$//')",
-      "Bash(sed s/\"\"$//)"
+      "Bash(sed s/\"\"$//)",
+      "Bash(sed 's/\"\\\\s*$//')"
     ],
     "deny": [],
     "ask": []
