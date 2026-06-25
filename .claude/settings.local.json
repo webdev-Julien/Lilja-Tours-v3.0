@@ -76,7 +76,9 @@
       "Bash(do head:*)",
       "Bash(sed 's/\"\"\"\"$//')",
       "Bash(sed s/\"\"$//)",
-      "Bash(sed 's/\"\\\\s*$//')"
+      "Bash(sed 's/\"\\\\s*$//')",
+      "Read(//d/d/JULIEN/09 - WEBSITES/Lilja Tours v3.0/src/content/**)",
+      "Bash(awk '/^pageTitle:|^metaDescription:/{ s=$0; gsub\\(/^[a-zA-Z]+: *\"/,\"\",s\\); sub\\(/\"$/,\"\",s\\); print length\\(s\\)\": \"$0 }' src/content/blog_articles_EN/pictures-tours-june.mdx)"
     ],
     "deny": [],
     "ask": []
