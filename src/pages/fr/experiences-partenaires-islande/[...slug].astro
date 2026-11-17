@@ -432,6 +432,23 @@ const productSchema = {
           >
             Réserver
           </a>
+          {data.alternateVersionUrl && data.tourType && (
+            <div class="mt-6 slide-up">
+              <div class="inline-flex rounded-full border border-white/50 bg-white/10 backdrop-blur-sm p-1 text-sm tracking-wide" role="group" aria-label="Choisir entre vol partagé et hélicoptère privé">
+                {data.tourType === 'shared' ? (
+                  <>
+                    <span class="px-5 py-2 rounded-full bg-white text-gray-900 font-medium" aria-current="page">Vol partagé</span>
+                    <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300">Hélicoptère privé</a>
+                  </>
+                ) : (
+                  <>
+                    <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300">Vol partagé</a>
+                    <span class="px-5 py-2 rounded-full bg-white text-gray-900 font-medium" aria-current="page">Hélicoptère privé</span>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>
@@ -513,8 +530,26 @@ const productSchema = {
                     <p class="text-center text-gray-600 mb-8">Ces expériences sont opérées par nos partenaires et généralement guidées en anglais. Pour un accompagnement en français, découvrez nos <a href="/fr/circuits-prives-islande/" class="text-[var(--secondary)] hover:underline">excursions privées</a>.</p>
 
           <div class="bg-gray-50 p-8 rounded-sm shadow-lg hover:shadow-xl transition-shadow duration-300 slide-up">
+            {data.alternateVersionUrl && data.tourType && (
+              <div class="flex justify-center mb-6">
+                <div class="inline-flex rounded-full border border-gray-300 bg-white p-1 text-sm tracking-wide" role="group" aria-label="Choisir entre vol partagé et hélicoptère privé">
+                  {data.tourType === 'shared' ? (
+                    <>
+                      <span class="px-5 py-2 rounded-full bg-[var(--secondary)] text-white font-medium" aria-current="page">Vol partagé</span>
+                      <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors duration-300">Hélicoptère privé</a>
+                    </>
+                  ) : (
+                    <>
+                      <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors duration-300">Vol partagé</a>
+                      <span class="px-5 py-2 rounded-full bg-[var(--secondary)] text-white font-medium" aria-current="page">Hélicoptère privé</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
             <div class="text-center mb-8">
               <div class="text-3xl font-light text-gray-900 mb-2">{data.price.toLocaleString()} ISK</div>
+              {data.priceNote && <div class="text-sm text-gray-600 mb-2">{data.priceNote}</div>}
               <div class="text-sm text-gray-500 space-x-4">
                 <span>≈ ${Math.round(data.price * exchangeRates.USD).toLocaleString()} USD</span>
                 <span>≈ €{Math.round(data.price * exchangeRates.EUR).toLocaleString()} EUR</span>
@@ -590,8 +625,26 @@ const productSchema = {
           <p class="text-center text-gray-600 mb-8">Ces expériences sont opérées par nos partenaires et généralement guidées en anglais. Pour un accompagnement en français, découvrez nos <a href="/fr/circuits-prives-islande/" class="text-[var(--secondary)] hover:underline">excursions privées</a>.</p>
 
           <div class="bg-gray-50 p-8 rounded-sm shadow-lg hover:shadow-xl transition-shadow duration-300 slide-up">
+            {data.alternateVersionUrl && data.tourType && (
+              <div class="flex justify-center mb-6">
+                <div class="inline-flex rounded-full border border-gray-300 bg-white p-1 text-sm tracking-wide" role="group" aria-label="Choisir entre vol partagé et hélicoptère privé">
+                  {data.tourType === 'shared' ? (
+                    <>
+                      <span class="px-5 py-2 rounded-full bg-[var(--secondary)] text-white font-medium" aria-current="page">Vol partagé</span>
+                      <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors duration-300">Hélicoptère privé</a>
+                    </>
+                  ) : (
+                    <>
+                      <a href={data.alternateVersionUrl} class="px-5 py-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors duration-300">Vol partagé</a>
+                      <span class="px-5 py-2 rounded-full bg-[var(--secondary)] text-white font-medium" aria-current="page">Hélicoptère privé</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
             <div class="text-center mb-8">
               <div class="text-3xl font-light text-gray-900 mb-2">{data.price.toLocaleString()} ISK</div>
+              {data.priceNote && <div class="text-sm text-gray-600 mb-2">{data.priceNote}</div>}
               <div class="text-sm text-gray-500 space-x-4">
                 <span>≈ ${Math.round(data.price * exchangeRates.USD).toLocaleString()} USD</span>
                 <span>≈ €{Math.round(data.price * exchangeRates.EUR).toLocaleString()} EUR</span>

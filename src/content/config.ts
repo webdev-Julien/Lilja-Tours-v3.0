@@ -197,6 +197,9 @@ const partnerExperiencesEN = defineCollection({
     linkFr: z.string(),
     url: z.string(),
     slug: z.string().optional(),
+    tourType: z.enum(["shared", "private"]).optional(),
+    alternateVersionUrl: z.string().optional(),
+    priceNote: z.string().optional(),
   }),
 });
 
@@ -457,6 +460,9 @@ const partnerExperiencesFR = defineCollection({
     linkEn: z.string(),
     url: z.string(),
     slug: z.string().optional(),
+    tourType: z.enum(["shared", "private"]).optional(),
+    alternateVersionUrl: z.string().optional(),
+    priceNote: z.string().optional(),
   }),
 });
 

@@ -79,7 +79,10 @@ const formattedDate = new Date(publishDate).toLocaleDateString(lang === 'fr' ? '
 
 // Helper function to convert category name to URL slug
 function categoryToSlug(category: string): string {
-  return category.toLowerCase().replace(/\s+/g, '-');
+  const base = category.toLowerCase().replace(/\s+/g, '-');
+  // Keep in sync with the category page slugs in [category].astro
+  const overrides: Record<string, string> = { inspirations: 'travel-stories' };
+  return overrides[base] ?? base;
 }
 
 // Get the correct blog base path for category links

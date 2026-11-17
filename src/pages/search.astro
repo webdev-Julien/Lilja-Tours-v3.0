@@ -274,7 +274,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
           <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.dayTours}</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {dayTours.map((tour) => (
-              <div class="search-card" data-search-id={`tour-${tour.slug}`} data-type="tour">
+              <div class="search-card" data-search-id={`tour-${tour.slug}/`} data-type="tour">
                 <ItineraryCard
                   image={tour.data.cardImg.srcPC}
                   imageAlt={tour.data.cardImg.alt}
@@ -284,7 +284,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={tour.data.price ? `From ${tour.data.price}` : undefined}
                   highlights={tour.data.highlights.filter(h => h.trim() !== "")}
                   season={tour.data.season}
-                  slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}`}
+                  slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}/`}
                   currentLang="en"
                 />
               </div>
@@ -299,7 +299,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
           <h2 class="text-3xl md:text-4xl font-light tracking-wide mb-12 text-gray-900">{t.search.multidayTours}</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {multidayTours.map((tour) => (
-              <div class="search-card" data-search-id={`multiday-${tour.slug}`} data-type="multiday">
+              <div class="search-card" data-search-id={`multiday-${tour.slug}/`} data-type="multiday">
                 <MultidayItineraryCard
                   image={tour.data.cardImg.srcPC}
                   imageAlt={tour.data.cardImg.alt}
@@ -441,7 +441,7 @@ const fallbackArticles = blogArticles.slice(0, 3);
                   price={tour.data.price ? `From ${tour.data.price}` : undefined}
                   highlights={tour.data.highlights.filter(h => h.trim() !== "")}
                   season={tour.data.season}
-                  slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}`}
+                  slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}/`}
                   currentLang="en"
                 />
               ))}

@@ -44,7 +44,10 @@ const formattedDate = new Date(data.publishDate).toLocaleDateString('fr-FR', {
 
 // Helper function to convert category name to URL slug
 function categoryToSlug(category: string): string {
-  return category.toLowerCase().replace(/\s+/g, '-');
+  const base = category.toLowerCase().replace(/\s+/g, '-');
+  // Keep in sync with the category page slugs in [category].astro
+  const overrides: Record<string, string> = { inspirations: 'travel-stories' };
+  return overrides[base] ?? base;
 }
 
 // Generate optimized image URLs for OG and JSON-LD

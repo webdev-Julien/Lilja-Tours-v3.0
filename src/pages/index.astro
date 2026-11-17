@@ -383,7 +383,7 @@ const latestArticles = allBlogArticles
 								price={tour.data.price ? `From ${tour.data.price}` : "Price on request"}
 								highlights={tour.data.highlights.filter(h => h.trim() !== "")}
 								season={tour.data.season || "Year Round"}
-								slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}`}
+								slug={tour.data.url || `/private-day-tours-iceland/${tour.slug}/`}
 							/>
 						))}
 					</div>
@@ -409,59 +409,6 @@ const latestArticles = allBlogArticles
 							With our comprehensive planning and local expertise, <a href="/multiday-tours-iceland/" class="text-white section-link hover:opacity-80 transition-opacity">your multi-day tour</a> becomes more than just a trip, it becomes a carefully orchestrated journey through Iceland's most spectacular landscapes, ensuring every moment is memorable and every detail is perfectly arranged.
 						</p>
 						<CTAButton></CTAButton>
-					</div>
-				</div>
-			</section>
-
-			<section class="fade-in bg-white py-32 min-h-screen flex items-center">
-				<div class="max-w-6xl w-full mx-auto px-8">
-					<div class="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
-						<div class="flex items-center gap-6 mb-10 flex-col lg:flex-row lg:items-center lg:gap-6 order-1 w-full lg:hidden">
-							<a href="https://www.iceland-for-you.com" class="inline-block flex-shrink-0 transition-transform duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" aria-label="Visit Iceland for You website">
-								<OptimizedImage
-									src="/logos/iceland-for-you.png"
-									alt="Iceland for You"
-									class="h-20 w-auto block"
-									sizes="80px"
-									widths={[80, 160]}
-								/>
-							</a>
-							<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-0 leading-tight text-gray-900 text-left">Small Group Day Tours</h2>
-						</div>
-						<div class="slide-left relative order-2 lg:order-1 w-full">
-							<OptimizedImage
-								src="/pictures/index/iceland-for-you.jpg"
-								alt="Iceland for You small group tour exploring Iceland's natural wonders"
-								class="w-full h-[500px] object-cover object-center rounded-sm shadow-2xl transition-transform duration-300 hover:scale-105"
-								sizes="(max-width: 1024px) 100vw, 50vw"
-							/>
-						</div>
-						<div class="slide-right text-left order-3 lg:order-2">
-							<div class="hidden lg:flex items-center gap-6 mb-10 flex-col lg:flex-row lg:items-center lg:gap-6">
-								<a href="https://www.iceland-for-you.com" class="inline-block flex-shrink-0 transition-transform duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" aria-label="Visit Iceland for You website">
-									<OptimizedImage
-										src="/logos/iceland-for-you.png"
-										alt="Iceland for You"
-										class="h-20 w-auto block"
-										sizes="80px"
-										widths={[80, 160]}
-									/>
-								</a>
-								<h2 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-0 leading-tight text-gray-900">Small Group Day Tours</h2>
-							</div>
-							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
-								Meet Iceland for You, our sister brand dedicated to creating exceptional small group day tours across Iceland's most spectacular destinations. While Lilja Tours focuses on private experiences, Iceland for You brings together like-minded travelers in intimate small groups for shared adventures.
-							</p>
-							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-6 tracking-wide">
-								From the <a href="https://iceland-for-you.com/day-tours/golden-circle-premium-lava-tunnel" class="text-[#5b7297] hover:underline" target="_blank" rel="noopener noreferrer">Golden Circle Premium and Lava Tunnel</a> tour to the stunning <a href="https://iceland-for-you.com/day-tours/snaefellsnes-peninsula-lava-cave" class="text-[#5b7297] hover:underline" target="_blank" rel="noopener noreferrer">Snæfellsnes Peninsula and Lava Cave</a> experience, each day tour combines Iceland's famous attractions with hidden gems and thrilling activities.
-							</p>
-							<p class="text-base md:text-lg lg:text-xl font-light leading-relaxed text-black mb-8 tracking-wide">
-								Our small group day tours offer the perfect balance of social connection and personalized attention, delivering authentic Icelandic experiences at exceptional value with expert local guides who share their passion for Iceland's natural wonders and cultural heritage.
-							</p>
-							<a href="https://www.iceland-for-you.com" class="iceland-for-you-cta inline-flex items-center gap-1.5 py-2.5 px-4.5 bg-transparent text-[#5b7297] no-underline border border-[#5b7297] rounded-sm font-light text-sm transition-all duration-300 flex-shrink-0 tracking-wide uppercase relative overflow-hidden hover:text-white hover:translate-x-px" target="_blank" rel="noopener noreferrer">
-								Visit Iceland for You website
-							</a>
-						</div>
 					</div>
 				</div>
 			</section>
@@ -510,7 +457,7 @@ const latestArticles = allBlogArticles
 								publishDate={article.data.publishDate}
 								excerpt={article.data.metaDescription}
 								author={article.data.author}
-								slug={`/blog/${article.slug}`}
+								slug={`/blog/${article.data.slug || article.slug}/`}
 							/>
 						))}
 					</div>
